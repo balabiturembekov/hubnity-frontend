@@ -1,10 +1,15 @@
-import { Button } from "@/shared/ui/button";
+import {
+  FeaturesSection,
+  HeroSection,
+  StatsSection,
+} from "@/widgets/landing-page";
 
 export default function Home() {
   return (
     <main>
-      Home page
-      <Button>Test button</Button>
+      <HeroSection />
+      <StatsSection />
+      <FeaturesSection />
     </main>
   );
 }
