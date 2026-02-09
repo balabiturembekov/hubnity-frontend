@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import { apiUrl } from "@/shared/config/env";
 
 export const api = axios.create({
-  baseURL: `${apiUrl}/api/v1`,
+  baseURL: `${apiUrl}/api`,
   withCredentials: true,
   withXSRFToken: true,
 });

@@ -17,6 +17,7 @@ export const HeroSection = () => {
           <h1 className="mb-6 text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
             Time Tracking That
             <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+              {" "}
               Works for You
             </span>
           </h1>

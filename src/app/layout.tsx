@@ -3,6 +3,8 @@ import { Geist } from "next/font/google";
 import { cn } from "@/shared/lib/utils";
 import { Footer } from "@/widgets/footer";
 import "./globals.css";
+import { Toaster } from "sonner";
+import { QueryProvider } from "@/shared/providers/query-provider";
 import { Header } from "@/widgets/header";
 
 const geistSans = Geist({
@@ -23,9 +25,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(geistSans.className, "antialiased")}>
-        <Header />
-        {children}
-        <Footer />
+        <QueryProvider>
+          <Header />
+          {children}
+          <Footer />
+          <Toaster richColors position="bottom-right" />
+        </QueryProvider>
       </body>
     </html>
   );
