@@ -1,5 +1,6 @@
 import { Clock } from "lucide-react";
 import Link from "next/link";
+import { footerItems, legalLinks } from "@/widgets/footer/consts";
 
 export const Footer = () => {
   return (
@@ -18,100 +19,38 @@ export const Footer = () => {
               and transparency.
             </p>
           </div>
-          <div>
-            <h4 className="mb-4 font-semibold text-gray-900">Product</h4>
-            <ul className="space-y-2 text-sm text-gray-600">
-              <li>
-                <Link href="/dashboard" className="hover:text-primary">
-                  Dashboard
-                </Link>
-              </li>
-              <li>
-                <Link href="/tracking" className="hover:text-primary">
-                  Time Tracking
-                </Link>
-              </li>
-              <li>
-                <Link href="/admin/reports" className="hover:text-primary">
-                  Reports
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/admin/team-activity"
-                  className="hover:text-primary"
-                >
-                  Team Activity
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="mb-4 font-semibold text-gray-900">Company</h4>
-            <ul className="space-y-2 text-sm text-gray-600">
-              <li>
-                <Link href="#" className="hover:text-primary">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary">
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="mb-4 font-semibold text-gray-900">Resources</h4>
-            <ul className="space-y-2 text-sm text-gray-600">
-              <li>
-                <Link href="#" className="hover:text-primary">
-                  Documentation
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary">
-                  API Reference
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary">
-                  Support
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-primary">
-                  Privacy Policy
-                </Link>
-              </li>
-            </ul>
-          </div>
+
+          {footerItems.map((item) => (
+            <div key={item.id}>
+              <h4 className="mb-4 font-semibold text-gray-900">{item.label}</h4>
+              <ul className="space-y-2 text-sm text-gray-600">
+                {item.links.map((link) => (
+                  <li key={link.id}>
+                    <Link href={link.href} className="hover:text-primary">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
+
         <div className="mt-12 border-t pt-8">
           <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
             <p className="text-sm text-gray-600">
               © {new Date().getFullYear()} Hubnity. All rights reserved.
             </p>
             <div className="flex items-center gap-6 text-sm text-gray-600">
-              <Link href="#" className="hover:text-primary">
-                Terms
-              </Link>
-              <Link href="#" className="hover:text-primary">
-                Privacy
-              </Link>
-              <Link href="#" className="hover:text-primary">
-                Security
-              </Link>
+              {legalLinks.map((link) => (
+                <Link
+                  key={link.id}
+                  href={link.href}
+                  className="hover:text-primary"
+                >
+                  {link.label}
+                </Link>
+              ))}
             </div>
           </div>
         </div>
