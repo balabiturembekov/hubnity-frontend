@@ -13,7 +13,7 @@ export default function LoginPage() {
   }
 
   return (
-    <main className="h-screen w-full flex items-center justify-center bg-gradient-to-br from-primary/5 via-white to-primary/5">
+    <main className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-primary/5 via-white to-primary/5 py-12">
       <AuthCard
         title="Hubnity"
         subtitle="Time Tracking & Team Management"

@@ -48,15 +48,15 @@ export const AuthCard = ({
       </div>
 
       <Card className="shadow-lg border-0">
-        <CardHeader className="space-y-1 pb-4">
+        <CardHeader className="space-y-1 p-8 pb-4">
           <div className="flex items-center gap-2">
             <CardIcon className="h-5 w-5 text-primary" />
             <CardTitle className="text-2xl">{cardTitle}</CardTitle>
           </div>
           <CardDescription>{cardDescription}</CardDescription>
         </CardHeader>
-        <CardContent>{children}</CardContent>
-        <CardFooter className="mx-auto text-sm text-muted-foreground pt-2 gap-1">
+        <CardContent className="px-8 pb-8">{children}</CardContent>
+        <CardFooter className="mx-auto text-sm text-muted-foreground pb-8 gap-1">
           {footerText ?? footerText}
           {footerLink && (
             <Link

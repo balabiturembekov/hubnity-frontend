@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 const authPaths = ["/login", "/register"];
-const publicPaths = ["/"];
+const publicPaths = ["/", "/profile"];
 
 const isAuthPath = (path: string): boolean => {
   return authPaths.includes(path);

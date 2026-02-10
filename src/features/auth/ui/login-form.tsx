@@ -62,7 +62,7 @@ export const LoginForm = () => {
                         id={name}
                         type={type}
                         placeholder={placeholder}
-                        className="pl-9"
+                        className="pl-9 h-10"
                         disabled={loginMutation.isPending}
                         {...field}
                       />
