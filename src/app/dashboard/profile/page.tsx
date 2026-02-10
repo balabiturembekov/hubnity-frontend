@@ -3,6 +3,7 @@
 import { Edit } from "lucide-react";
 import { useState } from "react";
 import { useUserStore } from "@/entities/user";
+import { ProfileEditDialog } from "@/features/auth";
 import { Button } from "@/shared/ui/button";
 import { DashboardPageHeader } from "@/widgets/header/ui/dashboard-page-header";
 import {
@@ -197,10 +198,10 @@ export default function ProfilePage() {
         </main>
       </div>
 
-      {/* <ProfileEditDialog
+      <ProfileEditDialog
         open={editDialogOpen}
         onOpenChange={setEditDialogOpen}
-      /> */}
+      />
     </div>
   );
 }

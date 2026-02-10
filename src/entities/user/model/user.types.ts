@@ -9,7 +9,7 @@ export interface UserEntity extends Timestamps {
   email: string;
   role: UserRole;
   status: UserStatus;
-  avatar: string;
+  avatar: string | null;
   hourlyRate: number;
   companyId: string;
 }

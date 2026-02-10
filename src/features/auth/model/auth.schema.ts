@@ -44,3 +44,16 @@ export const changePasswordSchema = z
   });
 
 export type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
+
+export const changeProfileSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.email("Please enter a valid email"),
+  hourlyRate: z.coerce
+    .number()
+    .min(0, "Hourly rate cannot be negative")
+    .max(10000, "Hourly rate cannot exceed $10,000")
+    .optional(),
+  avatar: z.string().optional().nullable(),
+});
+
+export type ChangeProfileFormValues = z.infer<typeof changeProfileSchema>;

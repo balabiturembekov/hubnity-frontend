@@ -5,7 +5,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/shared/ui/avatar";
 
 interface UserAvatarProps {
   name: string;
-  avatar?: string;
+  avatar?: string | null;
   className?: string;
   size?: "sm" | "md" | "lg" | "xl";
 }
@@ -75,7 +75,7 @@ export function UserAvatar({
         <AvatarImage src={avatar} alt={name} className="object-cover" />
       )}
       <AvatarFallback
-        className="text-white font-semibold"
+        className={cn("text-white font-semibold", sizeMap[size])}
         style={{ backgroundColor: bgColor }}
       >
         {initials}
