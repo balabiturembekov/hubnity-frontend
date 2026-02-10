@@ -4,10 +4,9 @@ import { Edit } from "lucide-react";
 import { useState } from "react";
 import { useUserStore } from "@/entities/user";
 import { Button } from "@/shared/ui/button";
-import { Card, CardContent, CardHeader } from "@/shared/ui/card";
-import { Skeleton } from "@/shared/ui/skeleton";
-import { Header } from "@/widgets/header";
+import { DashboardPageHeader } from "@/widgets/header/ui/dashboard-page-header";
 import {
+  PageSkeleton,
   ProfileInfo,
   ProfileStatistics,
   ProfileStats,
@@ -164,53 +163,7 @@ export default function ProfilePage() {
   // } = stats;
 
   if (isInitializing || !user) {
-    return (
-      <div className="flex h-screen overflow-hidden bg-background">
-        <div className="flex flex-1 flex-col overflow-hidden">
-          <Header />
-          <main className="flex-1 overflow-y-auto p-6">
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <Skeleton className="h-9 w-48 mb-2" />
-                  <Skeleton className="h-4 w-64" />
-                </div>
-                <Skeleton className="h-10 w-32" />
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {[1, 2, 3, 4].map((i) => (
-                  <Card key={i}>
-                    <CardHeader>
-                      <Skeleton className="h-4 w-24" />
-                    </CardHeader>
-                    <CardContent>
-                      <Skeleton className="h-8 w-16" />
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-              <Card>
-                <CardHeader>
-                  <Skeleton className="h-6 w-40" />
-                  <Skeleton className="h-4 w-48" />
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-full" />
-                    <Skeleton className="h-4 w-3/4" />
-                  </div>
-                </CardContent>
-              </Card>
-              <div>
-                <Skeleton className="h-8 w-40 mb-4" />
-                <Skeleton className="h-[300px] w-full" />
-              </div>
-            </div>
-          </main>
-        </div>
-      </div>
-    );
+    return <PageSkeleton />;
   }
 
   return (
@@ -218,26 +171,15 @@ export default function ProfilePage() {
       <div className="flex flex-1 flex-col overflow-hidden">
         <main className="flex-1 overflow-y-auto">
           <div className="bg-linear-to-b from-primary/5 via-background to-background">
-            {/* Header Section */}
-            <div className="border-b bg-card px-6 py-6">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                <div>
-                  <h1 className="text-2xl font-bold text-foreground sm:text-3xl">
-                    My Profile
-                  </h1>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    View and manage your profile settings
-                  </p>
-                </div>
-                <Button
-                  onClick={() => setEditDialogOpen(true)}
-                  className="gap-2"
-                >
-                  <Edit className="h-4 w-4" />
-                  Edit Profile
-                </Button>
-              </div>
-            </div>
+            <DashboardPageHeader
+              title="My Profile"
+              subTitle="View and manage your profile settings"
+            >
+              <Button onClick={() => setEditDialogOpen(true)} className="gap-2">
+                <Edit className="h-4 w-4" />
+                Edit Profile
+              </Button>
+            </DashboardPageHeader>
 
             <div className="p-6">
               <div className="space-y-6">
