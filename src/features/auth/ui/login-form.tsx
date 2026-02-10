@@ -1,9 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight, Lock, Mail } from "lucide-react";
-import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { loginFields } from "@/features/auth/consts";
 import {
   type LoginFormValues,
   loginSchema,
@@ -36,54 +36,49 @@ export const LoginForm = () => {
         onSubmit={form.handleSubmit((values) => loginMutation.mutate(values))}
         className="space-y-5"
       >
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-sm font-medium">
-                Email address
-              </FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    type="email"
-                    placeholder="you@example.com"
-                    className="pl-9"
-                    disabled={loginMutation.isPending}
-                    {...field}
-                  />
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-sm font-medium">Password</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                  <Input
-                    type="password"
-                    placeholder="Enter your password"
-                    className="pl-9"
-                    disabled={loginMutation.isPending}
-                    {...field}
-                  />
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
+        {loginFields.map(
+          ({
+            name,
+            label,
+            placeholder,
+            type = "text",
+            required,
+            icon: Icon,
+            bottomMessage,
+          }) => (
+            <FormField
+              key={name}
+              control={form.control}
+              name={name}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor={name} aria-required={required}>
+                    {label}
+                  </FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Icon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                      <Input
+                        id={name}
+                        type={type}
+                        placeholder={placeholder}
+                        className="pl-9"
+                        disabled={loginMutation.isPending}
+                        {...field}
+                      />
+                    </div>
+                  </FormControl>
+                  {bottomMessage && (
+                    <span className="text-xs text-muted-foreground">
+                      {bottomMessage}
+                    </span>
+                  )}
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ),
+        )}
         <Button
           type="submit"
           className="w-full gap-2"
@@ -102,16 +97,6 @@ export const LoginForm = () => {
             </>
           )}
         </Button>
-
-        <div className="text-center text-sm text-muted-foreground pt-2">
-          Don&apos;t have an account?{" "}
-          <Link
-            href="/register"
-            className="text-primary hover:underline font-medium"
-          >
-            Create one
-          </Link>
-        </div>
       </form>
     </Form>
   );

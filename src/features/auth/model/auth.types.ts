@@ -15,3 +15,18 @@ export interface LoginRes {
   access_token: string;
   refresh_token: string;
 }
+
+export interface RegisterReq {
+  name: string;
+  email: string;
+  companyName: string;
+  companyDomain: string;
+  password: string;
+  // confirmPassword: string; TODO: Uncomment after fixing on backend
+}
+
+export interface RegisterRes {
+  user: Omit<UserEntity, "createdAt" & "updatedAt">;
+  access_token: string;
+  refresh_token: string;
+}

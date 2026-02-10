@@ -1,3 +1,5 @@
+import { Footer } from "@/widgets/footer";
+import { Header } from "@/widgets/header";
 import {
   BenefitSection,
   CTASection,
@@ -9,13 +11,17 @@ import {
 
 export default function Home() {
   return (
-    <main>
-      <HeroSection />
-      <StatsSection />
-      <FeaturesSection />
-      <HowItWorksSection />
-      <BenefitSection />
-      <CTASection />
-    </main>
+    <>
+      <Header />
+      <main>
+        <HeroSection />
+        <StatsSection />
+        <FeaturesSection />
+        <HowItWorksSection />
+        <BenefitSection />
+        <CTASection />
+      </main>
+      <Footer />
+    </>
   );
 }
