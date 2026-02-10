@@ -2,31 +2,31 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-// import { useUserStore } from "@/entities/user";
+import { useUserStore } from "@/entities/user";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { dashboardSidebarLinks } from "@/widgets/sidebar/consts";
 
 export function DashboardSidebar() {
   const pathname = usePathname();
-  // const { user } = useUserStore();
+  const { user } = useUserStore();
 
   return (
     <div className="flex h-full w-64 flex-col border-r bg-background">
-      <div className="flex h-16 items-center border-b px-6">
+      <div className="flex min-h-16 items-center border-b px-6">
         <h1 className="text-xl font-bold">Hubnity</h1>
       </div>
       <nav className="flex-1 space-y-1 p-4">
         {dashboardSidebarLinks.map((item) => {
           // Hide admin-only items for non-admin users
-          // if (
-          //   item.adminOnly &&
-          //   user?.role !== "admin" &&
-          //   user?.role !== "OWNER" &&
-          //   user?.role !== "SUPER_ADMIN"
-          // ) {
-          //   return null;
-          // }
+          if (
+            item.isAdminOnly &&
+            user?.role !== "admin" &&
+            user?.role !== "OWNER" &&
+            user?.role !== "SUPER_ADMIN"
+          ) {
+            return null;
+          }
 
           const isActive = pathname === item.href;
           const Icon = item.icon;
