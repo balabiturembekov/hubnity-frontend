@@ -1,2 +1,4 @@
+export { authService } from "./api/auth.service";
+export { ChangePasswordDialog } from "./ui/change-password-dialog";
 export { LoginForm } from "./ui/login-form";
 export { RegisterForm } from "./ui/register-form";

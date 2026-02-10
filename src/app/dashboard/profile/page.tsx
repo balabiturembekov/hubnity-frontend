@@ -1,26 +1,16 @@
 "use client";
 
-// import { format } from "date-fns";
 import {
   Activity,
   Calendar,
-  // CheckCircle2,
   Clock,
-  DollarSign,
   Edit,
   FileText,
-  Mail,
-  Shield,
   TrendingUp,
-  User,
 } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
-import { UserAvatar, useUserStore } from "@/entities/user";
-// import { api } from "@/lib/api";
-// import { useStore } from "@/lib/store";
+import { useState } from "react";
+import { useUserStore } from "@/entities/user";
 import { formatDurationFull } from "@/shared/lib/utils";
-import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import {
   Card,
@@ -31,89 +21,12 @@ import {
 } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { Header } from "@/widgets/header";
-// import { ChangePasswordDialog } from "@/components/profile/ChangePasswordDialog";
-// import { ProfileEditDialog } from "@/components/profile/ProfileEditDialog";
-import { DashboardSidebar } from "@/widgets/sidebar";
+import { ProfileInfo, ProfileStats } from "@/widgets/profile";
 
 export default function ProfilePage() {
-  // const router = useRouter();
   // const { currentUser, timeEntries, loadTimeEntries, initializeAuth } = useStore();
-  const { user } = useUserStore();
+  const { user, isInitializing } = useUserStore();
   const [editDialogOpen, setEditDialogOpen] = useState(false);
-  const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
-  const [isInitializing, setIsInitializing] = useState(true);
-  const [hasToken, setHasToken] = useState(false);
-
-  // useEffect(() => {
-  //   // Initialize auth and check if user is logged in
-  //   const init = async () => {
-  //     setIsInitializing(true);
-
-  //     // Check if token exists first (client-side only)
-  //     const token = localStorage.getItem("auth_token");
-  //     setHasToken(!!token);
-  //     if (!token) {
-  //       setIsInitializing(false);
-  //       router.push("/login");
-  //       return;
-  //     }
-
-  //     // Check if user is already loaded in store (from previous page)
-  //     const existingUser = useStore.getState().currentUser;
-  //     if (existingUser) {
-  //       // User is already loaded, just load time entries
-  //       setIsInitializing(false);
-  //       await loadTimeEntries();
-  //       return;
-  //     }
-
-  //     try {
-  //       await initializeAuth();
-
-  //       // Wait a bit for state to update
-  //       await new Promise((resolve) => setTimeout(resolve, 100));
-
-  //       const user = useStore.getState().currentUser;
-  //       setIsInitializing(false);
-
-  //       if (!user) {
-  //         // Double check token - maybe it was cleared
-  //         const tokenStillExists = localStorage.getItem("auth_token");
-  //         if (!tokenStillExists) {
-  //           router.push("/login");
-  //           return;
-  //         }
-  //         // If token exists but no user, try to get user from storage
-  //         const userFromStorage = api.getCurrentUserFromStorage();
-  //         if (userFromStorage) {
-  //           useStore.setState({ currentUser: userFromStorage });
-  //           await loadTimeEntries();
-  //           return;
-  //         }
-  //         // Redirect to login if still no user
-  //         router.push("/login");
-  //         return;
-  //       }
-
-  //       // Load data if authenticated
-  //       await loadTimeEntries();
-  //     } catch (error) {
-  //       console.error("Error initializing auth:", error);
-  //       setIsInitializing(false);
-  //       // Don't redirect on error - check if token still exists
-  //       const tokenStillExists = localStorage.getItem("auth_token");
-  //       if (!tokenStillExists) {
-  //         router.push("/login");
-  //       }
-  //     }
-  //   };
-
-  //   // Wrap init in error handler to prevent unhandled promise rejections
-  //   init().catch((error) => {
-  //     console.error("Unhandled error in profile init:", error);
-  //     setIsInitializing(false);
-  //   });
-  // }, [router, initializeAuth, loadTimeEntries]);
 
   // // Calculate personal statistics (memoized for performance)
   // // IMPORTANT: This hook MUST be called before any conditional returns to follow Rules of Hooks
@@ -262,12 +175,8 @@ export default function ProfilePage() {
   // Show loading state while initializing
   // Use hasToken state to avoid hydration mismatch
   if (isInitializing || !user) {
-    if (!hasToken && isInitializing === false) {
-      return null; // Will redirect to login
-    }
     return (
       <div className="flex h-screen overflow-hidden bg-background">
-        <DashboardSidebar />
         <div className="flex flex-1 flex-col overflow-hidden">
           <Header />
           <main className="flex-1 overflow-y-auto p-6">
@@ -317,9 +226,7 @@ export default function ProfilePage() {
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
-      <DashboardSidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <Header />
         <main className="flex-1 overflow-y-auto">
           <div className="bg-linear-to-b from-primary/5 via-background to-background">
             {/* Header Section */}
@@ -347,185 +254,11 @@ export default function ProfilePage() {
             <div className="p-6">
               <div className="space-y-6">
                 {/* Stats Cards */}
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                  <Card className="transition-shadow hover:shadow-md">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">
-                        Total Hours
-                      </CardTitle>
-                      <Clock className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">
-                        {/* COMMENT */}
-                        {/* {formatDurationFull(totalHours)} */}
-                        {formatDurationFull(1)}
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        {/* COMMENT */}
-                        {/* {totalEntries} entries tracked */}1 entries tracked
-                      </p>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="transition-shadow hover:shadow-md">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">
-                        Today
-                      </CardTitle>
-                      <Calendar className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">
-                        {/* COMMENT */}
-                        {/* {formatDurationFull(todayHours)} */}
-                        {formatDurationFull(1)}
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Hours tracked today
-                      </p>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="transition-shadow hover:shadow-md">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">
-                        This Week
-                      </CardTitle>
-                      <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">
-                        {/* COMMENT */}
-                        {/* {formatDurationFull(weekHours)} */}
-                        {formatDurationFull(1)}
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Last 7 days
-                      </p>
-                    </CardContent>
-                  </Card>
-
-                  <Card className="transition-shadow hover:shadow-md">
-                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                      <CardTitle className="text-sm font-medium">
-                        This Month
-                      </CardTitle>
-                      <FileText className="h-4 w-4 text-muted-foreground" />
-                    </CardHeader>
-                    <CardContent>
-                      <div className="text-2xl font-bold">
-                        {/* {formatDurationFull(monthHours)} */}
-                        {formatDurationFull(1)}
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Last 30 days
-                      </p>
-                    </CardContent>
-                  </Card>
-                </div>
+                <ProfileStats />
 
                 <div className="grid gap-6 md:grid-cols-2">
                   {/* Profile Info */}
-                  <Card className="transition-shadow hover:shadow-md">
-                    <CardHeader>
-                      <div className="flex items-center gap-2">
-                        <User className="h-5 w-5 text-primary" />
-                        <CardTitle>Profile Information</CardTitle>
-                      </div>
-                      <CardDescription>Your personal details</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div className="flex items-center gap-4 pb-4 border-b">
-                        <UserAvatar
-                          name={user.name}
-                          avatar={user.avatar}
-                          size="xl"
-                        />
-                        <div className="flex-1">
-                          <h3 className="text-xl font-semibold">{user.name}</h3>
-                          <p className="text-sm text-muted-foreground">
-                            {user.email}
-                          </p>
-                          <Badge
-                            variant={
-                              user.role === "admin" ||
-                              user.role === "OWNER" ||
-                              user.role === "SUPER_ADMIN"
-                                ? "default"
-                                : "secondary"
-                            }
-                            className="mt-2"
-                          >
-                            {user.role}
-                          </Badge>
-                        </div>
-                      </div>
-
-                      <div className="space-y-4">
-                        <div className="flex items-center gap-3 p-3 rounded-lg border">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                            <User className="h-5 w-5 text-primary" />
-                          </div>
-                          <div className="flex-1">
-                            <p className="text-sm font-medium">Full Name</p>
-                            <p className="text-sm text-muted-foreground">
-                              {user.name}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-3 p-3 rounded-lg border">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                            <Mail className="h-5 w-5 text-primary" />
-                          </div>
-                          <div className="flex-1">
-                            <p className="text-sm font-medium">Email</p>
-                            <p className="text-sm text-muted-foreground">
-                              {user.email}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-3 p-3 rounded-lg border">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                            <DollarSign className="h-5 w-5 text-primary" />
-                          </div>
-                          <div className="flex-1">
-                            <p className="text-sm font-medium">Hourly Rate</p>
-                            <p className="text-sm text-muted-foreground">
-                              {user.hourlyRate
-                                ? `$${user.hourlyRate.toFixed(2)}/hr`
-                                : "Not set"}
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-3 p-3 rounded-lg border">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10">
-                            <Shield className="h-5 w-5 text-primary" />
-                          </div>
-                          <div className="flex-1">
-                            <p className="text-sm font-medium">Role</p>
-                            <p className="text-sm text-muted-foreground capitalize">
-                              {user.role}
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="pt-4 border-t space-y-2">
-                        <Button
-                          variant="outline"
-                          className="w-full gap-2"
-                          onClick={() => setPasswordDialogOpen(true)}
-                        >
-                          <Shield className="h-4 w-4" />
-                          Change Password
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <ProfileInfo />
 
                   {/* Statistics */}
                   <Card className="transition-shadow hover:shadow-md">
@@ -754,11 +487,6 @@ export default function ProfilePage() {
       {/* <ProfileEditDialog
         open={editDialogOpen}
         onOpenChange={setEditDialogOpen}
-      />
-
-      <ChangePasswordDialog
-        open={passwordDialogOpen}
-        onOpenChange={setPasswordDialogOpen}
       /> */}
     </div>
   );

@@ -1,0 +1,16 @@
+import { api } from "@/shared/config/api";
+import type { UserEntity } from "../model/user.types";
+
+class UserService {
+  async getMe() {
+    const res = await api.get<UserEntity>("/users/me");
+    return res.data;
+  }
+
+  async updateMyProfile(data: Partial<UserEntity> & { password?: string }) {
+    const res = await api.patch<UserEntity>("/users/me", data);
+    return res.data;
+  }
+}
+
+export const userService = new UserService();
