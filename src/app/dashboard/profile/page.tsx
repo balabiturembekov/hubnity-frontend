@@ -33,7 +33,7 @@ import { Skeleton } from "@/shared/ui/skeleton";
 import { Header } from "@/widgets/header";
 // import { ChangePasswordDialog } from "@/components/profile/ChangePasswordDialog";
 // import { ProfileEditDialog } from "@/components/profile/ProfileEditDialog";
-import { Sidebar } from "@/widgets/sidebar";
+import { DashboardSidebar } from "@/widgets/sidebar";
 
 export default function ProfilePage() {
   // const router = useRouter();
@@ -267,7 +267,7 @@ export default function ProfilePage() {
     }
     return (
       <div className="flex h-screen overflow-hidden bg-background">
-        <Sidebar />
+        <DashboardSidebar />
         <div className="flex flex-1 flex-col overflow-hidden">
           <Header />
           <main className="flex-1 overflow-y-auto p-6">
@@ -317,7 +317,7 @@ export default function ProfilePage() {
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
-      <Sidebar />
+      <DashboardSidebar />
       <div className="flex flex-1 flex-col overflow-hidden">
         <Header />
         <main className="flex-1 overflow-y-auto">

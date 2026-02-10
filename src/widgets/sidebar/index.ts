@@ -1,1 +1,1 @@
-export { Sidebar } from "./ui/sidebar";
+export { DashboardSidebar } from "./ui/dashboard-sidebar";
