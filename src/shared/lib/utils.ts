@@ -41,3 +41,10 @@ export const formatDurationFull = (hours: number): string => {
 
   return `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 };
+
+export const greeting = () => {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 18) return "Good afternoon";
+  return "Good evening";
+};
