@@ -15,7 +15,7 @@ import {
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
 
-// import { AvatarCropDialog } from "@/components/AvatarCropDialog";
+import { AvatarCropDialog } from "./avatar-crop-dialog";
 
 interface ProfileEditDialogProps {
   open: boolean;
@@ -37,10 +37,10 @@ export function ProfileEditDialog({
     avatarPreview,
     handleAvatarChange,
     handleRemoveAvatar,
-    // cropDialogOpen,
-    // setCropDialogOpen,
-    // imageToCrop,
-    // handleCropComplete,
+    cropDialogOpen,
+    setCropDialogOpen,
+    imageToCrop,
+    handleCropComplete,
   } = useChangeProfile({ open, onOpenChange });
 
   if (!user) return null;
@@ -52,7 +52,7 @@ export function ProfileEditDialog({
           <DialogHeader>
             <DialogTitle>Edit Profile</DialogTitle>
             <DialogDescription>
-              Update your profile information
+              Update your profile information like name, email and hourly rate.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
@@ -162,12 +162,12 @@ export function ProfileEditDialog({
         </form>
       </DialogContent>
 
-      {/* <AvatarCropDialog
+      <AvatarCropDialog
         open={cropDialogOpen}
         onOpenChange={setCropDialogOpen}
         imageSrc={imageToCrop}
         onCropComplete={handleCropComplete}
-      /> */}
+      />
     </Dialog>
   );
 }

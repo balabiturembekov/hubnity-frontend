@@ -23,7 +23,6 @@ export const useChangeProfile = ({
   const { mutateAsync, isPending } = useUpdateProfileMutation();
 
   const [avatarPreview, setAvatarPreview] = useState<string>("");
-  // States for cropping - keeping them here for future restoration
   const [cropDialogOpen, setCropDialogOpen] = useState(false);
   const [imageToCrop, setImageToCrop] = useState<string>("");
 
@@ -33,7 +32,7 @@ export const useChangeProfile = ({
     reset,
     setValue,
     formState: { errors },
-  } = useForm<ChangeProfileFormInput>({
+  } = useForm<ChangeProfileFormInput, unknown, ChangeProfileFormValues>({
     resolver: zodResolver(changeProfileSchema),
     defaultValues: {
       name: "",
@@ -90,11 +89,8 @@ export const useChangeProfile = ({
     const reader = new FileReader();
     reader.onloadend = () => {
       if (reader.result && typeof reader.result === "string") {
-        setValue("avatar", reader.result, { shouldDirty: true });
-        setAvatarPreview(reader.result);
-
-        // setImageToCrop(reader.result);
-        // setCropDialogOpen(true);
+        setImageToCrop(reader.result);
+        setCropDialogOpen(true);
       }
     };
     reader.readAsDataURL(file);
