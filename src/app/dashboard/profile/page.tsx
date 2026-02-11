@@ -7,8 +7,8 @@ import { ProfileEditDialog } from "@/features/auth";
 import { Button } from "@/shared/ui/button";
 import { DashboardPageHeader } from "@/widgets/header/ui/dashboard-page-header";
 import {
-  PageSkeleton,
   ProfileInfo,
+  ProfilePageSkeleton,
   ProfileStatistics,
   ProfileStats,
   RecentActivity,
@@ -164,7 +164,7 @@ export default function ProfilePage() {
   // } = stats;
 
   if (isInitializing || !user) {
-    return <PageSkeleton />;
+    return <ProfilePageSkeleton />;
   }
 
   return (

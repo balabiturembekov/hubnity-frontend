@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
 
-export const PageSkeleton = () => {
+export const ProfilePageSkeleton = () => {
   return (
     <div className="flex h-screen overflow-hidden bg-background">
       <div className="flex flex-1 flex-col overflow-hidden">
