@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useUpdateProfileMutation } from "@/entities/user";
+import { useChangePasswordMutation } from "@/features/auth/model/mutations/use-change-password.mutation";
 import { handleError } from "@/shared/lib/utils";
 import {
   type ChangePasswordFormValues,
@@ -18,7 +18,7 @@ export const useChangePassword = ({
   open,
   onOpenChange,
 }: ChangePasswordProps) => {
-  const { mutateAsync, isPending } = useUpdateProfileMutation();
+  const { mutateAsync, isPending } = useChangePasswordMutation();
   const {
     register,
     handleSubmit,
@@ -41,9 +41,7 @@ export const useChangePassword = ({
 
   const onSubmit = async (data: ChangePasswordFormValues) => {
     try {
-      await mutateAsync({
-        password: data.newPassword,
-      });
+      await mutateAsync(data);
 
       toast.success("Password changed successfully");
       onOpenChange(false);

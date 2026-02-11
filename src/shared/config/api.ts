@@ -62,7 +62,9 @@ api.interceptors.response.use(
 
       try {
         const refreshToken = Cookies.get("refresh_token");
-        if (!refreshToken) throw new Error("No refresh token");
+        if (!refreshToken) {
+          throw new Error("No refresh token");
+        }
 
         // Call your refresh endpoint
         const { access_token, refresh_token: newRefreshToken } = (
