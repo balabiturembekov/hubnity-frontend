@@ -1,7 +1,7 @@
 import type { Timestamps } from "@/shared/model/types";
 
-type UserRole = "EMPLOYEE" | "admin" | "OWNER" | "SUPER_ADMIN";
-type UserStatus = "ACTIVE"; // TODO: Add other statuses
+export type UserRole = "employee" | "admin" | "OWNER" | "SUPER_ADMIN";
+export type UserStatus = "ACTIVE" | "INACTIVE";
 
 export interface UserEntity extends Timestamps {
   id: string;

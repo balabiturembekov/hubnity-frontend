@@ -20,8 +20,8 @@ export const EmployeesPageSkeleton = () => {
               <Skeleton className="h-4 w-64" />
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {[1, 2, 3, 4].map((i) => (
-                <Card key={i}>
+              {["1", "2", "3", "4"].map((id) => (
+                <Card key={`card-skeleton-${id}`}>
                   <CardHeader>
                     <Skeleton className="h-4 w-24" />
                   </CardHeader>
@@ -44,8 +44,8 @@ export const EmployeesPageSkeleton = () => {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {[1, 2, 3].map((i) => (
-                    <TableRow key={i}>
+                  {["1", "2", "3"].map((id) => (
+                    <TableRow key={`row-skeleton-${id}`}>
                       <TableCell>
                         <Skeleton className="h-8 w-32" />
                       </TableCell>
