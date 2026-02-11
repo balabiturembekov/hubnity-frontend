@@ -3,7 +3,7 @@ import { ArrowRight, Clock, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { greeting } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
-import { DashboardPageHeader } from "@/widgets/header/ui/dashboard-page-header";
+import { DashboardPageHeader } from "@/widgets/header";
 
 export default function DashboardPage() {
   return (

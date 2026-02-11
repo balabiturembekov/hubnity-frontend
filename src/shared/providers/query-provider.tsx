@@ -2,6 +2,8 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { type PropsWithChildren, useState } from "react";
+import { toast } from "sonner";
+import { handleError } from "@/shared/lib/utils";
 
 export const QueryProvider = ({ children }: PropsWithChildren) => {
   const [query] = useState(
@@ -14,6 +16,9 @@ export const QueryProvider = ({ children }: PropsWithChildren) => {
           },
           mutations: {
             retry: false,
+            onError: (e) => {
+              toast.error(handleError(e));
+            },
           },
         },
       }),

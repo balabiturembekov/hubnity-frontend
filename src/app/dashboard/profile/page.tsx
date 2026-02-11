@@ -15,7 +15,6 @@ import {
 } from "@/widgets/profile";
 
 export default function ProfilePage() {
-  // const { currentUser, timeEntries, loadTimeEntries, initializeAuth } = useStore();
   const { user, isInitializing } = useUserStore();
   const [editDialogOpen, setEditDialogOpen] = useState(false);
 

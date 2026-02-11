@@ -48,3 +48,6 @@ export const greeting = () => {
   if (hour < 18) return "Good afternoon";
   return "Good evening";
 };
+
+export const capitalize = (value: string) =>
+  value.charAt(0) + value.slice(1).toLowerCase();

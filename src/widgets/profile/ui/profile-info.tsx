@@ -1,3 +1,5 @@
+"use client";
+
 import { DollarSign, Mail, Shield, User } from "lucide-react";
 import { useState } from "react";
 import { UserAvatar, useUserStore } from "@/entities/user";
