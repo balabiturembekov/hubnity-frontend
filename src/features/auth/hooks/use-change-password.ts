@@ -7,7 +7,7 @@ import { handleError } from "@/shared/lib/utils";
 import {
   type ChangePasswordFormValues,
   changePasswordSchema,
-} from "./auth.schema";
+} from "../model/auth.schema";
 
 interface ChangePasswordProps {
   open: boolean;

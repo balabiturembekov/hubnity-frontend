@@ -8,7 +8,7 @@ import {
   type LoginFormValues,
   loginSchema,
 } from "@/features/auth/model/auth.schema";
-import { useLoginMutation } from "@/features/auth/model/use-login.mutation";
+import { useLoginMutation } from "@/features/auth/model/mutations/use-login.mutation";
 import { Button } from "@/shared/ui/button";
 import {
   Form,

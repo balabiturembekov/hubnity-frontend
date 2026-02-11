@@ -7,7 +7,7 @@ import { handleError } from "@/shared/lib/utils";
 import {
   type ChangeProfileFormValues,
   changeProfileSchema,
-} from "./auth.schema";
+} from "../model/auth.schema";
 
 interface UseChangeProfileProps {
   open: boolean;
@@ -33,7 +33,7 @@ export const useChangeProfile = ({
     setValue,
     formState: { errors },
   } = useForm<ChangeProfileFormValues>({
-    resolver: zodResolver(changeProfileSchema) as any,
+    resolver: zodResolver(changeProfileSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -62,7 +62,7 @@ export const useChangeProfile = ({
         name: data.name,
         email: data.email,
         hourlyRate: data.hourlyRate,
-        avatar: data.avatar || null,
+        avatar: data.avatar,
       });
 
       toast.success("Profile updated successfully");

@@ -46,9 +46,9 @@ export const changePasswordSchema = z
 export type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
 
 export const changeProfileSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  email: z.email("Please enter a valid email"),
-  hourlyRate: z.coerce
+  name: z.string().optional(),
+  email: z.email("Please enter a valid email").optional(),
+  hourlyRate: z
     .number()
     .min(0, "Hourly rate cannot be negative")
     .max(10000, "Hourly rate cannot exceed $10,000")

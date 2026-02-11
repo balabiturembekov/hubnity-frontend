@@ -1,5 +1,6 @@
 "use client";
 
+import { useChangePassword } from "@/features/auth/hooks/use-change-password";
 import { Button } from "@/shared/ui/button";
 import {
   Dialog,
@@ -11,7 +12,6 @@ import {
 } from "@/shared/ui/dialog";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
-import { useChangePassword } from "../model/use-change-password";
 
 interface ChangePasswordDialogProps {
   open: boolean;

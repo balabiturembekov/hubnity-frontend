@@ -13,3 +13,13 @@ export interface UserEntity extends Timestamps {
   hourlyRate: number;
   companyId: string;
 }
+
+export type PatchUserReq = {
+  name?: string;
+  email?: string;
+  password?: string;
+  role?: UserRole;
+  status?: UserStatus;
+  avatar?: string | null;
+  hourlyRate?: number;
+};

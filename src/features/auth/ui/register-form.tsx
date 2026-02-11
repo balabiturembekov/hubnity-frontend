@@ -8,7 +8,7 @@ import {
   type RegisterFormValues,
   registerSchema,
 } from "@/features/auth/model/auth.schema";
-import { useRegisterMutation } from "@/features/auth/model/use-register.mutation";
+import { useRegisterMutation } from "@/features/auth/model/mutations/use-register.mutation";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import {

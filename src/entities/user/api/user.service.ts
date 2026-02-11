@@ -1,5 +1,5 @@
 import { api } from "@/shared/config/api";
-import type { UserEntity } from "../model/user.types";
+import type { PatchUserReq, UserEntity } from "../model/user.types";
 
 class UserService {
   async getMe() {
@@ -7,7 +7,7 @@ class UserService {
     return res.data;
   }
 
-  async updateMyProfile(data: Partial<UserEntity> & { password?: string }) {
+  async updateMyProfile(data: PatchUserReq) {
     const res = await api.patch<UserEntity>("/users/me", data);
     return res.data;
   }
