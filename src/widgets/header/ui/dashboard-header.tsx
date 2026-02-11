@@ -19,12 +19,13 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/ui/tooltip";
+import { DashboardHeaderSkeleton } from "./dashboard-header-skeleton";
 
 export const DashboardHeader = () => {
   const router = useRouter();
   const { user } = useUserStore();
 
-  if (!user) return null;
+  if (!user) return <DashboardHeaderSkeleton />;
 
   const handleLogout = async () => {
     await authService.logout();
