@@ -71,9 +71,12 @@ export function UserAvatar({
 
   return (
     <Avatar className={cn(sizeMap[size], className)}>
-      {avatar && (
-        <AvatarImage src={avatar} alt={name} className="object-cover" />
-      )}
+      <AvatarImage
+        src={avatar || undefined}
+        alt={name}
+        className="object-cover"
+      />
+
       <AvatarFallback
         className={cn("text-white font-semibold", sizeMap[size])}
         style={{ backgroundColor: bgColor }}
