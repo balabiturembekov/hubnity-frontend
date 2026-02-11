@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { useUpdateProfileMutation, useUserStore } from "@/entities/user";
 import { handleError } from "@/shared/lib/utils";
 import {
+  type ChangeProfileFormInput,
   type ChangeProfileFormValues,
   changeProfileSchema,
 } from "../model/auth.schema";
@@ -32,7 +33,7 @@ export const useChangeProfile = ({
     reset,
     setValue,
     formState: { errors },
-  } = useForm<ChangeProfileFormValues>({
+  } = useForm<ChangeProfileFormInput>({
     resolver: zodResolver(changeProfileSchema),
     defaultValues: {
       name: "",
