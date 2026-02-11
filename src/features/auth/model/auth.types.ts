@@ -30,3 +30,9 @@ export interface RegisterRes {
   access_token: string;
   refresh_token: string;
 }
+
+export interface ChangePasswordReq {
+  currentPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+}

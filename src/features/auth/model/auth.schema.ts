@@ -49,7 +49,7 @@ export const changeProfileSchema = z.object({
   name: z.string().optional(),
   email: z.email("Please enter a valid email").optional(),
   hourlyRate: z.coerce
-    .number()
+    .number<number>()
     .min(0, "Hourly rate cannot be negative")
     .max(10000, "Hourly rate cannot exceed $10,000")
     .optional(),
@@ -57,4 +57,3 @@ export const changeProfileSchema = z.object({
 });
 
 export type ChangeProfileFormValues = z.infer<typeof changeProfileSchema>;
-export type ChangeProfileFormInput = z.input<typeof changeProfileSchema>;

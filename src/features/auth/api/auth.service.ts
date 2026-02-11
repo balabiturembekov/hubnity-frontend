@@ -1,12 +1,14 @@
 import Cookies from "js-cookie";
 import { useUserStore } from "@/entities/user";
 import type {
+  ChangePasswordReq,
   LoginReq,
   LoginRes,
   RegisterReq,
   RegisterRes,
 } from "@/features/auth/model/auth.types";
 import { api } from "@/shared/config/api";
+import type { MessageRes } from "@/shared/model/types";
 
 class AuthService {
   async login(payload: LoginReq) {
@@ -36,6 +38,11 @@ class AuthService {
       Cookies.remove("refresh_token");
       useUserStore.getState().clearUser();
     }
+  }
+
+  async changePassword(payload: ChangePasswordReq) {
+    const res = await api.post<MessageRes>("/auth/change-password", payload);
+    return res.data;
   }
 }
 export const authService = new AuthService();
