@@ -4,17 +4,34 @@ import { FolderOpen } from "lucide-react";
 import { ProjectCard } from "@/entities/project";
 import { useGetProjectsQuery } from "@/entities/project/model/queries/use-get-projects.query";
 import { Badge } from "@/shared/ui/badge";
+import { Card, CardContent } from "@/shared/ui/card";
+import { EmptyState } from "@/widgets/empty-state";
 import { DashboardSectionHeader } from "@/widgets/header";
-import { ProjectsListEmpty, ProjectsListSkeleton } from "@/widgets/project";
+import { ProjectsListEmpty } from "./projects-list-empty";
+import { ProjectsListSkeleton } from "./projects-list-skeleton";
 
 export const ProjectsList = () => {
-  const { data: projects, isPending } = useGetProjectsQuery();
+  const { data: projects, isPending, isError } = useGetProjectsQuery();
 
   if (isPending) {
     return <ProjectsListSkeleton />;
   }
 
-  if (!projects || !projects.length) {
+  if (isError) {
+    return (
+      <Card>
+        <CardContent className="py-8">
+          <EmptyState
+            icon={<FolderOpen className="h-12 w-12 mx-auto" />}
+            title="Error"
+            description="Failed to load projects"
+          />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (!projects || projects.length === 0) {
     return <ProjectsListEmpty />;
   }
 

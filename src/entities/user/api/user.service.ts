@@ -13,7 +13,7 @@ class UserService {
   }
 
   async getAll() {
-    const res = await api.get<UserEntity[]>("/users");
+    const res = await api.get<UserEntity[]>("/userss");
     return res.data;
   }
 

@@ -8,7 +8,7 @@ import { EmptyState } from "@/widgets/empty-state";
 export const ProjectsListEmpty = () => {
   return (
     <Card>
-      <CardContent className="py-12">
+      <CardContent className="py-8">
         <EmptyState
           icon={<FolderOpen className="h-12 w-12 mx-auto" />}
           title="No projects yet"

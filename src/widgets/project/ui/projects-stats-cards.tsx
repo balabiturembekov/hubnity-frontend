@@ -8,8 +8,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const ProjectsStatsCards = () => {
-  const { data: projects } = useGetProjectsQuery();
-  const { data: activeProjects } = useGetActiveProjectsQuery();
+  const { data: projects, isPending: isProjectsPending } =
+    useGetProjectsQuery();
+  const { data: activeProjects, isPending: isActiveProjectsPending } =
+    useGetActiveProjectsQuery();
 
   const stats = useMemo(() => {
     if (!projects || !activeProjects) {
@@ -50,7 +52,9 @@ export const ProjectsStatsCards = () => {
     };
   }, [projects, activeProjects]);
 
-  if (!stats) {
+  const isPending = isProjectsPending || isActiveProjectsPending;
+
+  if (isPending) {
     return <StatsCardsSkeleton />;
   }
 
@@ -62,10 +66,12 @@ export const ProjectsStatsCards = () => {
           <Folder className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{stats.totalProjects}</div>
+          <div className="text-2xl font-bold">
+            {stats ? stats.totalProjects : 0}
+          </div>
           <p className="text-xs text-muted-foreground">
-            {stats.totalActiveProjects} active, {stats.totalArchivedProjects}{" "}
-            archived
+            {stats ? stats.totalActiveProjects : 0} active,{" "}
+            {stats ? stats.totalArchivedProjects : 0} archived
           </p>
         </CardContent>
       </Card>
@@ -77,10 +83,10 @@ export const ProjectsStatsCards = () => {
         </CardHeader>
         <CardContent>
           <div className="text-2xl font-bold text-green-600">
-            {stats.totalActiveProjects}
+            {stats ? stats.totalActiveProjects : 0}
           </div>
           <p className="text-xs text-muted-foreground">
-            {stats.activeProjectsPercent}% of total
+            {stats ? stats.activeProjectsPercent : 0}% of total
           </p>
         </CardContent>
       </Card>
@@ -91,9 +97,11 @@ export const ProjectsStatsCards = () => {
           <DollarSign className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{stats.formattedTotalBudget}</div>
+          <div className="text-2xl font-bold">
+            {stats ? stats.formattedTotalBudget : "$0"}
+          </div>
           <p className="text-xs text-muted-foreground">
-            {stats.totalProjectsWithBudget} projects with budget
+            {stats ? stats.totalProjectsWithBudget : 0} projects with budget
           </p>
         </CardContent>
       </Card>
