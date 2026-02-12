@@ -3,6 +3,7 @@
 import { Upload, X } from "lucide-react";
 import { UserAvatar } from "@/entities/user";
 import { useChangeProfile } from "@/features/auth/hooks/use-change-profile";
+import { AvatarCropDialog } from "@/shared/ui/avatar-crop";
 import { Button } from "@/shared/ui/button";
 import {
   Dialog,
@@ -14,8 +15,6 @@ import {
 } from "@/shared/ui/dialog";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
-
-import { AvatarCropDialog } from "./avatar-crop-dialog";
 
 interface ProfileEditDialogProps {
   open: boolean;

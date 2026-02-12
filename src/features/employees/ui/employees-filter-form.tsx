@@ -18,7 +18,7 @@ import {
 import { useFilteredEmployees } from "../hooks/use-filtered-employees";
 import { useEmployeesStore } from "../model/employees.store";
 
-export const EmployeeFilterForm = () => {
+export const EmployeesFilterForm = () => {
   const { employees, totalCount } = useFilteredEmployees();
   const {
     searchQuery,
@@ -69,8 +69,8 @@ export const EmployeeFilterForm = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="active">Active</SelectItem>
-              <SelectItem value="inactive">Inactive</SelectItem>
+              <SelectItem value="ACTIVE">Active</SelectItem>
+              <SelectItem value="INACTIVE">Inactive</SelectItem>
             </SelectContent>
           </Select>
           {hasActiveFilters && (

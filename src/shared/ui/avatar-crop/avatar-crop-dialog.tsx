@@ -10,7 +10,7 @@ import {
   DialogTitle,
 } from "@/shared/ui/dialog";
 import { Slider } from "@/shared/ui/slider";
-import { useAvatarCrop } from "../hooks/use-avatar-crop";
+import { useAvatarCrop } from "./use-avatar-crop";
 
 interface AvatarCropDialogProps {
   open: boolean;

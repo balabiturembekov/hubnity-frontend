@@ -1,4 +1,5 @@
 export { authService } from "./api/auth.service";
+export { AdminGuard } from "./guards/admin-guard";
 export { ChangePasswordDialog } from "./ui/change-password-dialog";
 export { ProfileEditDialog } from "./ui/change-profile-dialog";
 export { EditProfileButton } from "./ui/edit-profile-button";
