@@ -14,7 +14,7 @@ import {
 } from "@/shared/ui/alert-dialog";
 import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
-import { useDeleteEmployeeMutation } from "../model/mutations/use-delete-employee.mutation";
+import { useDeleteEmployeeMutation } from "../../../entities/user/model/mutations/use-delete-employee.mutation";
 
 interface DeleteEmployeeDialogProps {
   employee: UserEntity;

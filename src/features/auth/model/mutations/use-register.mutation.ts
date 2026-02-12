@@ -3,12 +3,9 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useUserStore } from "@/entities/user";
-import { authService } from "@/features/auth/api/auth.service";
-import type {
-  RegisterReq,
-  RegisterRes,
-} from "@/features/auth/model/auth.types";
 import { handleError } from "@/shared/lib/utils";
+import { authService } from "../../api/auth.service";
+import type { RegisterReq, RegisterRes } from "../auth.types";
 
 export const useRegisterMutation = () => {
   const setUser = useUserStore((s) => s.setUser);

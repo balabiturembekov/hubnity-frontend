@@ -5,10 +5,13 @@ import { AdminGuard } from "@/features/auth";
 import {
   CreateEmployeeDialog,
   EmployeesFilterForm,
-  EmployeesTable,
 } from "@/features/employees";
 import { TooltipProvider } from "@/shared/ui/tooltip";
-import { EmployeesPageSkeleton, EmployeesStats } from "@/widgets/employees";
+import {
+  EmployeesPageSkeleton,
+  EmployeesStats,
+  EmployeesTable,
+} from "@/widgets/employees";
 import { DashboardPageHeader } from "@/widgets/header/ui/dashboard-page-header";
 
 export default function EmployeesPage() {

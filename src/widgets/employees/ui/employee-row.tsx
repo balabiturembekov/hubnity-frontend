@@ -1,9 +1,11 @@
 import { UserAvatar, useUserStore } from "@/entities/user";
 import type { UserEntity } from "@/entities/user/model/user.types";
+import {
+  DeleteEmployeeDialog,
+  UpdateEmployeeDialog,
+} from "@/features/employees";
 import { Badge } from "@/shared/ui/badge";
 import { TableCell, TableRow } from "@/shared/ui/table";
-import { DeleteEmployeeDialog } from "./delete-employee-dialog";
-import { UpdateEmployeeDialog } from "./update-employee-dialog";
 
 interface EmployeeRowProps {
   user: UserEntity;

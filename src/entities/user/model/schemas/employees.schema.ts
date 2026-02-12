@@ -17,22 +17,3 @@ export const employeeSchema = z.object({
     .optional(),
   avatar: z.string().nullable().optional(),
 });
-
-export const createEmployeeSchema = employeeSchema.extend({
-  password: z
-    .string()
-    .min(6, "Password must be at least 6 characters")
-    .max(128, "Password must not exceed 128 characters"),
-});
-
-export type CreateEmployeeSchemaValues = z.infer<typeof createEmployeeSchema>;
-
-export const updateEmployeeSchema = employeeSchema.extend({
-  password: z
-    .string()
-    .max(128, "Password must not exceed 128 characters")
-    .optional()
-    .or(z.literal("")),
-});
-
-export type UpdateEmployeeSchemaValues = z.infer<typeof updateEmployeeSchema>;

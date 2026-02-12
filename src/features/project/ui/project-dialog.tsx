@@ -1,12 +1,8 @@
 "use client";
 
 import { Controller } from "react-hook-form";
-import type {
-  ProjectEntity,
-  ProjectStatusType,
-} from "@/entities/project/model/project.types";
+import type { ProjectEntity, ProjectStatusType } from "@/entities/project";
 import { colors } from "@/features/project/consts";
-import { useProjectForm } from "@/features/project/hooks/use-project-form";
 import { Button } from "@/shared/ui/button";
 import {
   Dialog,
@@ -26,6 +22,7 @@ import {
   SelectValue,
 } from "@/shared/ui/select";
 import { Textarea } from "@/shared/ui/textarea";
+import { useProjectForm } from "../hooks/use-project-form";
 
 interface ProjectDialogProps {
   open: boolean;

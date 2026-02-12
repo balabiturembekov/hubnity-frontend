@@ -2,8 +2,8 @@
 
 import { Plus } from "lucide-react";
 import { useState } from "react";
-import { ProjectDialog } from "@/features/project/ui/project-dialog";
 import { Button } from "@/shared/ui/button";
+import { ProjectDialog } from "./project-dialog";
 
 interface CreateProjectButtonProps {
   variant?: "primary" | "secondary";

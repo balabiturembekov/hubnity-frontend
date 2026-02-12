@@ -1,4 +1,4 @@
-import type { UserEntity } from "@/entities/user/model/user.types";
+import type { UserEntity } from "@/entities/user";
 
 export interface LoginReq {
   email: string;

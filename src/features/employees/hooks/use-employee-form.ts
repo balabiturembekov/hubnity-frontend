@@ -8,9 +8,9 @@ import {
   createEmployeeSchema,
   type UpdateEmployeeSchemaValues,
   updateEmployeeSchema,
-} from "../model/employees.schema";
-import { useCreateEmployeeMutation } from "../model/mutations/use-create-employee.mutation";
-import { useUpdateEmployeeMutation } from "../model/mutations/use-update-employee.mutation";
+  useCreateEmployeeMutation,
+  useUpdateEmployeeMutation,
+} from "@/entities/user";
 
 interface UseEmployeeFormProps {
   open: boolean;

@@ -3,7 +3,6 @@
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import type { ProjectEntity } from "@/entities/project";
-import { DeleteProjectDialog } from "@/features/project/ui/delete-project-dialog";
 import { Button } from "@/shared/ui/button";
 import {
   Tooltip,
@@ -11,6 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/ui/tooltip";
+import { DeleteProjectDialog } from "./delete-project-dialog";
 
 interface DeleteProjectButtonProps {
   project: ProjectEntity;

@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import type { UserEntity } from "@/entities/user";
 import { userService } from "@/entities/user";
 import { handleError } from "@/shared/lib/utils";
-import type { CreateEmployeeSchemaValues } from "../employees.schema";
+import type { CreateEmployeeSchemaValues } from "../schemas/create-employee-schema";
 
 export const useCreateEmployeeMutation = () => {
   const queryClient = useQueryClient();

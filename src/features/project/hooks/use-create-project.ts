@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useCreateProjectMutation } from "@/entities/project/model/mutations/use-create-project.mutation";
+import { useCreateProjectMutation } from "@/entities/project";
+import { handleError } from "@/shared/lib/utils";
 import {
   type CreateProjectValues,
   createProjectSchema,
-} from "@/features/project/model/project.schema";
-import { handleError } from "@/shared/lib/utils";
+} from "../model/project.schema";
 
 interface UseCreateProjectProps {
   open: boolean;

@@ -2,8 +2,10 @@
 
 import { CheckCircle2, DollarSign, Folder, FolderOpen } from "lucide-react";
 import { useMemo } from "react";
-import { useGetActiveProjectsQuery } from "@/entities/project/model/mutations/use-get-active-projects.query";
-import { useGetProjectsQuery } from "@/entities/project/model/queries/use-get-projects.query";
+import {
+  useGetActiveProjectsQuery,
+  useGetProjectsQuery,
+} from "@/entities/project";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 

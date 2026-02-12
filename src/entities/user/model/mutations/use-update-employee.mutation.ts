@@ -6,7 +6,7 @@ import {
   userService,
 } from "@/entities/user";
 import { handleError } from "@/shared/lib/utils";
-import type { UpdateEmployeeSchemaValues } from "../employees.schema";
+import type { UpdateEmployeeSchemaValues } from "../schemas/update-employee-schema";
 
 export const useUpdateEmployeeMutation = () => {
   const queryClient = useQueryClient();
