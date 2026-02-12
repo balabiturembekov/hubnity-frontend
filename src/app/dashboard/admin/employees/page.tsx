@@ -22,7 +22,7 @@ export default function EmployeesPage() {
 
   // Check access - show access denied if not admin/owner/super_admin
   if (
-    user.role !== "admin" &&
+    user.role !== "ADMIN" &&
     user.role !== "OWNER" &&
     user.role !== "SUPER_ADMIN"
   ) {

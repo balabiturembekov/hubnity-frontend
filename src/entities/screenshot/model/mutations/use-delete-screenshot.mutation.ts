@@ -9,9 +9,9 @@ export const useDeleteScreenshotMutation = () => {
   return useMutation<void, Error, string>({
     mutationKey: ["deleteScreenshot"],
     mutationFn: (id: string) => screenshotService.deleteScreenshot(id),
-    onSuccess: (_, screenshotId) => {
-      queryClient.invalidateQueries({ queryKey: ["screenshots"] });
+    onSuccess: (_) => {
       toast.success("Screenshot deleted successfully");
+      return queryClient.invalidateQueries({ queryKey: ["screenshots"] });
     },
     onError: (error) => {
       toast.error(handleError(error, "Failed to delete screenshot"));

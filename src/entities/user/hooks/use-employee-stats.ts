@@ -10,12 +10,12 @@ export const useEmployeeStats = () => {
     const inactive = users.filter((user) => user.status === "INACTIVE").length;
     const admins = users.filter(
       (user) =>
-        user.role === "admin" ||
+        user.role === "ADMIN" ||
         user.role === "OWNER" ||
         user.role === "SUPER_ADMIN",
     ).length;
     const employeesCount = users.filter(
-      (user) => user.role === "employee",
+      (user) => user.role === "EMPLOYEE",
     ).length;
 
     const withRate = users.filter(

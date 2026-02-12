@@ -38,7 +38,7 @@ export const ProfileInfo = () => {
               <p className="text-sm text-muted-foreground">{user.email}</p>
               <Badge
                 variant={
-                  user.role === "admin" ||
+                  user.role === "ADMIN" ||
                   user.role === "OWNER" ||
                   user.role === "SUPER_ADMIN"
                     ? "default"

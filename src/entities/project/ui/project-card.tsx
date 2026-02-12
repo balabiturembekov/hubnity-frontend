@@ -22,7 +22,7 @@ interface ProjectCardProps {
 export const ProjectCard = ({ project }: ProjectCardProps) => {
   const { user } = useUserStore();
   const canManage =
-    user?.role === "admin" ||
+    user?.role === "ADMIN" ||
     user?.role === "OWNER" ||
     user?.role === "SUPER_ADMIN";
 

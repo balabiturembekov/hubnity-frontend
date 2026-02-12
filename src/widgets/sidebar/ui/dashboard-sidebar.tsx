@@ -21,7 +21,7 @@ export function DashboardSidebar() {
           // Hide admin-only items for non-admin users
           if (
             item.isAdminOnly &&
-            user?.role !== "admin" &&
+            user?.role !== "ADMIN" &&
             user?.role !== "OWNER" &&
             user?.role !== "SUPER_ADMIN"
           ) {

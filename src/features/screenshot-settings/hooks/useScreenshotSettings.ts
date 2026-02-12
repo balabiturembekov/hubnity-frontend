@@ -19,7 +19,7 @@ export function useScreenshotSettings() {
   });
   const { mutateAsync, isPending } = useUpdateScreenshotSettingsMutation();
 
-  const canEdit = user?.role === "admin" || user?.role === "OWNER";
+  const canEdit = user?.role === "ADMIN" || user?.role === "OWNER";
 
   const settings = useMemo(() => {
     if (!data) {

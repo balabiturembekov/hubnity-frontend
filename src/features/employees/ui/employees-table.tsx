@@ -125,7 +125,7 @@ export const EmployeesTable = () => {
                     <TableCell>
                       <Badge
                         variant={
-                          user.role === "admin" ||
+                          user.role === "ADMIN" ||
                           user.role === "OWNER" ||
                           user.role === "SUPER_ADMIN"
                             ? "default"

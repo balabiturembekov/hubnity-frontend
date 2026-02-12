@@ -78,7 +78,7 @@ export function ScreenshotSettings() {
     if (!canEdit || isLoading) return;
 
     try {
-      await setInterval(parseInt(value) as ScreenshotInterval);
+      await setInterval(+value as ScreenshotInterval);
       toast.success("Screenshot interval updated successfully");
     } catch (error) {
       console.error("Failed to update interval:", error);

@@ -14,6 +14,7 @@ export const downloadCSV = (content: string, filename: string) => {
   URL.revokeObjectURL(url);
 };
 
+// biome-ignore lint/suspicious/noExplicitAny: <We don't know what value will be passed>
 export const escapeCSV = (value: any): string => {
   if (value === null || value === undefined) return "";
   const stringValue = String(value);

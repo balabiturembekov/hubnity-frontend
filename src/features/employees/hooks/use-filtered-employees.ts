@@ -20,9 +20,9 @@ export const useFilteredEmployees = () => {
 
     if (roleFilter !== "all") {
       filtered = filtered.filter((user) => {
-        if (roleFilter === "admin") {
+        if (roleFilter === "ADMIN") {
           return (
-            user.role === "admin" ||
+            user.role === "ADMIN" ||
             user.role === "OWNER" ||
             user.role === "SUPER_ADMIN"
           );
