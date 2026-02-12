@@ -23,7 +23,7 @@ export const footerItems: FooterItemType[] = [
       {
         id: "2",
         label: "Time Tracking",
-        href: "/tracking",
+        href: "/time-entry",
       },
       {
         id: "3",

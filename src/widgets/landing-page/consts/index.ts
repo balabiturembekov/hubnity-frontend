@@ -89,7 +89,7 @@ export const features: FeatureType[] = [
     icon: FileText,
     title: "Project Organization",
     description:
-      "Organize work by projects with budgets, clients, and status tracking. Keep everything in one place.",
+      "Organize work by projects with budgets, clients, and status time-entry. Keep everything in one place.",
     color: "bg-indigo-500/10 text-indigo-600",
   },
   {
@@ -167,7 +167,7 @@ export const howItWorks: HowItWorksType[] = [
   {
     id: "3",
     title: "Start Tracking",
-    description: "Begin tracking time with our simple, intuitive interface",
+    description: "Begin time-entry time with our simple, intuitive interface",
     icon: Play,
   },
   {

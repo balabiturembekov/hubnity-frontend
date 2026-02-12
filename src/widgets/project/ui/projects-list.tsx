@@ -1,3 +1,5 @@
+"use client";
+
 import { FolderOpen } from "lucide-react";
 import { ProjectCard } from "@/entities/project";
 import { useGetProjectsQuery } from "@/entities/project/model/queries/use-get-projects.query";

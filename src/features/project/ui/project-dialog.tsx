@@ -1,4 +1,3 @@
-// project-dialog.tsx (renamed from project-dialog.tsx)
 "use client";
 
 import { Controller } from "react-hook-form";

@@ -27,7 +27,7 @@ export const RecentActivity = () => {
           <div className="text-center py-12">
             <Clock className="h-12 w-12 mx-auto mb-4 text-muted-foreground opacity-50" />
             <p className="text-sm text-muted-foreground">
-              No time entries yet. Start tracking your time to see entries here.
+              No time entries yet. Start time-entry your time to see entries here.
             </p>
           </div>
         ) : (

@@ -5,7 +5,7 @@ import { useMemo } from "react";
 import { useGetActiveProjectsQuery } from "@/entities/project/model/mutations/use-get-active-projects.query";
 import { useGetProjectsQuery } from "@/entities/project/model/queries/use-get-projects.query";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { Skeleton } from "@/shared/ui/skeleton";
+import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const ProjectsStatsCards = () => {
   const { data: projects } = useGetProjectsQuery();
@@ -51,25 +51,7 @@ export const ProjectsStatsCards = () => {
   }, [projects, activeProjects]);
 
   if (!stats) {
-    return (
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {[1, 2, 3, 4].map((i) => (
-          <Card key={i} className="w-full h-38">
-            <CardContent className="flex flex-col justify-between h-full">
-              <div className="flex items-center justify-between">
-                <Skeleton className="h-4 w-32" />
-                <Skeleton className="h-5 w-5" />
-              </div>
-
-              <div className="space-y-2.5">
-                <Skeleton className="h-6 w-24" />
-                <Skeleton className="h-4 w-64" />
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    );
+    return <StatsCardsSkeleton />;
   }
 
   return (

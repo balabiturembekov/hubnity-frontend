@@ -15,8 +15,6 @@ export const useUserStore = create<UserState>((set) => ({
   isInitializing: true,
 
   setUser: (user) => set({ user }),
-
   setIsInitializing: (isInitializing) => set({ isInitializing }),
-
   clearUser: () => set({ user: null }),
 }));

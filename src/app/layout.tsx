@@ -12,7 +12,7 @@ const geistSans = Geist({
 export const metadata: Metadata = {
   title: "Hubnity - Time Tracking & Team Management",
   description:
-    "Track time, manage projects, and boost productivity with Hubnity. The all-in-one time tracking solution for teams.",
+    "Track time, manage projects, and boost productivity with Hubnity. The all-in-one time time-entry solution for teams.",
 };
 
 export default function RootLayout({
@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className={cn(geistSans.className, "antialiased")}>
         <QueryProvider>
           {children}
-          <Toaster richColors position="bottom-right" />
+          <Toaster richColors position="top-right" />
         </QueryProvider>
       </body>
     </html>

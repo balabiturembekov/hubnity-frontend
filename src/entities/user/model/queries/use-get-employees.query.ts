@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { userService } from "../../api/user.service";
+import { userService } from "@/entities/user";
 import type { UserEntity } from "../user.types";
 
 export const useGetEmployeesQuery = () => {
