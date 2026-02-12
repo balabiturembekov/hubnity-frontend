@@ -1,3 +1,4 @@
+export { useProjectsStore } from "./model/projects.store";
 export { CreateProjectButton } from "./ui/create-project-button";
 export { DeleteProjectButton } from "./ui/delete-project-button";
 export { ProjectDialog } from "./ui/project-dialog";

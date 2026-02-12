@@ -124,7 +124,7 @@ export const ProjectDialog = ({
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="ACTIVE">Active</SelectItem>
-                        <SelectItem value="ARCHIVE">Archived</SelectItem>
+                        <SelectItem value="ARCHIVED">Archived</SelectItem>
                       </SelectContent>
                     </Select>
                   )}

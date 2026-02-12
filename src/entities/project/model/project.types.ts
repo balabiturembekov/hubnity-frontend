@@ -1,6 +1,6 @@
 import type { Timestamps } from "@/shared/model/types";
 
-export const projectStatuses = ["ACTIVE", "ARCHIVE"] as const;
+export const projectStatuses = ["ACTIVE", "ARCHIVED"] as const;
 export type ProjectStatusType = (typeof projectStatuses)[number];
 
 export interface ProjectEntity extends Timestamps {

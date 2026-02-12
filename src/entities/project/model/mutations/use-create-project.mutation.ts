@@ -12,12 +12,13 @@ export const useCreateProjectMutation = () => {
 
   return useMutation<ProjectEntity, Error, CreateProjectReq>({
     mutationKey: ["createProject"],
-    mutationFn: (payload) => {
-      return projectService.createProject(payload);
+    mutationFn: (payload) => projectService.createProject(payload),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ["active-projects"] });
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projects"] }),
-    onError: (e) => {
-      toast.error(handleError(e));
+    onError: (error) => {
+      toast.error(handleError(error, "Failed to create project"));
     },
   });
 };

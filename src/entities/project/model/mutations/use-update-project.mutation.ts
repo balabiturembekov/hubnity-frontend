@@ -17,14 +17,13 @@ export const useUpdateProjectMutation = () => {
 
   return useMutation<ProjectEntity, Error, UpdateProjectParams>({
     mutationKey: ["updateProject"],
-    mutationFn: ({ id, data }) => {
-      return projectService.updateProject(id, data);
-    },
+    mutationFn: ({ id, data }) => projectService.updateProject(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ["active-projects"] });
     },
-    onError: (e) => {
-      toast.error(handleError(e));
+    onError: (error) => {
+      toast.error(handleError(error, "Failed to update project"));
     },
   });
 };

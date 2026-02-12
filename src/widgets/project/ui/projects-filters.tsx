@@ -1,7 +1,9 @@
 "use client";
 
-import { Filter, Search } from "lucide-react";
-import { useState } from "react";
+import { Filter, Search, X } from "lucide-react";
+import { useProjectsStore } from "@/features/project";
+import { useFilteredProjects } from "@/features/project/hooks/use-filtered-projects";
+import { Button } from "@/shared/ui/button";
 import {
   Card,
   CardContent,
@@ -19,8 +21,14 @@ import {
 } from "@/shared/ui/select";
 
 export const ProjectsFilters = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [statusFilter, setStatusFilter] = useState<string>("all");
+  const {
+    searchQuery,
+    statusFilter,
+    setSearchQuery,
+    setStatusFilter,
+    resetFilters,
+  } = useProjectsStore();
+  const { projects, totalCount, hasActiveFilters } = useFilteredProjects();
 
   return (
     <Card className="transition-shadow hover:shadow-md">
@@ -48,28 +56,27 @@ export const ProjectsFilters = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="active">Active</SelectItem>
-              <SelectItem value="archived">Archived</SelectItem>
+              <SelectItem value="ACTIVE">Active</SelectItem>
+              <SelectItem value="ARCHIVED">Archived</SelectItem>
             </SelectContent>
           </Select>
-          {/*{hasActiveFilters && (*/}
-          {/*  <Button*/}
-          {/*    variant="outline"*/}
-          {/*    size="sm"*/}
-          {/*    onClick={clearFilters}*/}
-          {/*    className="gap-2"*/}
-          {/*  >*/}
-          {/*    <X className="h-4 w-4" />*/}
-          {/*    Clear*/}
-          {/*  </Button>*/}
-          {/*)}*/}
+          {hasActiveFilters && (
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={resetFilters}
+              className="gap-2"
+            >
+              <X className="h-4 w-4" />
+              Clear
+            </Button>
+          )}
         </div>
-        {/*{hasActiveFilters && (*/}
-        {/*  <div className="mt-3 text-sm text-muted-foreground">*/}
-        {/*    Showing {filteredProjects.length} of {projects.length}{" "}*/}
-        {/*    projects*/}
-        {/*  </div>*/}
-        {/*)}*/}
+        {hasActiveFilters && (
+          <div className="mt-3 text-sm text-muted-foreground">
+            Showing {projects.length} of {totalCount} projects
+          </div>
+        )}
       </CardContent>
     </Card>
   );

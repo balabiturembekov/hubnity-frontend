@@ -19,7 +19,7 @@ import { useFilteredEmployees } from "../hooks/use-filtered-employees";
 import { useEmployeesStore } from "../model/employees.store";
 
 export const EmployeesFilterForm = () => {
-  const { employees, totalCount } = useFilteredEmployees();
+  const { employees, totalCount, hasActiveFilters } = useFilteredEmployees();
   const {
     searchQuery,
     roleFilter,
@@ -29,9 +29,6 @@ export const EmployeesFilterForm = () => {
     setStatusFilter,
     resetFilters,
   } = useEmployeesStore();
-
-  const hasActiveFilters =
-    searchQuery.trim() !== "" || roleFilter !== "all" || statusFilter !== "all";
 
   return (
     <Card className="transition-shadow hover:shadow-md">

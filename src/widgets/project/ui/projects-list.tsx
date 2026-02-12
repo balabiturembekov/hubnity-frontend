@@ -2,7 +2,7 @@
 
 import { FolderOpen } from "lucide-react";
 import { ProjectCard } from "@/entities/project";
-import { useGetProjectsQuery } from "@/entities/project/model/queries/use-get-projects.query";
+import { useFilteredProjects } from "@/features/project/hooks/use-filtered-projects";
 import { Badge } from "@/shared/ui/badge";
 import { Card, CardContent } from "@/shared/ui/card";
 import { EmptyState } from "@/widgets/empty-state";
@@ -11,9 +11,9 @@ import { ProjectsListEmpty } from "./projects-list-empty";
 import { ProjectsListSkeleton } from "./projects-list-skeleton";
 
 export const ProjectsList = () => {
-  const { data: projects, isPending, isError } = useGetProjectsQuery();
+  const { projects, isLoading, isError } = useFilteredProjects();
 
-  if (isPending) {
+  if (isLoading) {
     return <ProjectsListSkeleton />;
   }
 

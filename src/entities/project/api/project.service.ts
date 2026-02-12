@@ -7,7 +7,7 @@ import { api } from "@/shared/config/api";
 
 class ProjectService {
   async getProjects() {
-    const res = await api<ProjectEntity[]>("/projectss");
+    const res = await api<ProjectEntity[]>("/projects");
     return res.data;
   }
 
