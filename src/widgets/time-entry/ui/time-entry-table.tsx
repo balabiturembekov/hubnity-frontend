@@ -1,7 +1,7 @@
 "use client";
 
 import { format } from "date-fns";
-import { Camera, Clock, Download, FileText, Search } from "lucide-react";
+import { Camera, Clock, FileText, Search } from "lucide-react";
 import { useMemo, useState } from "react";
 import { useGetProjectsQuery } from "@/entities/project";
 import {
@@ -40,6 +40,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/shared/ui/tooltip";
+import { ExportDialog } from "@/widgets/export";
 import { DashboardSectionHeader } from "@/widgets/header";
 import { ScreenshotGallery } from "@/widgets/screenshot-gallery";
 
@@ -161,17 +162,7 @@ export function TimeEntriesTable({
       <DashboardSectionHeader
         title="Time Entries"
         icon={FileText}
-        actionChildren={
-          <Button
-            // onClick={() => setExportDialogOpen(true)}
-            variant="outline"
-            size="sm"
-            className="gap-2"
-          >
-            <Download className="h-4 w-4" />
-            Export
-          </Button>
-        }
+        actionChildren={<ExportDialog buttonLabel="Export" />}
       >
         <Badge variant="secondary" className="ml-2">
           {timeEntries?.length ?? 0}

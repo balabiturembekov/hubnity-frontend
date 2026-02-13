@@ -21,7 +21,11 @@ import {
   SelectValue,
 } from "@/shared/ui/select";
 
-export function ExportDialog() {
+interface ExportDialogProps {
+  buttonLabel?: string;
+}
+
+export function ExportDialog({ buttonLabel }: ExportDialogProps) {
   const {
     exportType,
     setExportType,
@@ -50,11 +54,11 @@ export function ExportDialog() {
     <>
       <Button onClick={() => setOpen(true)} variant="outline" className="gap-2">
         <Download className="h-4 w-4" />
-        Export Data
+        {buttonLabel ? buttonLabel : "Export Data"}
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="sm:max-w-[425px] z-10">
+        <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>Export Data</DialogTitle>
             <DialogDescription>
