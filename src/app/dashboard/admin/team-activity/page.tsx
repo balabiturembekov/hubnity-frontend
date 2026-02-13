@@ -1,16 +1,24 @@
 "use client";
 
-import { useUser } from "@/entities/user";
+import { useUser, useUserStore } from "@/entities/user";
 import {
   ExportTeamActivityCSV,
   MembersTable,
-  SummaryCards,
   TeamActivityFilterForm,
 } from "@/features/team-activity";
 import { DashboardPageHeader } from "@/widgets/header";
+import {
+  SummaryCards,
+  TeamActivityPageSkeleton,
+} from "@/widgets/team-activity";
 
 export default function AdminTeamActivityPage() {
   const { isAdmin } = useUser();
+  const { user, isInitializing } = useUserStore();
+
+  if (isInitializing || !user) {
+    return <TeamActivityPageSkeleton />;
+  }
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">

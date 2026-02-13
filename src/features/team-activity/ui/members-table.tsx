@@ -42,9 +42,13 @@ export const MembersTable = () => {
         <div className="flex items-center gap-2">
           <Activity className="h-5 w-5 text-primary" />
           <CardTitle>{isAdmin ? "Team Members" : "My Activity"}</CardTitle>
-          <Badge variant="secondary" className="ml-2">
-            {teamActivity?.members.length}
-          </Badge>
+          {isLoading ? (
+            <Skeleton className="h-5 w-8" />
+          ) : (
+            <Badge variant="secondary" className="ml-2">
+              {teamActivity?.members.length}
+            </Badge>
+          )}
         </div>
         <CardDescription>
           {isAdmin

@@ -2,13 +2,15 @@ import { format } from "date-fns";
 import { Calendar, Clock, DollarSign, Users } from "lucide-react";
 import { periodsLabels } from "@/entities/team-activity";
 import { useUser } from "@/entities/user";
+import { useTeamActivityStore } from "@/features/team-activity";
 import { useTimeEntry } from "@/features/time-entry";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
-import { useTeamActivityStore } from "../model/team-activity.store";
+import { SummaryCardsSkeleton } from "./summary-cards-skeleton";
 
 export const SummaryCards = () => {
   const { isAdmin } = useUser();
   const {
+    isPending,
     totalMembers,
     totalEarned,
     avgHoursPerMember,
@@ -18,6 +20,10 @@ export const SummaryCards = () => {
     teamActivityTotalHours,
   } = useTimeEntry();
   const { period } = useTeamActivityStore();
+
+  if (isPending) {
+    return <SummaryCardsSkeleton />;
+  }
 
   return (
     <div

@@ -17,6 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui/select";
+import { Skeleton } from "@/shared/ui/skeleton";
 import { useFilteredTeamActivity } from "../hooks/use-filtered-team-activity";
 import { useTeamActivityStore } from "../model/team-activity.store";
 
@@ -31,7 +32,8 @@ export const TeamActivityFilterForm = () => {
     setProjectId,
     reset,
   } = useTeamActivityStore();
-  const { hasActiveFilters, projects, employees } = useFilteredTeamActivity();
+  const { hasActiveFilters, projects, employees, isLoading } =
+    useFilteredTeamActivity();
 
   if (!isAdmin) return null;
 
@@ -58,54 +60,66 @@ export const TeamActivityFilterForm = () => {
         <div className="grid gap-4 md:grid-cols-3">
           <div className="space-y-2">
             <Label htmlFor="period-filter">Period</Label>
-            <Select value={period} onValueChange={setPeriod}>
-              <SelectTrigger id="period-filter">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                {Object.values(TeamActivityPeriod).map((period) => (
-                  <SelectItem key={period} value={period}>
-                    {periodsLabels[period]}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            {isLoading ? (
+              <Skeleton className="h-10 w-full" />
+            ) : (
+              <Select value={period} onValueChange={setPeriod}>
+                <SelectTrigger id="period-filter">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.values(TeamActivityPeriod).map((period) => (
+                    <SelectItem key={period} value={period}>
+                      {periodsLabels[period]}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="member-filter">Team Member</Label>
-            <Select value={userId} onValueChange={setUserId}>
-              <SelectTrigger id="member-filter">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Members</SelectItem>
-                {employees
-                  .filter((u) => u.status === "ACTIVE")
-                  .map((user) => (
-                    <SelectItem key={user.id} value={user.id}>
-                      {user.name}
-                    </SelectItem>
-                  ))}
-              </SelectContent>
-            </Select>
+            {isLoading ? (
+              <Skeleton className="h-10 w-full" />
+            ) : (
+              <Select value={userId} onValueChange={setUserId}>
+                <SelectTrigger id="member-filter">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Members</SelectItem>
+                  {employees
+                    .filter((u) => u.status === "ACTIVE")
+                    .map((user) => (
+                      <SelectItem key={user.id} value={user.id}>
+                        {user.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="project-filter">Project</Label>
-            <Select value={projectId} onValueChange={setProjectId}>
-              <SelectTrigger id="project-filter">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Projects</SelectItem>
-                {projects
-                  .filter((p) => p.status === "ACTIVE")
-                  .map((project) => (
-                    <SelectItem key={project.id} value={project.id}>
-                      {project.name}
-                    </SelectItem>
-                  ))}
-              </SelectContent>
-            </Select>
+            {isLoading ? (
+              <Skeleton className="h-10 w-full" />
+            ) : (
+              <Select value={projectId} onValueChange={setProjectId}>
+                <SelectTrigger id="project-filter">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Projects</SelectItem>
+                  {projects
+                    .filter((p) => p.status === "ACTIVE")
+                    .map((project) => (
+                      <SelectItem key={project.id} value={project.id}>
+                        {project.name}
+                      </SelectItem>
+                    ))}
+                </SelectContent>
+              </Select>
+            )}
           </div>
         </div>
       </CardContent>
