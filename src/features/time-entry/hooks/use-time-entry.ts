@@ -1,11 +1,15 @@
 import { useMemo } from "react";
-import { useGetTimeEntriesQuery } from "@/entities/time-entry";
+import {
+  useGetActiveTimeEntriesQuery,
+  useGetTimeEntriesQuery,
+} from "@/entities/time-entry";
 import { useUserStore } from "@/entities/user";
 import { formatDurationFull } from "@/shared/lib/utils";
 
 export const useTimeEntry = () => {
   const { user } = useUserStore();
   const { data: timeEntries, isPending } = useGetTimeEntriesQuery();
+  const { data: activeTimeEntries } = useGetActiveTimeEntriesQuery();
 
   const stats = useMemo(() => {
     if (!timeEntries?.length || !user) {
@@ -25,6 +29,8 @@ export const useTimeEntry = () => {
         myActiveEntries: 0,
         myTotalEntries: 0,
         myEntries: [],
+        totalTime: 0,
+        activeTimeEntries: 0,
       };
     }
 
@@ -116,12 +122,14 @@ export const useTimeEntry = () => {
       myMonthTime: formatDurationFull(myMonthDuration),
       myActiveEntries: myActiveEntries.length,
       myTotalEntries: myEntries.length,
+      totalTime: formatDurationFull(totalDuration),
       myEntries,
     };
   }, [timeEntries, user]);
 
   return {
     ...stats,
+    activeTimeEntries,
     isPending,
   };
 };

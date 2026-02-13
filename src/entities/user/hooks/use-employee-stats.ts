@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { useGetEmployeesQuery } from "../model/queries/use-get-employees.query";
+import { useGetEmployeesQuery } from "@/entities/user";
 
 export const useEmployeeStats = () => {
   const { data: users = [], isLoading, isError } = useGetEmployeesQuery();

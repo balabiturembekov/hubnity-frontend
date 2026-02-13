@@ -1,6 +1,8 @@
+import type { ReactNode } from "react";
+
 interface DashboardHeaderProps extends React.PropsWithChildren {
-  title: string;
-  subTitle?: string;
+  title: string | ReactNode;
+  subTitle?: string | ReactNode;
 }
 
 export const DashboardPageHeader = ({

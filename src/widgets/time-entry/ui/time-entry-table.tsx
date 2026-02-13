@@ -328,7 +328,7 @@ export function TimeEntriesTable({
                                 Live
                               </span>
                             ) : (
-                              formatDurationFull(entry.duration / 3600)
+                              formatDurationFull(entry.duration)
                             )}
                           </TableCell>
                           <TableCell>
