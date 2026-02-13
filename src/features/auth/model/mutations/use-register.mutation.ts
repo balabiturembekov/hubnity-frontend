@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -10,20 +10,26 @@ import type { RegisterReq, RegisterRes } from "../auth.types";
 export const useRegisterMutation = () => {
   const setUser = useUserStore((s) => s.setUser);
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   return useMutation<RegisterRes, Error, RegisterReq>({
     mutationKey: ["register"],
     mutationFn: (payload) => authService.register(payload),
     onSuccess: (data) => {
       const { user, refresh_token, access_token } = data;
+
+      queryClient.clear();
+
       Cookies.set("access_token", access_token, {
         sameSite: "strict",
       });
       Cookies.set("refresh_token", refresh_token, {
         sameSite: "strict",
       });
-      router.push("/dashboard");
+
       setUser(user);
+
+      router.push("/dashboard");
     },
     onError: (error) => {
       toast.error(

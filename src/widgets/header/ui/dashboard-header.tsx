@@ -3,7 +3,7 @@
 import { Bell, LogOut, Settings } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { UserAvatar, useUserStore } from "@/entities/user";
-import { authService } from "@/features/auth";
+import { useLogoutMutation } from "@/features/auth";
 import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,
@@ -24,12 +24,17 @@ import { DashboardHeaderSkeleton } from "./dashboard-header-skeleton";
 export const DashboardHeader = () => {
   const router = useRouter();
   const { user } = useUserStore();
+  const { mutateAsync: logout } = useLogoutMutation();
 
   if (!user) return <DashboardHeaderSkeleton />;
 
   const handleLogout = async () => {
-    await authService.logout();
-    router.replace("/login");
+    try {
+      await logout();
+    } catch {
+    } finally {
+      router.replace("/login");
+    }
   };
 
   return (
