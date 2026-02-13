@@ -1,13 +1,7 @@
 import { useMemo } from "react";
 import { useGetTimeEntriesQuery } from "@/entities/time-entry";
 import { useUserStore } from "@/entities/user";
-
-const formatDuration = (seconds: number): string => {
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const secs = seconds % 60;
-  return `${hours}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-};
+import { formatDurationFull } from "@/shared/lib/utils";
 
 export const useTimeEntry = () => {
   const { user } = useUserStore();
@@ -18,16 +12,26 @@ export const useTimeEntry = () => {
       return {
         entriesCount: 0,
         todayEntries: 0,
-        todayTime: "0:00:00",
-        weekTime: "0:00:00",
-        monthTime: "0:00:00",
-        todayHours: "0.00",
-        totalHours: "0.00",
+        todayTime: "00:00:00",
+        weekTime: "00:00:00",
+        monthTime: "00:00:00",
+        todayHours: 0,
+        totalHours: 0,
+
+        myTotalTime: "00:00:00",
+        myTodayTime: "00:00:00",
+        myWeekTime: "00:00:00",
+        myMonthTime: "00:00:00",
+        myActiveEntries: 0,
+        myTotalEntries: 0,
+        myEntries: [],
       };
     }
 
-    // Filter entries for current user
-    const userEntries = timeEntries.filter((entry) => entry.userId === user.id);
+    const myEntries = timeEntries.filter((entry) => entry.userId === user.id);
+    const myActiveEntries = myEntries.filter(
+      (entry) => entry.status === "RUNNING",
+    );
 
     const now = new Date();
     const startOfToday = new Date(
@@ -40,13 +44,24 @@ export const useTimeEntry = () => {
     startOfWeek.setHours(0, 0, 0, 0);
     const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    const todayEntries = userEntries.filter(
+    const todayEntries = timeEntries.filter(
       (entry) => new Date(entry.startTime) >= startOfToday,
     );
-    const weekEntries = userEntries.filter(
+    const myTodayEntries = myEntries.filter(
+      (entry) => new Date(entry.startTime) >= startOfToday,
+    );
+
+    const weekEntries = timeEntries.filter(
       (entry) => new Date(entry.startTime) >= startOfWeek,
     );
-    const monthEntries = userEntries.filter(
+    const myWeekEntries = myEntries.filter(
+      (entry) => new Date(entry.startTime) >= startOfWeek,
+    );
+
+    const monthEntries = timeEntries.filter(
+      (entry) => new Date(entry.startTime) >= startOfMonth,
+    );
+    const myMonthEntries = myEntries.filter(
       (entry) => new Date(entry.startTime) >= startOfMonth,
     );
 
@@ -54,30 +69,54 @@ export const useTimeEntry = () => {
       (sum, entry) => sum + entry.duration,
       0,
     );
+    const myTodayDuration = myTodayEntries.reduce(
+      (sum, entry) => sum + entry.duration,
+      0,
+    );
+
     const weekDuration = weekEntries.reduce(
       (sum, entry) => sum + entry.duration,
       0,
     );
+    const myWeekDuration = myWeekEntries.reduce(
+      (sum, entry) => sum + entry.duration,
+      0,
+    );
+
     const monthDuration = monthEntries.reduce(
       (sum, entry) => sum + entry.duration,
       0,
     );
-    const totalDuration = userEntries.reduce(
+    const myMonthDuration = myMonthEntries.reduce(
       (sum, entry) => sum + entry.duration,
       0,
     );
 
-    const todayHours = (todayDuration / 3600).toFixed(2);
-    const totalHours = (totalDuration / 3600).toFixed(2);
+    const totalDuration = timeEntries.reduce(
+      (sum, entry) => sum + entry.duration,
+      0,
+    );
+    const myTotalDuration = myEntries.reduce(
+      (sum, entry) => sum + entry.duration,
+      0,
+    );
 
     return {
       entriesCount: todayEntries.length,
       todayEntries: todayEntries.length,
-      todayTime: formatDuration(todayDuration),
-      weekTime: formatDuration(weekDuration),
-      monthTime: formatDuration(monthDuration),
-      todayHours,
-      totalHours,
+      todayTime: formatDurationFull(todayDuration),
+      weekTime: formatDurationFull(weekDuration),
+      monthTime: formatDurationFull(monthDuration),
+      todayHours: (todayDuration / 3600).toFixed(2),
+      totalHours: (totalDuration / 3600).toFixed(2),
+
+      myTotalTime: formatDurationFull(myTotalDuration),
+      myTodayTime: formatDurationFull(myTodayDuration),
+      myWeekTime: formatDurationFull(myWeekDuration),
+      myMonthTime: formatDurationFull(myMonthDuration),
+      myActiveEntries: myActiveEntries.length,
+      myTotalEntries: myEntries.length,
+      myEntries,
     };
   }, [timeEntries, user]);
 

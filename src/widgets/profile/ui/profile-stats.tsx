@@ -1,8 +1,11 @@
 import { Calendar, Clock, FileText, TrendingUp } from "lucide-react";
-import { formatDurationFull } from "@/shared/lib/utils";
+import { useTimeEntry } from "@/features/time-entry";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 
 export const ProfileStats = () => {
+  const { myTotalEntries, myTotalTime, myTodayTime, myWeekTime, myMonthTime } =
+    useTimeEntry();
+
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
       <Card className="transition-shadow hover:shadow-md">
@@ -11,14 +14,9 @@ export const ProfileStats = () => {
           <Clock className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">
-            {/* COMMENT */}
-            {/* {formatDurationFull(totalHours)} */}
-            {formatDurationFull(1)}
-          </div>
+          <div className="text-2xl font-bold">{myTotalTime}</div>
           <p className="text-xs text-muted-foreground">
-            {/* COMMENT */}
-            {/* {totalEntries} entries tracked */}1 entries tracked
+            {myTotalEntries} entries tracked
           </p>
         </CardContent>
       </Card>
@@ -29,11 +27,7 @@ export const ProfileStats = () => {
           <Calendar className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">
-            {/* COMMENT */}
-            {/* {formatDurationFull(todayHours)} */}
-            {formatDurationFull(1)}
-          </div>
+          <div className="text-2xl font-bold">{myTodayTime}</div>
           <p className="text-xs text-muted-foreground">Hours tracked today</p>
         </CardContent>
       </Card>
@@ -44,11 +38,7 @@ export const ProfileStats = () => {
           <TrendingUp className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">
-            {/* COMMENT */}
-            {/* {formatDurationFull(weekHours)} */}
-            {formatDurationFull(1)}
-          </div>
+          <div className="text-2xl font-bold">{myWeekTime}</div>
           <p className="text-xs text-muted-foreground">Last 7 days</p>
         </CardContent>
       </Card>
@@ -59,10 +49,7 @@ export const ProfileStats = () => {
           <FileText className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">
-            {/* {formatDurationFull(monthHours)} */}
-            {formatDurationFull(1)}
-          </div>
+          <div className="text-2xl font-bold">{myMonthTime}</div>
           <p className="text-xs text-muted-foreground">Last 30 days</p>
         </CardContent>
       </Card>

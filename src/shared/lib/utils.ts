@@ -29,17 +29,16 @@ export const handleError = (
   return String(fallbackMessage);
 };
 
-export const formatDurationFull = (hours: number): string => {
-  if (!Number.isFinite(hours) || Number.isNaN(hours) || hours < 0) {
+export const formatDurationFull = (seconds: number): string => {
+  if (!Number.isFinite(seconds) || Number.isNaN(seconds) || seconds < 0) {
     return "0:00:00";
   }
 
-  const totalSeconds = Math.floor(hours * 3600);
-  const h = Math.floor(totalSeconds / 3600);
-  const m = Math.floor((totalSeconds % 3600) / 60);
-  const s = totalSeconds % 60;
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
 
-  return `${h}:${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+  return `${hours}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
 };
 
 export const greeting = () => {
