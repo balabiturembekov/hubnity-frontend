@@ -1,5 +1,9 @@
 import { format } from "date-fns";
 import { Activity, TrendingUp } from "lucide-react";
+import {
+  TeamActivityBadgeColor,
+  TeamActivityBadgeVariant,
+} from "@/entities/team-activity";
 import { UserAvatar, useUser } from "@/entities/user";
 import { formatDurationFull } from "@/shared/lib/utils";
 import {
@@ -31,32 +35,6 @@ import { useFilteredTeamActivity } from "../hooks/use-filtered-team-activity";
 export const MembersTable = () => {
   const { isAdmin } = useUser();
   const { teamActivity, isLoading } = useFilteredTeamActivity();
-
-  const getActivityBadgeVariant = (level: string) => {
-    switch (level) {
-      case "high":
-        return "default";
-      case "medium":
-        return "secondary";
-      case "low":
-        return "outline";
-      default:
-        return "outline";
-    }
-  };
-
-  const getActivityBadgeColor = (level: string) => {
-    switch (level) {
-      case "high":
-        return "bg-green-500/10 text-green-700 hover:bg-green-500/20 border-green-500/20";
-      case "medium":
-        return "bg-yellow-500/10 text-yellow-700 hover:bg-yellow-500/20 border-yellow-500/20";
-      case "low":
-        return "bg-muted/50 text-muted-foreground hover:bg-muted border-border";
-      default:
-        return "";
-    }
-  };
 
   return (
     <Card className="transition-shadow hover:shadow-md">
@@ -126,8 +104,16 @@ export const MembersTable = () => {
                         </div>
                       </div>
                       <Badge
-                        variant={getActivityBadgeVariant(member.activityLevel)}
-                        className={getActivityBadgeColor(member.activityLevel)}
+                        variant={
+                          TeamActivityBadgeVariant[
+                            member.activityLevel.toUpperCase() as keyof typeof TeamActivityBadgeVariant
+                          ]
+                        }
+                        className={
+                          TeamActivityBadgeColor[
+                            member.activityLevel.toUpperCase() as keyof typeof TeamActivityBadgeColor
+                          ]
+                        }
                       >
                         {member.activityLevel}
                       </Badge>

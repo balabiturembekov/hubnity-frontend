@@ -44,3 +44,15 @@ export enum TeamActivityPeriod {
   LAST_MONTH = "last_month",
   THIS_YEAR = "this_year",
 }
+
+export enum TeamActivityBadgeVariant {
+  HIGH = "default",
+  MEDIUM = "secondary",
+  LOW = "outline",
+}
+
+export enum TeamActivityBadgeColor {
+  HIGH = "bg-green-500/10 text-green-700 hover:bg-green-500/20 border-green-500/20",
+  MEDIUM = "bg-yellow-500/10 text-yellow-700 hover:bg-yellow-500/20 border-yellow-500/20",
+  LOW = "bg-muted/50 text-muted-foreground hover:bg-muted border-border",
+}

@@ -1,13 +1,12 @@
 "use client";
 
-import { Download } from "lucide-react";
 import { useUser } from "@/entities/user";
 import {
+  ExportTeamActivityCSV,
   MembersTable,
   SummaryCards,
   TeamActivityFilterForm,
 } from "@/features/team-activity";
-import { Button } from "@/shared/ui/button";
 import { DashboardPageHeader } from "@/widgets/header";
 
 export default function AdminTeamActivityPage() {
@@ -26,14 +25,7 @@ export default function AdminTeamActivityPage() {
                   : "View your time worked, activity levels, and amounts earned per project"
               }
             >
-              <Button
-                // onClick={handleExport}
-                variant="outline"
-                className="gap-2"
-              >
-                <Download className="h-4 w-4" />
-                Export CSV
-              </Button>
+              <ExportTeamActivityCSV />
             </DashboardPageHeader>
 
             <div className="p-6">
