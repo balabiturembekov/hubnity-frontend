@@ -19,7 +19,6 @@ export default function TrackingPage() {
             subTitle="Track your work time and manage your entries"
           >
             <ExportDialog />
-
             <Button variant="outline" className="gap-2" asChild>
               <Link href="/dashboard">
                 <ArrowRight className="h-4 w-4" />
