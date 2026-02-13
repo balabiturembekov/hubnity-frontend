@@ -65,7 +65,7 @@ export const formatDurationFull = (seconds: number): string => {
   const minutes = Math.floor((seconds % 3600) / 60);
   const secs = seconds % 60;
 
-  return `${hours}:${minutes.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
+  return `${hours}:${minutes.toString().padStart(2, "0")}:${secs.toFixed(0).padStart(2, "0")}`;
 };
 
 /**

@@ -1,6 +1,7 @@
 import type { Timestamps } from "@/shared/model/types";
 
 export type UserRole = "EMPLOYEE" | "ADMIN" | "OWNER" | "SUPER_ADMIN";
+export const ADMIN_ROLES: UserRole[] = ["ADMIN", "OWNER", "SUPER_ADMIN"];
 export type UserStatus = "ACTIVE" | "INACTIVE";
 
 export interface UserEntity extends Timestamps {

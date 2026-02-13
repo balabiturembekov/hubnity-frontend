@@ -1,18 +1,32 @@
 import { useMemo } from "react";
+import { useGetTeamActivityQuery } from "@/entities/team-activity";
 import {
   useGetActiveTimeEntriesQuery,
   useGetTimeEntriesQuery,
 } from "@/entities/time-entry";
-import { useUserStore } from "@/entities/user";
+import { useGetEmployeesQuery, useUserStore } from "@/entities/user";
+import { useTeamActivityStore } from "@/features/team-activity/model/team-activity.store";
 import { formatDurationFull } from "@/shared/lib/utils";
 
 export const useTimeEntry = () => {
   const { user } = useUserStore();
-  const { data: timeEntries, isPending } = useGetTimeEntriesQuery();
-  const { data: activeTimeEntries } = useGetActiveTimeEntriesQuery();
+  const { period, userId, projectId } = useTeamActivityStore();
+
+  const { data: timeEntries, isPending: isPendingTimeEntries } =
+    useGetTimeEntriesQuery();
+  const { data: activeTimeEntries, isPending: isPendingActiveTimeEntries } =
+    useGetActiveTimeEntriesQuery();
+  const { data: teamActivity, isPending: isPendingTeamActivity } =
+    useGetTeamActivityQuery(
+      period,
+      userId === "all" ? undefined : userId,
+      projectId === "all" ? undefined : projectId,
+    );
+  const { data: employees, isPending: isPendingEmployees } =
+    useGetEmployeesQuery();
 
   const stats = useMemo(() => {
-    if (!timeEntries?.length || !user) {
+    if (!timeEntries?.length || !user || !teamActivity || !employees?.length) {
       return {
         entriesCount: 0,
         todayEntries: 0,
@@ -31,6 +45,17 @@ export const useTimeEntry = () => {
         myEntries: [],
         totalTime: 0,
         activeTimeEntries: 0,
+
+        totalMembers: 0,
+        totalEarned: 0,
+        avgHoursPerMember: 0,
+        avgEarnedPerMember: 0,
+        timeActiveTotalHours: 0,
+        timeActivePeriod: {
+          startDate: new Date("2026-02-13T06:36:06.309Z"),
+          endDate: new Date("2026-02-13T06:36:06.309Z"),
+        },
+        teamActiveTotalHours: 0,
       };
     }
 
@@ -107,6 +132,20 @@ export const useTimeEntry = () => {
       0,
     );
 
+    const totalMembers = teamActivity.totalMembers;
+    const totalEarned = teamActivity.totalEarned;
+    const timeActiveTotalHours = teamActivity.members.reduce(
+      (sum, member) => sum + member.totalHours,
+      0,
+    );
+    const teamActivityTotalHours = teamActivity.members.reduce(
+      (sum, member) => sum + member.totalHours,
+      0,
+    );
+
+    const avgHoursPerMember = timeActiveTotalHours / totalMembers;
+    const avgEarnedPerMember = totalEarned / totalMembers;
+
     return {
       entriesCount: todayEntries.length,
       todayEntries: todayEntries.length,
@@ -124,12 +163,24 @@ export const useTimeEntry = () => {
       myTotalEntries: myEntries.length,
       totalTime: formatDurationFull(totalDuration),
       myEntries,
+
+      totalMembers,
+      totalEarned,
+      avgHoursPerMember,
+      avgEarnedPerMember,
+      timeActiveTotalHours,
+      timeActivePeriod: teamActivity.period,
+      teamActivityTotalHours: formatDurationFull(teamActivityTotalHours * 3600),
     };
-  }, [timeEntries, user]);
+  }, [timeEntries, teamActivity, user, employees]);
 
   return {
     ...stats,
     activeTimeEntries,
-    isPending,
+    isPending:
+      isPendingTimeEntries ||
+      isPendingTeamActivity ||
+      isPendingActiveTimeEntries ||
+      isPendingEmployees,
   };
 };
