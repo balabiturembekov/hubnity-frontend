@@ -14,22 +14,18 @@ export default function AdminReportsPage() {
       <TooltipProvider>
         <div className="flex h-screen overflow-auto bg-background">
           <div className="flex flex-1 flex-col">
-            <main className="flex-1 overflow-y-auto">
-              <div className="bg-linear-to-b from-primary/5 via-background to-background">
-                <DashboardPageHeader
-                  title="Reports"
-                  subTitle="Analyze time tracking data and generate insights"
-                >
-                  <ReportsPeriodSelect />
-                  <ExportDialog />
-                </DashboardPageHeader>
+            <main className="bg-linear-to-b from-primary/5 via-background to-background">
+              <DashboardPageHeader
+                title="Reports"
+                subTitle="Analyze time tracking data and generate insights"
+              >
+                <ReportsPeriodSelect />
+                <ExportDialog />
+              </DashboardPageHeader>
 
-                <div className="p-6">
-                  <div className="space-y-6">
-                    <ReportsStatsSection />
-                    <AnalyticsSection />
-                  </div>
-                </div>
+              <div className="p-6 space-y-6">
+                <ReportsStatsSection />
+                <AnalyticsSection />
               </div>
             </main>
           </div>

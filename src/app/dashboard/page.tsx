@@ -8,7 +8,7 @@ import { TimeEntriesTable } from "@/widgets/time-entry";
 
 export default function DashboardPage() {
   return (
-    <div className="flex h-screen overflow-auto bg-background">
+    <div className="flex overflow-auto bg-background">
       <div className="flex flex-1 flex-col">
         <main className="bg-linear-to-b from-primary/5 via-background to-background">
           <MainDashboardHeader />

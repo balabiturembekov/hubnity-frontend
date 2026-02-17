@@ -226,9 +226,9 @@ export function TimeEntriesTable({
             </Select>
           </div>
 
-          {/* Table */}
-          <div className="rounded-md border bg-white">
-            <Table>
+          {/* Table - scroll horizontally on small screens */}
+          <div className="w-full overflow-x-auto rounded-md border bg-white">
+            <Table className="min-w-[800px]">
               <TableHeader>
                 <TableRow>
                   {!isEmployee && <TableHead>User</TableHead>}

@@ -4,6 +4,7 @@ import {
   HourlyChart,
   MonthlyChart,
   ProjectsChart,
+  TopPerformers,
 } from "@/features/analytics";
 import { DashboardSectionHeader } from "@/widgets/header";
 
@@ -31,6 +32,7 @@ export const AnalyticsSection = ({
       {!isPreview && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           <ProjectsChart />
+          <TopPerformers />
         </div>
       )}
     </section>

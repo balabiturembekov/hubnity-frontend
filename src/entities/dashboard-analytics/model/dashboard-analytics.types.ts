@@ -69,3 +69,24 @@ export interface ByUser {
   entriesCount: number;
   avgEntryHours: number;
 }
+
+export interface WorkSession {
+  id: string;
+  startTime: string;
+  endTime: string;
+  durationSeconds: number;
+  durationHours: number;
+  description: string;
+  projectId: string;
+  projectName: string;
+  projectColor: string;
+  userId: string;
+  userName: string;
+  userEmail: string;
+}
+
+export interface GetAnalyticsWorkSessionsRes {
+  period: DashboardAnalyticsPeriod;
+  sessions: WorkSession[];
+  total: number;
+}

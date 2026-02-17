@@ -2,6 +2,7 @@ import type {
   DashboardAnalyticsResponse,
   GetAnalyticsHoursByDayRes,
   GetAnalyticsProductivityRes,
+  GetAnalyticsWorkSessionsRes,
   GetDashboardAnalyticsParams,
   GetHoursByProjectRes,
 } from "@/entities/dashboard-analytics/model/dashboard-analytics.types";
@@ -34,6 +35,14 @@ class DashboardAnalyticsService {
   async getProductivity(params?: GetDashboardAnalyticsParams) {
     const res = await api.get<GetAnalyticsProductivityRes>(
       "/analytics/productivity",
+      { params },
+    );
+    return res.data;
+  }
+
+  async getWorkSessions(params?: GetDashboardAnalyticsParams) {
+    const res = await api.get<GetAnalyticsWorkSessionsRes>(
+      "/analytics/work-sessions",
       { params },
     );
     return res.data;

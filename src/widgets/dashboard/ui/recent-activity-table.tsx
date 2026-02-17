@@ -1,9 +1,12 @@
 "use client";
 
-import { Expand, History, UserRound } from "lucide-react";
+import { Expand, History, Images, UserRound } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-import { useScreenshotsByTimeEntryQuery } from "@/entities/screenshot";
+import {
+  type ScreenshotEntity,
+  useScreenshotsByTimeEntryQuery,
+} from "@/entities/screenshot";
 import type { TimeEntryEntity } from "@/entities/time-entry";
 import { useGetTimeEntriesQuery } from "@/entities/time-entry";
 import { ScreenshotFullscreenViewer } from "@/features/screenshot-viewer";
@@ -12,15 +15,18 @@ import { formatDate } from "@/shared/lib/utils";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent } from "@/shared/ui/card";
+import { EmptyState } from "@/widgets/empty-state";
 import { DashboardSectionHeader } from "@/widgets/header";
 
-function RecentActivityItem({ id, user }: TimeEntryEntity) {
+interface RecentActivityItemProps extends TimeEntryEntity {
+  screenshots: ScreenshotEntity[];
+}
+
+function RecentActivityItem({ user, screenshots }: RecentActivityItemProps) {
   const [viewerOpen, setViewerOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const { data: screenshots } = useScreenshotsByTimeEntryQuery(id);
-
-  if (!screenshots) {
+  if (!screenshots.length) {
     return null;
   }
 
@@ -39,9 +45,9 @@ function RecentActivityItem({ id, user }: TimeEntryEntity) {
           <span className="text-sm font-medium">{user.name}</span>
         </div>
 
-        <div className="flex items-center justify-between gap-3 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
           {screenshots.slice(0, 3).map((screenshot, index) => (
-            <div key={screenshot.id} className="relative group">
+            <div key={screenshot.id} className="relative group w-fit">
               <Badge className="bg-yellow-500 absolute -top-2 -right-2 z-5 shadow-lg">
                 50%
               </Badge>
@@ -84,18 +90,59 @@ function RecentActivityItem({ id, user }: TimeEntryEntity) {
 }
 
 export function RecentActivityTable() {
-  const { data: entries } = useGetTimeEntriesQuery({ limit: 3 });
+  const { data: entries, isPending } = useGetTimeEntriesQuery({ limit: 3 });
 
-  if (!entries) return <div>Loading...</div>;
+  const entryId0 = entries?.[0]?.id ?? "";
+  const entryId1 = entries?.[1]?.id ?? "";
+  const entryId2 = entries?.[2]?.id ?? "";
+
+  const screenshots0 = useScreenshotsByTimeEntryQuery(entryId0);
+  const screenshots1 = useScreenshotsByTimeEntryQuery(entryId1);
+  const screenshots2 = useScreenshotsByTimeEntryQuery(entryId2);
+
+  const isPendingScreenshots =
+    (!!entryId0 && screenshots0.isPending) ||
+    (!!entryId1 && screenshots1.isPending) ||
+    (!!entryId2 && screenshots2.isPending);
+
+  const hasAnyScreenshots =
+    (screenshots0.data?.length ?? 0) > 0 ||
+    (screenshots1.data?.length ?? 0) > 0 ||
+    (screenshots2.data?.length ?? 0) > 0;
+
+  const hasEntries = entries && entries.length > 0;
+  const showEmptyState =
+    hasEntries && !isPending && !isPendingScreenshots && !hasAnyScreenshots;
+
+  if (!entries || isPending) return <div>Loading...</div>;
 
   return (
     <section className="space-y-4">
       <DashboardSectionHeader title="Recent Activity" icon={History} />
       <Card>
         <CardContent className="flex flex-col gap-8">
-          {entries.map((activity) => (
-            <RecentActivityItem {...activity} key={activity.id} />
-          ))}
+          {showEmptyState ? (
+            <EmptyState
+              icon={<Images className="h-12 w-12 mx-auto" />}
+              title="No screenshots yet"
+              description="Recent time entries don't have any screenshots. Start tracking time with screenshots to see activity here."
+              className="py-8"
+            />
+          ) : (
+            entries.map((activity, index) => {
+              const screenshotsByEntry =
+                [screenshots0.data, screenshots1.data, screenshots2.data][
+                  index
+                ] ?? [];
+              return (
+                <RecentActivityItem
+                  key={activity.id}
+                  {...activity}
+                  screenshots={screenshotsByEntry}
+                />
+              );
+            })
+          )}
         </CardContent>
       </Card>
     </section>
