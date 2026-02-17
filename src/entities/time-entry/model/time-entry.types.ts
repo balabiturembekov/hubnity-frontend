@@ -28,6 +28,10 @@ export interface TimeEntryEntity extends Timestamps {
   project: Project | null;
 }
 
+export interface getTimeEntriesParams {
+  limit?: number;
+}
+
 export interface CreateTimeEntryReq {
   userId: string;
   projectId?: string | null;

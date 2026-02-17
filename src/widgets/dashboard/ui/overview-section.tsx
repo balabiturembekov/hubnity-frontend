@@ -1,46 +1,49 @@
 "use client";
 
 import { Activity, Clock, Folder, TrendingUp, Users } from "lucide-react";
-import { useGetProjectsQuery } from "@/entities/project";
+import { useGetDashboardAnalyticsQuery } from "@/entities/dashboard-analytics";
 import { StatsCard } from "@/entities/stats";
-import { useTimeEntry } from "@/features/time-entry";
 import { DashboardSectionHeader } from "@/widgets/header";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const OverviewSection = () => {
-  const { data: projects } = useGetProjectsQuery();
-  const { todayTime, totalTime, activeTimeEntries, isPending } = useTimeEntry();
+  const { data: periodStats, isPending: isPeriodPending } =
+    useGetDashboardAnalyticsQuery({ period: "30days" });
+  const { data: todayStats, isPending: isTodayPending } =
+    useGetDashboardAnalyticsQuery({ period: "today" });
+
+  const isPending = isPeriodPending || isTodayPending;
 
   return (
     <section className="space-y-4">
       <DashboardSectionHeader title="Overview" icon={Activity} />
 
-      {!projects || !activeTimeEntries || isPending ? (
+      {!periodStats || !todayStats || isPending ? (
         <StatsCardsSkeleton />
       ) : (
-        <div className="flex items-center gap-4 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full">
           <StatsCard
             title="Total Hours"
             icon={Clock}
-            stat={totalTime}
-            description="All time tracked"
+            stat={periodStats.totalHours.toFixed(2)}
+            description="Last 30 days"
           />
           <StatsCard
             title="Active Users"
             icon={Users}
-            stat={activeTimeEntries.length}
-            description="Currently tracking"
+            stat={periodStats.activeUsersCount}
+            description="In the period"
           />
           <StatsCard
             title="Projects"
             icon={Folder}
-            stat={projects.length}
+            stat={periodStats.activeProjectsCount}
             description="Active projects"
           />
           <StatsCard
             title="Today"
             icon={TrendingUp}
-            stat={todayTime}
+            stat={todayStats.totalHours.toFixed(2)}
             description="Hours today"
           />
         </div>

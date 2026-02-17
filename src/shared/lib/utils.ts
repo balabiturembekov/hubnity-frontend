@@ -1,5 +1,6 @@
 import { AxiosError } from "axios";
 import { type ClassValue, clsx } from "clsx";
+import { format } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
 /**
@@ -115,3 +116,13 @@ export function formatHours(seconds: number | undefined): string {
   const hours = seconds / 3600;
   return hours.toFixed(2);
 }
+
+/**
+ * Formats a timestamp into: "Fri, Feb 13, 2026 12:10 pm"
+ *
+ * @param timestamp - A number (ms), ISO string, or Date instance
+ * @returns Formatted date string in "EEE, MMM d, yyyy hh:mm am/pm" format
+ */
+export const formatDate = (timestamp: number | string | Date) => {
+  return format(new Date(timestamp), "EEE, MMM d, yyyy hh:mma");
+};

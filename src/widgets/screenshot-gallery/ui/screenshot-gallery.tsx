@@ -9,6 +9,7 @@ import {
   useDeleteScreenshotMutation,
   useScreenshotsByTimeEntryQuery,
 } from "@/entities/screenshot";
+import { apiUrl } from "@/shared/config/env";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -41,6 +42,7 @@ export function ScreenshotGallery({
 }: ScreenshotGalleryProps) {
   const { data: screenshots, isLoading } = useScreenshotsByTimeEntryQuery(
     timeEntryId,
+    undefined,
     { enabled: open },
   );
   const { mutate: deleteScreenshot, isPending: isDeleting } =
@@ -128,12 +130,12 @@ export function ScreenshotGallery({
                 >
                   <div className="aspect-video relative bg-muted">
                     <Image
-                      src={screenshot.thumbnailUrl || screenshot.imageUrl}
+                      src={`${apiUrl}${screenshot.imageUrl}`}
                       alt={`Screenshot ${new Date(screenshot.timestamp).toISOString()}`}
                       className="w-full h-full object-cover"
                       loading="lazy"
-                      width={50}
-                      height={50}
+                      width={137}
+                      height={77}
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
                       <Button

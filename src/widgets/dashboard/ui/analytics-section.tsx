@@ -1,8 +1,19 @@
 import { BarChart3 } from "lucide-react";
-import { DailyChart, HourlyChart } from "@/features/analytics";
+import {
+  DailyChart,
+  HourlyChart,
+  MonthlyChart,
+  ProjectsChart,
+} from "@/features/analytics";
 import { DashboardSectionHeader } from "@/widgets/header";
 
-export const AnalyticsSection = () => {
+interface AnalyticsSectionProps {
+  isPreview?: boolean;
+}
+
+export const AnalyticsSection = ({
+  isPreview = false,
+}: AnalyticsSectionProps) => {
   return (
     <section className="space-y-4">
       <DashboardSectionHeader
@@ -11,10 +22,17 @@ export const AnalyticsSection = () => {
         link={{ label: "View All Reports", href: "/dashboard/admin/reports" }}
       />
 
-      <div className="flex items-center gap-6 w-full">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <HourlyChart />
         <DailyChart />
       </div>
+
+      {!isPreview && <MonthlyChart />}
+      {!isPreview && (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <ProjectsChart />
+        </div>
+      )}
     </section>
   );
 };

@@ -26,13 +26,13 @@ export function DailyChart() {
 
   if (isPending) {
     return (
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <CardTitle>Daily Hours</CardTitle>
           <CardDescription>Hours tracked over the last 7 days</CardDescription>
         </CardHeader>
         <CardContent>
-          <Skeleton className="h-[300px] w-full" />
+          <Skeleton className="h-75 w-full" />
         </CardContent>
       </Card>
     );

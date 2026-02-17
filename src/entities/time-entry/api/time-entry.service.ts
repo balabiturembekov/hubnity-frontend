@@ -1,13 +1,14 @@
 import type {
   CreateTimeEntryReq,
+  getTimeEntriesParams,
   TimeEntryEntity,
   UpdateTimeEntryReq,
 } from "@/entities/time-entry/model/time-entry.types";
 import { api } from "@/shared/config/api";
 
 class TimeEntryService {
-  async getTimeEntries() {
-    const res = await api.get<TimeEntryEntity[]>("/time-entries");
+  async getTimeEntries(params?: getTimeEntriesParams) {
+    const res = await api.get<TimeEntryEntity[]>("/time-entries", { params });
     return res.data;
   }
 

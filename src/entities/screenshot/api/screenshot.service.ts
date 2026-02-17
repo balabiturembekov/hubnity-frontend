@@ -1,4 +1,8 @@
-import type { ScreenshotEntity } from "@/entities/screenshot/model/screenshot.types";
+import type {
+  GetScreenshotReq,
+  GetScreenshotsParams,
+  ScreenshotEntity,
+} from "@/entities/screenshot/model/screenshot.types";
 import { api } from "@/shared/config/api";
 
 class ScreenshotService {
@@ -7,9 +11,15 @@ class ScreenshotService {
     return res.data;
   }
 
-  async getScreenshotsByTimeEntry(timeEntryId: string) {
+  async getScreenshotsByTimeEntry(
+    { id }: GetScreenshotReq,
+    params?: GetScreenshotsParams,
+  ) {
     const res = await api.get<ScreenshotEntity[]>(
-      `/screenshots/time-entry/${timeEntryId}`,
+      `/screenshots/time-entry/${id}`,
+      {
+        params,
+      },
     );
     return res.data;
   }
@@ -18,5 +28,4 @@ class ScreenshotService {
     await api.delete(`/screenshots/${id}`);
   }
 }
-
 export const screenshotService = new ScreenshotService();

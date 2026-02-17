@@ -16,7 +16,6 @@ import {
 import { formatDurationFull } from "@/shared/lib/utils";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
-import { Card, CardContent } from "@/shared/ui/card";
 import { Input } from "@/shared/ui/input";
 import {
   Select,
@@ -47,11 +46,13 @@ import { ScreenshotGallery } from "@/widgets/screenshot-gallery";
 interface TimeEntriesTableProps {
   userId?: string;
   showActions?: boolean;
+  isPreview?: boolean;
 }
 
 export function TimeEntriesTable({
   userId,
   showActions = true,
+  isPreview = false,
 }: TimeEntriesTableProps) {
   const { user: currentUser } = useUserStore();
   const { data: timeEntries, isLoading } = useGetTimeEntriesQuery();
@@ -162,238 +163,240 @@ export function TimeEntriesTable({
       <DashboardSectionHeader
         title="Time Entries"
         icon={FileText}
-        actionChildren={<ExportDialog buttonLabel="Export" />}
+        actionChildren={!isPreview && <ExportDialog buttonLabel="Export" />}
+        link={
+          isPreview
+            ? {
+                label: "View All",
+                href: "/dashboard/tracking",
+              }
+            : undefined
+        }
       >
-        <Badge variant="secondary" className="ml-2">
-          {timeEntries?.length ?? 0}
-        </Badge>
+        {!isPreview && (
+          <Badge variant="secondary" className="ml-2">
+            {timeEntries?.length ?? 0}
+          </Badge>
+        )}
       </DashboardSectionHeader>
 
-      <Card>
-        <CardContent>
-          <TooltipProvider>
-            <div className="space-y-4">
-              {/* Filters */}
-              <div className="flex flex-wrap gap-4">
-                <div className="flex-1 min-w-[200px]">
-                  <div className="relative flex items-center">
-                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input
-                      placeholder="Search entries..."
-                      value={searchTerm}
-                      onChange={(e) => setSearchTerm(e.target.value)}
-                      className="pl-8"
-                    />
-                  </div>
-                </div>
-                <Select value={projectFilter} onValueChange={setProjectFilter}>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="All projects" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All projects</SelectItem>
-                    <SelectItem value="none">No project</SelectItem>
-                    {projects
-                      ?.filter((p) => p.status === "ACTIVE")
-                      .map((project) => (
-                        <SelectItem key={project.id} value={project.id}>
-                          {project.name}
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
-                <Select value={dateFilter} onValueChange={setDateFilter}>
-                  <SelectTrigger className="w-[180px]">
-                    <SelectValue placeholder="All time" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All time</SelectItem>
-                    <SelectItem value="today">Today</SelectItem>
-                    <SelectItem value="week">Last 7 days</SelectItem>
-                    <SelectItem value="month">Last 30 days</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Table */}
-              <div className="rounded-md border">
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      {!isEmployee && <TableHead>User</TableHead>}
-                      <TableHead>Project</TableHead>
-                      <TableHead>Date</TableHead>
-                      <TableHead>Duration</TableHead>
-                      <TableHead>Status</TableHead>
-                      {showActions && (
-                        <TableHead className="text-right">Actions</TableHead>
-                      )}
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {isLoading ? (
-                      [1, 2, 3, 4, 5].map((i) => (
-                        <TableRow key={i}>
-                          {!isEmployee && (
-                            <TableCell>
-                              <Skeleton className="h-4 w-24" />
-                            </TableCell>
-                          )}
-                          <TableCell>
-                            <Skeleton className="h-4 w-20" />
-                          </TableCell>
-                          <TableCell>
-                            <Skeleton className="h-4 w-32" />
-                          </TableCell>
-                          <TableCell>
-                            <Skeleton className="h-4 w-16" />
-                          </TableCell>
-                          <TableCell>
-                            <Skeleton className="h-4 w-16" />
-                          </TableCell>
-                          {showActions && (
-                            <TableCell className="text-right">
-                              <Skeleton className="h-8 w-16 ml-auto" />
-                            </TableCell>
-                          )}
-                        </TableRow>
-                      ))
-                    ) : filteredEntries.length === 0 ? (
-                      <TableRow>
-                        <TableCell
-                          colSpan={
-                            showActions
-                              ? isEmployee
-                                ? 5
-                                : 6
-                              : isEmployee
-                                ? 4
-                                : 5
-                          }
-                          className="h-64"
-                        >
-                          <div className="flex flex-col items-center justify-center text-muted-foreground">
-                            <Clock className="h-12 w-12 mb-4" />
-                            <p className="text-lg font-medium">
-                              {searchTerm ||
-                              projectFilter !== "all" ||
-                              dateFilter !== "all"
-                                ? "No entries found"
-                                : "No time entries yet"}
-                            </p>
-                            <p className="text-sm">
-                              {searchTerm ||
-                              projectFilter !== "all" ||
-                              dateFilter !== "all"
-                                ? "Try adjusting your filters"
-                                : "Start tracking your time"}
-                            </p>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ) : (
-                      filteredEntries.map((entry) => (
-                        <TableRow key={entry.id}>
-                          {!isEmployee && (
-                            <TableCell className="font-medium">
-                              {entry.user.name}
-                            </TableCell>
-                          )}
-                          <TableCell>
-                            {entry.project ? (
-                              <Badge
-                                variant="outline"
-                                style={{
-                                  borderColor: getProjectColor(entry.projectId),
-                                  color: getProjectColor(entry.projectId),
-                                }}
-                              >
-                                {entry.project.name}
-                              </Badge>
-                            ) : (
-                              <span className="text-muted-foreground">
-                                No project
-                              </span>
-                            )}
-                          </TableCell>
-                          <TableCell>
-                            {format(
-                              new Date(entry.startTime),
-                              "MMM dd, yyyy HH:mm",
-                            )}
-                          </TableCell>
-                          <TableCell>
-                            {entry.status === "RUNNING" ? (
-                              <span className="text-primary font-medium">
-                                Live
-                              </span>
-                            ) : (
-                              formatDurationFull(entry.duration)
-                            )}
-                          </TableCell>
-                          <TableCell>
-                            <Badge
-                              variant={
-                                entry.status === "RUNNING"
-                                  ? "default"
-                                  : entry.status === "PAUSED"
-                                    ? "secondary"
-                                    : "outline"
-                              }
-                            >
-                              {entry.status}
-                            </Badge>
-                          </TableCell>
-                          {showActions && (
-                            <TableCell className="text-right">
-                              <div className="flex justify-end gap-2">
-                                <Tooltip>
-                                  <TooltipTrigger asChild>
-                                    <Button
-                                      variant="ghost"
-                                      size="icon"
-                                      onClick={() => {
-                                        setEntryForScreenshots(entry);
-                                        setScreenshotGalleryOpen(true);
-                                      }}
-                                    >
-                                      <Camera className="h-4 w-4" />
-                                    </Button>
-                                  </TooltipTrigger>
-                                  <TooltipContent>
-                                    <p>View screenshots</p>
-                                  </TooltipContent>
-                                </Tooltip>
-                                {canEdit(entry) && (
-                                  <>
-                                    <UpdateTimeEntryDialog timeEntry={entry} />
-                                    <DeleteTimeEntryDialog timeEntry={entry} />
-                                  </>
-                                )}
-                              </div>
-                            </TableCell>
-                          )}
-                        </TableRow>
-                      ))
-                    )}
-                  </TableBody>
-                </Table>
+      {/*<Card>*/}
+      {/*  <CardContent>*/}
+      <TooltipProvider>
+        <div className="space-y-4">
+          {/* Filters */}
+          <div className="flex flex-wrap gap-4">
+            <div className="flex-1 min-w-[200px]">
+              <div className="relative flex items-center">
+                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search entries..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-8 bg-white"
+                />
               </div>
             </div>
+            <Select value={projectFilter} onValueChange={setProjectFilter}>
+              <SelectTrigger className="w-[180px] bg-white">
+                <SelectValue placeholder="All projects" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All projects</SelectItem>
+                <SelectItem value="none">No project</SelectItem>
+                {projects
+                  ?.filter((p) => p.status === "ACTIVE")
+                  .map((project) => (
+                    <SelectItem key={project.id} value={project.id}>
+                      {project.name}
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+            <Select value={dateFilter} onValueChange={setDateFilter}>
+              <SelectTrigger className="w-[180px] bg-white">
+                <SelectValue placeholder="All time" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All time</SelectItem>
+                <SelectItem value="today">Today</SelectItem>
+                <SelectItem value="week">Last 7 days</SelectItem>
+                <SelectItem value="month">Last 30 days</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-            <ScreenshotGallery
-              timeEntryId={entryForScreenshots?.id || ""}
-              open={screenshotGalleryOpen}
-              onOpenChange={(open) => {
-                setScreenshotGalleryOpen(open);
-                if (!open) {
-                  setEntryForScreenshots(null);
-                }
-              }}
-            />
-          </TooltipProvider>
-        </CardContent>
-      </Card>
+          {/* Table */}
+          <div className="rounded-md border bg-white">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  {!isEmployee && <TableHead>User</TableHead>}
+                  <TableHead>Project</TableHead>
+                  <TableHead>Date</TableHead>
+                  <TableHead>Duration</TableHead>
+                  <TableHead>Status</TableHead>
+                  {showActions && (
+                    <TableHead className="text-right">Actions</TableHead>
+                  )}
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {isLoading ? (
+                  [1, 2, 3, 4, 5].map((i) => (
+                    <TableRow key={i}>
+                      {!isEmployee && (
+                        <TableCell>
+                          <Skeleton className="h-4 w-24" />
+                        </TableCell>
+                      )}
+                      <TableCell>
+                        <Skeleton className="h-4 w-20" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-4 w-32" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-4 w-16" />
+                      </TableCell>
+                      <TableCell>
+                        <Skeleton className="h-4 w-16" />
+                      </TableCell>
+                      {showActions && (
+                        <TableCell className="text-right">
+                          <Skeleton className="h-8 w-16 ml-auto" />
+                        </TableCell>
+                      )}
+                    </TableRow>
+                  ))
+                ) : filteredEntries.length === 0 ? (
+                  <TableRow>
+                    <TableCell
+                      colSpan={
+                        showActions ? (isEmployee ? 5 : 6) : isEmployee ? 4 : 5
+                      }
+                      className="h-64"
+                    >
+                      <div className="flex flex-col items-center justify-center text-muted-foreground">
+                        <Clock className="h-12 w-12 mb-4" />
+                        <p className="text-lg font-medium">
+                          {searchTerm ||
+                          projectFilter !== "all" ||
+                          dateFilter !== "all"
+                            ? "No entries found"
+                            : "No time entries yet"}
+                        </p>
+                        <p className="text-sm">
+                          {searchTerm ||
+                          projectFilter !== "all" ||
+                          dateFilter !== "all"
+                            ? "Try adjusting your filters"
+                            : "Start tracking your time"}
+                        </p>
+                      </div>
+                    </TableCell>
+                  </TableRow>
+                ) : (
+                  filteredEntries.map((entry) => (
+                    <TableRow key={entry.id}>
+                      {!isEmployee && (
+                        <TableCell className="font-medium">
+                          {entry.user.name}
+                        </TableCell>
+                      )}
+                      <TableCell>
+                        {entry.project ? (
+                          <Badge
+                            variant="outline"
+                            style={{
+                              borderColor: getProjectColor(entry.projectId),
+                              color: getProjectColor(entry.projectId),
+                            }}
+                          >
+                            {entry.project.name}
+                          </Badge>
+                        ) : (
+                          <span className="text-muted-foreground">
+                            No project
+                          </span>
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {format(
+                          new Date(entry.startTime),
+                          "MMM dd, yyyy HH:mm",
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        {entry.status === "RUNNING" ? (
+                          <span className="text-primary font-medium">Live</span>
+                        ) : (
+                          formatDurationFull(entry.duration)
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <Badge
+                          variant={
+                            entry.status === "RUNNING"
+                              ? "default"
+                              : entry.status === "PAUSED"
+                                ? "secondary"
+                                : "outline"
+                          }
+                        >
+                          {entry.status}
+                        </Badge>
+                      </TableCell>
+                      {showActions && (
+                        <TableCell className="text-right">
+                          <div className="flex justify-end gap-2">
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button
+                                  variant="ghost"
+                                  size="icon"
+                                  onClick={() => {
+                                    setEntryForScreenshots(entry);
+                                    setScreenshotGalleryOpen(true);
+                                  }}
+                                >
+                                  <Camera className="h-4 w-4" />
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>View screenshots</p>
+                              </TooltipContent>
+                            </Tooltip>
+                            {canEdit(entry) && (
+                              <>
+                                <UpdateTimeEntryDialog timeEntry={entry} />
+                                <DeleteTimeEntryDialog timeEntry={entry} />
+                              </>
+                            )}
+                          </div>
+                        </TableCell>
+                      )}
+                    </TableRow>
+                  ))
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
+
+        <ScreenshotGallery
+          timeEntryId={entryForScreenshots?.id || ""}
+          open={screenshotGalleryOpen}
+          onOpenChange={(open) => {
+            setScreenshotGalleryOpen(open);
+            if (!open) {
+              setEntryForScreenshots(null);
+            }
+          }}
+        />
+      </TooltipProvider>
+      {/*  </CardContent>*/}
+      {/*</Card>*/}
     </>
   );
 }

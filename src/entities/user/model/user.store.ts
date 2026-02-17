@@ -1,4 +1,4 @@
-import { create } from "zustand/react";
+import { create } from "zustand";
 import type { UserEntity } from "@/entities/user/model/user.types";
 
 type UserState = {

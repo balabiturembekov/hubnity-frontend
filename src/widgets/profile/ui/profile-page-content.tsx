@@ -9,7 +9,7 @@ import {
 
 export const ProfilePageContent = () => {
   return (
-    <div className="flex h-screen overflow-scroll bg-background">
+    <div className="flex h-screen overflow-auto bg-background">
       <div className="flex flex-1 flex-col">
         <main className="flex-1 overflow-y-auto">
           <div className="bg-linear-to-b from-primary/5 via-background to-background">

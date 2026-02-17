@@ -25,13 +25,13 @@ export function HourlyChart() {
 
   if (isPending) {
     return (
-      <Card>
+      <Card className="w-full">
         <CardHeader>
           <CardTitle>Hours by Time of Day</CardTitle>
           <CardDescription>Last 24 hours of activity</CardDescription>
         </CardHeader>
         <CardContent>
-          <Skeleton className="h-[300px] w-full" />
+          <Skeleton className="h-75 w-full" />
         </CardContent>
       </Card>
     );

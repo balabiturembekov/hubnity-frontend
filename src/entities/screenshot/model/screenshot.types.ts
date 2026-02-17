@@ -7,3 +7,11 @@ export interface ScreenshotEntity extends Timestamps {
   thumbnailUrl: string;
   timestamp: string;
 }
+
+export interface GetScreenshotReq {
+  id: string;
+}
+
+export interface GetScreenshotsParams {
+  limit?: number;
+}

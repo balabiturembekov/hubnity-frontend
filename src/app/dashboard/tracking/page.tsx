@@ -11,7 +11,7 @@ import {
 
 export default function TrackingPage() {
   return (
-    <div className="flex h-screen overflow-scroll bg-background">
+    <div className="flex h-screen overflow-auto bg-background">
       <div className="flex flex-1 flex-col">
         <main className="bg-linear-to-b from-primary/5 via-background to-background">
           <DashboardPageHeader

@@ -1,4 +1,4 @@
-import { create } from "zustand/react";
+import { create } from "zustand";
 import type { UserRole, UserStatus } from "@/entities/user";
 
 interface EmployeesState {
