@@ -12,7 +12,7 @@ import {
 } from "@/shared/ui/card";
 import { ScreenshotSettings } from "@/widgets/screenshot-settings";
 
-export const TodaysSummary = () => {
+export const TodaySummary = () => {
   const { todayHours, todayEntries } = useTimeEntry();
 
   return (

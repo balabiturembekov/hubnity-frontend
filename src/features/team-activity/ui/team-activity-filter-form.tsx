@@ -1,6 +1,7 @@
 import { Filter, X } from "lucide-react";
 import { periodsLabels, TeamActivityPeriod } from "@/entities/team-activity";
 import { useUser } from "@/entities/user";
+import { useTeamActivityStore } from "@/features/team-activity";
 import { Button } from "@/shared/ui/button";
 import {
   Card,
@@ -19,7 +20,6 @@ import {
 } from "@/shared/ui/select";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { useFilteredTeamActivity } from "../hooks/use-filtered-team-activity";
-import { useTeamActivityStore } from "../model/team-activity.store";
 
 export const TeamActivityFilterForm = () => {
   const { isAdmin } = useUser();

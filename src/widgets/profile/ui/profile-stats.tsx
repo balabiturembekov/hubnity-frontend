@@ -1,10 +1,44 @@
+"use client";
+
 import { Calendar, Clock, FileText, TrendingUp } from "lucide-react";
-import { useTimeEntry } from "@/features/time-entry";
+import { useGetDashboardAnalyticsQuery } from "@/entities/dashboard-analytics";
+import { useUserStore } from "@/entities/user";
+import { formatDurationFull } from "@/shared/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
+import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const ProfileStats = () => {
-  const { myTotalEntries, myTotalTime, myTodayTime, myWeekTime, myMonthTime } =
-    useTimeEntry();
+  const { user } = useUserStore();
+  const { data: totalStats, isPlaceholderData: isTotalStatsPending } =
+    useGetDashboardAnalyticsQuery({
+      userId: user?.id,
+    });
+  const { data: todayStats, isPending: isTodayStatsPending } =
+    useGetDashboardAnalyticsQuery({
+      period: "today",
+    });
+  const { data: last7daysStats, isPending: isLast7daysPending } =
+    useGetDashboardAnalyticsQuery({
+      period: "7days",
+    });
+  const { data: thisMonthStats, isPending: isThisMonthPending } =
+    useGetDashboardAnalyticsQuery({
+      period: "this_month",
+    });
+
+  if (!todayStats || !last7daysStats || !thisMonthStats || !totalStats) {
+    return null;
+  }
+
+  const isPending =
+    isTodayStatsPending ||
+    isLast7daysPending ||
+    isThisMonthPending ||
+    isTotalStatsPending;
+
+  if (isPending) {
+    return <StatsCardsSkeleton />;
+  }
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -14,9 +48,12 @@ export const ProfileStats = () => {
           <Clock className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{myTotalTime}</div>
+          <div className="text-2xl font-bold">
+            {formatDurationFull(totalStats.totalHours * 3600)}
+            {/* TODO: Change to totalStats.totalSeconds after adding on backend  */}
+          </div>
           <p className="text-xs text-muted-foreground">
-            {myTotalEntries} entries tracked
+            {totalStats.entriesCount} entries tracked
           </p>
         </CardContent>
       </Card>
@@ -27,7 +64,10 @@ export const ProfileStats = () => {
           <Calendar className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{myTodayTime}</div>
+          <div className="text-2xl font-bold">
+            {formatDurationFull(todayStats.totalHours * 3600)}
+            {/* TODO: Change to todayStats.totalSeconds after adding on backend  */}
+          </div>
           <p className="text-xs text-muted-foreground">Hours tracked today</p>
         </CardContent>
       </Card>
@@ -38,7 +78,10 @@ export const ProfileStats = () => {
           <TrendingUp className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{myWeekTime}</div>
+          <div className="text-2xl font-bold">
+            {formatDurationFull(last7daysStats.totalHours * 3600)}
+            {/* TODO: Change to last7daysStats.totalSeconds after adding on backend  */}
+          </div>
           <p className="text-xs text-muted-foreground">Last 7 days</p>
         </CardContent>
       </Card>
@@ -49,7 +92,10 @@ export const ProfileStats = () => {
           <FileText className="h-4 w-4 text-muted-foreground" />
         </CardHeader>
         <CardContent>
-          <div className="text-2xl font-bold">{myMonthTime}</div>
+          <div className="text-2xl font-bold">
+            {formatDurationFull(thisMonthStats.totalHours * 3600)}
+            {/* TODO: Change to thisMonthStats.totalSeconds after adding on backend  */}
+          </div>
           <p className="text-xs text-muted-foreground">Last 30 days</p>
         </CardContent>
       </Card>

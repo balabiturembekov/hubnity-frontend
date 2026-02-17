@@ -1,15 +1,20 @@
+"use client";
+
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useUser } from "@/entities/user";
 import { Button } from "@/shared/ui/button";
 import { ExportDialog } from "@/widgets/export";
 import { DashboardPageHeader } from "@/widgets/header";
 import {
   TimeEntriesTable,
   TimeEntryStatsCards,
-  TodaysSummary,
+  TodaySummary,
 } from "@/widgets/time-entry";
 
 export default function TrackingPage() {
+  const { isAdmin } = useUser();
+
   return (
     <div className="flex h-screen overflow-auto bg-background">
       <div className="flex flex-1 flex-col">
@@ -28,9 +33,9 @@ export default function TrackingPage() {
           </DashboardPageHeader>
 
           <div className="p-6 space-y-6">
-            <TimeEntryStatsCards />
+            {isAdmin && <TimeEntryStatsCards />}
 
-            <TodaysSummary />
+            <TodaySummary />
 
             <TimeEntriesTable />
           </div>

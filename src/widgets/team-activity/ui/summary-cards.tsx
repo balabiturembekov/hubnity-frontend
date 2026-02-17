@@ -1,3 +1,5 @@
+"use client";
+
 import { format } from "date-fns";
 import { Calendar, Clock, DollarSign, Users } from "lucide-react";
 import { periodsLabels } from "@/entities/team-activity";

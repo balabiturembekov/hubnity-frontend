@@ -10,7 +10,7 @@ export type DashboardAnalyticsPeriod =
   | "custom";
 
 export interface GetDashboardAnalyticsParams {
-  period: DashboardAnalyticsPeriod;
+  period?: DashboardAnalyticsPeriod;
   startDate?: string; // YYYY-MM-DD, used with period = "custom"
   endDate?: string; // YYYY-MM-DD, used with period = "custom"
   userId?: string;
