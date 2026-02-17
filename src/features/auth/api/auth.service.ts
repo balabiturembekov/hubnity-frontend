@@ -4,6 +4,7 @@ import type {
   ChangePasswordReq,
   LoginReq,
   LoginRes,
+  RefreshRes,
   RegisterReq,
   RegisterRes,
 } from "@/features/auth/model/auth.types";
@@ -19,6 +20,23 @@ class AuthService {
   async register(payload: RegisterReq) {
     const res = await api.post<RegisterRes>("/auth/register", payload);
     return res.data;
+  }
+
+  async refreshTokens(): Promise<RefreshRes | null> {
+    const refreshToken = Cookies.get("refresh_token");
+    if (!refreshToken) return null;
+    try {
+      const res = await api.post<RefreshRes>("/auth/refresh", { refreshToken });
+      Cookies.set("access_token", res.data.access_token, {
+        sameSite: "strict",
+      });
+      Cookies.set("refresh_token", res.data.refresh_token, {
+        sameSite: "strict",
+      });
+      return res.data;
+    } catch {
+      return null;
+    }
   }
 
   async logout() {

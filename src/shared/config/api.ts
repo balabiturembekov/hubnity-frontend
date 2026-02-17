@@ -66,11 +66,11 @@ api.interceptors.response.use(
           throw new Error("No refresh token");
         }
 
-        // Call your refresh endpoint
+        // Call your refresh endpoint (backend expects refreshToken)
         const { access_token, refresh_token: newRefreshToken } = (
           await axios.post(
             `${apiUrl}/api/auth/refresh`,
-            { refresh_token: refreshToken },
+            { refreshToken },
             { withCredentials: true },
           )
         ).data;

@@ -12,13 +12,27 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const init = async () => {
-      const token = Cookies.get("access_token");
+      let accessToken = Cookies.get("access_token");
+      const refreshToken = Cookies.get("refresh_token");
 
-      if (!token) {
+      // No tokens at all → redirect to login
+      if (!accessToken && !refreshToken) {
         await authService.logout();
         setIsInitializing(false);
         router.replace("/login");
         return;
+      }
+
+      // Have refresh_token but no (or expired) access_token → refresh first
+      if (!accessToken && refreshToken) {
+        const refreshed = await authService.refreshTokens();
+        if (!refreshed) {
+          await authService.logout();
+          setIsInitializing(false);
+          router.replace("/login");
+          return;
+        }
+        accessToken = refreshed.access_token;
       }
 
       if (user) {

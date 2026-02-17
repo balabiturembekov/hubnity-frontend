@@ -13,12 +13,14 @@ const isPublicPath = (path: string): boolean => {
 
 export default function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const token =
+  const accessToken =
     req.cookies.get("access_token")?.value ||
     req.headers.get("authorization")?.replace("Bearer", "");
+  const refreshToken = req.cookies.get("refresh_token")?.value;
+  const hasAuth = accessToken || refreshToken;
 
   if (isAuthPath(pathname)) {
-    if (token) {
+    if (hasAuth) {
       return NextResponse.redirect(new URL("/dashboard", req.url));
     }
 
@@ -26,7 +28,7 @@ export default function proxy(req: NextRequest) {
   }
 
   if (!isPublicPath(pathname)) {
-    if (!token) {
+    if (!hasAuth) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
 

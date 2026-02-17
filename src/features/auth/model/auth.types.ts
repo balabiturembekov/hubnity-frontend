@@ -36,3 +36,8 @@ export interface ChangePasswordReq {
   newPassword: string;
   confirmPassword: string;
 }
+
+export interface RefreshRes {
+  access_token: string;
+  refresh_token: string;
+}
