@@ -3,6 +3,7 @@
 import { Activity, Clock, Folder, TrendingUp, Users } from "lucide-react";
 import { useGetDashboardAnalyticsQuery } from "@/entities/dashboard-analytics";
 import { StatsCard } from "@/entities/stats";
+import { formatDurationFull } from "@/shared/lib/utils";
 import { DashboardSectionHeader } from "@/widgets/header";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
@@ -25,7 +26,7 @@ export const OverviewSection = () => {
           <StatsCard
             title="Total Hours"
             icon={Clock}
-            stat={periodStats.totalHours.toFixed(2)}
+            stat={formatDurationFull(periodStats.totalHours * 3600)}
             description="Last 30 days"
           />
           <StatsCard
@@ -43,7 +44,7 @@ export const OverviewSection = () => {
           <StatsCard
             title="Today"
             icon={TrendingUp}
-            stat={todayStats.totalHours.toFixed(2)}
+            stat={formatDurationFull(todayStats.totalHours * 3600)}
             description="Hours today"
           />
         </div>
