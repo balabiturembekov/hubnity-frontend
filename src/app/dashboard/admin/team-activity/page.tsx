@@ -49,14 +49,6 @@ export default function AdminTeamActivityPage() {
                 <MembersTable />
               </div>
             </div>
-
-            {/* <div className="p-6">
-              <div className="space-y-6">
-                <TeamActivityFilterForm />
-                <SummaryCards />
-                <MembersTable />
-              </div>
-            </div> */}
           </div>
         </main>
       </div>

@@ -28,9 +28,9 @@ export function PodiumCard({ performer, rank, maxHours }: PodiumCardProps) {
         config.borderClass,
         config.shadowClass,
         isFirst
-          ? "order-2 z-10 -mt-2 scale-[1.04]"
+          ? "order-1 min-[500px]:order-2 min-[500px]:-mt-2 min-[500px]:scale-[1.04]"
           : rank === 2
-            ? "order-1"
+            ? "order-2 min-[500px]:order-1"
             : "order-3",
       ].join(" ")}
     >

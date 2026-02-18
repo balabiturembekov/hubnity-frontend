@@ -23,14 +23,14 @@ export const AnalyticsSection = ({
         link={{ label: "View All Reports", href: "/dashboard/admin/reports" }}
       />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div className="grid xl:grid-cols-2 gap-4">
         <HourlyChart />
         <DailyChart />
       </div>
 
       {!isPreview && <MonthlyChart />}
       {!isPreview && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="grid xl:grid-cols-2 gap-4">
           <ProjectsChart />
           <TopPerformers />
         </div>

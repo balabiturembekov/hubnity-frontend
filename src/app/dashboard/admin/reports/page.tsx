@@ -23,9 +23,13 @@ export default function AdminReportsPage() {
                 <ExportDialog />
               </DashboardPageHeader>
 
-              <div className="p-6 space-y-6">
-                <ReportsStatsSection />
-                <AnalyticsSection />
+              <div className="p-2 md:p-6 grid grid-cols-2 gap-4">
+                <div className="col-span-2">
+                  <ReportsStatsSection />
+                </div>
+                <div className="col-span-2">
+                  <AnalyticsSection />
+                </div>
               </div>
             </main>
           </div>

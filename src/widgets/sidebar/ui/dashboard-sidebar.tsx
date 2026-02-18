@@ -12,7 +12,7 @@ export function DashboardSidebar() {
   const { user } = useUserStore();
 
   return (
-    <div className="flex h-full w-0 md:min-w-64 overflow-hidden flex-col border-r bg-background">
+    <div className="flex h-full w-0 min-[769px]:min-w-64 overflow-hidden flex-col border-r bg-background">
       <div className="flex min-h-16 items-center border-b px-6">
         <h1 className="text-xl font-bold">Hubnity</h1>
       </div>

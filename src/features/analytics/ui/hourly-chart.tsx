@@ -48,7 +48,7 @@ export function HourlyChart() {
           <LineChart data={hourlyData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="time" />
-            <YAxis />
+            <YAxis width={"auto"} />
             <Tooltip />
             <Legend />
             <Line

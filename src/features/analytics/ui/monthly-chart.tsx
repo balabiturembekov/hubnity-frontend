@@ -86,7 +86,7 @@ export const MonthlyChart = () => {
           <BarChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="day" />
-            <YAxis />
+            <YAxis width={"auto"} />
             <Tooltip
               formatter={(value: number | undefined) => [
                 `${Number(value ?? 0).toFixed(2)} h`,

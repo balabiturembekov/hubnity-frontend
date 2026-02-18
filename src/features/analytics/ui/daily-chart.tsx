@@ -49,7 +49,7 @@ export function DailyChart() {
           <BarChart data={dailyData}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="date" />
-            <YAxis />
+            <YAxis width={"auto"} />
             <Tooltip
               formatter={(value) => {
                 const seconds = value ? +value * 3600 : 0;

@@ -1,7 +1,7 @@
 "use client";
 
 import { ChartPie } from "lucide-react";
-import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { Legend, Pie, PieChart, ResponsiveContainer } from "recharts";
 import {
   useAnalyticsStore,
   useGetAnalyticsHoursByProjectQuery,
@@ -28,10 +28,21 @@ const FALLBACK_COLORS = [
   "#f472b6",
 ];
 
+import { useMediaQuery } from "usehooks-ts";
+
+interface ChartData {
+  name: string;
+  hours: number;
+  fill: string;
+}
+[];
+
 export const ProjectsChart = () => {
   const { period } = useAnalyticsStore();
   const { data: hoursByProject, isPending: isHoursByProjectPending } =
     useGetAnalyticsHoursByProjectQuery({ period });
+
+  const isDesktop = useMediaQuery("(min-width: 640px)");
 
   const chartData =
     hoursByProject?.data.map((item, index) => ({
@@ -99,19 +110,32 @@ export const ProjectsChart = () => {
               cy="50%"
               outerRadius={100}
               label={(props) => {
-                const name = String(props.name ?? "");
+                if (!isDesktop) return "";
+
+                let name = String(props.name ?? "");
                 const hours = Number(props.value ?? 0);
-                return `${name}: ${formatHours(hours * 3600)}`;
+                if (name.length > 7) {
+                  name = `${name.slice(0, 7)}...`;
+                }
+                return `${name} (${formatHours(hours * 3600)})`;
               }}
-              labelLine
+              labelLine={isDesktop}
             />
-            <Tooltip
-              formatter={(value: number | undefined) =>
-                formatHours((value ?? 0) * 3600)
-              }
-              contentStyle={{ borderRadius: "var(--radius)" }}
+            <Legend
+              formatter={(value, entry) => {
+                const payload = entry.payload as ChartData;
+                const hours = payload.hours;
+
+                return (
+                  <span className="ml-2 text-sm font-medium text-foreground">
+                    {value}
+                    <span className="ml-2 text-muted-foreground">
+                      ({formatHours((hours ?? 0) * 3600)})
+                    </span>
+                  </span>
+                );
+              }}
             />
-            <Legend />
           </PieChart>
         </ResponsiveContainer>
       </CardContent>

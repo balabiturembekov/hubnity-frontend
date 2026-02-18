@@ -4,6 +4,7 @@ import { Award, TrendingUp, Trophy } from "lucide-react";
 import { useGetAnalyticsWorkSessionQuery } from "@/entities/dashboard-analytics";
 import { aggregateByUser } from "@/features/analytics/lib/aggregate-performers";
 import type { Performer } from "@/features/analytics/model/types";
+import type { MedalRank } from "../consts/medal-config";
 import { PodiumCard, RemainingRow } from "./top-performers/index";
 
 export function TopPerformers() {
@@ -25,56 +26,45 @@ export function TopPerformers() {
   return (
     <div className="mx-auto w-full">
       <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-lg flex flex-col h-full">
-        <div className="flex items-center justify-between border-b border-border px-6 py-5">
+        <div className="flex items-center justify-between border-b border-border px-6 py-5 gap-4">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[hsl(var(--gold))]/10">
+            <div className="hidden sm:flex h-10 w-10 items-center justify-center rounded-xl bg-[hsl(var(--gold))]/10">
               <Trophy className="h-5 w-5 text-[hsl(var(--gold))]" />
             </div>
             <div>
-              <h2 className="text-lg font-bold tracking-tight text-foreground">
+              <h2 className="font-semibold tracking-tight text-foreground">
                 Top Performers
               </h2>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-sm text-muted-foreground">
                 Ranked by total hours logged
               </p>
             </div>
           </div>
-          <div className="flex items-center gap-2 rounded-xl bg-muted px-3 py-2">
-            <TrendingUp className="h-4 w-4 text-muted-foreground" />
-            <div className="flex flex-col items-end">
-              <span className="text-base font-bold tabular-nums text-foreground leading-tight">
-                {totalHours.toFixed(2)}
-              </span>
-              <span className="text-[9px] uppercase tracking-wider text-muted-foreground">
-                total hours
-              </span>
-            </div>
+          <div className="grid grid-cols-[auto_auto] items-center gap-x-2 gap-y-1 rounded-xl bg-muted px-3 py-2 min-w-[89px]">
+            <TrendingUp className="h-4 w-4 text-muted-foreground row-span-1 sm:row-span-2" />
+            <span className="text-base font-semibold tabular-nums text-right text-foreground leading-tight">
+              {totalHours.toFixed(2)}
+            </span>
+            <span className="text-[9px] uppercase tracking-wider text-right text-muted-foreground col-span-2 sm:col-span-1">
+              total hours
+            </span>
           </div>
         </div>
 
         <div className="bg-accent/30 px-6 py-8 flex-1 flex items-center">
-          <div className="grid grid-cols-3 items-end gap-3 w-full">
-            {topThree[1] && (
-              <PodiumCard
-                performer={topThree[1]}
-                rank={2}
-                maxHours={maxHours}
-              />
-            )}
-            {topThree[0] && (
-              <PodiumCard
-                performer={topThree[0]}
-                rank={1}
-                maxHours={maxHours}
-              />
-            )}
-            {topThree[2] && (
-              <PodiumCard
-                performer={topThree[2]}
-                rank={3}
-                maxHours={maxHours}
-              />
-            )}
+          <div className="grid min-[500px]:grid-cols-3 items-end gap-3 w-full">
+            {topThree.map((performer, i) => {
+              if (!performer) return null;
+
+              return (
+                <PodiumCard
+                  key={performer.userName}
+                  performer={performer}
+                  rank={(i + 1) as MedalRank}
+                  maxHours={maxHours}
+                />
+              );
+            })}
           </div>
         </div>
 
