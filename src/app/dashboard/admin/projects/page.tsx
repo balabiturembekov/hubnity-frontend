@@ -25,11 +25,9 @@ export default function AdminProjectsPage() {
             <CreateProjectButton />
           </DashboardPageHeader>
 
-          <div className="p-6 space-y-6">
+          <div className="p-2 md:p-6 grid gap-4">
             <ProjectsStatsCards />
-
             <ProjectsFilters />
-
             <ProjectsList />
           </div>
         </main>
