@@ -11,7 +11,7 @@ export const DashboardPageHeader = ({
   children,
 }: DashboardHeaderProps) => {
   return (
-    <div className="border-b bg-card px-6 py-6">
+    <div className="border-b bg-card px-2 md:px-6 py-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-2xl font-bold text-foreground sm:text-3xl">

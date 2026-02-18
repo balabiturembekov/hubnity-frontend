@@ -18,7 +18,6 @@ export function DashboardSidebar() {
       </div>
       <nav className="flex-1 space-y-1 p-4">
         {dashboardSidebarLinks.map((item) => {
-          // Hide admin-only items for non-admin users
           if (
             item.isAdminOnly &&
             user?.role !== "ADMIN" &&

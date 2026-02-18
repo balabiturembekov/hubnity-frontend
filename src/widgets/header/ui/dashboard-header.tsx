@@ -19,11 +19,11 @@ export const DashboardHeader = () => {
 
   return (
     <TooltipProvider>
-      <header className="flex min-h-16 items-center justify-between border-b px-6">
-        <div className="flex items-center gap-4">
+      <header className="flex min-h-16 items-center justify-between border-b px-2 md:px-6 gap-2">
+        <div>
           <h2 className="text-lg font-semibold">Dashboard</h2>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 md:gap-4">
           <Tooltip>
             <TooltipTrigger asChild>
               <Button

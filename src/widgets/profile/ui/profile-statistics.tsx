@@ -26,7 +26,7 @@ export const ProfileStatistics = () => {
   } = useTimeEntry();
 
   return (
-    <Card className="transition-shadow hover:shadow-md">
+    <Card className="transition-shadow hover:shadow-md h-full">
       <CardHeader>
         <div className="flex items-center gap-2">
           <Activity className="h-5 w-5 text-primary" />

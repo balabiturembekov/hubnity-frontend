@@ -37,15 +37,20 @@ export default function ProfilePage() {
               </Button>
             </DashboardPageHeader>
 
-            <div className="p-6">
-              <div className="space-y-6">
+            <div className="grid grid-cols-2 p-2 md:p-6 gap-4">
+              <div className="col-span-2">
                 <ProfileStats />
+              </div>
 
-                <div className="grid gap-4 md:grid-cols-2">
-                  <ProfileInfo />
-                  <ProfileStatistics />
-                </div>
+              <div className="col-span-2 lg:col-span-1">
+                <ProfileInfo />
+              </div>
 
+              <div className="col-span-2 lg:col-span-1">
+                <ProfileStatistics />
+              </div>
+
+              <div className="col-span-2">
                 <RecentActivity />
               </div>
             </div>

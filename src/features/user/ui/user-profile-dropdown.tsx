@@ -42,7 +42,9 @@ export const UserProfileDropdown = () => {
           className="flex items-center gap-2 rounded-full hover:bg-accent p-1 transition-colors"
         >
           <UserAvatar name={user.name} avatar={user.avatar} size="md" />
-          <span className="text-sm font-medium mr-1">{user.name}</span>
+          <span className="text-sm font-medium mr-1 hidden sm:block">
+            {user.name}
+          </span>
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
