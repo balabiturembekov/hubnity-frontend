@@ -84,8 +84,12 @@ export const ProjectsChart = () => {
         <CardTitle>Time by Project</CardTitle>
         <CardDescription>Distribution of hours across projects</CardDescription>
       </CardHeader>
-      <CardContent>
-        <ResponsiveContainer width="100%" height={300}>
+      <CardContent className="flex flex-col h-full">
+        <ResponsiveContainer
+          width="100%"
+          height={300}
+          className="flex-1 flex flex-col justify-center"
+        >
           <PieChart>
             <Pie
               data={chartData}

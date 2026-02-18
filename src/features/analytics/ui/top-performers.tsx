@@ -24,7 +24,7 @@ export function TopPerformers() {
 
   return (
     <div className="mx-auto w-full">
-      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-lg">
+      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-lg flex flex-col h-full">
         <div className="flex items-center justify-between border-b border-border px-6 py-5">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[hsl(var(--gold))]/10">
@@ -52,8 +52,8 @@ export function TopPerformers() {
           </div>
         </div>
 
-        <div className="bg-accent/30 px-6 py-8">
-          <div className="grid grid-cols-3 items-end gap-3">
+        <div className="bg-accent/30 px-6 py-8 flex-1 flex items-center">
+          <div className="grid grid-cols-3 items-end gap-3 w-full">
             {topThree[1] && (
               <PodiumCard
                 performer={topThree[1]}
