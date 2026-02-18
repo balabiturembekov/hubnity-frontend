@@ -57,7 +57,7 @@ export const TeamActivityFilterForm = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 lg:grid-cols-3">
           <div className="space-y-2">
             <Label htmlFor="period-filter">Period</Label>
             {isLoading ? (

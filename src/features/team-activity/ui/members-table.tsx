@@ -74,12 +74,16 @@ export const MembersTable = () => {
             }
           />
         ) : (
-          <Accordion type="single" collapsible className="w-full">
+          <Accordion
+            type="single"
+            collapsible
+            className="w-full overflow-y-auto"
+          >
             {teamActivity?.members.map((member) => (
               <AccordionItem
                 key={member.userId}
                 value={member.userId}
-                className="border rounded-lg mb-2 px-4 transition-colors hover:bg-muted/50"
+                className="border rounded-lg mb-2 px-4 transition-colors hover:bg-muted/50 min-w-[528px]"
               >
                 <AccordionTrigger className="hover:no-underline py-4">
                   <div className="flex items-center gap-4 w-full pr-4">

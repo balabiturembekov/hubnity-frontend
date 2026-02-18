@@ -29,7 +29,7 @@ export const SummaryCards = () => {
 
   return (
     <div
-      className={`grid gap-4 ${isAdmin ? "md:grid-cols-4" : "md:grid-cols-3"}`}
+      className={`grid gap-4 ${isAdmin ? "sm:grid-cols-2 xl:grid-cols-4" : "md:grid-cols-3"}`}
     >
       {isAdmin && (
         <Card className="transition-shadow hover:shadow-md">

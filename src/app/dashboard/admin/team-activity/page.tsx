@@ -36,13 +36,27 @@ export default function AdminTeamActivityPage() {
               <ExportTeamActivityCSV />
             </DashboardPageHeader>
 
-            <div className="p-6">
+            <div className="p-2 md:p-6 grid grid-cols-2 gap-4">
+              <div className="col-span-2">
+                <TeamActivityFilterForm />
+              </div>
+
+              <div className="col-span-2">
+                <SummaryCards />
+              </div>
+
+              <div className="col-span-2">
+                <MembersTable />
+              </div>
+            </div>
+
+            {/* <div className="p-6">
               <div className="space-y-6">
                 <TeamActivityFilterForm />
                 <SummaryCards />
                 <MembersTable />
               </div>
-            </div>
+            </div> */}
           </div>
         </main>
       </div>

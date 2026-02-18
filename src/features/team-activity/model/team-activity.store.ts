@@ -1,7 +1,5 @@
 import { create } from "zustand/react";
 import { TeamActivityPeriod } from "@/entities/team-activity";
-import { useUserStore } from "@/entities/user";
-import { ADMIN_ROLES } from "@/entities/user/model/user.types";
 
 interface TeamActivityStore {
   period: TeamActivityPeriod;
@@ -15,15 +13,9 @@ interface TeamActivityStore {
   reset: () => void;
 }
 
-function getInitialUserId() {
-  const user = useUserStore.getState().user;
-  const isAdmin = user ? ADMIN_ROLES.includes(user.role) : false;
-  return isAdmin ? "all" : user?.id;
-}
-
 export const useTeamActivityStore = create<TeamActivityStore>((set) => ({
   period: TeamActivityPeriod.LAST_30_DAYS,
-  userId: getInitialUserId(),
+  userId: "all",
   projectId: "all",
 
   setPeriod: (period: TeamActivityPeriod) => set({ period }),
@@ -33,7 +25,7 @@ export const useTeamActivityStore = create<TeamActivityStore>((set) => ({
   reset: () =>
     set({
       period: TeamActivityPeriod.LAST_30_DAYS,
-      userId: getInitialUserId(),
+      userId: "all",
       projectId: "all",
     }),
 }));
