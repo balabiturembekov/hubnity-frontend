@@ -13,13 +13,6 @@ import {
   AccordionTrigger,
 } from "@/shared/ui/accordion";
 import { Badge } from "@/shared/ui/badge";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
 import {
   Table,
@@ -30,6 +23,7 @@ import {
   TableRow,
 } from "@/shared/ui/table";
 import { EmptyState } from "@/widgets/empty-state";
+import { DashboardSectionHeader } from "@/widgets/header";
 import { useFilteredTeamActivity } from "../hooks/use-filtered-team-activity";
 
 export const MembersTable = () => {
@@ -37,26 +31,21 @@ export const MembersTable = () => {
   const { teamActivity, isLoading } = useFilteredTeamActivity();
 
   return (
-    <Card className="transition-shadow hover:shadow-md">
-      <CardHeader>
-        <div className="flex items-center gap-2">
-          <Activity className="h-5 w-5 text-primary" />
-          <CardTitle>{isAdmin ? "Team Members" : "My Activity"}</CardTitle>
-          {isLoading ? (
-            <Skeleton className="h-5 w-8" />
-          ) : (
-            <Badge variant="secondary" className="ml-2">
-              {teamActivity?.members.length}
-            </Badge>
-          )}
-        </div>
-        <CardDescription>
-          {isAdmin
+    <section className="overflow-y-auto">
+      <DashboardSectionHeader
+        title="Team Members"
+        icon={Activity}
+        description={
+          isAdmin
             ? "Time worked and amounts earned per team member"
-            : "Your time worked and amounts earned per project"}
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
+            : "Your time worked and amounts earned per project"
+        }
+      >
+        <Badge variant="secondary" className="ml-2">
+          {teamActivity?.members.length}
+        </Badge>
+      </DashboardSectionHeader>
+      <div className="mt-4">
         {isLoading ? (
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
@@ -83,7 +72,7 @@ export const MembersTable = () => {
               <AccordionItem
                 key={member.userId}
                 value={member.userId}
-                className="border rounded-lg mb-2 px-4 transition-colors hover:bg-muted/50 min-w-[528px]"
+                className="border rounded-lg mb-2 px-4 transition-colors hover:bg-muted/50 min-w-[528px] bg-card"
               >
                 <AccordionTrigger className="hover:no-underline py-4">
                   <div className="flex items-center gap-4 w-full pr-4">
@@ -222,7 +211,7 @@ export const MembersTable = () => {
             ))}
           </Accordion>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </section>
   );
 };

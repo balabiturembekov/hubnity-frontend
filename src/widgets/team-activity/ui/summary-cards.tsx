@@ -70,12 +70,13 @@ export const SummaryCards = () => {
               : "Total earnings"}
           </p>
         }
+        statsClassName="text-2xl"
         color="red"
       />
       <StatsCard
         title="Period"
         icon={Calendar}
-        statsClassName="text-2xl"
+        statsClassName="text-xl"
         stat={
           !Number.isNaN(new Date(timeActivePeriod.startDate).getTime()) &&
           !Number.isNaN(new Date(timeActivePeriod.endDate).getTime())
