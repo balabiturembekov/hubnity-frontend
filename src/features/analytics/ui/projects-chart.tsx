@@ -2,6 +2,7 @@
 
 import { ChartPie } from "lucide-react";
 import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { useMediaQuery } from "usehooks-ts";
 import {
   useAnalyticsStore,
   useGetAnalyticsHoursByProjectQuery,
@@ -27,15 +28,6 @@ const FALLBACK_COLORS = [
   "#fbbf24",
   "#f472b6",
 ];
-
-import { useMediaQuery } from "usehooks-ts";
-
-interface ChartData {
-  name: string;
-  hours: number;
-  fill: string;
-}
-[];
 
 export const ProjectsChart = () => {
   const { period } = useAnalyticsStore();

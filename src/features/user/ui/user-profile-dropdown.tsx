@@ -5,6 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { UserAvatar, useUserStore } from "@/entities/user";
 import { useLogoutMutation } from "@/features/auth";
+import { cn } from "@/shared/lib/utils";
+import { Button } from "@/shared/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +17,13 @@ import {
 } from "@/shared/ui/dropdown-menu";
 import { Skeleton } from "@/shared/ui/skeleton";
 
-export const UserProfileDropdown = () => {
+interface UserProfileDropdownProps {
+  className?: string;
+}
+
+export const UserProfileDropdown = ({
+  className,
+}: UserProfileDropdownProps) => {
   const { user, clearUser } = useUserStore();
   const router = useRouter();
   const { mutateAsync: logout } = useLogoutMutation();
@@ -31,21 +39,24 @@ export const UserProfileDropdown = () => {
   };
 
   if (!user) {
-    return <Skeleton className="w-40 h-10 rounded-full" />;
+    return <Skeleton className="w-40 h-10 rounded-md" />;
   }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button
-          type="button"
-          className="flex items-center gap-2 rounded-full hover:bg-accent p-1 transition-colors"
+        <Button
+          variant="ghost"
+          className={cn(
+            "items-center gap-2 rounded-md hover:bg-accent transition-colors p-1",
+            className,
+          )}
         >
           <UserAvatar name={user.name} avatar={user.avatar} size="md" />
-          <span className="text-sm font-medium mr-1 hidden sm:block">
+          <span className="text-xs font-medium mr-1 hidden md:block text-left">
             {user.name}
           </span>
-        </button>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel>

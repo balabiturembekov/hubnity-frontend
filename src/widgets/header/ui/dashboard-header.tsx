@@ -29,7 +29,7 @@ export const DashboardHeader = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                className="relative rounded-full p-2 hover:bg-accent"
+                className="md:hidden relative rounded-full p-2 hover:bg-accent"
               >
                 <Bell className="h-5 w-5" />
                 <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500" />
@@ -40,7 +40,7 @@ export const DashboardHeader = () => {
             </TooltipContent>
           </Tooltip>
 
-          <UserProfileDropdown />
+          <UserProfileDropdown className="md:hidden" />
         </div>
       </header>
     </TooltipProvider>

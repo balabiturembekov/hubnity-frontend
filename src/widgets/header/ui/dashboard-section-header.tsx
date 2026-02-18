@@ -12,7 +12,7 @@ type LinkType = {
 interface DashboardSectionHeaderProps extends React.ComponentProps<"div"> {
   title: string;
   description?: string;
-  icon: LucideIcon;
+  icon?: LucideIcon;
   actionChildren?: ReactNode;
   link?: LinkType;
 }
@@ -35,7 +35,7 @@ export const DashboardSectionHeader = ({
       >
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center gap-2">
-            <Icon className="h-5 w-5 text-primary" />
+            {Icon && <Icon className="h-5 w-5 text-primary" />}
             <h2 className="text-lg font-semibold text-foreground">{title}</h2>
             {children}
           </div>

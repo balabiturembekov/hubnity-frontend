@@ -25,7 +25,7 @@ export const EmployeesTable = () => {
         icon={Users}
         description={
           employees.length === totalCount
-            ? "All employees in your organization"
+            ? "All members in your organization"
             : `Filtered results from ${totalCount} total employees`
         }
       >

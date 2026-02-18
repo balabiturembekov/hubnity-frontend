@@ -4,6 +4,7 @@ import {
   FileText,
   LayoutDashboard,
   type LucideIcon,
+  Settings,
   User,
   Users,
 } from "lucide-react";
@@ -39,7 +40,7 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
   {
     id: "3",
     label: "Employees",
-    href: "/dashboard/admin/employees",
+    href: "/dashboard/admin/members",
     icon: Users,
     isAdminOnly: true,
   },
@@ -73,6 +74,43 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
     id: "8",
     label: "Settings",
     href: "/dashboard/admin/settings",
-    icon: User,
+    icon: Settings,
+    childrenLinks: [
+      {
+        id: "1",
+        label: "General",
+        href: "/dashboard/admin/settings",
+      },
+      {
+        id: "2",
+        label: "Organization",
+        href: "/dashboard/admin/settings/organization",
+      },
+      {
+        id: "3",
+        label: "Members",
+        href: "/dashboard/admin/settings/members",
+      },
+      {
+        id: "4",
+        label: "Activity & tracking",
+        href: "/dashboard/admin/settings/activity-tracking",
+      },
+      {
+        id: "5",
+        label: "Policies",
+        href: "/dashboard/admin/settings/policies",
+      },
+      {
+        id: "6",
+        label: "Integrations",
+        href: "/dashboard/admin/settings/integrations",
+      },
+      {
+        id: "7",
+        label: "Billing",
+        href: "/dashboard/admin/settings/billing",
+      },
+    ],
   },
 ];

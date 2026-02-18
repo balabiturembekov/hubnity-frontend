@@ -39,7 +39,7 @@ export const useExportData = () => {
 
     let filtered = [...timeEntries];
 
-    // Filter by user (employees only see their own)
+    // Filter by user (members only see their own)
     if (isEmployee) {
       filtered = filtered.filter((e) => e.userId === currentUser?.id);
     } else if (userFilter !== "all") {
