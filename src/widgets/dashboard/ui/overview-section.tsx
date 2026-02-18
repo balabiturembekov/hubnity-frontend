@@ -28,24 +28,28 @@ export const OverviewSection = () => {
             icon={Clock}
             stat={formatDurationFull(periodStats.totalHours * 3600)}
             description="Last 30 days"
+            color="green"
           />
           <StatsCard
             title="Active Users"
             icon={Users}
             stat={periodStats.activeUsersCount}
             description="In the period"
+            color="blue"
           />
           <StatsCard
             title="Projects"
             icon={Folder}
             stat={periodStats.activeProjectsCount}
             description="Active projects"
+            color="red"
           />
           <StatsCard
             title="Today"
             icon={TrendingUp}
             stat={formatDurationFull(todayStats.totalHours * 3600)}
             description="Hours today"
+            color="yellow"
           />
         </div>
       )}

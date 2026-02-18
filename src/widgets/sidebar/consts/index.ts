@@ -58,7 +58,7 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
   },
   {
     id: "6",
-    label: "Time & Activity",
+    label: "Team & Activity",
     href: "/dashboard/admin/team-activity",
     icon: Activity,
     // color: "text-[#9810fa]",

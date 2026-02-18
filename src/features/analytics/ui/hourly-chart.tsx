@@ -1,10 +1,9 @@
 "use client";
 
 import {
+  Area,
+  AreaChart,
   CartesianGrid,
-  Legend,
-  Line,
-  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -45,20 +44,48 @@ export function HourlyChart() {
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={hourlyData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="time" />
-            <YAxis width={"auto"} />
-            <Tooltip />
-            <Legend />
-            <Line
+          <AreaChart data={hourlyData}>
+            <CartesianGrid
+              strokeDasharray="3 3"
+              stroke="var(--border)"
+              vertical={false}
+            />
+            <XAxis
+              axisLine={false}
+              tickLine={false}
+              tick={{ fontSize: 10, fill: "var(--muted-foreground)" }}
+              dataKey="time"
+              tickFormatter={(v) => v}
+            />
+            <YAxis
+              width="auto"
+              tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
+              axisLine={false}
+              tickLine={false}
+              tickFormatter={(v) => `${v.toFixed(0)}h`}
+            />
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "var(--card)",
+                border: "1px solid var(--border)",
+                borderRadius: "8px",
+                fontSize: 12,
+                color: "var(--foreground)",
+              }}
+              formatter={(value?: number) => [
+                `${(value ?? 0).toFixed(1)}h`,
+                "Hours",
+              ]}
+            />
+            <Area
               type="monotone"
               dataKey="hours"
-              stroke="#3b82f6"
+              stroke="var(--chart-2)"
+              fill="var(--chart-2)"
+              fillOpacity={0.1}
               strokeWidth={2}
-              name="Hours"
             />
-          </LineChart>
+          </AreaChart>
         </ResponsiveContainer>
       </CardContent>
     </Card>

@@ -1,5 +1,5 @@
+import type { PatchUserReq, UserEntity } from "@/entities/user";
 import { api } from "@/shared/config/api";
-import type { PatchUserReq, UserEntity } from "../model/user.types";
 
 class UserService {
   async getMe() {
@@ -29,6 +29,11 @@ class UserService {
 
   async deleteEmployee(id: string) {
     const res = await api.delete(`/users/${id}`);
+    return res.data;
+  }
+
+  async getUserDetails(id: string) {
+    const res = await api.get<UserEntity>(`/users/${id}`);
     return res.data;
   }
 }

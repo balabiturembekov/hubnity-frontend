@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { UserAvatar, useUserStore } from "@/entities/user";
 import type { UserEntity } from "@/entities/user/model/user.types";
 import {
@@ -5,6 +6,7 @@ import {
   UpdateEmployeeDialog,
 } from "@/features/employees";
 import { Badge } from "@/shared/ui/badge";
+import { Button } from "@/shared/ui/button";
 import { TableCell, TableRow } from "@/shared/ui/table";
 
 interface EmployeeRowProps {
@@ -20,7 +22,14 @@ export const EmployeeRow = ({ user }: EmployeeRowProps) => {
         <div className="flex items-center gap-3">
           <UserAvatar name={user.name} avatar={user.avatar} size="md" />
           <div>
-            <div className="font-medium">{user.name}</div>
+            <Button variant="link" asChild>
+              <Link
+                className="font-medium"
+                href={`/dashboard/admin/employees/${user.id}`}
+              >
+                {user.name}
+              </Link>
+            </Button>
             {user.id === currentUser?.id && (
               <span className="text-xs text-muted-foreground">(You)</span>
             )}

@@ -1,11 +1,15 @@
 import type { LucideIcon } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
+import type { ReactNode } from "react";
+import { cn } from "@/shared/lib/utils";
+import { Card, CardContent } from "@/shared/ui/card";
 
 interface StatsCardProps {
   title: string;
   icon: LucideIcon;
   stat: string | number;
-  description: string;
+  description: string | ReactNode;
+  color?: "blue" | "red" | "green" | "yellow";
+  statsClassName?: string;
 }
 
 export const StatsCard = ({
@@ -13,16 +17,33 @@ export const StatsCard = ({
   icon: Icon,
   description,
   title,
+  statsClassName,
+  color = "blue",
 }: StatsCardProps) => {
   return (
     <Card className="transition-shadow hover:shadow-md w-full">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <Icon className="h-4 w-4 text-muted-foreground" />
-      </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{stat}</div>
-        <p className="text-xs text-muted-foreground">{description}</p>
+      <CardContent className="flex items-start justify-between">
+        <div className="h-full flex flex-col justify-between gap-1">
+          <h3 className="text-muted-foreground font-medium uppercase text-sm">
+            {title}
+          </h3>
+          <div className={cn("text-3xl font-normal", statsClassName)}>
+            {stat}
+          </div>
+          <div className="text-xs text-muted-foreground">{description}</div>
+        </div>
+        <div
+          className={cn(
+            "bg-blue-100 size-20 rounded-full flex items-center justify-center text-primary",
+            {
+              "bg-red-100 text-red-500": color === "red",
+              "bg-green-100 text-green-500": color === "green",
+              "bg-yellow-100 text-yellow-500": color === "yellow",
+            },
+          )}
+        >
+          <Icon size={40} />
+        </div>
       </CardContent>
     </Card>
   );

@@ -20,7 +20,11 @@ export const AnalyticsSection = ({
       <DashboardSectionHeader
         title="Analytics"
         icon={BarChart3}
-        link={{ label: "View All Reports", href: "/dashboard/admin/reports" }}
+        link={
+          isPreview
+            ? { label: "View All Reports", href: "/dashboard/admin/reports" }
+            : undefined
+        }
       />
 
       <div className="grid xl:grid-cols-2 gap-4">

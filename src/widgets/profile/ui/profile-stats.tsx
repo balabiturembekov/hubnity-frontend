@@ -2,9 +2,9 @@
 
 import { Calendar, Clock, FileText, TrendingUp } from "lucide-react";
 import { useGetDashboardAnalyticsQuery } from "@/entities/dashboard-analytics";
+import { StatsCard } from "@/entities/stats";
 import { useUserStore } from "@/entities/user";
 import { formatDurationFull } from "@/shared/lib/utils";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const ProfileStats = () => {
@@ -41,64 +41,45 @@ export const ProfileStats = () => {
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-      <Card className="transition-shadow hover:shadow-md">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Hours</CardTitle>
-          <Clock className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {formatDurationFull(totalStats.totalHours * 3600)}
-            {/* TODO: Change to totalStats.totalSeconds after adding on backend  */}
-          </div>
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <StatsCard
+        title="Total Hours"
+        icon={Clock}
+        stat={formatDurationFull(totalStats.totalHours * 3600)}
+        description={
           <p className="text-xs text-muted-foreground">
             {totalStats.entriesCount} entries tracked
           </p>
-        </CardContent>
-      </Card>
-
-      <Card className="transition-shadow hover:shadow-md">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Today</CardTitle>
-          <Calendar className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {formatDurationFull(todayStats.totalHours * 3600)}
-            {/* TODO: Change to todayStats.totalSeconds after adding on backend  */}
-          </div>
+        }
+        color="green"
+      />
+      <StatsCard
+        title="Today"
+        icon={Calendar}
+        stat={formatDurationFull(todayStats.totalHours * 3600)}
+        description={
           <p className="text-xs text-muted-foreground">Hours tracked today</p>
-        </CardContent>
-      </Card>
-
-      <Card className="transition-shadow hover:shadow-md">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">This Week</CardTitle>
-          <TrendingUp className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {formatDurationFull(last7daysStats.totalHours * 3600)}
-            {/* TODO: Change to last7daysStats.totalSeconds after adding on backend  */}
-          </div>
+        }
+        color="blue"
+      />
+      <StatsCard
+        title="This Week"
+        icon={TrendingUp}
+        stat={formatDurationFull(last7daysStats.totalHours * 3600)}
+        description={
           <p className="text-xs text-muted-foreground">Last 7 days</p>
-        </CardContent>
-      </Card>
-
-      <Card className="transition-shadow hover:shadow-md">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">This Month</CardTitle>
-          <FileText className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {formatDurationFull(thisMonthStats.totalHours * 3600)}
-            {/* TODO: Change to thisMonthStats.totalSeconds after adding on backend  */}
-          </div>
+        }
+        color="red"
+      />
+      <StatsCard
+        title="This Month"
+        icon={FileText}
+        stat={formatDurationFull(thisMonthStats.totalHours * 3600)}
+        description={
           <p className="text-xs text-muted-foreground">Last 30 days</p>
-        </CardContent>
-      </Card>
+        }
+        color="yellow"
+      />
     </div>
   );
 };

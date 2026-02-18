@@ -41,24 +41,28 @@ export const ReportsStatsSection = () => {
             icon={Clock}
             stat={`${dashboardAnalytics.totalHours}h`}
             description={`${dashboardAnalytics.entriesCount} entries tracked`}
+            color="green"
           />
           <StatsCard
             title="Avg. Hours/Day"
             icon={TrendingUp}
             stat={`${productivity.avgHoursPerDay}h`}
             description="Average per day"
+            color="blue"
           />
           <StatsCard
             title="Active Users"
             icon={Users}
             stat={dashboardAnalytics.activeUsersCount}
             description="Users with tracked time"
+            color="red"
           />
           <StatsCard
             title="Top Project"
             icon={Award}
             stat={`${hoursByProject.data[0].hours}h`}
             description={hoursByProject.data[0].projectName}
+            color="yellow"
           />
         </div>
       )}

@@ -2,18 +2,22 @@
 
 import { CheckCircle2, DollarSign, Folder, FolderOpen } from "lucide-react";
 import { useMemo } from "react";
+import { useGetDashboardAnalyticsQuery } from "@/entities/dashboard-analytics";
 import {
   useGetActiveProjectsQuery,
   useGetProjectsQuery,
 } from "@/entities/project";
-import { Card, CardContent, CardHeader, CardTitle } from "@/shared/ui/card";
+import { StatsCard } from "@/entities/stats";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
+// TODO: Refactor using new api endpoints
 export const ProjectsStatsCards = () => {
   const { data: projects, isPending: isProjectsPending } =
     useGetProjectsQuery();
   const { data: activeProjects, isPending: isActiveProjectsPending } =
     useGetActiveProjectsQuery();
+  const { data: projectsStats, isPending: isProjectsStatsPending } =
+    useGetDashboardAnalyticsQuery();
 
   const stats = useMemo(() => {
     if (!projects || !activeProjects) {
@@ -54,74 +58,62 @@ export const ProjectsStatsCards = () => {
     };
   }, [projects, activeProjects]);
 
-  const isPending = isProjectsPending || isActiveProjectsPending;
+  const isPending =
+    isProjectsPending || isActiveProjectsPending || isProjectsStatsPending;
 
-  if (isPending) {
+  if (!projectsStats || isPending) {
     return <StatsCardsSkeleton />;
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-      <Card className="transition-shadow hover:shadow-md">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Projects</CardTitle>
-          <Folder className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {stats ? stats.totalProjects : 0}
-          </div>
+    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <StatsCard
+        title="Total Projects"
+        icon={Folder}
+        stat={stats ? stats.totalProjects : 0}
+        description={
           <p className="text-xs text-muted-foreground">
             {stats ? stats.totalActiveProjects : 0} active,{" "}
             {stats ? stats.totalArchivedProjects : 0} archived
           </p>
-        </CardContent>
-      </Card>
-
-      <Card className="transition-shadow hover:shadow-md">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Active</CardTitle>
-          <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold text-green-600">
-            {stats ? stats.totalActiveProjects : 0}
-          </div>
+        }
+        color="green"
+      />
+      <StatsCard
+        title="Active"
+        icon={CheckCircle2}
+        stat={stats ? stats.totalProjects : 0}
+        description={
           <p className="text-xs text-muted-foreground">
-            {stats ? stats.activeProjectsPercent : 0}% of total
+            {stats ? stats.totalActiveProjects : 0} active,{" "}
+            {stats ? stats.totalArchivedProjects : 0} archived
           </p>
-        </CardContent>
-      </Card>
-
-      <Card className="transition-shadow hover:shadow-md">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Budget</CardTitle>
-          <DollarSign className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {stats ? stats.formattedTotalBudget : "$0"}
-          </div>
+        }
+        color="blue"
+      />
+      <StatsCard
+        title="Total Budget"
+        icon={DollarSign}
+        stat={stats ? stats.formattedTotalBudget : "$0"}
+        description={
           <p className="text-xs text-muted-foreground">
             {stats ? stats.totalProjectsWithBudget : 0} projects with budget
           </p>
-        </CardContent>
-      </Card>
-
-      <Card className="transition-shadow hover:shadow-md">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Hours</CardTitle>
-          <FolderOpen className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {/*{stats.totalHours > 0 ? stats.totalHours.toFixed(1) : "0"}*/}0
-          </div>
+        }
+        color="red"
+      />
+      <StatsCard
+        title="Total Hours"
+        icon={FolderOpen}
+        // stat={stats.totalHours > 0 ? stats.totalHours.toFixed(1) : "0"}
+        stat="0"
+        description={
           <p className="text-xs text-muted-foreground">
             Hours tracked across all projects
           </p>
-        </CardContent>
-      </Card>
+        }
+        color="yellow"
+      />
     </div>
   );
 };

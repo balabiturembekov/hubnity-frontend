@@ -26,7 +26,7 @@ export default function AdminTeamActivityPage() {
         <main className="flex-1 overflow-y-auto">
           <div className="bg-linear-to-b from-primary/5 via-background to-background">
             <DashboardPageHeader
-              title="Time & Activity"
+              title="Team & Activity"
               subTitle={
                 isAdmin
                   ? "See team members' time worked, activity levels, and amounts earned per project"
