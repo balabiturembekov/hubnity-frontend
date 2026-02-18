@@ -1,6 +1,7 @@
 "use client";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { type PropsWithChildren, useState } from "react";
 import { toast } from "sonner";
 import { handleError } from "@/shared/lib/utils";
@@ -23,5 +24,10 @@ export const QueryProvider = ({ children }: PropsWithChildren) => {
         },
       }),
   );
-  return <QueryClientProvider client={query}>{children}</QueryClientProvider>;
+  return (
+    <QueryClientProvider client={query}>
+      {children}
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 };
