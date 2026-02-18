@@ -64,7 +64,7 @@ export const TeamActivityFilterForm = () => {
               <Skeleton className="h-10 w-full" />
             ) : (
               <Select value={period} onValueChange={setPeriod}>
-                <SelectTrigger id="period-filter">
+                <SelectTrigger id="period-filter" className="w-full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -83,7 +83,7 @@ export const TeamActivityFilterForm = () => {
               <Skeleton className="h-10 w-full" />
             ) : (
               <Select value={userId} onValueChange={setUserId}>
-                <SelectTrigger id="member-filter">
+                <SelectTrigger id="member-filter" className="w-full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -105,7 +105,7 @@ export const TeamActivityFilterForm = () => {
               <Skeleton className="h-10 w-full" />
             ) : (
               <Select value={projectId} onValueChange={setProjectId}>
-                <SelectTrigger id="project-filter">
+                <SelectTrigger id="project-filter" className="w-full">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>

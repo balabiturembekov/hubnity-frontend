@@ -35,12 +35,10 @@ export default function EmployeesPage() {
                   <CreateEmployeeDialog />
                 </DashboardPageHeader>
 
-                <div className="p-6">
-                  <div className="space-y-6">
-                    <EmployeesStats />
-                    <EmployeesFilterForm />
-                    <EmployeesTable />
-                  </div>
+                <div className="p-2 md:p-6 grid gap-4">
+                  <EmployeesStats />
+                  <EmployeesFilterForm />
+                  <EmployeesTable />
                 </div>
               </div>
             </main>

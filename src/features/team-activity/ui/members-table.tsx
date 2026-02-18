@@ -77,7 +77,7 @@ export const MembersTable = () => {
           <Accordion
             type="single"
             collapsible
-            className="w-full overflow-y-auto"
+            className="w-full overflow-x-auto"
           >
             {teamActivity?.members.map((member) => (
               <AccordionItem

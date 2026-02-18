@@ -22,7 +22,7 @@ export const StatsCard = ({
 }: StatsCardProps) => {
   return (
     <Card className="transition-shadow hover:shadow-md w-full">
-      <CardContent className="flex items-start justify-between">
+      <CardContent className="flex items-start justify-between gap-4">
         <div className="h-full flex flex-col justify-between gap-1">
           <h3 className="text-muted-foreground font-medium uppercase text-sm">
             {title}
@@ -34,7 +34,7 @@ export const StatsCard = ({
         </div>
         <div
           className={cn(
-            "bg-blue-100 size-20 rounded-full flex items-center justify-center text-primary",
+            "bg-blue-100 size-20 min-w-20 rounded-full flex items-center justify-center text-primary",
             {
               "bg-red-100 text-red-500": color === "red",
               "bg-green-100 text-green-500": color === "green",

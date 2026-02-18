@@ -9,7 +9,7 @@ export const EmployeesStats = () => {
 
   if (isLoading) {
     return (
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {["total", "active", "admins", "rate"].map((type) => (
           <Card
             key={`skeleton-${type}`}
@@ -30,7 +30,7 @@ export const EmployeesStats = () => {
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <StatsCard
         title="Total Employees"
         icon={Users}
