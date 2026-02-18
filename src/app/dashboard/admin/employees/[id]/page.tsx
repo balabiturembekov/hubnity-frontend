@@ -10,6 +10,7 @@ import { TooltipProvider } from "@/shared/ui/tooltip";
 import {
   EmployeeDetailsProfileHeader,
   EmployeeDetailsTopStats,
+  EmployeeTabs,
 } from "@/widgets/employee-details";
 
 export default function EmployeeDetailsPage() {
@@ -33,26 +34,22 @@ export default function EmployeeDetailsPage() {
     <TooltipProvider>
       <AdminGuard>
         <div className="flex h-screen overflow-auto bg-background">
-          <div className="flex flex-1 flex-col">
-            <main className="flex-1 overflow-y-auto">
-              <div className="bg-linear-to-b from-primary/5 via-background to-background">
-                <div className="p-6">
-                  <div className="space-y-6">
-                    <Button variant="link" asChild>
-                      <Link href="/dashboard/admin/employees">
-                        <ArrowLeft />
-                        Back to Employees
-                      </Link>
-                    </Button>
+          <main className="flex-1 overflow-y-auto">
+            <div className="bg-linear-to-b from-primary/5 via-background to-background p-6 space-y-6">
+              <Button variant="link" asChild>
+                <Link href="/dashboard/admin/employees">
+                  <ArrowLeft />
+                  Back to Employees
+                </Link>
+              </Button>
 
-                    <EmployeeDetailsProfileHeader userDetails={userDetails} />
+              <EmployeeDetailsProfileHeader userDetails={userDetails} />
 
-                    <EmployeeDetailsTopStats userId={userDetails.id} />
-                  </div>
-                </div>
-              </div>
-            </main>
-          </div>
+              <EmployeeDetailsTopStats userId={userDetails.id} />
+
+              <EmployeeTabs userId={userDetails.id} />
+            </div>
+          </main>
         </div>
       </AdminGuard>
     </TooltipProvider>

@@ -1,7 +1,7 @@
 "use client";
 
 import { ChartPie } from "lucide-react";
-import { Legend, Pie, PieChart, ResponsiveContainer } from "recharts";
+import { Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
 import {
   useAnalyticsStore,
   useGetAnalyticsHoursByProjectQuery,
@@ -108,7 +108,9 @@ export const ProjectsChart = () => {
               nameKey="name"
               cx="50%"
               cy="50%"
-              outerRadius={100}
+              innerRadius={50}
+              outerRadius={80}
+              paddingAngle={3}
               label={(props) => {
                 if (!isDesktop) return "";
 
@@ -121,21 +123,20 @@ export const ProjectsChart = () => {
               }}
               labelLine={isDesktop}
             />
-            <Legend
-              formatter={(value, entry) => {
-                const payload = entry.payload as ChartData;
-                const hours = payload.hours;
-
-                return (
-                  <span className="ml-2 text-sm font-medium text-foreground">
-                    {value}
-                    <span className="ml-2 text-muted-foreground">
-                      ({formatHours((hours ?? 0) * 3600)})
-                    </span>
-                  </span>
-                );
+            <Tooltip
+              contentStyle={{
+                backgroundColor: "var(--card)",
+                border: "1px solid var(--border)",
+                borderRadius: "8px",
+                fontSize: 12,
+                color: "var(--foreground)",
               }}
+              formatter={(value?: number, name?: string) => [
+                `${value}h`,
+                `${name}`,
+              ]}
             />
+            <Legend wrapperStyle={{ fontSize: 11 }} />
           </PieChart>
         </ResponsiveContainer>
       </CardContent>

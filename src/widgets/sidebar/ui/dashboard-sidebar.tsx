@@ -39,11 +39,7 @@ export function DashboardSidebar() {
               asChild
             >
               <Link href={item.href}>
-                <Icon
-                // className={cn(item.color, {
-                //   "text-white": isActive,
-                // })}
-                />
+                <Icon />
                 {item.label}
               </Link>
             </Button>

@@ -28,9 +28,14 @@ interface MonthlyChartPoint {
   hours: number;
 }
 
-export const MonthlyChart = () => {
+interface MonthlyChartProps {
+  userId?: string;
+}
+
+export const MonthlyChart = ({ userId }: MonthlyChartProps) => {
   const { data: monthlyData, isPending } = useGetAnalyticsHoursByDayRes({
     period: "this_month",
+    userId,
   });
   const now = new Date();
 
