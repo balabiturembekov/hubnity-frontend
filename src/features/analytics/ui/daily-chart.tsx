@@ -18,23 +18,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/ui/card";
-import { Skeleton } from "@/shared/ui/skeleton";
+import { GraphSkeleton } from "@/widgets/skeleton";
 
 export function DailyChart() {
   const { dailyData, isPending } = useDailyData();
 
   if (isPending) {
-    return (
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>Daily Hours</CardTitle>
-          <CardDescription>Hours tracked over the last 7 days</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="h-75 w-full" />
-        </CardContent>
-      </Card>
-    );
+    return <GraphSkeleton />;
   }
 
   return (

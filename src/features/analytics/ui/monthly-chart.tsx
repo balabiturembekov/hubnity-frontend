@@ -19,7 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/ui/card";
-import { Skeleton } from "@/shared/ui/skeleton";
+import { GraphSkeleton } from "@/widgets/skeleton";
 
 interface MonthlyChartPoint {
   day: number;
@@ -62,19 +62,7 @@ export const MonthlyChart = ({ userId }: MonthlyChartProps) => {
   }, [monthlyData?.data, now]);
 
   if (isPending) {
-    return (
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>Monthly Hours</CardTitle>
-          <CardDescription>
-            Total hours worked per day in {format(now, "MMMM yyyy")}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="h-75 w-full" />
-        </CardContent>
-      </Card>
-    );
+    return <GraphSkeleton />;
   }
 
   return (

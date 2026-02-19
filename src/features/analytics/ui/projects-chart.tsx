@@ -15,8 +15,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/ui/card";
-import { Skeleton } from "@/shared/ui/skeleton";
 import { EmptyState } from "@/widgets/empty-state";
+import { GraphSkeleton } from "@/widgets/skeleton";
 
 const FALLBACK_COLORS = [
   "#8884d8",
@@ -45,19 +45,7 @@ export const ProjectsChart = () => {
     })) ?? [];
 
   if (isHoursByProjectPending) {
-    return (
-      <Card>
-        <CardHeader>
-          <CardTitle>Time by Project</CardTitle>
-          <CardDescription>
-            Distribution of hours across projects
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="h-[300px] w-full rounded-full" />
-        </CardContent>
-      </Card>
-    );
+    return <GraphSkeleton />;
   }
 
   if (!hoursByProject || chartData.length === 0) {

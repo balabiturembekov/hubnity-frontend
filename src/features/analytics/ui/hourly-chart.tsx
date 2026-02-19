@@ -17,23 +17,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/ui/card";
-import { Skeleton } from "@/shared/ui/skeleton";
+import { GraphSkeleton } from "@/widgets/skeleton";
 
 export function HourlyChart() {
   const { hourlyData, isPending } = useHourlyData();
 
   if (isPending) {
-    return (
-      <Card className="w-full">
-        <CardHeader>
-          <CardTitle>Hours by Time of Day</CardTitle>
-          <CardDescription>Last 24 hours of activity</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <Skeleton className="h-75 w-full" />
-        </CardContent>
-      </Card>
-    );
+    return <GraphSkeleton />;
   }
 
   return (

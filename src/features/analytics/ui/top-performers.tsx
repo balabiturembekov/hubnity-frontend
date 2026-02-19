@@ -4,6 +4,7 @@ import { Award, TrendingUp, Trophy } from "lucide-react";
 import { useGetAnalyticsWorkSessionQuery } from "@/entities/dashboard-analytics";
 import { aggregateByUser } from "@/features/analytics/lib/aggregate-performers";
 import type { Performer } from "@/features/analytics/model/types";
+import { GraphSkeleton } from "@/widgets/skeleton";
 import type { MedalRank } from "../consts/medal-config";
 import { PodiumCard, RemainingRow } from "./top-performers/index";
 
@@ -14,7 +15,7 @@ export function TopPerformers() {
   });
 
   if (!workSessions || isPending) {
-    return null;
+    return <GraphSkeleton />;
   }
 
   const sorted = aggregateByUser(workSessions.sessions);

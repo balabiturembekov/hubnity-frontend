@@ -1,14 +1,21 @@
 "use client";
 
+import { useUserStore } from "@/entities/user";
 import { AdminGuard } from "@/features/auth";
 import { ReportsPeriodSelect } from "@/features/reports";
 import { TooltipProvider } from "@/shared/ui/tooltip";
 import { AnalyticsSection } from "@/widgets/dashboard/ui/analytics-section";
 import { ExportDialog } from "@/widgets/export";
 import { DashboardPageHeader } from "@/widgets/header";
-import { ReportsStatsSection } from "@/widgets/reports";
+import { ReportsPageSkeleton, ReportsStatsSection } from "@/widgets/reports";
 
 export default function AdminReportsPage() {
+  const { user, isInitializing } = useUserStore();
+
+  if (isInitializing || !user) {
+    return <ReportsPageSkeleton />;
+  }
+
   return (
     <AdminGuard>
       <TooltipProvider>
