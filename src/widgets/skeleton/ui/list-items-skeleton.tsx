@@ -2,7 +2,7 @@ import { Skeleton } from "@/shared/ui/skeleton";
 
 export const ListItemsSkeleton = () => {
   return (
-    <div className="col-span-2 flex flex-col gap-4">
+    <div className="col-span-full flex flex-col gap-4">
       <div>
         <Skeleton className="h-8 w-48 mb-2" />
         <Skeleton className="h-4 w-64" />

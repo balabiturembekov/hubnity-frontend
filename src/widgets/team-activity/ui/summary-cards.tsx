@@ -7,7 +7,7 @@ import { periodsLabels } from "@/entities/team-activity";
 import { useUser } from "@/entities/user";
 import { useTeamActivityStore } from "@/features/team-activity";
 import { useTimeEntry } from "@/features/time-entry";
-import { SummaryCardsSkeleton } from "./summary-cards-skeleton";
+import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const SummaryCards = () => {
   const { isAdmin } = useUser();
@@ -24,12 +24,12 @@ export const SummaryCards = () => {
   const { period } = useTeamActivityStore();
 
   if (isPending) {
-    return <SummaryCardsSkeleton />;
+    return <StatsCardsSkeleton count={isAdmin ? 4 : 3} />;
   }
 
   return (
     <div
-      className={`grid gap-4 ${isAdmin ? "sm:grid-cols-2 xl:grid-cols-4" : "md:grid-cols-3"}`}
+      className={`grid gap-4 ${isAdmin ? "sm:grid-cols-2 xl:grid-cols-4" : "xl:grid-cols-3"}`}
     >
       {isAdmin && (
         <StatsCard

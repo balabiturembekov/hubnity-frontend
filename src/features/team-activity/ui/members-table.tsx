@@ -13,7 +13,6 @@ import {
   AccordionTrigger,
 } from "@/shared/ui/accordion";
 import { Badge } from "@/shared/ui/badge";
-import { Skeleton } from "@/shared/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -24,11 +23,16 @@ import {
 } from "@/shared/ui/table";
 import { EmptyState } from "@/widgets/empty-state";
 import { DashboardSectionHeader } from "@/widgets/header";
+import { ListItemsSkeleton } from "@/widgets/skeleton";
 import { useFilteredTeamActivity } from "../hooks/use-filtered-team-activity";
 
 export const MembersTable = () => {
   const { isAdmin } = useUser();
   const { teamActivity, isLoading } = useFilteredTeamActivity();
+
+  if (isLoading) {
+    return <ListItemsSkeleton />;
+  }
 
   return (
     <section className="overflow-y-auto">
@@ -46,13 +50,7 @@ export const MembersTable = () => {
         </Badge>
       </DashboardSectionHeader>
       <div className="mt-4">
-        {isLoading ? (
-          <div className="space-y-4">
-            {[1, 2, 3].map((i) => (
-              <Skeleton key={i} className="h-20 w-full" />
-            ))}
-          </div>
-        ) : teamActivity?.members.length === 0 ? (
+        {teamActivity?.members.length === 0 ? (
           <EmptyState
             icon={<Activity className="h-12 w-12 mx-auto" />}
             title={isAdmin ? "No team activity" : "No activity"}
