@@ -36,6 +36,13 @@ export function ScreenshotSettings() {
   const [showWarning, setShowWarning] = useState(false);
   const warningTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  console.log(
+    "isLoading",
+    isLoading,
+    "screenshotEnabled",
+    settings.screenshotEnabled,
+  );
+
   // Cleanup timeout on unmount
   useEffect(() => {
     return () => {

@@ -1,9 +1,6 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
-import { useUser } from "@/entities/user";
-import { Button } from "@/shared/ui/button";
+import { useUser, useUserStore } from "@/entities/user";
 import { ExportDialog } from "@/widgets/export";
 import { DashboardPageHeader } from "@/widgets/header";
 import {
@@ -14,6 +11,9 @@ import {
 
 export default function TrackingPage() {
   const { isAdmin } = useUser();
+  const { user, isInitializing } = useUserStore();
+
+  if (isInitializing || !user) return null;
 
   return (
     <div className="flex h-screen overflow-auto bg-background">
@@ -24,19 +24,11 @@ export default function TrackingPage() {
             subTitle="Track your work time and manage your entries"
           >
             <ExportDialog />
-            <Button variant="outline" className="gap-2" asChild>
-              <Link href="/dashboard">
-                <ArrowRight className="h-4 w-4" />
-                Back to Dashboard
-              </Link>
-            </Button>
           </DashboardPageHeader>
 
-          <div className="p-6 space-y-6">
+          <div className="p-2 md:p-6 grid gap-4">
             {isAdmin && <TimeEntryStatsCards />}
-
             <TodaySummary />
-
             <TimeEntriesTable />
           </div>
         </main>

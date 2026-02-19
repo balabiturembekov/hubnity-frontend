@@ -1,29 +1,22 @@
 "use client";
 
 import { format } from "date-fns";
-import { Camera, Clock, FileText, Search } from "lucide-react";
-import { useMemo, useState } from "react";
+import { Camera, Clock, FileText } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 import { useGetProjectsQuery } from "@/entities/project";
-import {
-  type TimeEntryEntity,
-  useGetTimeEntriesQuery,
-} from "@/entities/time-entry";
-import { useUserStore } from "@/entities/user";
+import type { TimeEntryEntity } from "@/entities/time-entry";
+import { useUser, useUserStore } from "@/entities/user";
 import {
   DeleteTimeEntryDialog,
+  TimeEntriesFilterForm,
   UpdateTimeEntryDialog,
+  useTimeEntriesStore,
 } from "@/features/time-entry";
+import { useFilteredTimeEntries } from "@/features/time-entry/hooks/use-filtered-time-entries";
 import { formatDurationFull } from "@/shared/lib/utils";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
-import { Input } from "@/shared/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/ui/select";
 import { Skeleton } from "@/shared/ui/skeleton";
 import {
   Table,
@@ -43,110 +36,30 @@ import { ExportDialog } from "@/widgets/export";
 import { DashboardSectionHeader } from "@/widgets/header";
 import { ScreenshotGallery } from "@/widgets/screenshot-gallery";
 
+export { TimeEntriesFilterForm } from "@/features/time-entry";
+
 interface TimeEntriesTableProps {
-  userId?: string;
   showActions?: boolean;
   isPreview?: boolean;
+  userId?: string;
 }
 
 export function TimeEntriesTable({
-  userId,
   showActions = true,
   isPreview = false,
+  userId,
 }: TimeEntriesTableProps) {
   const { user: currentUser } = useUserStore();
-  const { data: timeEntries, isLoading } = useGetTimeEntriesQuery({ userId });
+  const { isAdmin } = useUser();
   const { data: projects } = useGetProjectsQuery();
+  const { timeEntries, isLoading } = useFilteredTimeEntries(userId);
+  const { searchQuery, projectId, period } = useTimeEntriesStore();
 
-  const [searchTerm, setSearchTerm] = useState("");
-  const [projectFilter, setProjectFilter] = useState<string>("all");
-  const [dateFilter, setDateFilter] = useState<string>("all");
   const [screenshotGalleryOpen, setScreenshotGalleryOpen] = useState(false);
   const [entryForScreenshots, setEntryForScreenshots] =
     useState<TimeEntryEntity | null>(null);
 
   const isEmployee = currentUser?.role === "EMPLOYEE";
-  const isAdmin =
-    currentUser?.role === "ADMIN" ||
-    currentUser?.role === "OWNER" ||
-    currentUser?.role === "SUPER_ADMIN";
-
-  const filteredEntries = useMemo(() => {
-    if (!timeEntries) return [];
-
-    let filtered = [...timeEntries];
-
-    // Filter by user
-    if (userId) {
-      filtered = filtered.filter((e) => e.userId === userId);
-    } else if (isEmployee) {
-      filtered = filtered.filter((e) => e.userId === currentUser?.id);
-    }
-
-    // Filter by project
-    if (projectFilter !== "all") {
-      if (projectFilter === "none") {
-        filtered = filtered.filter((e) => !e.projectId);
-      } else {
-        filtered = filtered.filter((e) => e.projectId === projectFilter);
-      }
-    }
-
-    // Filter by date
-    if (dateFilter !== "all") {
-      const now = new Date();
-      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-
-      if (dateFilter === "today") {
-        filtered = filtered.filter((e) => {
-          const entryDate = new Date(e.startTime);
-          return entryDate >= today;
-        });
-      } else if (dateFilter === "week") {
-        const weekAgo = new Date(today);
-        weekAgo.setDate(weekAgo.getDate() - 7);
-        filtered = filtered.filter((e) => {
-          const entryDate = new Date(e.startTime);
-          return entryDate >= weekAgo;
-        });
-      } else if (dateFilter === "month") {
-        const monthAgo = new Date(today);
-        monthAgo.setMonth(monthAgo.getMonth() - 1);
-        filtered = filtered.filter((e) => {
-          const entryDate = new Date(e.startTime);
-          return entryDate >= monthAgo;
-        });
-      }
-    }
-
-    // Search filter
-    if (searchTerm) {
-      const searchLower = searchTerm.toLowerCase();
-      filtered = filtered.filter(
-        (e) =>
-          e.user.name.toLowerCase().includes(searchLower) ||
-          e.project?.name.toLowerCase().includes(searchLower) ||
-          e.description?.toLowerCase().includes(searchLower),
-      );
-    }
-
-    // Sort by date (newest first)
-    filtered.sort((a, b) => {
-      const timeA = new Date(a.startTime).getTime();
-      const timeB = new Date(b.startTime).getTime();
-      return timeB - timeA;
-    });
-
-    return filtered;
-  }, [
-    timeEntries,
-    userId,
-    isEmployee,
-    currentUser?.id,
-    projectFilter,
-    dateFilter,
-    searchTerm,
-  ]);
 
   const canEdit = (entry: TimeEntryEntity) => {
     return entry.userId === currentUser?.id || isAdmin;
@@ -159,7 +72,7 @@ export function TimeEntriesTable({
   };
 
   return (
-    <>
+    <div className="space-y-4">
       <DashboardSectionHeader
         title="Time Entries"
         icon={FileText}
@@ -180,55 +93,12 @@ export function TimeEntriesTable({
         )}
       </DashboardSectionHeader>
 
-      {/*<Card>*/}
-      {/*  <CardContent>*/}
-      <TooltipProvider>
-        <div className="space-y-4">
-          {/* Filters */}
-          <div className="flex flex-wrap gap-4">
-            <div className="flex-1 min-w-[200px]">
-              <div className="relative flex items-center">
-                <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search entries..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-8 bg-white"
-                />
-              </div>
-            </div>
-            <Select value={projectFilter} onValueChange={setProjectFilter}>
-              <SelectTrigger className="w-[180px] bg-white">
-                <SelectValue placeholder="All projects" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All projects</SelectItem>
-                <SelectItem value="none">No project</SelectItem>
-                {projects
-                  ?.filter((p) => p.status === "ACTIVE")
-                  .map((project) => (
-                    <SelectItem key={project.id} value={project.id}>
-                      {project.name}
-                    </SelectItem>
-                  ))}
-              </SelectContent>
-            </Select>
-            <Select value={dateFilter} onValueChange={setDateFilter}>
-              <SelectTrigger className="w-[180px] bg-white">
-                <SelectValue placeholder="All time" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All time</SelectItem>
-                <SelectItem value="today">Today</SelectItem>
-                <SelectItem value="week">Last 7 days</SelectItem>
-                <SelectItem value="month">Last 30 days</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+      <TimeEntriesFilterForm />
 
-          {/* Table - scroll horizontally on small screens */}
+      <TooltipProvider>
+        <div className="overflow-x-auto">
           <div className="w-full overflow-x-auto rounded-md border bg-white">
-            <Table className="min-w-[800px]">
+            <Table>
               <TableHeader>
                 <TableRow>
                   {!isEmployee && <TableHead>User</TableHead>}
@@ -269,7 +139,7 @@ export function TimeEntriesTable({
                       )}
                     </TableRow>
                   ))
-                ) : filteredEntries.length === 0 ? (
+                ) : timeEntries.length === 0 ? (
                   <TableRow>
                     <TableCell
                       colSpan={
@@ -280,16 +150,16 @@ export function TimeEntriesTable({
                       <div className="flex flex-col items-center justify-center text-muted-foreground">
                         <Clock className="h-12 w-12 mb-4" />
                         <p className="text-lg font-medium">
-                          {searchTerm ||
-                          projectFilter !== "all" ||
-                          dateFilter !== "all"
+                          {searchQuery ||
+                          projectId !== "all" ||
+                          period !== "all"
                             ? "No entries found"
                             : "No time entries yet"}
                         </p>
                         <p className="text-sm">
-                          {searchTerm ||
-                          projectFilter !== "all" ||
-                          dateFilter !== "all"
+                          {searchQuery ||
+                          projectId !== "all" ||
+                          period !== "all"
                             ? "Try adjusting your filters"
                             : "Start tracking your time"}
                         </p>
@@ -297,11 +167,25 @@ export function TimeEntriesTable({
                     </TableCell>
                   </TableRow>
                 ) : (
-                  filteredEntries.map((entry) => (
+                  timeEntries.map((entry) => (
                     <TableRow key={entry.id}>
                       {!isEmployee && (
-                        <TableCell className="font-medium">
-                          {entry.user.name}
+                        <TableCell className="font-medium flex flex-col">
+                          <Button
+                            className="p-0 justify-start h-auto"
+                            variant="link"
+                            asChild
+                          >
+                            <Link
+                              className="font-medium"
+                              href={`/dashboard/admin/employees/${entry.userId}`}
+                            >
+                              {entry.user.name}
+                            </Link>
+                          </Button>
+                          <span className="text-xs text-muted-foreground">
+                            {entry.user.email}
+                          </span>
                         </TableCell>
                       )}
                       <TableCell>
@@ -403,8 +287,6 @@ export function TimeEntriesTable({
           }}
         />
       </TooltipProvider>
-      {/*  </CardContent>*/}
-      {/*</Card>*/}
-    </>
+    </div>
   );
 }

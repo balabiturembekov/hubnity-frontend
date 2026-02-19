@@ -1,4 +1,3 @@
-// features/screenshot-settings/hooks/use-screenshot-settings.ts
 import { useMemo } from "react";
 import {
   type ScreenshotInterval,
@@ -32,8 +31,7 @@ export function useScreenshotSettings() {
       : DEFAULT_SETTINGS.screenshotInterval;
 
     return {
-      screenshotEnabled:
-        data.screenshotEnabled ?? DEFAULT_SETTINGS.screenshotEnabled,
+      screenshotEnabled: data.screenshotEnabled,
       screenshotInterval: interval,
     };
   }, [data]);

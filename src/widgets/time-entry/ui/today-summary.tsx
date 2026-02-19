@@ -16,7 +16,7 @@ export const TodaySummary = () => {
   const { todayHours, todayEntries } = useTimeEntry();
 
   return (
-    <div className="flex items-start gap-6 w-full">
+    <div className="grid md:grid-cols-2 gap-4">
       <Card className="transition-shadow hover:shadow-md w-full">
         <CardHeader>
           <div className="flex items-center gap-2">

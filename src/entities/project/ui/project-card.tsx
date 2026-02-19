@@ -36,7 +36,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
               <div
-                className="h-3 w-3 rounded-full flex-shrink-0"
+                className="h-3 w-3 rounded-full shrink-0"
                 style={{ backgroundColor: project.color }}
               />
               <CardTitle className="text-lg">{project.name}</CardTitle>
