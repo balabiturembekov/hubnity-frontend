@@ -19,6 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui/select";
+import { FilterSkeleton } from "@/widgets/skeleton";
 
 export const ProjectsFilters = () => {
   const {
@@ -28,7 +29,12 @@ export const ProjectsFilters = () => {
     setStatusFilter,
     resetFilters,
   } = useProjectsStore();
-  const { projects, totalCount, hasActiveFilters } = useFilteredProjects();
+  const { projects, totalCount, hasActiveFilters, isLoading } =
+    useFilteredProjects();
+
+  if (isLoading) {
+    return <FilterSkeleton />;
+  }
 
   return (
     <Card className="transition-shadow hover:shadow-md">

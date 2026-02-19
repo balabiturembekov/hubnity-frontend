@@ -1,26 +1,20 @@
 import { Card, CardContent, CardHeader } from "@/shared/ui/card";
 import { Skeleton } from "@/shared/ui/skeleton";
+import {
+  DashboardPageHeaderSkeleton,
+  DashboardSectionHeaderSkeleton,
+  FilterSkeleton,
+  StatsCardsSkeleton,
+} from "@/widgets/skeleton";
 
 export const ProjectsPageSkeleton = () => {
   return (
-    <main className="flex-1 overflow-y-auto p-6">
-      <div className="space-y-6">
-        <div>
-          <Skeleton className="h-9 w-48 mb-2" />
-          <Skeleton className="h-4 w-64" />
-        </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 pt-6">
-          {[1, 2, 3, 4].map((i) => (
-            <Card key={i}>
-              <CardHeader>
-                <Skeleton className="h-4 w-24" />
-              </CardHeader>
-              <CardContent>
-                <Skeleton className="h-8 w-16" />
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+    <main className="flex-1 overflow-y-auto">
+      <DashboardPageHeaderSkeleton />
+      <div className="grid gap-4 p-2 sm:p-6">
+        <StatsCardsSkeleton />
+        <FilterSkeleton />
+        <DashboardSectionHeaderSkeleton />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {[1, 2, 3].map((i) => (
             <Card key={i}>
