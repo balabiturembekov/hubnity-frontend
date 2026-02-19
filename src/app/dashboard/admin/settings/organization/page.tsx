@@ -1,7 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { DashboardPageHeader } from "@/widgets/header";
-import { OrganizationSettingsTab } from "@/widgets/settings";
+import {
+  OrganizationDetailsTabContent,
+  SecurityLoginTabContent,
+} from "@/widgets/settings";
 
 export default function OrganizationSettingsPage() {
   return (
@@ -20,7 +23,16 @@ export default function OrganizationSettingsPage() {
             <TabsTrigger value="permissions">Permissions</TabsTrigger>
           </TabsList>
           <TabsContent value="information">
-            <OrganizationSettingsTab />
+            <OrganizationDetailsTabContent />
+          </TabsContent>
+          <TabsContent value="security-login">
+            <SecurityLoginTabContent />
+          </TabsContent>
+          <TabsContent value="projects-todos">
+            <OrganizationDetailsTabContent />
+          </TabsContent>
+          <TabsContent value="permissions">
+            <SecurityLoginTabContent />
           </TabsContent>
         </Tabs>
       </div>

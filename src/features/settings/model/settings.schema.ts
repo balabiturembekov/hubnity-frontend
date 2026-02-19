@@ -10,7 +10,13 @@ export const organizationInformationSettingsSchema = z.object({
   startWeekOn: z.string(),
   timezone: z.string(),
 });
-
 export type OrganizationInformationSettingsFormValues = z.infer<
   typeof organizationInformationSettingsSchema
+>;
+
+export const securityLoginSettingsSchema = z.object({
+  twoFactor: z.boolean(),
+});
+export type SecurityLoginSettingsFormValues = z.infer<
+  typeof securityLoginSettingsSchema
 >;

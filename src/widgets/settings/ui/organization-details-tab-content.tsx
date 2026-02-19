@@ -27,6 +27,7 @@ import {
 import { Input } from "@/shared/ui/input";
 import { Separator } from "@/shared/ui/separator";
 import { Textarea } from "@/shared/ui/textarea";
+import { SettingsSectionDescription } from "@/widgets/settings/ui/settings-section-description";
 
 const industries = [
   "Digital Marketing",
@@ -36,7 +37,7 @@ const industries = [
   "IT services",
 ];
 
-export const OrganizationSettingsTab = () => {
+export const OrganizationDetailsTabContent = () => {
   const form = useForm<OrganizationInformationSettingsFormValues>({
     resolver: zodResolver(organizationInformationSettingsSchema),
     defaultValues: {
@@ -56,12 +57,10 @@ export const OrganizationSettingsTab = () => {
       <form onSubmit={form.handleSubmit((values) => console.log(values))}>
         <div className="grid grid-cols-5 gap-8 my-12">
           {/* Company details section */}
-          <div className="col-span-2 flex flex-col gap-2 w-1/2">
-            <h2 className="text-xl">Organization profile</h2>
-            <p className="font-light text-muted-foreground">
-              Manage basic company information
-            </p>
-          </div>
+          <SettingsSectionDescription
+            title="Organization profile"
+            subTitle="Manage basic company information"
+          />
 
           <div className="col-span-3 grid grid-cols-4">
             <div className="col-span-3 flex flex-col justify-between gap-3">
@@ -152,12 +151,10 @@ export const OrganizationSettingsTab = () => {
           <Separator className="col-span-5" />
 
           {/* Time zone & preferences section */}
-          <div className="col-span-2 flex flex-col gap-2 w-1/2">
-            <h2 className="text-xl">Timezone & preferences</h2>
-            <p className="font-light text-muted-foreground">
-              Manage regional and localization settings
-            </p>
-          </div>
+          <SettingsSectionDescription
+            title="Timezone & preferences"
+            subTitle="Manage regional and localization settings"
+          />
 
           <div className="col-span-3 flex gap-3">
             <FormField
