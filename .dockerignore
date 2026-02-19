@@ -1,0 +1,31 @@
+# Node modules не копируем — их ставим внутри контейнера
+node_modules
+npm-debug.log
+yarn-error.log
+pnpm-lock.yaml
+
+# Локные сборки и временные файлы
+.next/cache
+.next/standalone/node_modules
+dist
+build
+
+# Конфиги IDE / системы
+.vscode
+.idea
+.cursor
+.DS_Store
+*.log
+
+# Тесты, локальные скрипты, документация
+coverage
+*.spec.ts
+*.test.ts
+*.md
+
+# Личные файлы
+.env
+.env.local
+.env.development
+.env.test
+.env.production.local
