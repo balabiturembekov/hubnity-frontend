@@ -40,7 +40,7 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
   {
     id: "3",
     label: "Employees",
-    href: "/dashboard/admin/members",
+    href: "/dashboard/admin/employees",
     icon: Users,
     isAdminOnly: true,
   },

@@ -33,7 +33,7 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "1",
         label: "Company information",
-        href: "",
+        href: "/dashboard/admin/settings/organization",
         icon: Info,
         description:
           "Manage company name, logo, contact details and general organization info.",
@@ -41,7 +41,7 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "2",
         label: "Security & Log in",
-        href: "",
+        href: "/dashboard/admin/settings/organization",
         icon: LockKeyhole,
         description:
           "Configure authentication, password policies and login security settings.",
@@ -49,7 +49,7 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "3",
         label: "Projects & to-dos",
-        href: "",
+        href: "/dashboard/admin/settings/organization",
         icon: FolderRoot,
         description:
           "Create and manage projects, tasks and internal workflows.",
@@ -57,7 +57,7 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "4",
         label: "Permissions",
-        href: "",
+        href: "/dashboard/admin/settings/organization",
         icon: KeyRound,
         description:
           "Define roles and control access levels across the organization.",
@@ -71,21 +71,21 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "1",
         label: "Custom fields",
-        href: "",
+        href: "/dashboard/admin/settings/members",
         icon: SlidersHorizontal,
         description: "Create and manage additional profile fields for members.",
       },
       {
         id: "2",
         label: "Work time limits",
-        href: "",
+        href: "/dashboard/admin/settings/members",
         icon: Clock,
         description: "Set daily and weekly work hour limits for team members.",
       },
       {
         id: "3",
         label: "Payments",
-        href: "",
+        href: "/dashboard/admin/settings/members",
         icon: Wallet,
         description:
           "Configure payment rates, salaries and compensation details.",
@@ -93,7 +93,7 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "4",
         label: "Achievements",
-        href: "",
+        href: "/dashboard/admin/settings/members",
         icon: Trophy,
         description: "Track milestones, badges and performance achievements.",
       },
@@ -106,28 +106,28 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "1",
         label: "Activity",
-        href: "",
+        href: "/dashboard/admin/settings/activity-tracking",
         icon: Activity,
         description: "Monitor user activity levels and productivity metrics.",
       },
       {
         id: "2",
         label: "Timesheets",
-        href: "",
+        href: "/dashboard/admin/settings/activity-tracking",
         icon: CalendarClock,
         description: "Review and approve employee timesheets.",
       },
       {
         id: "3",
         label: "Time & tracking",
-        href: "",
+        href: "/dashboard/admin/settings/activity-tracking",
         icon: Timer,
         description: "Configure time tracking behavior and tracking rules.",
       },
       {
         id: "4",
         label: "Screenshots",
-        href: "",
+        href: "/dashboard/admin/settings/activity-tracking",
         icon: Monitor,
         description:
           "Manage screenshot capture frequency and storage settings.",
@@ -141,7 +141,7 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "1",
         label: "Time off",
-        href: "",
+        href: "/dashboard/admin/settings/policies",
         icon: Plane,
         description:
           "Set rules and approval flow for vacations and leave requests.",
@@ -149,14 +149,14 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "2",
         label: "Work breaks",
-        href: "",
+        href: "/dashboard/admin/settings/policies",
         icon: Coffee,
         description: "Configure break duration, limits and compliance rules.",
       },
       {
         id: "3",
         label: "Overtime",
-        href: "",
+        href: "/dashboard/admin/settings/policies",
         icon: AlarmClock,
         description: "Define overtime policies and compensation rules.",
       },
@@ -169,7 +169,7 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "1",
         label: "All integrations",
-        href: "",
+        href: "/dashboard/admin/settings/integrations",
         icon: Plug,
         description:
           "Browse and manage all available third-party integrations.",
@@ -177,21 +177,21 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "2",
         label: "Wise",
-        href: "",
+        href: "/dashboard/admin/settings/integrations",
         icon: Landmark,
         description: "Connect and configure Wise for international payments.",
       },
       {
         id: "3",
         label: "Jira",
-        href: "",
+        href: "/dashboard/admin/settings/integrations",
         icon: KanbanSquare,
         description: "Sync projects and tasks with Jira.",
       },
       {
         id: "4",
         label: "Slack",
-        href: "",
+        href: "/dashboard/admin/settings/integrations",
         icon: MessageSquare,
         description: "Connect Slack to receive notifications and updates.",
       },
@@ -204,7 +204,7 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "1",
         label: "Billing information",
-        href: "",
+        href: "/dashboard/admin/settings/billing",
         icon: CreditCard,
         description:
           "Manage billing details, payment methods and company address.",
@@ -212,21 +212,21 @@ export const settingsItems: SettingsItemType[] = [
       {
         id: "2",
         label: "Subscription invoices",
-        href: "",
+        href: "/dashboard/admin/settings/billing",
         icon: FileText,
         description: "View and download subscription invoices.",
       },
       {
         id: "3",
         label: "Subscription settings",
-        href: "",
+        href: "/dashboard/admin/settings/billing",
         icon: Settings,
         description: "Upgrade, downgrade or manage your subscription plan.",
       },
       {
         id: "4",
         label: "Client invoice",
-        href: "",
+        href: "/dashboard/admin/settings/billing",
         icon: Receipt,
         description: "Create and manage invoices issued to your clients.",
       },

@@ -1,3 +1,29 @@
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
+import { DashboardContainer } from "@/widgets/dashboard";
+import { DashboardPageHeader } from "@/widgets/header";
+import { OrganizationSettingsTab } from "@/widgets/settings";
+
 export default function OrganizationSettingsPage() {
-  return <div>OrganizationSettingsPage</div>;
+  return (
+    <DashboardContainer>
+      <DashboardPageHeader
+        title="Organization settings"
+        subTitle="Configure company details, authentication, workflows and role permissions"
+      />
+
+      <div className="p-2 md:p-6">
+        <Tabs defaultValue="information">
+          <TabsList>
+            <TabsTrigger value="information">Company information</TabsTrigger>
+            <TabsTrigger value="security-login">Security & Log in</TabsTrigger>
+            <TabsTrigger value="projects-todos">Projects & To-dos</TabsTrigger>
+            <TabsTrigger value="permissions">Permissions</TabsTrigger>
+          </TabsList>
+          <TabsContent value="information">
+            <OrganizationSettingsTab />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </DashboardContainer>
+  );
 }

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useUserStore } from "@/entities/user";
 import { ProfileEditDialog } from "@/features/auth";
 import { Button } from "@/shared/ui/button";
+import { DashboardContainer } from "@/widgets/dashboard";
 import { DashboardPageHeader } from "@/widgets/header/ui/dashboard-page-header";
 import {
   ProfileInfo,
@@ -23,45 +24,39 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="flex h-screen overflow-auto bg-background">
-      <div className="flex flex-1 flex-col">
-        <main className="flex-1 overflow-y-auto">
-          <div className="bg-linear-to-b from-primary/5 via-background to-background">
-            <DashboardPageHeader
-              title="My Profile"
-              subTitle="View and manage your profile settings"
-            >
-              <Button onClick={() => setEditDialogOpen(true)} className="gap-2">
-                <Edit className="h-4 w-4" />
-                Edit Profile
-              </Button>
-            </DashboardPageHeader>
+    <DashboardContainer>
+      <DashboardPageHeader
+        title="My Profile"
+        subTitle="View and manage your profile settings"
+      >
+        <Button onClick={() => setEditDialogOpen(true)} className="gap-2">
+          <Edit className="h-4 w-4" />
+          Edit Profile
+        </Button>
+      </DashboardPageHeader>
 
-            <div className="grid grid-cols-2 p-2 md:p-6 gap-4">
-              <div className="col-span-2">
-                <ProfileStats />
-              </div>
+      <div className="grid grid-cols-2 p-2 md:p-6 gap-4">
+        <div className="col-span-2">
+          <ProfileStats />
+        </div>
 
-              <div className="col-span-2 lg:col-span-1">
-                <ProfileInfo />
-              </div>
+        <div className="col-span-2 lg:col-span-1">
+          <ProfileInfo />
+        </div>
 
-              <div className="col-span-2 lg:col-span-1">
-                <ProfileStatistics />
-              </div>
+        <div className="col-span-2 lg:col-span-1">
+          <ProfileStatistics />
+        </div>
 
-              <div className="col-span-2">
-                <RecentActivity />
-              </div>
-            </div>
-          </div>
-        </main>
+        <div className="col-span-2">
+          <RecentActivity />
+        </div>
       </div>
 
       <ProfileEditDialog
         open={editDialogOpen}
         onOpenChange={setEditDialogOpen}
       />
-    </div>
+    </DashboardContainer>
   );
 }
