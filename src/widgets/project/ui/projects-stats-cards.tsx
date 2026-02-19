@@ -101,7 +101,7 @@ export const ProjectsStatsCards = () => {
           </p>
         }
         color="red"
-        statsClassName="text-2xl"
+        statsClassName="text-xl"
       />
       <StatsCard
         title="Total Hours"

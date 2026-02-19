@@ -43,6 +43,7 @@ export const TimeEntryStatsCards = () => {
         icon={Calendar}
         stat={formatDurationFull(todayStats.totalHours * 3600)} // TODO: Change to todayStats.totalSeconds after adding on backend
         description={`${todayStats.entriesCount} entries`}
+        statsClassName="text-2xl"
         color="green"
       />
 
@@ -51,6 +52,7 @@ export const TimeEntryStatsCards = () => {
         icon={TrendingUp}
         stat={formatDurationFull(last7daysStats.totalHours * 3600)} // TODO: Change to last7daysStats.totalSeconds after adding on backend
         description="Last 7 days"
+        statsClassName="text-2xl"
         color="blue"
       />
 
@@ -59,6 +61,7 @@ export const TimeEntryStatsCards = () => {
         icon={FileText}
         stat={formatDurationFull(thisMonthStats.totalHours * 3600)} // TODO: Change to thisMonthStats.totalSeconds after adding on backend
         description="Last 30 days"
+        statsClassName="text-2xl"
         color="red"
       />
 
@@ -67,6 +70,7 @@ export const TimeEntryStatsCards = () => {
         icon={Clock}
         stat={formatDurationFull(totalStats.totalHours * 3600)} // TODO: Change to totalStats.totalSeconds after adding on backend
         description="Hours tracked across all projects"
+        statsClassName="text-2xl"
         color="yellow"
       />
     </div>

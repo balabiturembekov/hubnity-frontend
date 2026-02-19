@@ -23,11 +23,16 @@ export const StatsCard = ({
   return (
     <Card className="transition-shadow hover:shadow-md w-full">
       <CardContent className="flex items-start justify-between gap-4">
-        <div className="h-full flex flex-col justify-between gap-1">
+        <div className="h-full flex flex-col justify-between gap-1 min-w-0">
           <h3 className="text-muted-foreground font-medium uppercase text-sm">
             {title}
           </h3>
-          <div className={cn("text-3xl font-normal", statsClassName)}>
+          <div
+            className={cn(
+              "text-3xl font-normal wrap-break-word hyphens-auto",
+              statsClassName,
+            )}
+          >
             {stat}
           </div>
           <div className="text-xs text-muted-foreground">{description}</div>

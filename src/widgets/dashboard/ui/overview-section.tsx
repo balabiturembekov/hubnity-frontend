@@ -27,6 +27,7 @@ export const OverviewSection = () => {
             title="Total Hours"
             icon={Clock}
             stat={formatDurationFull(periodStats.totalHours * 3600)}
+            statsClassName="text-2xl"
             description="Last 30 days"
             color="green"
           />
@@ -48,6 +49,7 @@ export const OverviewSection = () => {
             title="Today"
             icon={TrendingUp}
             stat={formatDurationFull(todayStats.totalHours * 3600)}
+            statsClassName="text-2xl"
             description="Hours today"
             color="yellow"
           />

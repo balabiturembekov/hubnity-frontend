@@ -50,6 +50,7 @@ export const SummaryCards = () => {
         title="Total Hours"
         icon={Clock}
         stat={teamActivityTotalHours ?? "0"}
+        statsClassName="text-2xl"
         description={
           <p className="text-xs text-muted-foreground">
             {isAdmin && totalMembers > 0
@@ -70,7 +71,7 @@ export const SummaryCards = () => {
               : "Total earnings"}
           </p>
         }
-        statsClassName="text-2xl"
+        statsClassName="text-xl"
         color="red"
       />
       <StatsCard

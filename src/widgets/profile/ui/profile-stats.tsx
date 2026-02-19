@@ -46,6 +46,7 @@ export const ProfileStats = () => {
         title="Total Hours"
         icon={Clock}
         stat={formatDurationFull(totalStats.totalHours * 3600)}
+        statsClassName="text-2xl"
         description={
           <p className="text-xs text-muted-foreground">
             {totalStats.entriesCount} entries tracked
@@ -57,6 +58,7 @@ export const ProfileStats = () => {
         title="Today"
         icon={Calendar}
         stat={formatDurationFull(todayStats.totalHours * 3600)}
+        statsClassName="text-2xl"
         description={
           <p className="text-xs text-muted-foreground">Hours tracked today</p>
         }
@@ -66,6 +68,7 @@ export const ProfileStats = () => {
         title="This Week"
         icon={TrendingUp}
         stat={formatDurationFull(last7daysStats.totalHours * 3600)}
+        statsClassName="text-2xl"
         description={
           <p className="text-xs text-muted-foreground">Last 7 days</p>
         }
@@ -75,6 +78,7 @@ export const ProfileStats = () => {
         title="This Month"
         icon={FileText}
         stat={formatDurationFull(thisMonthStats.totalHours * 3600)}
+        statsClassName="text-2xl"
         description={
           <p className="text-xs text-muted-foreground">Last 30 days</p>
         }

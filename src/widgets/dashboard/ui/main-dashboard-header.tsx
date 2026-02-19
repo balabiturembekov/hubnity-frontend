@@ -34,14 +34,14 @@ export const MainDashboardHeader = () => {
 
   return (
     <DashboardPageHeader
-      title={`${greeting()}, ${user.name}!👋`}
+      title={`${greeting()}, ${user.name}! 👋`}
       subTitle={format(new Date(), "EEEE, MMMM d, yyyy")}
     >
       <Link href="/dashboard/tracking">
         <Button variant="outline" className="gap-2">
           <Clock className="h-4 w-4" />
           View Tracking
-          <ArrowRight className="h-4 w-4" />
+          <ArrowRight className="h-4 w-4 hidden sm:block" />
         </Button>
       </Link>
       {isAdmin && (

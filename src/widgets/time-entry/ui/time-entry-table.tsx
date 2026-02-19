@@ -72,7 +72,7 @@ export function TimeEntriesTable({
   };
 
   return (
-    <div className="space-y-4">
+    <section className="space-y-4 overflow-x-auto">
       <DashboardSectionHeader
         title="Time Entries"
         icon={FileText}
@@ -96,8 +96,8 @@ export function TimeEntriesTable({
       <TimeEntriesFilterForm />
 
       <TooltipProvider>
-        <div className="overflow-x-auto">
-          <div className="w-full overflow-x-auto rounded-md border bg-white">
+        <div>
+          <div className="rounded-md border bg-white">
             <Table>
               <TableHeader>
                 <TableRow>
@@ -168,7 +168,7 @@ export function TimeEntriesTable({
                   </TableRow>
                 ) : (
                   timeEntries.map((entry) => (
-                    <TableRow key={entry.id}>
+                    <TableRow key={entry.id} className="min-w-[810px]">
                       {!isEmployee && (
                         <TableCell className="font-medium flex flex-col">
                           <Button
@@ -287,6 +287,6 @@ export function TimeEntriesTable({
           }}
         />
       </TooltipProvider>
-    </div>
+    </section>
   );
 }
