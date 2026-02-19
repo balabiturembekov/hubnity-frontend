@@ -26,15 +26,15 @@ export const ProfileStats = () => {
       period: "this_month",
     });
 
-  if (!todayStats || !last7daysStats || !thisMonthStats || !totalStats) {
-    return null;
-  }
-
   const isPending =
+    isTotalStatsPending ||
+    !totalStats ||
     isTodayStatsPending ||
+    !todayStats ||
     isLast7daysPending ||
+    !last7daysStats ||
     isThisMonthPending ||
-    isTotalStatsPending;
+    !thisMonthStats;
 
   if (isPending) {
     return <StatsCardsSkeleton />;

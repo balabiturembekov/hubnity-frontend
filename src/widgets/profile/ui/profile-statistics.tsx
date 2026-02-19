@@ -14,6 +14,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/ui/card";
+import { ProfileTimeStatisticsSkeleton } from "@/widgets/skeleton";
 
 export const ProfileStatistics = () => {
   const {
@@ -23,7 +24,12 @@ export const ProfileStatistics = () => {
     myWeekTime,
     myMonthTime,
     myActiveEntries,
+    isPending,
   } = useTimeEntry();
+
+  if (isPending) {
+    return <ProfileTimeStatisticsSkeleton />;
+  }
 
   return (
     <Card className="transition-shadow hover:shadow-md h-full">

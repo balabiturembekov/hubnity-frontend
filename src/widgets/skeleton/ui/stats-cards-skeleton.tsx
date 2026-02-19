@@ -3,18 +3,17 @@ import { Skeleton } from "@/shared/ui/skeleton";
 
 export const StatsCardsSkeleton = () => {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {[1, 2, 3, 4].map((i) => (
-        <Card key={i} className="w-full h-38">
-          <CardContent className="flex flex-col justify-between h-full">
-            <div className="flex items-center justify-between">
-              <Skeleton className="h-4 w-32" />
-              <Skeleton className="h-5 w-5" />
+        <Card key={i} className="min-h-[130px]">
+          <CardContent className="flex justify-between items-center gap-2">
+            <div className="flex flex-col gap-2 w-full">
+              <Skeleton className="h-5 w-1/2" />
+              <Skeleton className="h-6 w-3/4" />
+              <Skeleton className="h-5 w-1/2" />
             </div>
-
-            <div className="space-y-2.5">
-              <Skeleton className="h-6 w-24" />
-              <Skeleton className="h-4 w-full" />
+            <div>
+              <Skeleton className="size-16 rounded-full" />
             </div>
           </CardContent>
         </Card>
