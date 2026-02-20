@@ -16,6 +16,7 @@ import {
 } from "@/shared/ui/dialog";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
+import { PasswordInput } from "@/shared/ui/password-input";
 import {
   Select,
   SelectContent,
@@ -142,7 +143,7 @@ export function EmployeeDialog({ open, onOpenChange, user }: UserDialogProps) {
               <Label htmlFor="password">
                 Password {user && "(leave empty to keep current)"}
               </Label>
-              <Input
+              <PasswordInput
                 id="password"
                 type="password"
                 {...register("password")}

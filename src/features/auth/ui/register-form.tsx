@@ -20,6 +20,7 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { Input } from "@/shared/ui/input";
+import { PasswordInput } from "@/shared/ui/password-input";
 
 export const RegisterForm = () => {
   const registerMutation = useRegisterMutation();
@@ -61,6 +62,7 @@ export const RegisterForm = () => {
                 required,
                 icon: Icon,
                 bottomMessage,
+                autoComplete,
               }) => (
                 <FormField
                   key={name}
@@ -73,15 +75,28 @@ export const RegisterForm = () => {
                       </FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <Icon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                          <Input
-                            id={name}
-                            type={type}
-                            placeholder={placeholder}
-                            className="pl-9 h-10"
-                            disabled={registerMutation.isPending}
-                            {...field}
-                          />
+                          <Icon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground z-10" />
+                          {type === "password" ? (
+                            <PasswordInput
+                              id={name}
+                              type={type}
+                              placeholder={placeholder}
+                              className="pl-9 h-10"
+                              disabled={registerMutation.isPending}
+                              autoComplete={autoComplete}
+                              {...field}
+                            />
+                          ) : (
+                            <Input
+                              id={name}
+                              type={type}
+                              placeholder={placeholder}
+                              className="pl-9 h-10"
+                              disabled={registerMutation.isPending}
+                              autoComplete={autoComplete}
+                              {...field}
+                            />
+                          )}
                         </div>
                       </FormControl>
                       {bottomMessage && (

@@ -1,8 +1,8 @@
 "use client";
 
-import { LogOut, Settings } from "lucide-react";
+import { LayoutDashboard, LogOut, Settings } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { UserAvatar, useCurrentUser } from "@/entities/user";
 import { useLogoutMutation } from "@/features/auth";
 import { queryClient } from "@/shared/config/query-client";
@@ -28,6 +28,7 @@ export const UserProfileDropdown = ({
   const { data: user } = useCurrentUser();
   const router = useRouter();
   const { mutateAsync: logout } = useLogoutMutation();
+  const pathname = usePathname();
 
   const handleLogout = async () => {
     try {
@@ -71,6 +72,14 @@ export const UserProfileDropdown = ({
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        {pathname === "/" && (
+          <DropdownMenuItem asChild>
+            <Link href="/dashboard">
+              <LayoutDashboard className="mr-2 h-4 w-4" />
+              Dashboard
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem asChild>
           <Link href="/dashboard/profile">
             <Settings className="mr-2 h-4 w-4" />

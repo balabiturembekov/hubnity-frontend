@@ -12,6 +12,7 @@ import {
 } from "@/shared/ui/dialog";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
+import { PasswordInput } from "@/shared/ui/password-input";
 
 interface ChangePasswordDialogProps {
   open: boolean;
@@ -39,7 +40,7 @@ export function ChangePasswordDialog({
           <div className="grid gap-4 py-4">
             <div className="grid gap-2">
               <Label htmlFor="currentPassword">Current Password</Label>
-              <Input
+              <PasswordInput
                 id="currentPassword"
                 type="password"
                 {...register("currentPassword")}
@@ -55,7 +56,7 @@ export function ChangePasswordDialog({
             </div>
             <div className="grid gap-2">
               <Label htmlFor="newPassword">New Password</Label>
-              <Input
+              <PasswordInput
                 id="newPassword"
                 type="password"
                 {...register("newPassword")}

@@ -1,4 +1,5 @@
 import { Building2, Globe, Lock, Mail, User } from "lucide-react";
+import type { HTMLInputAutoCompleteAttribute } from "react";
 import type {
   LoginFormValues,
   RegisterFormValues,
@@ -12,6 +13,7 @@ type FieldConfig<TValues> = {
   icon: React.ElementType;
   required?: boolean;
   bottomMessage?: string;
+  autoComplete?: HTMLInputAutoCompleteAttribute;
 };
 
 type FieldGroup<TValues> = {
@@ -28,6 +30,7 @@ export const loginFields: FieldConfig<LoginFormValues>[] = [
     type: "email",
     icon: Mail,
     required: true,
+    autoComplete: "email",
   },
   {
     name: "password",
@@ -36,6 +39,7 @@ export const loginFields: FieldConfig<LoginFormValues>[] = [
     type: "password",
     icon: Lock,
     required: true,
+    autoComplete: "current-password",
   },
 ];
 
@@ -49,6 +53,7 @@ export const registerFieldGroups: FieldGroup<RegisterFormValues>[] = [
         placeholder: "John Doe",
         icon: User,
         required: true,
+        autoComplete: "name",
       },
       {
         name: "email",
@@ -57,6 +62,7 @@ export const registerFieldGroups: FieldGroup<RegisterFormValues>[] = [
         type: "email",
         icon: Mail,
         required: true,
+        autoComplete: "email",
       },
       {
         name: "companyName",
@@ -85,6 +91,7 @@ export const registerFieldGroups: FieldGroup<RegisterFormValues>[] = [
         type: "password",
         icon: Lock,
         required: true,
+        autoComplete: "new-password",
       },
       {
         name: "confirmPassword",
@@ -93,6 +100,7 @@ export const registerFieldGroups: FieldGroup<RegisterFormValues>[] = [
         type: "password",
         icon: Lock,
         required: true,
+        autoComplete: "new-password",
       },
     ],
   },
