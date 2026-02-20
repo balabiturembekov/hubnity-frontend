@@ -2,11 +2,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import {
   type PatchUserReq,
+  type UpdateEmployeeSchemaValues,
   type UserEntity,
   userService,
 } from "@/entities/user";
 import { handleError } from "@/shared/lib/utils";
-import type { UpdateEmployeeSchemaValues } from "../schemas/update-employee-schema";
 
 export const useUpdateEmployeeMutation = () => {
   const queryClient = useQueryClient();

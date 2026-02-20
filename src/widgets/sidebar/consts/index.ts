@@ -38,11 +38,10 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
     icon: BarChart3,
   },
   {
-    id: "3",
-    label: "Employees",
-    href: "/dashboard/admin/employees",
-    icon: Users,
-    isAdminOnly: true,
+    id: "6",
+    label: "Team & Activity",
+    href: "/dashboard/admin/team-activity",
+    icon: Activity,
   },
   {
     id: "4",
@@ -53,16 +52,17 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
   },
   {
     id: "5",
-    label: "Reports",
-    href: "/dashboard/admin/reports",
+    label: "Summaries",
+    href: "/dashboard/admin/summaries",
     icon: BarChart3,
     isAdminOnly: true,
   },
   {
-    id: "6",
-    label: "Team & Activity",
-    href: "/dashboard/admin/team-activity",
-    icon: Activity,
+    id: "3",
+    label: "Employees",
+    href: "/dashboard/admin/employees",
+    icon: Users,
+    isAdminOnly: true,
   },
   {
     id: "7",
@@ -75,6 +75,7 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
     label: "Settings",
     href: "/dashboard/admin/settings",
     icon: Settings,
+    isAdminOnly: true,
     childrenLinks: [
       {
         id: "1",
@@ -96,21 +97,21 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
         label: "Activity & tracking",
         href: "/dashboard/admin/settings/activity-tracking",
       },
-      {
-        id: "5",
-        label: "Policies",
-        href: "/dashboard/admin/settings/policies",
-      },
-      {
-        id: "6",
-        label: "Integrations",
-        href: "/dashboard/admin/settings/integrations",
-      },
-      {
-        id: "7",
-        label: "Billing",
-        href: "/dashboard/admin/settings/billing",
-      },
+      // {
+      //   id: "5",
+      //   label: "Policies",
+      //   href: "/dashboard/admin/settings/policies",
+      // },
+      // {
+      //   id: "6",
+      //   label: "Integrations",
+      //   href: "/dashboard/admin/settings/integrations",
+      // },
+      // {
+      //   id: "7",
+      //   label: "Billing",
+      //   href: "/dashboard/admin/settings/billing",
+      // },
     ],
   },
 ];

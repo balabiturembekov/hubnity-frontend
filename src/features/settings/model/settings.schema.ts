@@ -20,3 +20,19 @@ export const securityLoginSettingsSchema = z.object({
 export type SecurityLoginSettingsFormValues = z.infer<
   typeof securityLoginSettingsSchema
 >;
+
+export const IDLE_INTERVAL_OPTIONS = [
+  "2 mins",
+  "5 mins",
+  "10 mins",
+  "20 mins",
+  "Custom",
+] as const;
+export type IdleIntervalOption = (typeof IDLE_INTERVAL_OPTIONS)[number];
+
+export const idleSettingsSchema = z.object({
+  idleDetectionEnabled: z.boolean(),
+  interval: z.enum(IDLE_INTERVAL_OPTIONS),
+  customMinutes: z.number().min(1).max(120),
+});
+export type IdleSettingsFormValues = z.infer<typeof idleSettingsSchema>;

@@ -28,7 +28,7 @@ export const footerItems: FooterItemType[] = [
       {
         id: "3",
         label: "Reports",
-        href: "/admin/reports",
+        href: "/admin/summaries",
       },
       {
         id: "4",

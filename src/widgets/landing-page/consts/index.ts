@@ -57,7 +57,7 @@ export const features: FeatureType[] = [
     icon: BarChart3,
     title: "Advanced Analytics",
     description:
-      "Get detailed insights with beautiful charts and reports. Export data to CSV for further analysis.",
+      "Get detailed insights with beautiful charts and summaries. Export data to CSV for further analysis.",
     color: "bg-purple-500/10 text-purple-600",
   },
   {
@@ -97,7 +97,7 @@ export const features: FeatureType[] = [
     icon: TrendingUp,
     title: "Performance Insights",
     description:
-      "Track productivity trends, identify bottlenecks, and make data-driven decisions with comprehensive reports.",
+      "Track productivity trends, identify bottlenecks, and make data-driven decisions with comprehensive summaries.",
     color: "bg-pink-500/10 text-pink-600",
   },
   {
@@ -173,7 +173,7 @@ export const howItWorks: HowItWorksType[] = [
   {
     id: "4",
     title: "Analyze & Improve",
-    description: "Review reports and insights to optimize your workflow",
+    description: "Review summaries and insights to optimize your workflow",
     icon: BarChart3,
   },
 ];

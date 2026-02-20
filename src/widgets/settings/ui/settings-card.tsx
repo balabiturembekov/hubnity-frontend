@@ -1,14 +1,15 @@
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/shared/ui/button";
 import { Card, CardContent } from "@/shared/ui/card";
 import type { SettingsItemType } from "@/widgets/settings/model/types";
 
 export const SettingsCard = (setting: SettingsItemType) => {
   return (
     <div key={setting.id} className="flex flex-col gap-2">
-      <div>
+      <Button variant="link" asChild className="self-start">
         <h2 className="text-muted-foreground">{setting.title}</h2>
-      </div>
+      </Button>
       <Card className="p-2">
         <CardContent className="flex flex-col gap-2 p-2">
           {setting.links.map((link) => (
