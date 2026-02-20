@@ -5,7 +5,7 @@ import { Bell, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { useUser } from "@/entities/user";
+import { useCurrentUser } from "@/entities/user";
 import { UserProfileDropdown } from "@/features/user";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
@@ -19,7 +19,7 @@ import { dashboardSidebarLinks } from "@/widgets/sidebar/consts";
 
 export function DashboardSidebar() {
   const pathname = usePathname();
-  const { isAdmin } = useUser();
+  const { data: user } = useCurrentUser();
   const [openLinks, setOpenLinks] = useState<string[]>([]);
 
   const handleOpenLink = (link: string) => {
@@ -38,7 +38,12 @@ export function DashboardSidebar() {
       </div>
       <nav className="flex-1 space-y-1 p-4">
         {dashboardSidebarLinks.map((item) => {
-          if (item.isAdminOnly && isAdmin) {
+          if (
+            item.isAdminOnly &&
+            user?.role !== "ADMIN" &&
+            user?.role !== "OWNER" &&
+            user?.role !== "SUPER_ADMIN"
+          ) {
             return null;
           }
 
