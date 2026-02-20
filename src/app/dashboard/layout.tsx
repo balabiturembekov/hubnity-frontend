@@ -1,4 +1,3 @@
-import { AuthProvider } from "@/shared/providers/auth-provider";
 import { DashboardSidebar } from "@/widgets/sidebar";
 
 export default function DashboardLayout({
@@ -11,7 +10,9 @@ export default function DashboardLayout({
       <DashboardSidebar />
       <div className="flex flex-1 flex-col">
         {/*<DashboardHeader />*/}
-        <AuthProvider>{children}</AuthProvider>
+        {/*<AuthProvider>*/}
+        {children}
+        {/*</AuthProvider>*/}
       </div>
     </div>
   );

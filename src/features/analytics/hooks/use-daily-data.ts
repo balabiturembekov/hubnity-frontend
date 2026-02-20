@@ -2,7 +2,7 @@ import { format, subDays } from "date-fns";
 import { useMemo } from "react";
 import type { TimeEntryEntity } from "@/entities/time-entry";
 import { useGetTimeEntriesQuery } from "@/entities/time-entry";
-import { useUserStore } from "@/entities/user";
+import { type UserEntity, useCurrentUser } from "@/entities/user";
 
 interface DailyDataPoint {
   date: string;
@@ -11,7 +11,7 @@ interface DailyDataPoint {
 }
 
 export const useDailyData = () => {
-  const { user } = useUserStore();
+  const { data: user } = useCurrentUser();
   const { data: timeEntries = [], isPending } = useGetTimeEntriesQuery();
 
   const last7Days = useMemo(() => {
@@ -60,7 +60,7 @@ function calculateDailyTotal(
   timeEntries: TimeEntryEntity[],
   dayStart: Date,
   dayEnd: Date,
-  user: { id: string; role: string } | null,
+  user?: UserEntity,
 ): number {
   // Filter entries for this day
   let entriesInDay = timeEntries.filter((entry) => {

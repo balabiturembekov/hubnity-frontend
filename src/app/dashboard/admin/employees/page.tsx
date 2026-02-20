@@ -1,6 +1,6 @@
 "use client";
 
-import { useUserStore } from "@/entities/user";
+import { useCurrentUser } from "@/entities/user";
 import { AdminGuard } from "@/features/auth";
 import {
   CreateEmployeeDialog,
@@ -15,9 +15,9 @@ import {
 import { DashboardPageHeader } from "@/widgets/header/ui/dashboard-page-header";
 
 export default function EmployeesPage() {
-  const { user, isInitializing } = useUserStore();
+  const { data, isPending } = useCurrentUser();
 
-  if (isInitializing || !user) {
+  if (isPending || !data) {
     return <EmployeesPageSkeleton />;
   }
 

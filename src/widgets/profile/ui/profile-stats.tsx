@@ -3,16 +3,21 @@
 import { Calendar, Clock, FileText, TrendingUp } from "lucide-react";
 import { useGetDashboardAnalyticsQuery } from "@/entities/dashboard-analytics";
 import { StatsCard } from "@/entities/stats";
-import { useUserStore } from "@/entities/user";
+import { useCurrentUser } from "@/entities/user";
 import { formatDurationFull } from "@/shared/lib/utils";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const ProfileStats = () => {
-  const { user } = useUserStore();
+  const { data: user } = useCurrentUser();
   const { data: totalStats, isPlaceholderData: isTotalStatsPending } =
-    useGetDashboardAnalyticsQuery({
-      userId: user?.id,
-    });
+    useGetDashboardAnalyticsQuery(
+      {
+        userId: user?.id,
+      },
+      {
+        enabled: !!user?.id,
+      },
+    );
   const { data: todayStats, isPending: isTodayStatsPending } =
     useGetDashboardAnalyticsQuery({
       period: "today",

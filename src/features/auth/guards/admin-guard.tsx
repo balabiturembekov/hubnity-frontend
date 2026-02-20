@@ -1,5 +1,5 @@
 import { Shield } from "lucide-react";
-import { useUserStore } from "@/entities/user";
+import { useCurrentUser } from "@/entities/user";
 import { Card, CardContent } from "@/shared/ui/card";
 
 interface AdminGuardProps {
@@ -7,7 +7,7 @@ interface AdminGuardProps {
 }
 
 export const AdminGuard = ({ children }: AdminGuardProps) => {
-  const { user } = useUserStore();
+  const { data: user } = useCurrentUser();
 
   if (!user) return null;
 

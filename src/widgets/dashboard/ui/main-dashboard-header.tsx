@@ -3,16 +3,16 @@
 import { format } from "date-fns";
 import { ArrowRight, Clock, TrendingUp } from "lucide-react";
 import Link from "next/link";
-import { useUserStore } from "@/entities/user";
+import { useUser } from "@/entities/user";
 import { greeting } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { Skeleton } from "@/shared/ui/skeleton";
 import { DashboardPageHeader } from "@/widgets/header";
 
 export const MainDashboardHeader = () => {
-  const { user } = useUserStore();
+  const { user, isAdmin, isPending } = useUser();
 
-  if (!user) {
+  if (!user || isPending) {
     return (
       <div className="flex items-center justify-between bg-white border-b p-6">
         <div className="flex flex-col gap-2">
@@ -26,11 +26,6 @@ export const MainDashboardHeader = () => {
       </div>
     );
   }
-
-  const isAdmin =
-    user.role === "ADMIN" ||
-    user.role === "OWNER" ||
-    user.role === "SUPER_ADMIN";
 
   return (
     <DashboardPageHeader

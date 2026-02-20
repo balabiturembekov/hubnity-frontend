@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { useGetProjectsQuery } from "@/entities/project";
 import { useGetTimeEntriesQuery } from "@/entities/time-entry";
-import { useGetEmployeesQuery, useUserStore } from "@/entities/user";
+import { useCurrentUser, useGetEmployeesQuery } from "@/entities/user";
 import { exportProjectStatsToCSV } from "@/features/project/lib/export-projects-stats";
 import { exportTimeEntriesToCSV } from "@/features/time-entry/lib/export-time-entries";
 import { exportUserStatsToCSV } from "@/features/user/lib/export-user-stats";
@@ -11,7 +11,7 @@ import { handleError } from "@/shared/lib/utils";
 export type ExportType = "entries" | "users" | "projects";
 
 export const useExportData = () => {
-  const { user: currentUser } = useUserStore();
+  const { data: currentUser } = useCurrentUser();
   const { data: timeEntries } = useGetTimeEntriesQuery();
   const { data: projects } = useGetProjectsQuery();
   const { data: users } = useGetEmployeesQuery();

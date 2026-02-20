@@ -2,7 +2,7 @@
 
 import { DollarSign, Mail, Shield, User } from "lucide-react";
 import { useState } from "react";
-import { UserAvatar, useUserStore } from "@/entities/user";
+import { UserAvatar, useCurrentUser } from "@/entities/user";
 import { ChangePasswordDialog } from "@/features/auth";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
@@ -15,7 +15,7 @@ import {
 } from "@/shared/ui/card";
 
 export const ProfileInfo = () => {
-  const { user } = useUserStore();
+  const { data: user } = useCurrentUser();
   const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
 
   if (!user) return null;

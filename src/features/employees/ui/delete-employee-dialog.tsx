@@ -1,7 +1,10 @@
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
-import type { UserEntity } from "@/entities/user";
-import { useUserStore } from "@/entities/user";
+import {
+  type UserEntity,
+  useCurrentUser,
+  useDeleteEmployeeMutation,
+} from "@/entities/user";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,7 +17,6 @@ import {
 } from "@/shared/ui/alert-dialog";
 import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
-import { useDeleteEmployeeMutation } from "../../../entities/user/model/mutations/use-delete-employee.mutation";
 
 interface DeleteEmployeeDialogProps {
   employee: UserEntity;
@@ -24,7 +26,7 @@ export const DeleteEmployeeDialog = ({
   employee,
 }: DeleteEmployeeDialogProps) => {
   const [open, setOpen] = useState(false);
-  const { user: currentUser } = useUserStore();
+  const { data: currentUser } = useCurrentUser();
   const { mutateAsync, isPending } = useDeleteEmployeeMutation();
 
   const isSelf = employee.id === currentUser?.id;

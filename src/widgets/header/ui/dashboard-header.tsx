@@ -1,7 +1,7 @@
 "use client";
 
 import { Bell } from "lucide-react";
-import { useUserStore } from "@/entities/user";
+import { useCurrentUser } from "@/entities/user";
 import { UserProfileDropdown } from "@/features/user";
 import { Button } from "@/shared/ui/button";
 import {
@@ -13,9 +13,9 @@ import {
 import { DashboardHeaderSkeleton } from "./dashboard-header-skeleton";
 
 export const DashboardHeader = () => {
-  const { user } = useUserStore();
+  const { data: user, isPending } = useCurrentUser();
 
-  if (!user) return <DashboardHeaderSkeleton />;
+  if (!user || isPending) return <DashboardHeaderSkeleton />;
 
   return (
     <TooltipProvider>

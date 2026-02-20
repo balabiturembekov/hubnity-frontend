@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { type UseQueryOptions, useQuery } from "@tanstack/react-query";
 import { dashboardAnalyticsService } from "@/entities/dashboard-analytics/api/dashboard-analytics.service";
 import type {
   DashboardAnalyticsResponse,
@@ -7,8 +7,10 @@ import type {
 
 export const useGetDashboardAnalyticsQuery = (
   params?: GetDashboardAnalyticsParams,
+  options?: Partial<UseQueryOptions<DashboardAnalyticsResponse, Error>>,
 ) =>
   useQuery<DashboardAnalyticsResponse, Error>({
     queryKey: ["dashboardAnalytics", params],
     queryFn: () => dashboardAnalyticsService.getDashboardAnalytics(params),
+    ...options,
   });

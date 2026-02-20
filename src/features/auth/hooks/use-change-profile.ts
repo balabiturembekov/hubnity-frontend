@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useUpdateProfileMutation, useUserStore } from "@/entities/user";
+import { useCurrentUser, useUpdateProfileMutation } from "@/entities/user";
 import { handleError } from "@/shared/lib/utils";
 import {
   type ChangeProfileFormValues,
@@ -18,7 +18,7 @@ export const useChangeProfile = ({
   open,
   onOpenChange,
 }: UseChangeProfileProps) => {
-  const { user } = useUserStore();
+  const { data: user } = useCurrentUser();
   const { mutateAsync, isPending } = useUpdateProfileMutation();
 
   const [avatarPreview, setAvatarPreview] = useState<string>("");

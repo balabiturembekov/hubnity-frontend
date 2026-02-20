@@ -1,6 +1,6 @@
 "use client";
 
-import { useUserStore } from "@/entities/user";
+import { useCurrentUser } from "@/entities/user";
 import { AdminGuard } from "@/features/auth";
 import { ReportsPeriodSelect } from "@/features/reports";
 import { TooltipProvider } from "@/shared/ui/tooltip";
@@ -10,9 +10,9 @@ import { DashboardPageHeader } from "@/widgets/header";
 import { ReportsPageSkeleton, ReportsStatsSection } from "@/widgets/reports";
 
 export default function AdminReportsPage() {
-  const { user, isInitializing } = useUserStore();
+  const { data, isPending } = useCurrentUser();
 
-  if (isInitializing || !user) {
+  if (isPending || !data) {
     return <ReportsPageSkeleton />;
   }
 

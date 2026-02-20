@@ -1,22 +1,20 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useUserStore } from "@/entities/user";
+import { authService } from "@/features/auth";
+import { queryClient } from "@/shared/config/query-client";
 import { handleError } from "@/shared/lib/utils";
-import { authService } from "../../api/auth.service";
 import type { LoginReq, LoginRes } from "../auth.types";
 
 export const useLoginMutation = () => {
-  const setUser = useUserStore((s) => s.setUser);
   const router = useRouter();
-  const queryClient = useQueryClient();
 
   return useMutation<LoginRes, Error, LoginReq>({
     mutationKey: ["login"],
     mutationFn: (payload) => authService.login(payload),
-    onSuccess: (data) => {
-      const { user, refresh_token, access_token } = data;
+    onSuccess: async (data) => {
+      const { refresh_token, access_token } = data;
 
       queryClient.clear();
 
@@ -27,7 +25,7 @@ export const useLoginMutation = () => {
         sameSite: "strict",
       });
 
-      setUser(user);
+      await queryClient.invalidateQueries({ queryKey: ["me"] });
 
       router.push("/dashboard");
     },

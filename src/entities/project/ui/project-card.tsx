@@ -2,7 +2,7 @@
 
 import { Archive, CheckCircle2 } from "lucide-react";
 import type { ProjectEntity } from "@/entities/project";
-import { useUserStore } from "@/entities/user";
+import { useUser } from "@/entities/user";
 import { DeleteProjectButton } from "@/features/project";
 import { UpdateProjectButton } from "@/features/project/ui/update-project-button";
 import { capitalize } from "@/shared/lib/utils";
@@ -20,11 +20,7 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
-  const { user } = useUserStore();
-  const canManage =
-    user?.role === "ADMIN" ||
-    user?.role === "OWNER" ||
-    user?.role === "SUPER_ADMIN";
+  const { isAdmin } = useUser();
 
   return (
     <Card
@@ -47,7 +43,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
               </CardDescription>
             )}
           </div>
-          {canManage && (
+          {isAdmin && (
             <div className="flex gap-1 ml-2">
               <UpdateProjectButton project={project} />
               <DeleteProjectButton project={project} />

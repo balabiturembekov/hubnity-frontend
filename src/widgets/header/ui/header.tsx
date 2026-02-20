@@ -2,12 +2,12 @@
 
 import { ArrowRight, Clock } from "lucide-react";
 import Link from "next/link";
-import { useUserStore } from "@/entities/user";
+import { useCurrentUser } from "@/entities/user";
 import { UserProfileDropdown } from "@/features/user";
 import { Button } from "@/shared/ui/button";
 
 export function Header() {
-  const { user } = useUserStore();
+  const { data: user, isPending } = useCurrentUser();
 
   return (
     <header className="flex items-center justify-between sticky top-0 z-50 border-b min-h-16 bg-white/95 backdrop-blur supports-backdrop-filter:bg-white/60">
@@ -19,7 +19,7 @@ export function Header() {
           <span className="text-xl font-bold text-gray-900">Hubnity</span>
         </Link>
 
-        {!user ? (
+        {!user || isPending ? (
           <div className="flex items-center gap-4">
             <Button variant="ghost" className="hidden sm:inline-flex" asChild>
               <Link href="/login">Sign In</Link>

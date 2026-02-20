@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useGetProjectsQuery } from "@/entities/project";
 import type { TimeEntryEntity } from "@/entities/time-entry";
-import { useUser, useUserStore } from "@/entities/user";
+import { useUser } from "@/entities/user";
 import {
   DeleteTimeEntryDialog,
   TimeEntriesFilterForm,
@@ -49,8 +49,7 @@ export function TimeEntriesTable({
   isPreview = false,
   userId,
 }: TimeEntriesTableProps) {
-  const { user: currentUser } = useUserStore();
-  const { isAdmin } = useUser();
+  const { user, isAdmin } = useUser();
   const { data: projects } = useGetProjectsQuery();
   const { timeEntries, isLoading } = useFilteredTimeEntries(userId);
   const { searchQuery, projectId, period } = useTimeEntriesStore();
@@ -59,10 +58,10 @@ export function TimeEntriesTable({
   const [entryForScreenshots, setEntryForScreenshots] =
     useState<TimeEntryEntity | null>(null);
 
-  const isEmployee = currentUser?.role === "EMPLOYEE";
+  const isEmployee = user?.role === "EMPLOYEE";
 
   const canEdit = (entry: TimeEntryEntity) => {
-    return entry.userId === currentUser?.id || isAdmin;
+    return entry.userId === user?.id || isAdmin;
   };
 
   const getProjectColor = (projectId?: string | null) => {

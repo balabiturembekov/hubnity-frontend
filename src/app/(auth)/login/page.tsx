@@ -1,17 +1,8 @@
-"use client";
-
 import { LogIn } from "lucide-react";
-import { useUserStore } from "@/entities/user";
 import { LoginForm } from "@/features/auth";
 import { AuthCard } from "@/widgets/auth/ui/auth-card";
 
 export default function LoginPage() {
-  const currentUser = useUserStore((s) => s.user);
-
-  if (currentUser) {
-    return null;
-  }
-
   return (
     <main className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-primary/5 via-white to-primary/5 py-12">
       <AuthCard

@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import { useEffect, useMemo, useState } from "react";
 import type { TimeEntryEntity } from "@/entities/time-entry";
 import { useGetTimeEntriesQuery } from "@/entities/time-entry";
-import { useUserStore } from "@/entities/user";
+import { type UserEntity, useCurrentUser } from "@/entities/user";
 
 interface HourlyDataPoint {
   time: string;
@@ -12,7 +12,7 @@ interface HourlyDataPoint {
 }
 
 export const useHourlyData = () => {
-  const { user } = useUserStore();
+  const { data: user } = useCurrentUser();
   const { data: timeEntries = [], isPending } = useGetTimeEntriesQuery();
   const [currentTime, setCurrentTime] = useState(0);
 
@@ -76,7 +76,7 @@ function calculateHourlyTotal(
   hourStart: number,
   hourEnd: number,
   currentTime: number,
-  user: { id: string; role: string } | null,
+  user?: UserEntity,
 ): number {
   // Filter entries for this hour
   let entriesInHour = timeEntries.filter((entry) => {

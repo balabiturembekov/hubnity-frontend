@@ -1,5 +1,5 @@
+import axios from "axios";
 import Cookies from "js-cookie";
-import { useUserStore } from "@/entities/user";
 import type {
   ChangePasswordReq,
   LoginReq,
@@ -9,6 +9,8 @@ import type {
   RegisterRes,
 } from "@/features/auth/model/auth.types";
 import { api } from "@/shared/config/api";
+import { apiUrl } from "@/shared/config/env";
+import { queryClient } from "@/shared/config/query-client";
 import type { MessageRes } from "@/shared/model/types";
 
 class AuthService {
@@ -26,7 +28,11 @@ class AuthService {
     const refreshToken = Cookies.get("refresh_token");
     if (!refreshToken) return null;
     try {
-      const res = await api.post<RefreshRes>("/auth/refresh", { refreshToken });
+      const res = await axios.post<RefreshRes>(
+        `${apiUrl}/api/auth/refresh`,
+        { refreshToken },
+        { withCredentials: true },
+      );
       Cookies.set("access_token", res.data.access_token, {
         sameSite: "strict",
       });
@@ -54,7 +60,7 @@ class AuthService {
     } finally {
       Cookies.remove("access_token");
       Cookies.remove("refresh_token");
-      useUserStore.getState().clearUser();
+      queryClient.removeQueries({ queryKey: ["me"] });
     }
   }
 

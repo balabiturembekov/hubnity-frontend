@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser, useUserStore } from "@/entities/user";
+import { useCurrentUser, useUser } from "@/entities/user";
 import {
   ExportTeamActivityCSV,
   MembersTable,
@@ -14,9 +14,9 @@ import {
 
 export default function AdminTeamActivityPage() {
   const { isAdmin } = useUser();
-  const { user, isInitializing } = useUserStore();
+  const { data, isPending } = useCurrentUser();
 
-  if (isInitializing || !user) {
+  if (isPending || !data) {
     return <TeamActivityPageSkeleton />;
   }
 

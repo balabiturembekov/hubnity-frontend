@@ -3,8 +3,9 @@
 import { LogOut, Settings } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { UserAvatar, useUserStore } from "@/entities/user";
+import { UserAvatar, useCurrentUser } from "@/entities/user";
 import { useLogoutMutation } from "@/features/auth";
+import { queryClient } from "@/shared/config/query-client";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import {
@@ -24,14 +25,16 @@ interface UserProfileDropdownProps {
 export const UserProfileDropdown = ({
   className,
 }: UserProfileDropdownProps) => {
-  const { user, clearUser } = useUserStore();
+  const { data: user } = useCurrentUser();
   const router = useRouter();
   const { mutateAsync: logout } = useLogoutMutation();
 
   const handleLogout = async () => {
     try {
       await logout();
-      clearUser();
+      queryClient.removeQueries({
+        queryKey: ["me"],
+      });
     } catch {
     } finally {
       router.replace("/login");

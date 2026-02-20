@@ -1,6 +1,6 @@
 "use client";
 
-import { useUser, useUserStore } from "@/entities/user";
+import { useCurrentUser, useUser } from "@/entities/user";
 import { ExportDialog } from "@/widgets/export";
 import { DashboardPageHeader } from "@/widgets/header";
 import {
@@ -11,9 +11,9 @@ import {
 
 export default function TrackingPage() {
   const { isAdmin } = useUser();
-  const { user, isInitializing } = useUserStore();
+  const { data, isPending } = useCurrentUser();
 
-  if (isInitializing || !user) return null;
+  if (isPending || !data) return null;
 
   return (
     <div className="flex h-screen overflow-auto bg-background">

@@ -5,6 +5,7 @@ export { useCreateEmployeeMutation } from "./model/mutations/use-create-employee
 export { useDeleteEmployeeMutation } from "./model/mutations/use-delete-employee.mutation";
 export { useUpdateEmployeeMutation } from "./model/mutations/use-update-employee.mutation";
 export { useUpdateProfileMutation } from "./model/mutations/use-update-profile.mutation";
+export { useCurrentUser } from "./model/queries/use-current-user";
 export { useGetEmployeesQuery } from "./model/queries/use-get-employees.query";
 export {
   type CreateEmployeeSchemaValues,
@@ -14,7 +15,6 @@ export {
   type UpdateEmployeeSchemaValues,
   updateEmployeeSchema,
 } from "./model/schemas/update-employee-schema";
-export { useUserStore } from "./model/user.store";
 export type {
   PatchUserReq,
   UserEntity,

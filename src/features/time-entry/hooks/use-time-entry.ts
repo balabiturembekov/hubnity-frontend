@@ -4,12 +4,12 @@ import {
   useGetActiveTimeEntriesQuery,
   useGetTimeEntriesQuery,
 } from "@/entities/time-entry";
-import { useGetEmployeesQuery, useUserStore } from "@/entities/user";
+import { useCurrentUser, useGetEmployeesQuery } from "@/entities/user";
 import { useTeamActivityStore } from "@/features/team-activity/model/team-activity.store";
 import { formatDurationFull } from "@/shared/lib/utils";
 
 export const useTimeEntry = () => {
-  const { user } = useUserStore();
+  const { data: user } = useCurrentUser();
   const { period, userId, projectId } = useTeamActivityStore();
 
   const { data: timeEntries, isPending: isPendingTimeEntries } =

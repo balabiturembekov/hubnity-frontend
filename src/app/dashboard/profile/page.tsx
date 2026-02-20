@@ -2,7 +2,7 @@
 
 import { Edit } from "lucide-react";
 import { useState } from "react";
-import { useUserStore } from "@/entities/user";
+import { useCurrentUser } from "@/entities/user";
 import { ProfileEditDialog } from "@/features/auth";
 import { Button } from "@/shared/ui/button";
 import { DashboardContainer } from "@/widgets/dashboard";
@@ -16,10 +16,10 @@ import {
 } from "@/widgets/profile";
 
 export default function ProfilePage() {
-  const { user, isInitializing } = useUserStore();
+  const { data, isPending } = useCurrentUser();
   const [editDialogOpen, setEditDialogOpen] = useState(false);
 
-  if (isInitializing || !user) {
+  if (isPending || !data) {
     return <ProfilePageSkeleton />;
   }
 

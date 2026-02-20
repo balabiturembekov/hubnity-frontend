@@ -1,13 +1,13 @@
 "use client";
 
-import { useUserStore } from "@/entities/user";
+import { useCurrentUser } from "@/entities/user";
 import { ProfilePageSkeleton } from "@/widgets/profile";
 import { ProfilePageContent } from "@/widgets/profile/ui/profile-page-content";
 
 export const ProfilePageClient = () => {
-  const { user, isInitializing } = useUserStore();
+  const { data: user, isPending } = useCurrentUser();
 
-  if (isInitializing || !user) {
+  if (isPending || !user) {
     return <ProfilePageSkeleton />;
   }
 
