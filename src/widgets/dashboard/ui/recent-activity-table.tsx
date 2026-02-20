@@ -17,6 +17,7 @@ import { Button } from "@/shared/ui/button";
 import { Card, CardContent } from "@/shared/ui/card";
 import { EmptyState } from "@/widgets/empty-state";
 import { DashboardSectionHeader } from "@/widgets/header";
+import { ScreenshotsSkeleton } from "@/widgets/skeleton";
 
 interface RecentActivityItemProps extends TimeEntryEntity {
   screenshots: ScreenshotEntity[];
@@ -114,7 +115,9 @@ export function RecentActivityTable() {
   const showEmptyState =
     hasEntries && !isPending && !isPendingScreenshots && !hasAnyScreenshots;
 
-  if (!entries || isPending) return <div>Loading...</div>;
+  if (!entries || isPending) {
+    return <ScreenshotsSkeleton />;
+  }
 
   return (
     <section className="space-y-4">

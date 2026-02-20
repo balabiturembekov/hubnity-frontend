@@ -1,5 +1,9 @@
+"use client";
+
+import { useCurrentUser } from "@/entities/user";
 import { TooltipProvider } from "@/shared/ui/tooltip";
 import {
+  DashboardPageSkeleton,
   MainDashboardHeader,
   OverviewSection,
   RecentActivityTable,
@@ -8,6 +12,12 @@ import { AnalyticsSection } from "@/widgets/dashboard/ui/analytics-section";
 import { TimeEntriesTable } from "@/widgets/time-entry";
 
 export default function DashboardPage() {
+  const { data, isPending } = useCurrentUser();
+
+  if (isPending || !data) {
+    return <DashboardPageSkeleton />;
+  }
+
   return (
     <TooltipProvider>
       <div className="flex overflow-auto bg-background">
