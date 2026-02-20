@@ -8,16 +8,16 @@ interface EmployeeTabsProps {
 
 export const EmployeeTabs = ({ userId }: EmployeeTabsProps) => {
   return (
-    <Tabs defaultValue="overview">
-      <TabsList>
+    <Tabs className="min-w-0 w-full" defaultValue="overview">
+      <TabsList className="mx-auto sm:mx-0">
         <TabsTrigger value="overview">Overview</TabsTrigger>
         <TabsTrigger value="sessions">Sessions</TabsTrigger>
         <TabsTrigger value="screenshots">Screenshots</TabsTrigger>
       </TabsList>
-      <TabsContent value="overview">
+      <TabsContent className="min-w-0 w-full" value="overview">
         <MonthlyChart userId={userId} />
       </TabsContent>
-      <TabsContent value="sessions">
+      <TabsContent className="min-w-0 w-full" value="sessions">
         <TimeEntriesTable userId={userId} />
       </TabsContent>
       <TabsContent value="screenshots"></TabsContent>

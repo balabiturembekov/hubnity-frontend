@@ -17,7 +17,6 @@ import { useFilteredTimeEntries } from "@/features/time-entry/hooks/use-filtered
 import { formatDurationFull } from "@/shared/lib/utils";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
-import { Skeleton } from "@/shared/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -35,7 +34,10 @@ import {
 import { ExportDialog } from "@/widgets/export";
 import { DashboardSectionHeader } from "@/widgets/header";
 import { ScreenshotGallery } from "@/widgets/screenshot-gallery";
-import { DashboardSectionHeaderSkeleton } from "@/widgets/skeleton";
+import {
+  DashboardSectionHeaderSkeleton,
+  TableSkeleton,
+} from "@/widgets/skeleton";
 
 export { TimeEntriesFilterForm } from "@/features/time-entry";
 
@@ -72,9 +74,9 @@ export function TimeEntriesTable({
   };
 
   return (
-    <section className="space-y-4 overflow-x-auto">
+    <section className="space-y-4 w-full min-w-0 overflow-hidden">
       {isLoading ? (
-        <DashboardSectionHeaderSkeleton />
+        <DashboardSectionHeaderSkeleton isBigFirstLine />
       ) : (
         <DashboardSectionHeader
           title="Time Entries"
@@ -99,10 +101,12 @@ export function TimeEntriesTable({
 
       <TimeEntriesFilterForm />
 
-      <TooltipProvider>
-        <div>
-          <div className="rounded-md border bg-white">
-            <Table>
+      {isLoading ? (
+        <TableSkeleton />
+      ) : (
+        <TooltipProvider>
+          <div className="rounded-md border bg-white w-full overflow-x-auto">
+            <Table className="min-w-[810px]">
               <TableHeader>
                 <TableRow>
                   {!isEmployee && <TableHead>User</TableHead>}
@@ -116,34 +120,7 @@ export function TimeEntriesTable({
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {isLoading ? (
-                  [1, 2, 3, 4, 5].map((i) => (
-                    <TableRow key={i}>
-                      {!isEmployee && (
-                        <TableCell>
-                          <Skeleton className="h-4 w-24" />
-                        </TableCell>
-                      )}
-                      <TableCell>
-                        <Skeleton className="h-4 w-20" />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton className="h-4 w-32" />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton className="h-4 w-16" />
-                      </TableCell>
-                      <TableCell>
-                        <Skeleton className="h-4 w-16" />
-                      </TableCell>
-                      {showActions && (
-                        <TableCell className="text-right">
-                          <Skeleton className="h-8 w-16 ml-auto" />
-                        </TableCell>
-                      )}
-                    </TableRow>
-                  ))
-                ) : timeEntries.length === 0 ? (
+                {timeEntries.length === 0 ? (
                   <TableRow>
                     <TableCell
                       colSpan={
@@ -172,7 +149,7 @@ export function TimeEntriesTable({
                   </TableRow>
                 ) : (
                   timeEntries.map((entry) => (
-                    <TableRow key={entry.id} className="min-w-[810px]">
+                    <TableRow key={entry.id} className="">
                       {!isEmployee && (
                         <TableCell className="font-medium flex flex-col">
                           <Button
@@ -278,19 +255,19 @@ export function TimeEntriesTable({
               </TableBody>
             </Table>
           </div>
-        </div>
 
-        <ScreenshotGallery
-          timeEntryId={entryForScreenshots?.id || ""}
-          open={screenshotGalleryOpen}
-          onOpenChange={(open) => {
-            setScreenshotGalleryOpen(open);
-            if (!open) {
-              setEntryForScreenshots(null);
-            }
-          }}
-        />
-      </TooltipProvider>
+          <ScreenshotGallery
+            timeEntryId={entryForScreenshots?.id || ""}
+            open={screenshotGalleryOpen}
+            onOpenChange={(open) => {
+              setScreenshotGalleryOpen(open);
+              if (!open) {
+                setEntryForScreenshots(null);
+              }
+            }}
+          />
+        </TooltipProvider>
+      )}
     </section>
   );
 }

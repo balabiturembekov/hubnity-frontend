@@ -1,5 +1,6 @@
 export { DashboardPageHeaderSkeleton } from "./ui/dashboard-page-header-skeleton";
 export { DashboardSectionHeaderSkeleton } from "./ui/dashboard-section-header-skeleton";
+export { EmployeeDetailsProfileHeaderSkeleton } from "./ui/employee-details-profile-header-skeleton";
 export { FilterSkeleton } from "./ui/filter-skeleton";
 export { GraphSkeleton } from "./ui/graph-skeleton";
 export { ListItemsSkeleton } from "./ui/list-items-skeleton";

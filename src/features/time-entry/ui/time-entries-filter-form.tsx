@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui/select";
+import { FilterSkeleton } from "@/widgets/skeleton";
 import { useFilteredTimeEntries } from "../hooks/use-filtered-time-entries";
 import { useTimeEntriesStore } from "../model/time-entries.store";
 
@@ -30,8 +31,12 @@ export const TimeEntriesFilterForm = () => {
     resetFilters,
   } = useTimeEntriesStore();
   const { data: projects } = useGetProjectsQuery();
-  const { timeEntries, totalCount, hasActiveFilters } =
+  const { timeEntries, totalCount, hasActiveFilters, isLoading } =
     useFilteredTimeEntries();
+
+  if (isLoading) {
+    return <FilterSkeleton />;
+  }
 
   return (
     <Card className="transition-shadow hover:shadow-md">

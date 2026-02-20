@@ -1,12 +1,13 @@
 "use client";
 
-import { ArrowLeft, Loader2 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useGetUserDetailsQuery } from "@/entities/user/model/queries/use-get-user-details.query";
 import { Button } from "@/shared/ui/button";
 import { TooltipProvider } from "@/shared/ui/tooltip";
 import {
+  EmployeeDetailsPageSkeleton,
   EmployeeDetailsProfileHeader,
   EmployeeDetailsTopStats,
   EmployeeTabs,
@@ -18,11 +19,7 @@ export default function EmployeeDetailsPage() {
   const { data: userDetails, isPending } = useGetUserDetailsQuery(id);
 
   if (isPending) {
-    return (
-      <div className="w-full h-full flex items-center justify-center">
-        <Loader2 className="animate-spin" size={32} />
-      </div>
-    );
+    return <EmployeeDetailsPageSkeleton />;
   }
 
   if (!userDetails) {
@@ -31,21 +28,23 @@ export default function EmployeeDetailsPage() {
 
   return (
     <TooltipProvider>
-      <div className="flex h-screen overflow-auto bg-background">
-        <main className="flex-1 overflow-y-auto">
-          <div className="bg-linear-to-b from-primary/5 via-background to-background p-6 space-y-6">
-            <Button variant="link" asChild>
-              <Link href="/dashboard/admin/employees">
-                <ArrowLeft />
-                Back to Employees
-              </Link>
-            </Button>
+      <div className="flex h-screen bg-background min-w-0 w-full">
+        <main className="flex-1 overflow-y-auto min-w-0">
+          <div className="bg-linear-to-b from-primary/5 via-background to-background p-2 pt-6 md:p-6 min-w-0">
+            <div className="space-y-4 min-w-0">
+              <Button variant="link" asChild>
+                <Link href="/dashboard/admin/employees">
+                  <ArrowLeft />
+                  Back to Employees
+                </Link>
+              </Button>
 
-            <EmployeeDetailsProfileHeader userDetails={userDetails} />
+              <EmployeeDetailsProfileHeader userDetails={userDetails} />
 
-            <EmployeeDetailsTopStats userId={userDetails.id} />
+              <EmployeeDetailsTopStats userId={userDetails.id} />
 
-            <EmployeeTabs userId={userDetails.id} />
+              <EmployeeTabs userId={userDetails.id} />
+            </div>
           </div>
         </main>
       </div>
