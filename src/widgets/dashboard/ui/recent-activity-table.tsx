@@ -1,6 +1,6 @@
 "use client";
 
-import { Expand, History, Images, UserRound } from "lucide-react";
+import { Expand, History, Images } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import {
@@ -9,6 +9,7 @@ import {
 } from "@/entities/screenshot";
 import type { TimeEntryEntity } from "@/entities/time-entry";
 import { useGetTimeEntriesQuery } from "@/entities/time-entry";
+import { UserAvatar } from "@/entities/user";
 import { ScreenshotFullscreenViewer } from "@/features/screenshot-viewer";
 import { apiUrl } from "@/shared/config/env";
 import { formatDate } from "@/shared/lib/utils";
@@ -40,9 +41,7 @@ function RecentActivityItem({ user, screenshots }: RecentActivityItemProps) {
     <>
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-sky-400 flex items-center justify-center text-white">
-            <UserRound size={18} />
-          </div>
+          <UserAvatar name={user.name} />
           <span className="text-sm font-medium">{user.name}</span>
         </div>
 
