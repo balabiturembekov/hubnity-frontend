@@ -27,9 +27,9 @@ export default function TrackingPage() {
 
           <div className="p-2 md:p-6 grid gap-4">
             {isAdmin && <TimeEntryStatsCards />}
-            <div className="grid md:grid-cols-2 gap-4">
-              {/*<TodaySummary />*/}
-            </div>
+            {/* <div className="grid md:grid-cols-2 gap-4">
+              <TodaySummary />
+            </div> */}
             <TimeEntriesTable />
           </div>
         </main>
