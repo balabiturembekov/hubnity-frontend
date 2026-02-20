@@ -57,6 +57,18 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
     href: "/dashboard/admin/summaries",
     icon: BarChart3,
     isAdminOnly: true,
+    childrenLinks: [
+      {
+        id: "1",
+        label: "Activity & Time",
+        href: "/dashboard/admin/summaries",
+      },
+      {
+        id: "2",
+        label: "Full Reports",
+        href: "/dashboard/admin/summaries/full-reports",
+      },
+    ],
   },
   {
     id: "3",

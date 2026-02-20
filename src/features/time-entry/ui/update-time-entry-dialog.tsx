@@ -4,12 +4,7 @@ import { Edit } from "lucide-react";
 import { useState } from "react";
 import type { TimeEntryEntity } from "@/entities/time-entry";
 import { Button } from "@/shared/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/shared/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { TimeEntryDialog } from "@/widgets/time-entry";
 
 interface UpdateButtonEntryDialogProps {
@@ -22,7 +17,7 @@ export const UpdateTimeEntryDialog = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <TooltipProvider>
+    <>
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
@@ -44,6 +39,6 @@ export const UpdateTimeEntryDialog = ({
       </Tooltip>
 
       <TimeEntryDialog open={open} onOpenChange={setOpen} entry={timeEntry} />
-    </TooltipProvider>
+    </>
   );
 };

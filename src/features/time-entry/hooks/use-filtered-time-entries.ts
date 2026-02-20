@@ -1,12 +1,13 @@
 import { useMemo } from "react";
 import { useGetTimeEntriesQuery } from "@/entities/time-entry";
-import { useTimeEntriesStore } from "../model/time-entries.store";
+import { useTimeEntriesStore } from "@/features/time-entry";
 
 export const useFilteredTimeEntries = (userId?: string) => {
   const {
     data: timeEntries = [],
     isLoading,
     isError,
+    refetch,
   } = useGetTimeEntriesQuery({ userId });
   const { searchQuery, projectId, period } = useTimeEntriesStore();
 
@@ -71,6 +72,7 @@ export const useFilteredTimeEntries = (userId?: string) => {
     totalCount: filteredTimeEntries.length,
     hasActiveFilters,
     isLoading,
+    refetch,
     isError,
   };
 };

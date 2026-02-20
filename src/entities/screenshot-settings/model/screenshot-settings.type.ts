@@ -1,4 +1,4 @@
-export type ScreenshotInterval = 30 | 60 | 300 | 600;
+export type ScreenshotInterval = 300 | 600 | 900;
 
 export interface ScreenshotSettingsEntity {
   screenshotEnabled: boolean;

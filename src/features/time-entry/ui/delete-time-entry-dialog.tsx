@@ -17,12 +17,7 @@ import {
   AlertDialogTitle,
 } from "@/shared/ui/alert-dialog";
 import { Button } from "@/shared/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/shared/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 
 interface DeleteTimeEntryDialogProps {
   timeEntry: TimeEntryEntity;
@@ -36,7 +31,7 @@ export const DeleteTimeEntryDialog = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <TooltipProvider>
+    <>
       <Tooltip>
         <Button
           variant="ghost"
@@ -82,6 +77,6 @@ export const DeleteTimeEntryDialog = ({
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </TooltipProvider>
+    </>
   );
 };

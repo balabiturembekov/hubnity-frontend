@@ -4,6 +4,7 @@ import { cn } from "@/shared/lib/utils";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { QueryProvider } from "@/shared/providers/query-provider";
+import { TooltipProvider } from "@/shared/ui/tooltip";
 
 const geistSans = Geist({
   subsets: ["latin"],
@@ -24,8 +25,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={cn(geistSans.className, "antialiased")}>
         <QueryProvider>
-          {children}
-          <Toaster richColors position="top-right" />
+          <TooltipProvider>
+            {children}
+            <Toaster richColors position="top-right" />
+          </TooltipProvider>
         </QueryProvider>
       </body>
     </html>

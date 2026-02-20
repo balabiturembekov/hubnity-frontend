@@ -40,10 +40,10 @@ export const DashboardSectionHeader = ({
             {children}
           </div>
           {link && (
-            <Button variant="link" asChild>
+            <Button variant="link" className="group" asChild>
               <Link href={link.href}>
                 {link.label}
-                <ArrowRight />
+                <ArrowRight className="group-hover:translate-x-1 transition-transform" />
               </Link>
             </Button>
           )}

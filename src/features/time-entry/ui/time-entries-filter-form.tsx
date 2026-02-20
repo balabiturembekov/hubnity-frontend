@@ -1,5 +1,8 @@
-import { Filter, Search, X } from "lucide-react";
+"use client";
+
+import { Filter, RefreshCw, Search, X } from "lucide-react";
 import { useGetProjectsQuery } from "@/entities/project";
+import { useTimeEntriesStore } from "@/features/time-entry";
 import { Button } from "@/shared/ui/button";
 import {
   Card,
@@ -16,9 +19,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui/select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { FilterSkeleton } from "@/widgets/skeleton";
 import { useFilteredTimeEntries } from "../hooks/use-filtered-time-entries";
-import { useTimeEntriesStore } from "../model/time-entries.store";
 
 export const TimeEntriesFilterForm = () => {
   const {
@@ -31,7 +34,7 @@ export const TimeEntriesFilterForm = () => {
     resetFilters,
   } = useTimeEntriesStore();
   const { data: projects } = useGetProjectsQuery();
-  const { timeEntries, totalCount, hasActiveFilters, isLoading } =
+  const { timeEntries, totalCount, hasActiveFilters, refetch, isLoading } =
     useFilteredTimeEntries();
 
   if (isLoading) {
@@ -41,9 +44,26 @@ export const TimeEntriesFilterForm = () => {
   return (
     <Card className="transition-shadow hover:shadow-md">
       <CardHeader>
-        <div className="flex items-center gap-2">
-          <Filter className="h-5 w-5 text-primary" />
-          <CardTitle>Filters</CardTitle>
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <Filter className="h-5 w-5 text-primary" />
+            <CardTitle>Filters</CardTitle>
+          </div>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => !isLoading && refetch()}
+                disabled={isLoading}
+                className="group flex items-center justify-center"
+              >
+                <RefreshCw className="group-hover:animate-spin" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Refetch data</TooltipContent>
+          </Tooltip>
         </div>
         <CardDescription>Search and filter time entries</CardDescription>
       </CardHeader>
