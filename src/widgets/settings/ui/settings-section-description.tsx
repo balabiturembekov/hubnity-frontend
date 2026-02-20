@@ -8,7 +8,7 @@ export const SettingsSectionDescription = ({
   subTitle,
 }: SettingsSectionDescriptionProps) => {
   return (
-    <div className="col-span-2 flex flex-col gap-2 w-1/2">
+    <div className="col-span-3 xl:col-span-2 flex flex-col gap-2 w-full xl:w-1/2">
       <h2 className="text-xl">{title}</h2>
       <p className="font-light text-muted-foreground text-pretty">{subTitle}</p>
     </div>

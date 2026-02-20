@@ -33,6 +33,7 @@ import {
 import { Input } from "@/shared/ui/input";
 import { Switch } from "@/shared/ui/switch";
 import { SettingsSectionDescription } from "@/widgets/settings/ui/settings-section-description";
+import { MembersIdleSettingsFormSkeleton } from "@/widgets/skeleton";
 
 const defaultValues: IdleSettingsFormValues = {
   idleDetectionEnabled: false,
@@ -41,7 +42,7 @@ const defaultValues: IdleSettingsFormValues = {
 };
 
 export function MembersIdleSettingsForm() {
-  const { data, isSuccess } = getIdleSettingsQuery();
+  const { data, isSuccess, isPending } = getIdleSettingsQuery();
   const updateMutation = useUpdateIdleSettingsMutation();
 
   const form = useForm<IdleSettingsFormValues>({
@@ -63,19 +64,23 @@ export function MembersIdleSettingsForm() {
     updateMutation.mutate(formValuesToIdleSettingsPayload(values));
   };
 
+  if (isPending) {
+    return <MembersIdleSettingsFormSkeleton />;
+  }
+
   return (
     <Card>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-5 gap-8 my-3">
+            <div className="grid grid-cols-3 xl:grid-cols-5 gap-y-4 gap-x-8 my-3">
               <SettingsSectionDescription
                 title="General idle settings"
                 subTitle="Set the default idle preferences for all members"
               />
 
-              <div className="col-span-3 place-self-end flex items-end gap-3">
-                <Card className="p-3">
+              <div className="col-span-3 place-self-end flex flex-col sm:flex-row items-end gap-3">
+                <Card className="p-3 w-full sm:w-auto">
                   <CardContent className="flex items-center justify-between gap-10 px-1">
                     <div className="flex flex-col">
                       <h3 className="text-sm text-muted-foreground font-semibold">
@@ -101,84 +106,97 @@ export function MembersIdleSettingsForm() {
 
                 <div
                   className={cn(
-                    "flex flex-col gap-2 transition-opacity",
-                    !idleDetectionEnabled && "opacity-50 pointer-events-none",
+                    "flex items-end gap-3",
+                    isCustomInterval && "flex-col sm:flex-row",
                   )}
                 >
-                  <FormLabel htmlFor="interval">Interval</FormLabel>
-                  <FormField
-                    control={form.control}
-                    name="interval"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormControl>
-                          <Combobox
-                            value={field.value}
-                            onValueChange={(v) =>
-                              field.onChange(v ?? field.value)
-                            }
-                            id="interval"
-                            items={[...IDLE_INTERVAL_OPTIONS]}
-                          >
-                            <ComboboxInput
-                              className="bg-white"
-                              disabled={!idleDetectionEnabled}
-                            />
-                            <ComboboxContent>
-                              <ComboboxEmpty>No items found</ComboboxEmpty>
-                              <ComboboxList>
-                                {(item) => (
-                                  <ComboboxItem key={item} value={item}>
-                                    {item}
-                                  </ComboboxItem>
-                                )}
-                              </ComboboxList>
-                            </ComboboxContent>
-                          </Combobox>
-                        </FormControl>
-                      </FormItem>
-                    )}
-                  />
-                </div>
-
-                {isCustomInterval && (
-                  <div
-                    className={cn(
-                      "flex items-stretch transition-opacity",
-                      !idleDetectionEnabled && "opacity-50 pointer-events-none",
-                    )}
-                  >
-                    <FormField
-                      control={form.control}
-                      name="customMinutes"
-                      render={({ field }) => (
-                        <FormItem className="flex items-stretch gap-0">
-                          <FormControl>
-                            <Input
-                              type="number"
-                              min={1}
-                              max={120}
-                              className="rounded-r-none w-24"
-                              disabled={!idleDetectionEnabled}
-                              value={field.value ?? ""}
-                              required
-                              onChange={(e) =>
-                                field.onChange(e.target.valueAsNumber ?? null)
-                              }
-                            />
-                          </FormControl>
-                        </FormItem>
+                  <div className="flex items-end gap-3">
+                    <div
+                      className={cn(
+                        "flex flex-col gap-2 transition-opacity",
+                        !idleDetectionEnabled &&
+                          "opacity-50 pointer-events-none",
                       )}
-                    />
-                    <span className="bg-gray-100 border rounded-r-md flex items-center justify-center px-3">
-                      mins
-                    </span>
-                  </div>
-                )}
+                    >
+                      <FormLabel htmlFor="interval">Interval</FormLabel>
+                      <FormField
+                        control={form.control}
+                        name="interval"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Combobox
+                                value={field.value}
+                                onValueChange={(v) =>
+                                  field.onChange(v ?? field.value)
+                                }
+                                id="interval"
+                                items={[...IDLE_INTERVAL_OPTIONS]}
+                              >
+                                <ComboboxInput
+                                  className="bg-white"
+                                  disabled={!idleDetectionEnabled}
+                                />
+                                <ComboboxContent>
+                                  <ComboboxEmpty>No items found</ComboboxEmpty>
+                                  <ComboboxList>
+                                    {(item) => (
+                                      <ComboboxItem key={item} value={item}>
+                                        {item}
+                                      </ComboboxItem>
+                                    )}
+                                  </ComboboxList>
+                                </ComboboxContent>
+                              </Combobox>
+                            </FormControl>
+                          </FormItem>
+                        )}
+                      />
+                    </div>
 
-                <Button type="submit" disabled={updateMutation.isPending}>
-                  Apply to all
-                </Button>
+                    {isCustomInterval && (
+                      <div
+                        className={cn(
+                          "flex items-stretch transition-opacity",
+                          !idleDetectionEnabled &&
+                            "opacity-50 pointer-events-none",
+                        )}
+                      >
+                        <FormField
+                          control={form.control}
+                          name="customMinutes"
+                          render={({ field }) => (
+                            <FormItem className="flex items-stretch gap-0 w-18">
+                              <FormControl>
+                                <Input
+                                  type="number"
+                                  min={1}
+                                  max={120}
+                                  className="rounded-r-none w-24"
+                                  disabled={!idleDetectionEnabled}
+                                  value={field.value ?? ""}
+                                  required
+                                  onChange={(e) =>
+                                    field.onChange(
+                                      e.target.valueAsNumber ?? null,
+                                    )
+                                  }
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                        <span className="bg-gray-100 border rounded-r-md flex items-center justify-center px-3">
+                          mins
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <Button type="submit" disabled={updateMutation.isPending}>
+                    Apply to all
+                  </Button>
+                </div>
               </div>
             </div>
           </form>

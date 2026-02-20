@@ -4,6 +4,8 @@ export { EmployeeDetailsProfileHeaderSkeleton } from "./ui/employee-details-prof
 export { FilterSkeleton } from "./ui/filter-skeleton";
 export { GraphSkeleton } from "./ui/graph-skeleton";
 export { ListItemsSkeleton } from "./ui/list-items-skeleton";
+export { MembersIdleListSkeleton } from "./ui/members-idle-list-skeleton";
+export { MembersIdleSettingsFormSkeleton } from "./ui/members-idle-settings-form-skeleton";
 export { ProfileTimeStatisticsSkeleton } from "./ui/profile-time-statistics-skeleton";
 export { ScreenshotsSkeleton } from "./ui/screenshots-skeleton";
 export { StatsCardsSkeleton } from "./ui/stats-cards-skeleton";

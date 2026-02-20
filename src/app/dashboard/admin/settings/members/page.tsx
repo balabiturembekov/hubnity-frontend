@@ -1,13 +1,19 @@
 "use client";
 
-import { Card, CardContent } from "@/shared/ui/card";
+import { useCurrentUser } from "@/entities/user";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { DashboardPageHeader } from "@/widgets/header";
+import { MembersPageSkeleton } from "@/widgets/members";
 import { MembersIdleList } from "@/widgets/settings/ui/members-idle-list";
 import { MembersIdleSettingsForm } from "@/widgets/settings/ui/members-idle-settings-form";
-import { SettingsSectionDescription } from "@/widgets/settings/ui/settings-section-description";
 
 export default function MembersSettingsPage() {
+  const { data, isPending } = useCurrentUser();
+
+  if (isPending || !data) {
+    return <MembersPageSkeleton />;
+  }
+
   return (
     <DashboardContainer>
       <DashboardPageHeader
@@ -15,18 +21,9 @@ export default function MembersSettingsPage() {
         subTitle="Manage member access, roles, and tracking preferences"
       />
 
-      <div className="p-2 md:p-6 space-y-8">
+      <div className="p-2 md:p-6 space-y-4">
         <MembersIdleSettingsForm />
-
-        <Card>
-          <CardContent className="space-y-6">
-            <SettingsSectionDescription
-              title="Individual idle settings"
-              subTitle="Override idle time for specific members"
-            />
-            <MembersIdleList />
-          </CardContent>
-        </Card>
+        <MembersIdleList />
       </div>
     </DashboardContainer>
   );

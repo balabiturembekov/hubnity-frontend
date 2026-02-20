@@ -8,7 +8,13 @@ import {
   idleThresholdSecondsToInterval,
   intervalAndCustomToSeconds,
 } from "@/features/settings";
-import { cn } from "@/shared/lib/utils";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/shared/ui/accordion";
+import { Card, CardContent } from "@/shared/ui/card";
 import {
   Combobox,
   ComboboxContent,
@@ -19,6 +25,7 @@ import {
 } from "@/shared/ui/combobox";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
+import { SettingsSectionDescription } from "./settings-section-description";
 
 export interface MemberIdleItem {
   user: { userId: string; email: string; name: string };
@@ -59,25 +66,30 @@ export function MembersIdleList() {
           item.user.userId === userId ? { ...item, idleThreshold } : item,
         ),
       );
-
-      // TODO: when backend is ready, call useUpdateIndividualIdleSettingsMutation().mutate({ userId, payload: { idleThreshold } })
-      // settingsService.updateIndividualIdleSettings(userId, { idleThreshold });
     },
     [],
   );
 
   return (
-    <div className="space-y-4">
-      {items.map((item) => (
-        <MemberIdleRow
-          key={item.user.userId}
-          item={item}
-          onThresholdChange={(idleThreshold) =>
-            updateMemberThreshold(item.user.userId, idleThreshold)
-          }
+    <Card>
+      <CardContent className="space-y-6">
+        <SettingsSectionDescription
+          title="Individual idle settings"
+          subTitle="Override idle time for specific members"
         />
-      ))}
-    </div>
+        <Accordion type="single" collapsible className="w-full space-y-4">
+          {items.map((item) => (
+            <MemberIdleRow
+              key={item.user.userId}
+              item={item}
+              onThresholdChange={(idleThreshold) =>
+                updateMemberThreshold(item.user.userId, idleThreshold)
+              }
+            />
+          ))}
+        </Accordion>
+      </CardContent>
+    </Card>
   );
 }
 
@@ -117,74 +129,96 @@ function MemberIdleRow({
     applyThreshold(interval, clamped);
   };
 
-  return (
-    <div
-      className={cn(
-        "flex items-center justify-between gap-4 rounded-lg border p-4",
-        "bg-card",
-      )}
-    >
-      <div className="flex items-center gap-3 min-w-0">
-        <div className="size-10 rounded-full bg-muted flex items-center justify-center shrink-0">
-          <span className="text-muted-foreground text-sm font-medium">
-            {item.user.name.slice(0, 2).toUpperCase()}
-          </span>
-        </div>
-        <div className="flex flex-col gap-0.5 min-w-0">
-          <span className="text-sm font-medium truncate">{item.user.name}</span>
-          <span className="text-xs text-muted-foreground">
-            {item.user.email}
-          </span>
-        </div>
+  const userSummary = (
+    <div className="flex items-center gap-3 min-w-0 pr-4 sm:pr-0">
+      <div className="size-10 rounded-full bg-muted flex items-center justify-center shrink-0">
+        <span className="text-muted-foreground text-sm font-medium">
+          {item.user.name.slice(0, 2).toUpperCase()}
+        </span>
       </div>
-
-      <div className="flex items-center gap-3">
-        <div className="flex flex-col gap-2">
-          <Label htmlFor={`interval-${item.user.userId}`}>Interval</Label>
-          <Combobox
-            value={interval}
-            onValueChange={(v) =>
-              handleIntervalChange((v as IdleIntervalOption) ?? null)
-            }
-            id={`interval-${item.user.userId}`}
-            items={[...IDLE_INTERVAL_OPTIONS]}
-          >
-            <ComboboxInput className="bg-white" />
-            <ComboboxContent>
-              <ComboboxEmpty>No items found</ComboboxEmpty>
-              <ComboboxList>
-                {(option) => (
-                  <ComboboxItem key={option} value={option}>
-                    {option}
-                  </ComboboxItem>
-                )}
-              </ComboboxList>
-            </ComboboxContent>
-          </Combobox>
-        </div>
-
-        {isCustomInterval && (
-          <div className="flex flex-col gap-2">
-            <Label htmlFor={`custom-mins-${item.user.userId}`}>Minutes</Label>
-            <div className="flex items-stretch">
-              <Input
-                id={`custom-mins-${item.user.userId}`}
-                type="number"
-                min={1}
-                max={120}
-                className="rounded-r-none w-24 bg-white"
-                value={customMinutes}
-                onChange={(e) =>
-                  handleCustomMinutesChange(e.target.valueAsNumber || 1)
-                }
-              />
-              <span className="bg-gray-100 border rounded-r-md flex items-center justify-center px-3 text-sm text-muted-foreground">
-                mins
-              </span>
-            </div>
-          </div>
-        )}
+      <div className="flex flex-col gap-0.5 min-w-0 text-left">
+        <span className="text-sm font-medium truncate">{item.user.name}</span>
+        <span className="text-xs text-muted-foreground">{item.user.email}</span>
       </div>
     </div>
+  );
+
+  const renderSettingsInputs = (suffix: "desktop" | "mobile") => (
+    <>
+      <div className="flex flex-col gap-2 w-full sm:max-w-[200px] sm:min-w-[150px]">
+        <Label htmlFor={`interval-${item.user.userId}-${suffix}`}>
+          Interval
+        </Label>
+        <Combobox
+          value={interval}
+          onValueChange={(v) =>
+            handleIntervalChange((v as IdleIntervalOption) ?? null)
+          }
+          id={`interval-${item.user.userId}-${suffix}`}
+          items={[...IDLE_INTERVAL_OPTIONS]}
+        >
+          <ComboboxInput className="bg-white max-w-none text-left" />
+          <ComboboxContent>
+            <ComboboxEmpty>No items found</ComboboxEmpty>
+            <ComboboxList>
+              {(option) => (
+                <ComboboxItem key={option} value={option}>
+                  {option}
+                </ComboboxItem>
+              )}
+            </ComboboxList>
+          </ComboboxContent>
+        </Combobox>
+      </div>
+
+      {isCustomInterval && (
+        <div className="flex flex-col gap-2">
+          <Label htmlFor={`custom-mins-${item.user.userId}-${suffix}`}>
+            Minutes
+          </Label>
+          <div className="flex items-stretch">
+            <Input
+              id={`custom-mins-${item.user.userId}-${suffix}`}
+              type="number"
+              min={1}
+              max={120}
+              className="rounded-r-none w-full sm:w-24 bg-white"
+              value={customMinutes}
+              onChange={(e) =>
+                handleCustomMinutesChange(e.target.valueAsNumber || 1)
+              }
+            />
+            <span className="bg-gray-100 border rounded-r-md flex items-center justify-center px-3 text-sm text-muted-foreground">
+              mins
+            </span>
+          </div>
+        </div>
+      )}
+    </>
+  );
+
+  return (
+    <>
+      <div className="hidden sm:flex items-center justify-between gap-4 rounded-lg border p-4 bg-card">
+        {userSummary}
+        <div className="flex items-center gap-3">
+          {renderSettingsInputs("desktop")}
+        </div>
+      </div>
+
+      <AccordionItem
+        value={item.user.userId}
+        className="border rounded-lg bg-card px-2 sm:hidden"
+      >
+        <AccordionTrigger className="hover:no-underline py-4 flex items-center">
+          {userSummary}
+        </AccordionTrigger>
+        <AccordionContent>
+          <div className="flex flex-col gap-4 pb-2">
+            {renderSettingsInputs("mobile")}
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+    </>
   );
 }

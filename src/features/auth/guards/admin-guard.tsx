@@ -9,11 +9,11 @@ interface AdminGuardProps {
 }
 
 export const AdminGuard = ({ children }: AdminGuardProps) => {
-  const { data: user } = useCurrentUser();
+  const { data: user, isPending } = useCurrentUser();
 
-  if (!user) return null;
+  if (isPending) return <>{children}</>;
 
-  if (!["ADMIN", "OWNER", "SUPER_ADMIN"].includes(user.role)) {
+  if (!user || !["ADMIN", "OWNER", "SUPER_ADMIN"].includes(user.role)) {
     return (
       <div className="flex h-screen overflow-hidden bg-background">
         <div className="flex flex-1 flex-col overflow-hidden">
