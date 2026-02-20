@@ -35,6 +35,7 @@ import {
 import { ExportDialog } from "@/widgets/export";
 import { DashboardSectionHeader } from "@/widgets/header";
 import { ScreenshotGallery } from "@/widgets/screenshot-gallery";
+import { DashboardSectionHeaderSkeleton } from "@/widgets/skeleton";
 
 export { TimeEntriesFilterForm } from "@/features/time-entry";
 
@@ -72,25 +73,29 @@ export function TimeEntriesTable({
 
   return (
     <section className="space-y-4 overflow-x-auto">
-      <DashboardSectionHeader
-        title="Time Entries"
-        icon={FileText}
-        actionChildren={!isPreview && <ExportDialog buttonLabel="Export" />}
-        link={
-          isPreview
-            ? {
-                label: "View All",
-                href: "/dashboard/tracking",
-              }
-            : undefined
-        }
-      >
-        {!isPreview && (
-          <Badge variant="secondary" className="ml-2">
-            {timeEntries?.length ?? 0}
-          </Badge>
-        )}
-      </DashboardSectionHeader>
+      {isLoading ? (
+        <DashboardSectionHeaderSkeleton />
+      ) : (
+        <DashboardSectionHeader
+          title="Time Entries"
+          icon={FileText}
+          actionChildren={!isPreview && <ExportDialog buttonLabel="Export" />}
+          link={
+            isPreview
+              ? {
+                  label: "View All",
+                  href: "/dashboard/tracking",
+                }
+              : undefined
+          }
+        >
+          {!isPreview && (
+            <Badge variant="secondary" className="ml-2">
+              {timeEntries?.length ?? 0}
+            </Badge>
+          )}
+        </DashboardSectionHeader>
+      )}
 
       <TimeEntriesFilterForm />
 

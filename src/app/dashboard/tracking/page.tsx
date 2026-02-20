@@ -3,17 +3,21 @@
 import { useCurrentUser, useUser } from "@/entities/user";
 import { ExportDialog } from "@/widgets/export";
 import { DashboardPageHeader } from "@/widgets/header";
+import { ScreenshotSettings } from "@/widgets/screenshot-settings";
 import {
   TimeEntriesTable,
   TimeEntryStatsCards,
   TodaySummary,
 } from "@/widgets/time-entry";
+import { TrackingPageSkeleton } from "@/widgets/tracking";
 
 export default function TrackingPage() {
   const { isAdmin } = useUser();
   const { data, isPending } = useCurrentUser();
 
-  if (isPending || !data) return null;
+  if (isPending || !data) {
+    return <TrackingPageSkeleton />;
+  }
 
   return (
     <div className="flex h-screen overflow-auto bg-background">
@@ -28,7 +32,10 @@ export default function TrackingPage() {
 
           <div className="p-2 md:p-6 grid gap-4">
             {isAdmin && <TimeEntryStatsCards />}
-            <TodaySummary />
+            <div className="grid md:grid-cols-2 gap-4">
+              <TodaySummary />
+              <ScreenshotSettings />
+            </div>
             <TimeEntriesTable />
           </div>
         </main>

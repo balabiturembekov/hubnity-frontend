@@ -22,15 +22,15 @@ export const TimeEntryStatsCards = () => {
   const { data: totalStats, isPending: isTotalStatsPending } =
     useGetDashboardAnalyticsQuery();
 
-  if (!todayStats || !last7daysStats || !thisMonthStats || !totalStats) {
-    return null;
-  }
-
   const isPending =
     isTodayStatsPending ||
+    !todayStats ||
     isLast7daysPending ||
+    !last7daysStats ||
     isThisMonthPending ||
-    isTotalStatsPending;
+    !thisMonthStats ||
+    isTotalStatsPending ||
+    !totalStats;
 
   if (isPending) {
     return <StatsCardsSkeleton />;
