@@ -72,7 +72,7 @@ export function MembersIdleList() {
 
   return (
     <Card>
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 px-2 sm:px-4">
         <SettingsSectionDescription
           title="Individual idle settings"
           subTitle="Override idle time for specific members"

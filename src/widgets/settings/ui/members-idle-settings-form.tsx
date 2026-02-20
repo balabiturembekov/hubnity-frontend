@@ -79,8 +79,8 @@ export function MembersIdleSettingsForm() {
                 subTitle="Set the default idle preferences for all members"
               />
 
-              <div className="col-span-3 place-self-end flex flex-col sm:flex-row items-end gap-3">
-                <Card className="p-3 w-full sm:w-auto">
+              <div className="col-span-3 place-self-end flex flex-col sm:flex-row items-end gap-3 w-full xl:w-auto">
+                <Card className="p-3 flex-1 w-full relative overflow-hidden min-[769px]:active:bg-transparent active:bg-accent/50 transition-colors">
                   <CardContent className="flex items-center justify-between gap-10 px-1">
                     <div className="flex flex-col">
                       <h3 className="text-sm text-muted-foreground font-semibold">
@@ -91,9 +91,11 @@ export function MembersIdleSettingsForm() {
                       control={form.control}
                       name="idleDetectionEnabled"
                       render={({ field }) => (
-                        <FormItem className="w-fit">
+                        <FormItem className="w-fit static">
+                          <FormLabel className="absolute inset-0 z-10 min-[769px]:hidden cursor-pointer" />
                           <FormControl>
                             <Switch
+                              className="relative z-20 min-[769px]:z-auto"
                               checked={field.value}
                               onCheckedChange={field.onChange}
                             />
@@ -123,7 +125,7 @@ export function MembersIdleSettingsForm() {
                         control={form.control}
                         name="interval"
                         render={({ field }) => (
-                          <FormItem>
+                          <FormItem className="w-auto sm:w-32">
                             <FormControl>
                               <Combobox
                                 value={field.value}
