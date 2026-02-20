@@ -82,11 +82,11 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
         label: "General",
         href: "/dashboard/admin/settings",
       },
-      {
-        id: "2",
-        label: "Organization",
-        href: "/dashboard/admin/settings/organization",
-      },
+      // {
+      //   id: "2",
+      //   label: "Organization",
+      //   href: "/dashboard/admin/settings/organization",
+      // },
       {
         id: "3",
         label: "Members",

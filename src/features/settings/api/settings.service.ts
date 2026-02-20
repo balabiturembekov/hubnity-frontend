@@ -1,6 +1,7 @@
 import type {
   GetIdleDetectionSettingsRes,
   UpdateIdleDetectionSettingsReq,
+  UpdateIndividualIdleDetectionSettingsReq,
 } from "@/features/settings/model/settings.types";
 import { api } from "@/shared/config/api";
 
@@ -16,6 +17,19 @@ class SettingsService {
     const res = await api.patch<GetIdleDetectionSettingsRes>(
       "/companies/idle-detection-settings",
       payload,
+    );
+    return res.data;
+  }
+
+  async updateIndividualIdleSettings(
+    userId: string,
+    payload: UpdateIndividualIdleDetectionSettingsReq,
+  ) {
+    const res = await api.patch(
+      `/companies/idle-detection-settings/${userId}`,
+      {
+        idleThreshold: payload.idleThreshold,
+      },
     );
     return res.data;
   }

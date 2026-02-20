@@ -3,12 +3,7 @@
 import { useCurrentUser, useUser } from "@/entities/user";
 import { ExportDialog } from "@/widgets/export";
 import { DashboardPageHeader } from "@/widgets/header";
-import { ScreenshotSettings } from "@/widgets/screenshot-settings";
-import {
-  TimeEntriesTable,
-  TimeEntryStatsCards,
-  TodaySummary,
-} from "@/widgets/time-entry";
+import { TimeEntriesTable, TimeEntryStatsCards } from "@/widgets/time-entry";
 import { TrackingPageSkeleton } from "@/widgets/tracking";
 
 export default function TrackingPage() {
@@ -33,8 +28,7 @@ export default function TrackingPage() {
           <div className="p-2 md:p-6 grid gap-4">
             {isAdmin && <TimeEntryStatsCards />}
             <div className="grid md:grid-cols-2 gap-4">
-              <TodaySummary />
-              <ScreenshotSettings />
+              {/*<TodaySummary />*/}
             </div>
             <TimeEntriesTable />
           </div>
