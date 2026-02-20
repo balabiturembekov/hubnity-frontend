@@ -4,7 +4,6 @@ import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
 import { useGetUserDetailsQuery } from "@/entities/user/model/queries/use-get-user-details.query";
-import { AdminGuard } from "@/features/auth";
 import { Button } from "@/shared/ui/button";
 import { TooltipProvider } from "@/shared/ui/tooltip";
 import {
@@ -32,26 +31,24 @@ export default function EmployeeDetailsPage() {
 
   return (
     <TooltipProvider>
-      <AdminGuard>
-        <div className="flex h-screen overflow-auto bg-background">
-          <main className="flex-1 overflow-y-auto">
-            <div className="bg-linear-to-b from-primary/5 via-background to-background p-6 space-y-6">
-              <Button variant="link" asChild>
-                <Link href="/dashboard/admin/employees">
-                  <ArrowLeft />
-                  Back to Employees
-                </Link>
-              </Button>
+      <div className="flex h-screen overflow-auto bg-background">
+        <main className="flex-1 overflow-y-auto">
+          <div className="bg-linear-to-b from-primary/5 via-background to-background p-6 space-y-6">
+            <Button variant="link" asChild>
+              <Link href="/dashboard/admin/employees">
+                <ArrowLeft />
+                Back to Employees
+              </Link>
+            </Button>
 
-              <EmployeeDetailsProfileHeader userDetails={userDetails} />
+            <EmployeeDetailsProfileHeader userDetails={userDetails} />
 
-              <EmployeeDetailsTopStats userId={userDetails.id} />
+            <EmployeeDetailsTopStats userId={userDetails.id} />
 
-              <EmployeeTabs userId={userDetails.id} />
-            </div>
-          </main>
-        </div>
-      </AdminGuard>
+            <EmployeeTabs userId={userDetails.id} />
+          </div>
+        </main>
+      </div>
     </TooltipProvider>
   );
 }

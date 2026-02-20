@@ -42,6 +42,7 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
     label: "Team & Activity",
     href: "/dashboard/admin/team-activity",
     icon: Activity,
+    isAdminOnly: true,
   },
   {
     id: "4",

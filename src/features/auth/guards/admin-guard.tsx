@@ -1,3 +1,5 @@
+"use client";
+
 import { Shield } from "lucide-react";
 import { useCurrentUser } from "@/entities/user";
 import { Card, CardContent } from "@/shared/ui/card";
