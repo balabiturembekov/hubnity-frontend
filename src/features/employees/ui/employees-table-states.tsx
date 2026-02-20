@@ -6,34 +6,16 @@ import { useEmployeesStore } from "../model/employees.store";
 
 interface EmployeesTableStatesProps {
   employees: UserEntity[];
-  isLoading: boolean;
   isError: boolean;
   hasActiveFilters: boolean;
 }
 
 export const EmployeesTableStates = ({
   employees,
-  isLoading,
   isError,
   hasActiveFilters,
 }: EmployeesTableStatesProps) => {
   const { resetFilters } = useEmployeesStore();
-
-  if (isLoading) {
-    return (
-      <TableRow>
-        <TableCell
-          colSpan={6}
-          className="text-center text-muted-foreground py-8"
-        >
-          <div className="flex flex-col items-center gap-2">
-            <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
-            <p>Loading employees...</p>
-          </div>
-        </TableCell>
-      </TableRow>
-    );
-  }
 
   if (isError) {
     return (
@@ -56,7 +38,7 @@ export const EmployeesTableStates = ({
     );
   }
 
-  if (!isLoading && !isError && employees.length === 0) {
+  if (!isError && employees.length === 0) {
     return (
       <TableRow>
         <TableCell colSpan={6} className="h-64">

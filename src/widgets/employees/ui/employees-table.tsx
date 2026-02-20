@@ -12,11 +12,24 @@ import {
   TableRow,
 } from "@/shared/ui/table";
 import { DashboardSectionHeader } from "@/widgets/header";
+import {
+  DashboardSectionHeaderSkeleton,
+  TableSkeleton,
+} from "@/widgets/skeleton";
 import { EmployeeRow } from "./employee-row";
 
 export const EmployeesTable = () => {
   const { employees, totalCount, isLoading, isError, hasActiveFilters } =
     useFilteredEmployees();
+
+  if (isLoading) {
+    return (
+      <>
+        <DashboardSectionHeaderSkeleton isTwoLines />
+        <TableSkeleton />
+      </>
+    );
+  }
 
   return (
     <section className="overflow-y-auto">
@@ -49,7 +62,6 @@ export const EmployeesTable = () => {
           <TableBody>
             <EmployeesTableStates
               employees={employees}
-              isLoading={isLoading}
               isError={isError}
               hasActiveFilters={hasActiveFilters}
             />

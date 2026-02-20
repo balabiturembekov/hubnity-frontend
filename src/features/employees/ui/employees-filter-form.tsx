@@ -15,11 +15,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/ui/select";
+import { FilterSkeleton } from "@/widgets/skeleton";
 import { useFilteredEmployees } from "../hooks/use-filtered-employees";
 import { useEmployeesStore } from "../model/employees.store";
 
 export const EmployeesFilterForm = () => {
-  const { employees, totalCount, hasActiveFilters } = useFilteredEmployees();
+  const { employees, totalCount, hasActiveFilters, isLoading } =
+    useFilteredEmployees();
   const {
     searchQuery,
     roleFilter,
@@ -29,6 +31,10 @@ export const EmployeesFilterForm = () => {
     setStatusFilter,
     resetFilters,
   } = useEmployeesStore();
+
+  if (isLoading) {
+    return <FilterSkeleton />;
+  }
 
   return (
     <Card className="transition-shadow hover:shadow-md">

@@ -1,32 +1,13 @@
 import { DollarSign, Shield, UserCheck, Users } from "lucide-react";
 import { StatsCard } from "@/entities/stats";
 import { useEmployeeStats } from "@/entities/user";
-import { Card, CardContent, CardHeader } from "@/shared/ui/card";
-import { Skeleton } from "@/shared/ui/skeleton";
+import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const EmployeesStats = () => {
   const { stats, isLoading } = useEmployeeStats();
 
   if (isLoading) {
-    return (
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-        {["total", "active", "admins", "rate"].map((type) => (
-          <Card
-            key={`skeleton-${type}`}
-            className="transition-shadow hover:shadow-md"
-          >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <Skeleton className="h-4 w-[100px]" />
-              <Skeleton className="h-4 w-4" />
-            </CardHeader>
-            <CardContent>
-              <Skeleton className="h-8 w-[60px] mb-1" />
-              <Skeleton className="h-3 w-[120px]" />
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-    );
+    return <StatsCardsSkeleton />;
   }
 
   return (
