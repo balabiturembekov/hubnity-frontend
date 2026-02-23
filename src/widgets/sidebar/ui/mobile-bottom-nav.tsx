@@ -51,7 +51,7 @@ export function MobileBottomNav() {
               key={link.href}
               variant={isActive ? "secondary" : "ghost"}
               className={cn(
-                "flex-1 flex-col h-auto py-2 gap-1 rounded-2xl",
+                "flex-1 flex-col h-auto py-2 gap-1 rounded-2xl transition-transform active:scale-95 focus-visible:ring-0 focus-visible:ring-offset-0",
                 isActive ? "text-primary" : "text-muted-foreground",
               )}
               asChild
@@ -68,7 +68,7 @@ export function MobileBottomNav() {
           <DrawerTrigger asChild>
             <Button
               variant="ghost"
-              className="flex-1 flex-col h-auto py-2 gap-1 rounded-2xl text-muted-foreground"
+              className="flex-1 flex-col h-auto py-2 gap-1 rounded-2xl text-muted-foreground transition-transform active:scale-95 focus-visible:ring-0 focus-visible:ring-offset-0"
             >
               <Menu className="h-5 w-5" />
               <span className="text-[10px] font-medium">Menu</span>
