@@ -2,7 +2,7 @@
 
 import { format } from "date-fns";
 import { Clock } from "lucide-react";
-import { useTimeEntry } from "@/features/time-entry";
+import { useTimeEntries } from "@/entities/time-entry";
 import {
   Card,
   CardContent,
@@ -13,7 +13,7 @@ import {
 import { GraphSkeleton } from "@/widgets/skeleton";
 
 export const TodaySummary = () => {
-  const { todayHours, todayEntries, isPending } = useTimeEntry();
+  const { todayHours, todayEntries, isPending } = useTimeEntries();
 
   if (isPending) {
     return <GraphSkeleton />;

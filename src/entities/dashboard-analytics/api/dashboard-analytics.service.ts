@@ -18,9 +18,12 @@ class DashboardAnalyticsService {
   }
 
   async getHoursByProject(params?: GetDashboardAnalyticsParams) {
-    const res = await api<GetHoursByProjectRes>("/analytics/hours-by-project", {
-      params,
-    });
+    const res = await api.get<GetHoursByProjectRes>(
+      "/analytics/hours-by-project",
+      {
+        params,
+      },
+    );
     return res.data;
   }
 

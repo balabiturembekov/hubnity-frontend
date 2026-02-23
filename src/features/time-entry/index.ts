@@ -1,4 +1,3 @@
-export { useTimeEntry } from "./hooks/use-time-entry";
 export { useTimeEntryForm } from "./hooks/use-time-entry-form";
 export { exportTimeEntriesToCSV } from "./lib/export-time-entries";
 export { useTimeEntriesStore } from "./model/time-entries.store";

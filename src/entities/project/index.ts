@@ -1,4 +1,5 @@
 export { projectService } from "./api/project.service";
+export { useProjectsStats } from "./hooks/use-projects-stats";
 export { useCreateProjectMutation } from "./model/mutations/use-create-project.mutation";
 export { useDeleteProjectMutation } from "./model/mutations/use-delete-project.mutation";
 export { useUpdateProjectMutation } from "./model/mutations/use-update-project.mutation";

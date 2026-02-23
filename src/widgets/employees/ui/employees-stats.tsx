@@ -1,10 +1,10 @@
 import { DollarSign, Shield, UserCheck, Users } from "lucide-react";
 import { StatsCard } from "@/entities/stats";
-import { useEmployeeStats } from "@/entities/user";
+import { useEmployeesStats } from "@/entities/user";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const EmployeesStats = () => {
-  const { stats, isLoading } = useEmployeeStats();
+  const { stats, isLoading } = useEmployeesStats();
 
   if (isLoading) {
     return <StatsCardsSkeleton />;
@@ -13,7 +13,7 @@ export const EmployeesStats = () => {
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <StatsCard
-        title="Total Employees"
+        title="Employees"
         icon={Users}
         stat={stats.total}
         description={

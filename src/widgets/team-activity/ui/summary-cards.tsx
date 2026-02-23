@@ -4,9 +4,9 @@ import { format } from "date-fns";
 import { Calendar, Clock, Users } from "lucide-react";
 import { StatsCard } from "@/entities/stats";
 import { periodsLabels } from "@/entities/team-activity";
+import { useTimeEntries } from "@/entities/time-entry";
 import { useUser } from "@/entities/user";
 import { useTeamActivityStore } from "@/features/team-activity";
-import { useTimeEntry } from "@/features/time-entry";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const SummaryCards = () => {
@@ -14,13 +14,12 @@ export const SummaryCards = () => {
   const {
     isPending,
     totalMembers,
-    totalEarned,
+    formattedTotalEarned,
     avgHoursPerMember,
     avgEarnedPerMember,
-    timeActiveTotalHours,
-    timeActivePeriod,
     teamActivityTotalHours,
-  } = useTimeEntry();
+    timeActivePeriod,
+  } = useTimeEntries();
   const { period } = useTeamActivityStore();
 
   if (isPending) {
@@ -33,7 +32,7 @@ export const SummaryCards = () => {
     >
       {isAdmin && (
         <StatsCard
-          title="Total Members"
+          title="Members"
           icon={Users}
           stat={totalMembers}
           description={
@@ -46,34 +45,6 @@ export const SummaryCards = () => {
           color="green"
         />
       )}
-      <StatsCard
-        title="Total Hours"
-        icon={Clock}
-        stat={teamActivityTotalHours ?? "0"}
-        statsClassName="text-2xl"
-        description={
-          <p className="text-xs text-muted-foreground">
-            {isAdmin && totalMembers > 0
-              ? `${(timeActiveTotalHours / totalMembers).toFixed(1)}h per member`
-              : "Hours tracked"}
-          </p>
-        }
-        color="blue"
-      />
-      <StatsCard
-        title="Total Earned"
-        icon={Users}
-        stat={`$${totalEarned?.toFixed(2)}`}
-        description={
-          <p className="text-xs text-muted-foreground">
-            {isAdmin && totalMembers > 0
-              ? `$${avgEarnedPerMember.toFixed(2)} per member`
-              : "Total earnings"}
-          </p>
-        }
-        statsClassName="text-xl"
-        color="red"
-      />
       <StatsCard
         title="Period"
         icon={Calendar}
@@ -90,6 +61,34 @@ export const SummaryCards = () => {
           </p>
         }
         color="yellow"
+      />
+      <StatsCard
+        title="Total Earned"
+        icon={Users}
+        stat={formattedTotalEarned}
+        description={
+          <p className="text-xs text-muted-foreground">
+            {isAdmin && totalMembers > 0
+              ? `$${avgEarnedPerMember.toFixed(2)} per member`
+              : "Total earnings"}
+          </p>
+        }
+        statsClassName="text-xl"
+        color="red"
+      />
+      <StatsCard
+        title="Total Hours"
+        icon={Clock}
+        stat={`${teamActivityTotalHours.toFixed(2)}h`}
+        statsClassName="text-2xl"
+        description={
+          <p className="text-xs text-muted-foreground">
+            {isAdmin && totalMembers > 0
+              ? `${(teamActivityTotalHours / totalMembers).toFixed(2)}h per member`
+              : "Hours tracked"}
+          </p>
+        }
+        color="blue"
       />
     </div>
   );

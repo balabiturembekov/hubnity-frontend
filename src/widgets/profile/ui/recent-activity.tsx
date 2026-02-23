@@ -1,17 +1,17 @@
 import { Clock } from "lucide-react";
+import { useMyTimeEntries } from "@/entities/time-entry";
 import {
   getEntryDate,
   getEntryDuration,
 } from "@/entities/time-entry/lib/time-entry.lib";
-import { useTimeEntry } from "@/features/time-entry";
 import { Badge } from "@/shared/ui/badge";
 import { CardDescription, CardTitle } from "@/shared/ui/card";
 import { ListItemsSkeleton } from "@/widgets/skeleton";
 
 export const RecentActivity = () => {
-  const { myEntries, isPending } = useTimeEntry();
+  const { myEntries, isMyRecentTimeEntriesPending } = useMyTimeEntries();
 
-  if (isPending) {
+  if (isMyRecentTimeEntriesPending) {
     return <ListItemsSkeleton />;
   }
 

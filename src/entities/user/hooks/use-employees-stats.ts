@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useGetEmployeesQuery } from "@/entities/user";
 
-export const useEmployeeStats = () => {
+export const useEmployeesStats = () => {
   const { data: users = [], isLoading, isError } = useGetEmployeesQuery();
 
   const stats = useMemo(() => {

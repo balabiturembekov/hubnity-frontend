@@ -1,34 +1,13 @@
 "use client";
 
 import { Award, Clock, TrendingUp, Users } from "lucide-react";
-import {
-  useAnalyticsStore,
-  useGetAnalyticsHoursByProjectQuery,
-  useGetAnalyticsProductivity,
-  useGetDashboardAnalyticsQuery,
-} from "@/entities/dashboard-analytics";
+import { useReportsStats } from "@/entities/reports";
 import { StatsCard } from "@/entities/stats";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const ReportsStatsSection = () => {
-  const { period } = useAnalyticsStore();
-  const { data: dashboardAnalytics, isPending: isDashboardAnalyticsPending } =
-    useGetDashboardAnalyticsQuery({
-      period,
-    });
-  const { data: hoursByProject, isPending: isHoursByProjectPending } =
-    useGetAnalyticsHoursByProjectQuery({
-      period,
-    });
-  const { data: productivity, isPending: isProductivityPending } =
-    useGetAnalyticsProductivity({
-      period,
-    });
-
-  const isPending =
-    isDashboardAnalyticsPending ||
-    isHoursByProjectPending ||
-    isProductivityPending;
+  const { dashboardAnalytics, hoursByProject, productivity, isPending } =
+    useReportsStats();
 
   return (
     <section>
@@ -37,11 +16,11 @@ export const ReportsStatsSection = () => {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full">
           <StatsCard
-            title="Total Hours"
-            icon={Clock}
-            stat={`${dashboardAnalytics.totalHours}h`}
-            description={`${dashboardAnalytics.entriesCount} entries tracked`}
-            color="green"
+            title="Active Users"
+            icon={Users}
+            stat={dashboardAnalytics.activeUsersCount}
+            description="Users with tracked time"
+            color="red"
           />
           <StatsCard
             title="Avg. Hours/Day"
@@ -51,18 +30,18 @@ export const ReportsStatsSection = () => {
             color="blue"
           />
           <StatsCard
-            title="Active Users"
-            icon={Users}
-            stat={dashboardAnalytics.activeUsersCount}
-            description="Users with tracked time"
-            color="red"
-          />
-          <StatsCard
             title="Top Project"
             icon={Award}
             stat={`${hoursByProject.data[0].hours}h`}
             description={hoursByProject.data[0].projectName}
             color="yellow"
+          />
+          <StatsCard
+            title="Total Hours"
+            icon={Clock}
+            stat={`${dashboardAnalytics.totalHours}h`}
+            description={`${dashboardAnalytics.entriesCount} entries tracked`}
+            color="green"
           />
         </div>
       )}

@@ -1,5 +1,5 @@
 export { userService } from "./api/user.service";
-export { useEmployeeStats } from "./hooks/use-employee-stats";
+export { useEmployeesStats } from "./hooks/use-employees-stats";
 export { useUser } from "./hooks/use-user";
 export { useCreateEmployeeMutation } from "./model/mutations/use-create-employee.mutation";
 export { useDeleteEmployeeMutation } from "./model/mutations/use-delete-employee.mutation";

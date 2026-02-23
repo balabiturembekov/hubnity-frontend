@@ -1,93 +1,82 @@
 "use client";
 
+import {
+  endOfMonth,
+  endOfWeek,
+  format,
+  startOfMonth,
+  startOfWeek,
+} from "date-fns";
 import { Calendar, Clock, FileText, TrendingUp } from "lucide-react";
-import { useGetDashboardAnalyticsQuery } from "@/entities/dashboard-analytics";
 import { StatsCard } from "@/entities/stats";
-import { useCurrentUser } from "@/entities/user";
+import { useMyTimeEntries } from "@/entities/time-entry";
 import { formatDurationFull } from "@/shared/lib/utils";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const ProfileStats = () => {
-  const { data: user } = useCurrentUser();
-  const { data: totalStats, isPlaceholderData: isTotalStatsPending } =
-    useGetDashboardAnalyticsQuery(
-      {
-        userId: user?.id,
-      },
-      {
-        enabled: !!user?.id,
-      },
-    );
-  const { data: todayStats, isPending: isTodayStatsPending } =
-    useGetDashboardAnalyticsQuery({
-      period: "today",
-    });
-  const { data: last7daysStats, isPending: isLast7daysPending } =
-    useGetDashboardAnalyticsQuery({
-      period: "7days",
-    });
-  const { data: thisMonthStats, isPending: isThisMonthPending } =
-    useGetDashboardAnalyticsQuery({
-      period: "this_month",
-    });
+  const {
+    myTotalStats,
+    myTodayStats,
+    myLast7daysStats,
+    myThisMonthStats,
+    isMyStatsPending,
+  } = useMyTimeEntries();
 
-  const isPending =
-    isTotalStatsPending ||
-    !totalStats ||
-    isTodayStatsPending ||
-    !todayStats ||
-    isLast7daysPending ||
-    !last7daysStats ||
-    isThisMonthPending ||
-    !thisMonthStats;
-
-  if (isPending) {
+  if (isMyStatsPending) {
     return <StatsCardsSkeleton />;
   }
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
       <StatsCard
-        title="Total Hours"
-        icon={Clock}
-        stat={formatDurationFull(totalStats.totalHours * 3600)}
+        title="Today"
+        icon={Calendar}
+        stat={formatDurationFull((myTodayStats?.totalHours ?? 0) * 3600)}
         statsClassName="text-2xl"
         description={
           <p className="text-xs text-muted-foreground">
-            {totalStats.entriesCount} entries tracked
+            {format(new Date(), "MMM d")}
           </p>
-        }
-        color="green"
-      />
-      <StatsCard
-        title="Today"
-        icon={Calendar}
-        stat={formatDurationFull(todayStats.totalHours * 3600)}
-        statsClassName="text-2xl"
-        description={
-          <p className="text-xs text-muted-foreground">Hours tracked today</p>
         }
         color="blue"
       />
       <StatsCard
         title="This Week"
         icon={TrendingUp}
-        stat={formatDurationFull(last7daysStats.totalHours * 3600)}
+        stat={`${myLast7daysStats?.totalHours ?? 0}h`}
         statsClassName="text-2xl"
         description={
-          <p className="text-xs text-muted-foreground">Last 7 days</p>
+          <p className="text-xs text-muted-foreground">
+            {format(startOfWeek(new Date(), { weekStartsOn: 1 }), "MMM d")} -{" "}
+            {format(endOfWeek(new Date(), { weekStartsOn: 1 }), "MMM d")}
+          </p>
         }
         color="red"
       />
       <StatsCard
         title="This Month"
         icon={FileText}
-        stat={formatDurationFull(thisMonthStats.totalHours * 3600)}
+        stat={`${myThisMonthStats?.totalHours ?? 0}h`}
         statsClassName="text-2xl"
         description={
-          <p className="text-xs text-muted-foreground">Last 30 days</p>
+          <p className="text-xs text-muted-foreground">
+            {format(startOfMonth(new Date()), "MMM d")} -{" "}
+            {format(endOfMonth(new Date()), "MMM d")}
+          </p>
         }
         color="yellow"
+      />
+      <StatsCard
+        title="Total Hours"
+        icon={Clock}
+        stat={`${myTotalStats?.totalHours ?? 0}h`}
+        statsClassName="text-2xl"
+        description={
+          <p className="text-xs text-muted-foreground">
+            {myTotalStats?.entriesCount ?? 0} entries tracked
+          </p>
+        }
+        color="green"
       />
     </div>
   );

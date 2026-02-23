@@ -12,6 +12,11 @@ class TimeEntryService {
     return res.data;
   }
 
+  async getMyTimeEntries() {
+    const res = await api.get<TimeEntryEntity[]>("/time-entries/my");
+    return res.data;
+  }
+
   async getActiveTimeEntries() {
     const res = await api.get<TimeEntryEntity[]>("/time-entries/active");
     return res.data;

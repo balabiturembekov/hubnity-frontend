@@ -8,8 +8,9 @@ import {
   TrendingDown,
   TrendingUp,
 } from "lucide-react";
-import { useGetDashboardAnalyticsQuery } from "@/entities/dashboard-analytics";
 import { StatsCard } from "@/entities/stats";
+import { useUserStats } from "@/entities/user/hooks/use-user-stats";
+import { formatDurationFull } from "@/shared/lib/utils";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 interface EmployeeDetailsTopStatsProps {
@@ -19,34 +20,34 @@ interface EmployeeDetailsTopStatsProps {
 export const EmployeeDetailsTopStats = ({
   userId,
 }: EmployeeDetailsTopStatsProps) => {
-  const { data: thisWeekStats, isPending: isThisWeekStatsPending } =
-    useGetDashboardAnalyticsQuery({
-      userId,
-      period: "7days",
-    });
-  const { data: thisMonthStats, isPending: isThisMonthStatsPending } =
-    useGetDashboardAnalyticsQuery({
-      userId,
-      period: "this_month",
-    });
-  const { data: totalStats, isPending: isTotalStatsPending } =
-    useGetDashboardAnalyticsQuery({
-      userId,
-    });
+  const { todayStats, thisWeekStats, thisMonthStats, isPending } =
+    useUserStats(userId);
 
-  const isPending =
-    isThisWeekStatsPending || isThisMonthStatsPending || isTotalStatsPending;
-
-  if (!thisWeekStats || !thisMonthStats || !totalStats || isPending) {
+  if (isPending) {
     return <StatsCardsSkeleton />;
   }
 
   return (
     <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-4">
       <StatsCard
-        title="Hours this week"
+        title="Today"
+        icon={Timer}
+        stat={formatDurationFull((todayStats?.totalHours ?? 0) * 3600)}
+        description={
+          <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 text-red-500">
+              <TrendingDown size={16} />
+              <span>-8%</span>
+            </div>
+            <div>vs last 30 days</div>
+          </div>
+        }
+        color="yellow"
+      />
+      <StatsCard
+        title="This Week"
         icon={Clock}
-        stat={thisWeekStats.totalHours}
+        stat={`${thisWeekStats?.totalHours ?? 0}h`}
         description={
           <div className="flex items-center gap-1">
             <div className="flex items-center gap-1 text-green-500">
@@ -59,9 +60,9 @@ export const EmployeeDetailsTopStats = ({
         color="green"
       />
       <StatsCard
-        title="Hours This Month"
+        title="This Month"
         icon={CalendarDays}
-        stat={thisMonthStats.totalHours}
+        stat={`${thisMonthStats?.totalHours ?? 0}h`}
         description={
           <div className="flex items-center gap-1">
             <div className="flex items-center gap-1 text-red-500">
@@ -87,21 +88,6 @@ export const EmployeeDetailsTopStats = ({
           </div>
         }
         color="red"
-      />
-      <StatsCard
-        title="Total Sessions"
-        icon={Timer}
-        stat={totalStats.entriesCount}
-        description={
-          <div className="flex items-center gap-1">
-            <div className="flex items-center gap-1 text-red-500">
-              <TrendingDown size={16} />
-              <span>-8%</span>
-            </div>
-            <div>vs last 30 days</div>
-          </div>
-        }
-        color="yellow"
       />
     </div>
   );

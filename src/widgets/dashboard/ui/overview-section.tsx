@@ -1,7 +1,8 @@
 "use client";
 
+import { format } from "date-fns";
 import { Activity, Clock, Folder, TrendingUp, Users } from "lucide-react";
-import { useGetDashboardAnalyticsQuery } from "@/entities/dashboard-analytics";
+import { useDashboardStats } from "@/entities/dashboard";
 import { StatsCard } from "@/entities/stats";
 import { formatDurationFull } from "@/shared/lib/utils";
 import { DashboardSectionHeader } from "@/widgets/header";
@@ -11,13 +12,7 @@ import {
 } from "@/widgets/skeleton";
 
 export const OverviewSection = () => {
-  const { data: periodStats, isPending: isPeriodPending } =
-    useGetDashboardAnalyticsQuery({ period: "30days" });
-  const { data: todayStats, isPending: isTodayPending } =
-    useGetDashboardAnalyticsQuery({ period: "today" });
-
-  const isPending =
-    isPeriodPending || isTodayPending || !periodStats || !todayStats;
+  const { periodStats, todayStats, isPending } = useDashboardStats();
 
   if (isPending) {
     return (
@@ -34,34 +29,38 @@ export const OverviewSection = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4 w-full">
         <StatsCard
-          title="Total Hours"
-          icon={Clock}
-          stat={formatDurationFull(periodStats.totalHours * 3600)}
+          title="Today"
+          icon={TrendingUp}
+          stat={formatDurationFull(Number(todayStats?.totalHours ?? 0) * 3600)}
           statsClassName="text-2xl"
-          description="Last 30 days"
-          color="green"
+          description={
+            <p className="text-xs text-muted-foreground">
+              {format(new Date(), "MMM d")}
+            </p>
+          }
+          color="yellow"
         />
         <StatsCard
           title="Active Users"
           icon={Users}
-          stat={periodStats.activeUsersCount}
+          stat={periodStats?.activeUsersCount ?? 0}
           description="In the period"
           color="blue"
         />
         <StatsCard
           title="Projects"
           icon={Folder}
-          stat={periodStats.activeProjectsCount}
+          stat={periodStats?.activeProjectsCount ?? 0}
           description="Active projects"
           color="red"
         />
         <StatsCard
-          title="Today"
-          icon={TrendingUp}
-          stat={formatDurationFull(todayStats.totalHours * 3600)}
+          title="Total Hours"
+          icon={Clock}
+          stat={`${periodStats?.totalHours ?? 0}h`}
           statsClassName="text-2xl"
-          description="Hours today"
-          color="yellow"
+          description="Last 30 days"
+          color="green"
         />
       </div>
     </section>

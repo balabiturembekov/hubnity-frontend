@@ -1,5 +1,12 @@
 "use client";
 
+import {
+  endOfMonth,
+  endOfWeek,
+  format,
+  startOfMonth,
+  startOfWeek,
+} from "date-fns";
 import { Calendar, Clock, FileText, TrendingUp } from "lucide-react";
 import { useGetDashboardAnalyticsQuery } from "@/entities/dashboard-analytics";
 import { StatsCard } from "@/entities/stats";
@@ -24,13 +31,9 @@ export const TimeEntryStatsCards = () => {
 
   const isPending =
     isTodayStatsPending ||
-    !todayStats ||
     isLast7daysPending ||
-    !last7daysStats ||
     isThisMonthPending ||
-    !thisMonthStats ||
-    isTotalStatsPending ||
-    !totalStats;
+    isTotalStatsPending;
 
   if (isPending) {
     return <StatsCardsSkeleton />;
@@ -41,8 +44,8 @@ export const TimeEntryStatsCards = () => {
       <StatsCard
         title="Today"
         icon={Calendar}
-        stat={formatDurationFull(todayStats.totalHours * 3600)} // TODO: Change to todayStats.totalSeconds after adding on backend
-        description={`${todayStats.entriesCount} entries`}
+        stat={formatDurationFull((todayStats?.totalHours ?? 0) * 3600)}
+        description={`${todayStats?.entriesCount ?? 0} entries`}
         statsClassName="text-2xl"
         color="green"
       />
@@ -50,8 +53,13 @@ export const TimeEntryStatsCards = () => {
       <StatsCard
         title="This Week"
         icon={TrendingUp}
-        stat={formatDurationFull(last7daysStats.totalHours * 3600)} // TODO: Change to last7daysStats.totalSeconds after adding on backend
-        description="Last 7 days"
+        stat={`${last7daysStats?.totalHours ?? 0}h`}
+        description={
+          <p className="text-xs text-muted-foreground">
+            {format(startOfWeek(new Date(), { weekStartsOn: 1 }), "MMM d")} -{" "}
+            {format(endOfWeek(new Date(), { weekStartsOn: 1 }), "MMM d")}
+          </p>
+        }
         statsClassName="text-2xl"
         color="blue"
       />
@@ -59,17 +67,22 @@ export const TimeEntryStatsCards = () => {
       <StatsCard
         title="This Month"
         icon={FileText}
-        stat={formatDurationFull(thisMonthStats.totalHours * 3600)} // TODO: Change to thisMonthStats.totalSeconds after adding on backend
-        description="Last 30 days"
+        stat={`${thisMonthStats?.totalHours ?? 0}h`}
+        description={
+          <p className="text-xs text-muted-foreground">
+            {format(startOfMonth(new Date()), "MMM d")} -{" "}
+            {format(endOfMonth(new Date()), "MMM d")}
+          </p>
+        }
         statsClassName="text-2xl"
         color="red"
       />
 
       <StatsCard
-        title="Status"
+        title="Total Hours"
         icon={Clock}
-        stat={formatDurationFull(totalStats.totalHours * 3600)} // TODO: Change to totalStats.totalSeconds after adding on backend
-        description="Hours tracked across all projects"
+        stat={`${totalStats?.totalHours ?? 0}h`}
+        description="All time"
         statsClassName="text-2xl"
         color="yellow"
       />
