@@ -4,8 +4,8 @@ import { useCurrentUser } from "@/entities/user";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { DashboardPageHeader } from "@/widgets/header";
 import { MembersPageSkeleton } from "@/widgets/members";
-import { MembersIdleList } from "@/widgets/settings/ui/members-idle-list";
 import { MembersIdleSettingsForm } from "@/widgets/settings/ui/members-idle-settings-form";
+import { MembersList } from "@/widgets/settings/ui/members-list";
 
 export default function MembersSettingsPage() {
   const { data, isPending } = useCurrentUser();
@@ -23,7 +23,7 @@ export default function MembersSettingsPage() {
 
       <div className="p-2 md:p-6 space-y-4">
         <MembersIdleSettingsForm />
-        <MembersIdleList />
+        <MembersList />
       </div>
     </DashboardContainer>
   );

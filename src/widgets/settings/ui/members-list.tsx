@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useState } from "react";
+import { UserAvatar } from "@/entities/user";
 import {
   IDLE_INTERVAL_OPTIONS,
   type IdleIntervalOption,
@@ -25,11 +26,18 @@ import {
 } from "@/shared/ui/combobox";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
+import { Tabs, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { SettingsSectionDescription } from "./settings-section-description";
 
+type UserType = { userId: string; email: string; name: string };
+
 export interface MemberIdleItem {
-  user: { userId: string; email: string; name: string };
+  user: UserType;
   idleThreshold: number;
+}
+
+export interface MemberAppUrlItem {
+  user: UserType;
 }
 
 /** Mock data until backend endpoint is ready. Replace with useGetMemberIdleSettingsQuery (or similar). */
@@ -56,7 +64,11 @@ const MOCK_MEMBERS_IDLE: MemberIdleItem[] = [
   },
 ];
 
-export function MembersIdleList() {
+interface MembersIdleListProps {
+  variant?: "idle" | "apps-urls";
+}
+
+export const MembersList = ({ variant = "idle" }: MembersIdleListProps) => {
   const [items, setItems] = useState<MemberIdleItem[]>(MOCK_MEMBERS_IDLE);
 
   const updateMemberThreshold = useCallback(
@@ -74,32 +86,77 @@ export function MembersIdleList() {
     <Card>
       <CardContent className="space-y-6 px-2 sm:px-4">
         <SettingsSectionDescription
-          title="Individual idle settings"
-          subTitle="Override idle time for specific members"
+          title="Individual settings"
+          subTitle={
+            variant === "idle"
+              ? "Override idle time for specific members"
+              : "Enable tracking of apps and URLs for specific members"
+          }
         />
         <Accordion type="single" collapsible className="w-full space-y-4">
-          {items.map((item) => (
-            <MemberIdleRow
-              key={item.user.userId}
-              item={item}
-              onThresholdChange={(idleThreshold) =>
-                updateMemberThreshold(item.user.userId, idleThreshold)
-              }
-            />
-          ))}
+          {items.map((item) =>
+            variant === "idle" ? (
+              <MemberIdleRow
+                key={item.user.userId}
+                item={item}
+                onThresholdChange={(idleThreshold) =>
+                  updateMemberThreshold(item.user.userId, idleThreshold)
+                }
+              />
+            ) : (
+              <MemberAppsUrlsRow key={item.user.userId} user={item.user} />
+            ),
+          )}
         </Accordion>
       </CardContent>
     </Card>
   );
-}
+};
 
-function MemberIdleRow({
+const MemberAppsUrlsRow = ({ user }: MemberAppUrlItem) => {
+  return (
+    <div>
+      <div className="hidden sm:flex items-center justify-between gap-4 rounded-lg border p-4 bg-card">
+        <UserSummary {...user} />
+        <div className="flex items-center gap-3 w-1/2">
+          <Tabs defaultValue="apps-url" className="w-full">
+            <TabsList className="w-full">
+              <TabsTrigger value="off">Off</TabsTrigger>
+              <TabsTrigger value="apps">Apps</TabsTrigger>
+              <TabsTrigger value="apps-url">Apps & URLs</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </div>
+      </div>
+
+      <AccordionItem
+        value={user.userId}
+        className="border rounded-lg bg-card px-2 sm:hidden"
+      >
+        <AccordionTrigger className="hover:no-underline py-4 flex items-center">
+          <UserSummary {...user} />
+        </AccordionTrigger>
+        <AccordionContent>
+          <Tabs defaultValue="apps-url" className="w-full">
+            <TabsList className="w-full">
+              <TabsTrigger value="off">Off</TabsTrigger>
+              <TabsTrigger value="apps">Apps</TabsTrigger>
+              <TabsTrigger value="apps-url">Apps & URLs</TabsTrigger>
+            </TabsList>
+          </Tabs>
+        </AccordionContent>
+      </AccordionItem>
+    </div>
+  );
+};
+
+const MemberIdleRow = ({
   item,
   onThresholdChange,
 }: {
   item: MemberIdleItem;
   onThresholdChange: (idleThreshold: number) => void;
-}) {
+}) => {
   const [interval, setInterval] = useState<IdleIntervalOption>(() =>
     idleThresholdSecondsToInterval(item.idleThreshold),
   );
@@ -129,23 +186,9 @@ function MemberIdleRow({
     applyThreshold(interval, clamped);
   };
 
-  const userSummary = (
-    <div className="flex items-center gap-3 min-w-0 pr-4 sm:pr-0">
-      <div className="size-10 rounded-full bg-muted flex items-center justify-center shrink-0">
-        <span className="text-muted-foreground text-sm font-medium">
-          {item.user.name.slice(0, 2).toUpperCase()}
-        </span>
-      </div>
-      <div className="flex flex-col gap-0.5 min-w-0 text-left">
-        <span className="text-sm font-medium truncate">{item.user.name}</span>
-        <span className="text-xs text-muted-foreground">{item.user.email}</span>
-      </div>
-    </div>
-  );
-
   const renderSettingsInputs = (suffix: "desktop" | "mobile") => (
     <>
-      <div className="flex flex-col gap-2 w-full sm:max-w-[200px] sm:min-w-[150px]">
+      <div className="flex flex-col gap-2 w-full sm:max-w-50 sm:min-w-37.5">
         <Label htmlFor={`interval-${item.user.userId}-${suffix}`}>
           Interval
         </Label>
@@ -200,7 +243,7 @@ function MemberIdleRow({
   return (
     <>
       <div className="hidden sm:flex items-center justify-between gap-4 rounded-lg border p-4 bg-card">
-        {userSummary}
+        <UserSummary {...item.user} />
         <div className="flex items-center gap-3">
           {renderSettingsInputs("desktop")}
         </div>
@@ -211,7 +254,7 @@ function MemberIdleRow({
         className="border rounded-lg bg-card px-2 sm:hidden"
       >
         <AccordionTrigger className="hover:no-underline py-4 flex items-center">
-          {userSummary}
+          <UserSummary {...item.user} />
         </AccordionTrigger>
         <AccordionContent>
           <div className="flex flex-col gap-4 pb-2">
@@ -221,4 +264,17 @@ function MemberIdleRow({
       </AccordionItem>
     </>
   );
-}
+};
+
+const UserSummary = (user: UserType) => {
+  return (
+    <div className="flex items-center gap-3 min-w-0 pr-4 sm:pr-0">
+      <UserAvatar name={user.name} />
+
+      <div className="flex flex-col gap-0.5 min-w-0 text-left">
+        <span className="text-sm font-medium truncate">{user.name}</span>
+        <span className="text-xs text-muted-foreground">{user.email}</span>
+      </div>
+    </div>
+  );
+};
