@@ -8,7 +8,7 @@ export default function DashboardLayout({
   return (
     <div className="flex h-screen overflow-hidden bg-background min-w-0">
       <DashboardSidebar />
-      <div className="flex flex-1 flex-col min-w-0 relative">
+      <div className="flex flex-1 flex-col min-w-0">
         {children}
         <MobileBottomNav />
       </div>

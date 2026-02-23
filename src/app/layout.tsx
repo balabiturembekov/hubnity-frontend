@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={cn(geistSans.className, "antialiased")}>
+      <body className={cn(geistSans.className, "antialiased relative")}>
         <QueryProvider>
           <TooltipProvider>
             {children}

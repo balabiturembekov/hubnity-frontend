@@ -40,7 +40,7 @@ export function MobileBottomNav() {
   const { data: user } = useCurrentUser();
 
   return (
-    <div className="min-[769px]:hidden fixed bottom-4 left-4 right-4 z-50">
+    <div className="min-[769px]:hidden fixed bottom-10 left-2 right-6 z-50">
       <div className="bg-background/80 backdrop-blur-lg border border-border/50 shadow-lg rounded-full flex items-center justify-between">
         {primaryLinks.map((link) => {
           const isActive = pathname === link.href;
