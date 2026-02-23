@@ -17,27 +17,27 @@ import {
 
 import { dashboardSidebarLinks } from "@/widgets/sidebar/consts";
 
+const primaryLinks = [
+  {
+    label: "Dashboard",
+    href: "/dashboard",
+    icon: Home,
+  },
+  {
+    label: "Time",
+    href: "/dashboard/tracking",
+    icon: Clock,
+  },
+  {
+    label: "Profile",
+    href: "/dashboard/profile",
+    icon: UserIcon,
+  },
+];
+
 export function MobileBottomNav() {
   const pathname = usePathname();
   const { data: user } = useCurrentUser();
-
-  const primaryLinks = [
-    {
-      label: "Dashboard",
-      href: "/dashboard",
-      icon: Home,
-    },
-    {
-      label: "Time",
-      href: "/dashboard/tracking",
-      icon: Clock,
-    },
-    {
-      label: "Profile",
-      href: "/dashboard/profile",
-      icon: UserIcon,
-    },
-  ];
 
   return (
     <div className="min-[769px]:hidden fixed bottom-4 left-4 right-4 z-50">

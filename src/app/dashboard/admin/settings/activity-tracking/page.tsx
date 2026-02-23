@@ -34,6 +34,8 @@ export default function ActivityTrackingSettingsPage() {
           <TabsContent value="screenshot">
             <ScreenshotSettings />
           </TabsContent>
+
+          {/* TODO: divide into files */}
           <TabsContent value="apps-url" className="space-y-4">
             <Card>
               <CardContent>
