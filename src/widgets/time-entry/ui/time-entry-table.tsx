@@ -54,7 +54,7 @@ export function TimeEntriesTable({
 }: TimeEntriesTableProps) {
   const { user, isAdmin } = useUser();
   const { data: projects } = useGetProjectsQuery();
-  const { timeEntries, isLoading } = useFilteredTimeEntries(userId);
+  const { timeEntries, isLoading } = useFilteredTimeEntries(userId, "RUNNING");
   const { searchQuery, projectId, period } = useTimeEntriesStore();
 
   const [screenshotGalleryOpen, setScreenshotGalleryOpen] = useState(false);

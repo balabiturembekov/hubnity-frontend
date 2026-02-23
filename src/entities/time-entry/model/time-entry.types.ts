@@ -32,6 +32,7 @@ export interface getTimeEntriesParams {
   limit?: number;
   userId?: string;
   projectId?: string;
+  status?: TimeEntryStatusType;
 }
 
 export interface CreateTimeEntryReq {

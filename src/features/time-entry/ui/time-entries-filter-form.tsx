@@ -62,7 +62,7 @@ export const TimeEntriesFilterForm = () => {
                 <RefreshCw className="group-hover:animate-spin" />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Refetch data</TooltipContent>
+            <TooltipContent>Reload table</TooltipContent>
           </Tooltip>
         </div>
         <CardDescription>Search and filter time entries</CardDescription>

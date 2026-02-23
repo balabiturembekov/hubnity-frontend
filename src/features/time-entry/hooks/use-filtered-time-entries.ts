@@ -1,14 +1,20 @@
 import { useMemo } from "react";
-import { useGetTimeEntriesQuery } from "@/entities/time-entry";
+import {
+  type TimeEntryStatusType,
+  useGetTimeEntriesQuery,
+} from "@/entities/time-entry";
 import { useTimeEntriesStore } from "@/features/time-entry";
 
-export const useFilteredTimeEntries = (userId?: string) => {
+export const useFilteredTimeEntries = (
+  userId?: string,
+  status?: TimeEntryStatusType,
+) => {
   const {
     data: timeEntries = [],
     isLoading,
     isError,
     refetch,
-  } = useGetTimeEntriesQuery({ userId });
+  } = useGetTimeEntriesQuery({ userId, status });
   const { searchQuery, projectId, period } = useTimeEntriesStore();
 
   const filteredTimeEntries = useMemo(() => {
