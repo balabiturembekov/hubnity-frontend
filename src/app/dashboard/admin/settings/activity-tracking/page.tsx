@@ -2,7 +2,6 @@
 
 import { useCurrentUser } from "@/entities/user";
 import { Card, CardContent } from "@/shared/ui/card";
-import { FormLabel } from "@/shared/ui/form";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { DashboardPageHeader } from "@/widgets/header";

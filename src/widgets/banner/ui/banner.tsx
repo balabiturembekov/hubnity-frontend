@@ -9,7 +9,7 @@ interface BannerProps {
   variant?: BannerVariantType;
 }
 
-const Banner = ({ variant = "default" }: BannerProps) => {
+export const Banner = ({ variant = "default" }: BannerProps) => {
   const Icon =
     variant === "success"
       ? CircleCheck

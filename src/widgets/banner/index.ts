@@ -1,1 +1,1 @@
-export {default as Banner} from "./ui/banner"
+export { Banner } from "./ui/banner";
