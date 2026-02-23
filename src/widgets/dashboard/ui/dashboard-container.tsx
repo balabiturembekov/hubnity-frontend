@@ -12,7 +12,7 @@ export const DashboardContainer = ({
   return (
     <div
       className={cn(
-        "flex flex-1 flex-col overflow-hidden overflow-y-auto bg-linear-to-b from-primary/5 via-background to-background",
+        "flex flex-1 flex-col overflow-hidden overflow-y-auto bg-linear-to-b from-primary/5 via-background to-background pb-20 min-[769px]:pb-0",
         className,
       )}
     >

@@ -1,4 +1,4 @@
-import { DashboardSidebar } from "@/widgets/sidebar";
+import { DashboardSidebar, MobileBottomNav } from "@/widgets/sidebar";
 
 export default function DashboardLayout({
   children,
@@ -8,11 +8,9 @@ export default function DashboardLayout({
   return (
     <div className="flex h-screen overflow-hidden bg-background min-w-0">
       <DashboardSidebar />
-      <div className="flex flex-1 flex-col min-w-0">
-        {/*<DashboardHeader />*/}
-        {/*<AuthProvider>*/}
+      <div className="flex flex-1 flex-col min-w-0 relative">
         {children}
-        {/*</AuthProvider>*/}
+        <MobileBottomNav />
       </div>
     </div>
   );

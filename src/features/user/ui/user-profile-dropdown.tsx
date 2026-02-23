@@ -57,7 +57,7 @@ export const UserProfileDropdown = ({
           )}
         >
           <UserAvatar name={user.name} avatar={user.avatar} size="md" />
-          <span className="text-xs font-medium mr-1 hidden md:block text-left">
+          <span className="text-xs font-medium mr-1 text-left">
             {user.name}
           </span>
         </Button>

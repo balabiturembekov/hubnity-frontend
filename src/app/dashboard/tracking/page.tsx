@@ -1,6 +1,7 @@
 "use client";
 
 import { useCurrentUser, useUser } from "@/entities/user";
+import { DashboardContainer } from "@/widgets/dashboard";
 import { ExportDialog } from "@/widgets/export";
 import { DashboardPageHeader } from "@/widgets/header";
 import { TimeEntriesTable, TimeEntryStatsCards } from "@/widgets/time-entry";
@@ -15,25 +16,21 @@ export default function TrackingPage() {
   }
 
   return (
-    <div className="flex h-screen overflow-auto bg-background">
-      <div className="flex flex-1 flex-col">
-        <main className="bg-linear-to-b from-primary/5 via-background to-background">
-          <DashboardPageHeader
-            title="Time Tracking"
-            subTitle="Track your work time and manage your entries"
-          >
-            <ExportDialog />
-          </DashboardPageHeader>
+    <DashboardContainer>
+      <DashboardPageHeader
+        title="Time Tracking"
+        subTitle="Track your work time and manage your entries"
+      >
+        <ExportDialog />
+      </DashboardPageHeader>
 
-          <div className="p-2 md:p-6 grid gap-4">
-            {isAdmin && <TimeEntryStatsCards />}
-            {/* <div className="grid md:grid-cols-2 gap-4">
+      <div className="p-2 md:p-6 grid gap-4">
+        {isAdmin && <TimeEntryStatsCards />}
+        {/* <div className="grid md:grid-cols-2 gap-4">
               <TodaySummary />
             </div> */}
-            <TimeEntriesTable />
-          </div>
-        </main>
+        <TimeEntriesTable />
       </div>
-    </div>
+    </DashboardContainer>
   );
 }
