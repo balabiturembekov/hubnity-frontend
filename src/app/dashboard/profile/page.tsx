@@ -1,6 +1,7 @@
 "use client";
 
-import { Edit } from "lucide-react";
+import { ArrowRight, Edit } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 import { useCurrentUser } from "@/entities/user";
 import { ProfileEditDialog } from "@/features/auth";
@@ -14,6 +15,7 @@ import {
   ProfileStats,
   RecentActivity,
 } from "@/widgets/profile";
+import { AppsUrlsTable } from "@/widgets/reports";
 
 export default function ProfilePage() {
   const { data, isPending } = useCurrentUser();
@@ -50,6 +52,18 @@ export default function ProfilePage() {
 
         <div className="col-span-2">
           <RecentActivity />
+        </div>
+
+        <div className="col-span-2 space-y-4">
+          <div className="flex items-center justify-between">
+            <h3 className="text-lg font-medium">Apps & URLs</h3>
+            <Button variant="link" asChild>
+              <Link href="/dashboard/admin/summaries/full-reports?tab=me">
+                View full report <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+          <AppsUrlsTable isAll={false} limit={5} />
         </div>
       </div>
 
