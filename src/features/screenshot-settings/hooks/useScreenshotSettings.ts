@@ -25,7 +25,7 @@ export function useScreenshotSettings() {
       return DEFAULT_SETTINGS;
     }
 
-    const validIntervals: ScreenshotInterval[] = [30, 60, 300, 600];
+    const validIntervals: ScreenshotInterval[] = [300, 600, 900];
     const interval = validIntervals.includes(data.screenshotInterval)
       ? data.screenshotInterval
       : DEFAULT_SETTINGS.screenshotInterval;
@@ -49,7 +49,7 @@ export function useScreenshotSettings() {
       throw new Error("Only administrators can update screenshot settings");
     }
 
-    const validIntervals: ScreenshotInterval[] = [30, 60, 300, 600];
+    const validIntervals: ScreenshotInterval[] = [300, 600, 900];
     if (!validIntervals.includes(interval)) {
       throw new Error("Invalid interval value");
     }

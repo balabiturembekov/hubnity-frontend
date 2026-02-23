@@ -70,31 +70,40 @@ export const MembersTable = () => {
               <AccordionItem
                 key={member.userId}
                 value={member.userId}
-                className="border rounded-lg mb-2 px-4 transition-colors hover:bg-muted/50 min-w-[528px] bg-card"
+                className="group border border-border rounded-xl mb-3 px-2 sm:px-4 bg-card shadow-sm hover:shadow-md hover:border-border/80 transition-all duration-200 min-w-[528px] overflow-hidden"
               >
-                <AccordionTrigger className="hover:no-underline py-4">
+                <AccordionTrigger className="hover:no-underline py-4 flex items-center">
                   <div className="flex items-center gap-4 w-full pr-4">
-                    <UserAvatar
-                      name={member.userName}
-                      avatar={member.userAvatar || undefined}
-                      size="md"
-                    />
+                    <div className="relative">
+                      <UserAvatar
+                        name={member.userName}
+                        avatar={member.userAvatar || undefined}
+                        size="md"
+                        className="ring-2 ring-background shadow-sm"
+                      />
+                    </div>
                     <div className="flex-1 text-left">
-                      <div className="font-medium">{member.userName}</div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="font-semibold text-base tracking-tight text-foreground">
+                        {member.userName}
+                      </div>
+                      <div className="text-xs font-medium text-muted-foreground mt-0.5">
                         {member.userEmail}
                       </div>
                     </div>
-                    <div className="flex items-center gap-6 text-sm">
-                      <div className="text-right">
-                        <div className="text-muted-foreground">Hours</div>
-                        <div className="font-semibold">
+                    <div className="flex items-center gap-6 text-sm shrink-0">
+                      <div className="text-right flex flex-col items-end">
+                        <div className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-0.5">
+                          Hours
+                        </div>
+                        <div className="font-bold text-primary group-hover:text-primary transition-colors text-base">
                           {formatDurationFull(member.totalHours * 3600)}
                         </div>
                       </div>
-                      <div className="text-right">
-                        <div className="text-muted-foreground">Earned</div>
-                        <div className="font-semibold">
+                      <div className="text-right flex flex-col items-end">
+                        <div className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground mb-0.5">
+                          Earned
+                        </div>
+                        <div className="font-bold text-emerald-600 text-base">
                           ${member.totalEarned.toFixed(2)}
                         </div>
                       </div>
@@ -104,11 +113,11 @@ export const MembersTable = () => {
                             member.activityLevel.toUpperCase() as keyof typeof TeamActivityBadgeVariant
                           ]
                         }
-                        className={
+                        className={`${
                           TeamActivityBadgeColor[
                             member.activityLevel.toUpperCase() as keyof typeof TeamActivityBadgeColor
                           ]
-                        }
+                        } px-2.5 py-0.5 text-xs font-semibold tracking-wide`}
                       >
                         {member.activityLevel}
                       </Badge>
@@ -116,31 +125,31 @@ export const MembersTable = () => {
                   </div>
                 </AccordionTrigger>
                 <AccordionContent>
-                  <div className="pt-4 space-y-4 pb-4">
-                    <div className="grid gap-4 md:grid-cols-3 text-sm">
-                      <div className="rounded-lg border p-3">
-                        <div className="text-muted-foreground mb-1">
+                  <div className="pt-2 space-y-6 pb-4">
+                    <div className="grid gap-4 grid-cols-2 sm:grid-cols-3">
+                      <div className="rounded-xl border border-border/50 bg-primary/5 p-4 flex flex-col justify-center gap-1 transition-colors hover:bg-primary/10">
+                        <div className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground">
                           Hourly Rate
                         </div>
-                        <div className="font-semibold">
+                        <div className="text-lg font-bold text-foreground">
                           {member.hourlyRate
                             ? `$${member.hourlyRate}/hr`
                             : "Not set"}
                         </div>
                       </div>
-                      <div className="rounded-lg border p-3">
-                        <div className="text-muted-foreground mb-1">
+                      <div className="rounded-xl border border-border/50 bg-muted/30 p-4 flex flex-col justify-center gap-1 transition-colors hover:bg-muted/50">
+                        <div className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground">
                           Time Entries
                         </div>
-                        <div className="font-semibold">
+                        <div className="text-lg font-bold text-foreground">
                           {member.entriesCount}
                         </div>
                       </div>
-                      <div className="rounded-lg border p-3">
-                        <div className="text-muted-foreground mb-1">
+                      <div className="rounded-xl border border-border/50 bg-muted/30 p-4 flex flex-col justify-center gap-1 transition-colors hover:bg-muted/50 col-span-2 sm:col-span-1">
+                        <div className="text-[10px] uppercase tracking-widest font-semibold text-muted-foreground">
                           Last Activity
                         </div>
-                        <div className="font-semibold">
+                        <div className="text-sm font-bold text-foreground">
                           {member.lastActivity &&
                           !Number.isNaN(new Date(member.lastActivity).getTime())
                             ? format(member.lastActivity, "MMM dd, yyyy HH:mm")
@@ -149,20 +158,22 @@ export const MembersTable = () => {
                       </div>
                     </div>
                     {member.projectBreakdown.length > 0 && (
-                      <div>
-                        <div className="text-sm font-semibold mb-3 flex items-center gap-2">
-                          <TrendingUp className="h-4 w-4" />
+                      <div className="space-y-3">
+                        <div className="text-sm font-semibold flex items-center gap-2 text-foreground">
+                          <TrendingUp className="h-4 w-4 text-primary" />
                           Projects Breakdown
                         </div>
-                        <div className="rounded-lg border overflow-hidden">
+                        <div className="rounded-xl border border-border/60 bg-card overflow-hidden">
                           <Table>
-                            <TableHeader>
-                              <TableRow>
-                                <TableHead>Project</TableHead>
-                                <TableHead className="text-right">
+                            <TableHeader className="bg-muted/30">
+                              <TableRow className="hover:bg-transparent">
+                                <TableHead className="font-semibold">
+                                  Project
+                                </TableHead>
+                                <TableHead className="text-right font-semibold">
                                   Hours
                                 </TableHead>
-                                <TableHead className="text-right">
+                                <TableHead className="text-right font-semibold">
                                   Earned
                                 </TableHead>
                               </TableRow>
@@ -174,26 +185,26 @@ export const MembersTable = () => {
                                     project.projectId ||
                                     `no-project-${project.projectName}`
                                   }
-                                  className="transition-colors hover:bg-muted/50"
+                                  className="transition-colors hover:bg-muted/40"
                                 >
                                   <TableCell>
-                                    <div className="flex items-center gap-2">
+                                    <div className="flex items-center gap-3">
                                       <div
-                                        className="h-3 w-3 rounded-full shrink-0"
+                                        className="h-3 w-3 rounded-full shrink-0 shadow-sm"
                                         style={{
                                           backgroundColor:
                                             project.projectColor || "#6b7280",
                                         }}
                                       />
-                                      <span className="font-medium">
+                                      <span className="font-medium text-foreground">
                                         {project.projectName}
                                       </span>
                                     </div>
                                   </TableCell>
-                                  <TableCell className="text-right font-medium">
+                                  <TableCell className="text-right font-medium text-muted-foreground group-hover:text-primary transition-colors">
                                     {formatDurationFull(project.hours * 3600)}
                                   </TableCell>
-                                  <TableCell className="text-right font-semibold">
+                                  <TableCell className="text-right font-semibold text-emerald-600/90">
                                     ${project.earned.toFixed(2)}
                                   </TableCell>
                                 </TableRow>
