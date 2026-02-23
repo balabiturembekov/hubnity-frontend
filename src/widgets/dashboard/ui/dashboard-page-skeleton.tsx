@@ -3,7 +3,6 @@ import {
   DashboardSectionHeaderSkeleton,
   FilterSkeleton,
   GraphSkeleton,
-  ScreenshotsSkeleton,
   StatsCardsSkeleton,
   TableSkeleton,
 } from "@/widgets/skeleton";
@@ -24,9 +23,13 @@ export const DashboardPageSkeleton = () => {
         <div className="col-span-2 sm:col-span-1">
           <GraphSkeleton />
         </div>
+        <div className="col-span-2 sm:col-span-1">
+          <GraphSkeleton />
+        </div>
+        <div className="col-span-2 sm:col-span-1">
+          <GraphSkeleton />
+        </div>
         <div className="col-span-2 grid gap-4">
-          <DashboardSectionHeaderSkeleton />
-          <ScreenshotsSkeleton />
           <DashboardSectionHeaderSkeleton />
           <FilterSkeleton />
           <TableSkeleton />

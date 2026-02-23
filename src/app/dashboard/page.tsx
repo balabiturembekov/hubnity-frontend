@@ -1,10 +1,7 @@
 "use client";
 
-import { ArrowRight, Link2 } from "lucide-react";
-import Link from "next/link";
+import { Link2 } from "lucide-react";
 import { useCurrentUser } from "@/entities/user";
-import { formatDurationFull } from "@/shared/lib/utils";
-import { Button } from "@/shared/ui/button";
 import { Card, CardContent } from "@/shared/ui/card";
 import { Progress } from "@/shared/ui/progress";
 import {
@@ -76,49 +73,56 @@ export default function DashboardPage() {
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
               <RecentActivityTable />
 
-              <div className="w-full space-y-4">
-                <DashboardSectionHeader title="Apps & URLs" icon={Link2} />
-                <Card>
-                  <CardContent className="flex flex-col">
-                    <table className="w-full">
-                      <thead>
-                        <tr className="text-left border-b">
-                          <th className="w-120 pb-4 font-medium">
-                            App or site
-                          </th>
-                          <th className="pb-4 font-medium">Time</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {appUrlData.map((item) => (
-                          <tr key={item.id} className="border-b">
-                            <td className="w-120 py-4 text-sm">{item.name}</td>
-                            <td className="flex items-center gap-3 py-4 text-sm">
-                              <span>
-                                {formatDurationFull(item.hours * 3600)}
-                              </span>
-                              <Progress
-                                className="h-1 w-32"
-                                value={item.percent}
-                              />
-                            </td>
+              <div className="w-full flex flex-col gap-4">
+                <DashboardSectionHeader
+                  title="Apps & URLs"
+                  icon={Link2}
+                  link={{
+                    label: "View All",
+                    href: "/dashboard/admin/summaries/full-reports",
+                  }}
+                />
+                <Card className="overflow-hidden border-border/60 shadow-sm p-0 flex-1">
+                  <CardContent className="p-0">
+                    <div className="overflow-x-auto w-full">
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className="border-b bg-muted/30">
+                            <th className="px-4 py-3 font-semibold text-muted-foreground text-left whitespace-nowrap">
+                              App or site
+                            </th>
+                            <th className="px-4 py-3 font-semibold text-muted-foreground text-right w-[160px] sm:w-[240px]">
+                              Time
+                            </th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                    <Button
-                      variant="link"
-                      className="group w-fit self-center"
-                      asChild
-                    >
-                      <Link href="/dashboard/admin/summaries/full-reports">
-                        <span>View All</span>
-                        <ArrowRight
-                          size={20}
-                          className="group-hover:translate-x-1 transition-transform"
-                        />
-                      </Link>
-                    </Button>
+                        </thead>
+                        <tbody>
+                          {appUrlData.map((item) => (
+                            <tr
+                              key={item.id}
+                              className="border-b border-border/50 last:border-0 transition-colors hover:bg-muted/40 group"
+                            >
+                              <td className="px-4 py-3.5">
+                                <span className="font-medium text-foreground">
+                                  {item.name}
+                                </span>
+                              </td>
+                              <td className="px-4 py-3.5">
+                                <div className="flex items-center justify-end gap-3 w-full">
+                                  <span className="font-semibold text-foreground whitespace-nowrap">
+                                    {`${item.hours}h`}
+                                  </span>
+                                  <Progress
+                                    className="h-1.5 w-16 sm:w-24 bg-primary/10"
+                                    value={item.percent}
+                                  />
+                                </div>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
