@@ -1,6 +1,8 @@
 "use client";
 
+import { formatDistanceToNow } from "date-fns";
 import { Filter, RefreshCw, Search, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useGetProjectsQuery } from "@/entities/project";
 import type { TimeEntryStatusType } from "@/entities/time-entry";
 import { useTimeEntriesStore } from "@/features/time-entry";
@@ -51,7 +53,21 @@ export const TimeEntriesFilterForm = ({
     refetch,
     isLoading,
     isRefetching,
+    dataUpdatedAt,
   } = useFilteredTimeEntries(userId, status);
+  const [now, setNow] = useState(Date.now());
+
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 5000);
+    return () => clearInterval(id);
+  }, []);
+
+  const dataUpdateTime = formatDistanceToNow(
+    dataUpdatedAt + (Date.now() - now),
+    {
+      addSuffix: true,
+    },
+  );
 
   if (isLoading) {
     return <FilterSkeleton />;
@@ -66,22 +82,27 @@ export const TimeEntriesFilterForm = ({
             <CardTitle>Filters</CardTitle>
           </div>
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => refetch()}
-                disabled={isRefetching}
-                className="group flex items-center justify-center"
-              >
-                <RefreshCw
-                  className={`h-4 w-4 ${isRefetching ? "animate-spin" : "group-hover:animate-spin"}`}
-                />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>Reload table</TooltipContent>
-          </Tooltip>
+          <div className="flex items-center gap-1">
+            <span className="text-muted-foreground text-xs">
+              Reloaded {dataUpdateTime}
+            </span>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => refetch()}
+                  disabled={isRefetching}
+                  className="group flex items-center justify-center"
+                >
+                  <RefreshCw
+                    className={`h-4 w-4 ${isRefetching ? "animate-spin" : "group-hover:animate-spin"}`}
+                  />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Reload table</TooltipContent>
+            </Tooltip>
+          </div>
         </div>
         <CardDescription>Search and filter time entries</CardDescription>
       </CardHeader>

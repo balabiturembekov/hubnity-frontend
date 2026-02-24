@@ -18,7 +18,9 @@ interface ScreenshotActivitySectionProps {
 export function ScreenshotActivitySection({
   variant = "default",
 }: ScreenshotActivitySectionProps) {
-  const { data: entries, isPending } = useGetTimeEntriesQuery({ limit: 3 }); // TODO: send request depending on variant
+  const { data: entries, isPending } = useGetTimeEntriesQuery({
+    limit: variant === "default" ? 3 : 2,
+  }); // TODO: send request depending on variant
 
   const entryId0 = entries?.[0]?.id ?? "";
   const entryId1 = entries?.[1]?.id ?? "";
