@@ -1,17 +1,20 @@
-import { endOfWeek, format, startOfWeek, subWeeks } from "date-fns";
 import { useMemo } from "react";
 import { useGetDashboardAnalyticsQuery } from "@/entities/dashboard-analytics";
 import { useCurrentUser } from "@/entities/user";
+import { getPeriods } from "@/shared/lib/date/date-periods";
+import {
+  DEFAULT_MY_TIME_ENTRIES_STATE,
+  mapMyTimeEntriesData,
+} from "../lib/my-time-entries-stats.utils";
 import { useGetMyTimeEntriesQuery } from "../model/query/use-get-my-time-entries.query";
 
 export const useMyTimeEntries = () => {
   const { data: user } = useCurrentUser();
-  const now = new Date();
-  const startDate = format(startOfWeek(now, { weekStartsOn: 1 }), "yyyy-MM-dd");
-  const endDate = format(endOfWeek(now, { weekStartsOn: 1 }), "yyyy-MM-dd");
+  const periods = useMemo(() => getPeriods(), []);
 
   const { data: myTimeEntries, isPending: isMyTimeEntriesPending } =
     useGetMyTimeEntriesQuery();
+
   const { data: myTotalStats, isPending: isMyTotalStatsPending } =
     useGetDashboardAnalyticsQuery(
       {
@@ -21,6 +24,7 @@ export const useMyTimeEntries = () => {
         enabled: !!user?.id,
       },
     );
+
   const { data: myTodayStats, isPending: isMyTodayStatsPending } =
     useGetDashboardAnalyticsQuery(
       {
@@ -31,18 +35,20 @@ export const useMyTimeEntries = () => {
         enabled: !!user?.id,
       },
     );
+
   const { data: myThisWeekStats, isPending: isMyThisWeekStatsPending } =
     useGetDashboardAnalyticsQuery(
       {
         userId: user?.id,
         period: "custom",
-        startDate,
-        endDate,
+        startDate: periods.thisWeek.start,
+        endDate: periods.thisWeek.end,
       },
       {
         enabled: !!user?.id,
       },
     );
+
   const { data: myThisMonthStats, isPending: isMyThisMonthStatsPending } =
     useGetDashboardAnalyticsQuery(
       {
@@ -54,73 +60,69 @@ export const useMyTimeEntries = () => {
       },
     );
 
-  const prev1WeekStart = format(
-    startOfWeek(subWeeks(now, 1), { weekStartsOn: 1 }),
-    "yyyy-MM-dd",
-  );
-  const prev1WeekEnd = format(
-    endOfWeek(subWeeks(now, 1), { weekStartsOn: 1 }),
-    "yyyy-MM-dd",
-  );
-
   const { data: prev1WeekStats, isPending: isPrev1WeekStatsPending } =
     useGetDashboardAnalyticsQuery({
       userId: user?.id,
       period: "custom",
-      startDate: prev1WeekStart,
-      endDate: prev1WeekEnd,
+      startDate: periods.prev1Week.start,
+      endDate: periods.prev1Week.end,
     });
 
-  const prev2WeekStart = format(
-    startOfWeek(subWeeks(now, 2), { weekStartsOn: 1 }),
-    "yyyy-MM-dd",
-  );
-  const prev2WeekEnd = format(
-    endOfWeek(subWeeks(now, 2), { weekStartsOn: 1 }),
-    "yyyy-MM-dd",
-  );
   const { data: prev2WeekStats, isPending: isPrev2WeekStatsPending } =
     useGetDashboardAnalyticsQuery({
       userId: user?.id,
       period: "custom",
-      startDate: prev2WeekStart,
-      endDate: prev2WeekEnd,
+      startDate: periods.prev2Week.start,
+      endDate: periods.prev2Week.end,
     });
 
-  const prev3WeekStart = format(
-    startOfWeek(subWeeks(now, 3), { weekStartsOn: 1 }),
-    "yyyy-MM-dd",
-  );
-  const prev3WeekEnd = format(
-    endOfWeek(subWeeks(now, 3), { weekStartsOn: 1 }),
-    "yyyy-MM-dd",
-  );
   const { data: prev3WeekStats, isPending: isPrev3WeekStatsPending } =
     useGetDashboardAnalyticsQuery({
       userId: user?.id,
       period: "custom",
-      startDate: prev3WeekStart,
-      endDate: prev3WeekEnd,
+      startDate: periods.prev3Week.start,
+      endDate: periods.prev3Week.end,
     });
 
   const myStats = useMemo(() => {
-    const myEntries =
-      myTimeEntries?.filter((entry) => entry.status === "STOPPED") ?? [];
-    const myActiveEntries =
-      myTimeEntries?.filter((entry) => entry.status === "RUNNING") ?? [];
+    if (
+      !myTimeEntries ||
+      !myTotalStats ||
+      !myTodayStats ||
+      !myThisWeekStats ||
+      !myThisMonthStats ||
+      !prev1WeekStats ||
+      !prev2WeekStats ||
+      !prev3WeekStats
+    ) {
+      return DEFAULT_MY_TIME_ENTRIES_STATE;
+    }
 
-    return {
-      myEntries,
-      myActiveEntries,
-    };
-  }, [myTimeEntries]);
-
-  return {
-    ...myStats,
+    return mapMyTimeEntriesData({
+      timeEntries: myTimeEntries,
+      stats: {
+        total: myTotalStats,
+        today: myTodayStats,
+        thisWeek: myThisWeekStats,
+        thisMonth: myThisMonthStats,
+        prev1: prev1WeekStats,
+        prev2: prev2WeekStats,
+        prev3: prev3WeekStats,
+      },
+    });
+  }, [
+    myTimeEntries,
     myTotalStats,
     myTodayStats,
     myThisWeekStats,
     myThisMonthStats,
+    prev1WeekStats,
+    prev2WeekStats,
+    prev3WeekStats,
+  ]);
+
+  return {
+    ...myStats,
     isMyStatsPending:
       isMyTotalStatsPending ||
       isMyTodayStatsPending ||
@@ -131,8 +133,5 @@ export const useMyTimeEntries = () => {
       isPrev2WeekStatsPending ||
       isPrev3WeekStatsPending,
     isMyRecentTimeEntriesPending: isMyTimeEntriesPending,
-    prev1WeekStats,
-    prev2WeekStats,
-    prev3WeekStats,
   };
 };

@@ -1,6 +1,9 @@
 import { useMemo } from "react";
 import { useGetAnalyticsHoursByProjectQuery } from "@/entities/dashboard-analytics";
-import { DEFAULT_PROJECTS_STATS, mapProjectsToStats } from "../lib/stats.utils";
+import {
+  DEFAULT_PROJECTS_STATS,
+  mapProjectsStats,
+} from "../lib/projects-stats.utils";
 import { useGetActiveProjectsQuery } from "../model/queries/use-get-active-projects.query";
 import { useGetProjectsQuery } from "../model/queries/use-get-projects.query";
 
@@ -17,7 +20,7 @@ export const useProjectsStats = () => {
       return DEFAULT_PROJECTS_STATS;
     }
 
-    return mapProjectsToStats({ projects, activeProjects, hoursByProject });
+    return mapProjectsStats({ projects, activeProjects, hoursByProject });
   }, [projects, activeProjects, hoursByProject]);
 
   return {

@@ -2,7 +2,7 @@ import type { GetHoursByProjectRes } from "@/entities/dashboard-analytics";
 import { formatCurrency } from "@/shared/lib/formatters/currency";
 import type { ProjectEntity } from "../model/project.types";
 
-interface MapProjectsToStatsParams {
+interface MapProjectsStatsParams {
   projects: ProjectEntity[];
   activeProjects: ProjectEntity[];
   hoursByProject: GetHoursByProjectRes;
@@ -19,11 +19,11 @@ export const DEFAULT_PROJECTS_STATS = {
   formattedTotalEarned: "$0.00",
 };
 
-export const mapProjectsToStats = ({
+export const mapProjectsStats = ({
   projects,
   activeProjects,
   hoursByProject,
-}: MapProjectsToStatsParams) => {
+}: MapProjectsStatsParams) => {
   const totalProjects = projects.length;
   const totalActiveProjects = activeProjects.length;
 
