@@ -41,7 +41,7 @@ export const MainDashboardHeader = () => {
       </Link>
       {isAdmin && (
         <Button variant="outline" className="gap-2" asChild>
-          <Link href="/dashboard/admin/reports">
+          <Link href="/dashboard/admin/summaries/full-reports">
             <TrendingUp className="h-4 w-4" />
             View Reports
           </Link>

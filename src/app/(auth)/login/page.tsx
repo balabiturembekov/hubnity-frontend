@@ -4,7 +4,7 @@ import { AuthCard } from "@/widgets/auth/ui/auth-card";
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen w-full flex items-center justify-center bg-gradient-to-br from-primary/5 via-white to-primary/5 py-12">
+    <main className="min-h-screen w-full flex items-center justify-center bg-linear-to-br from-primary/5 via-white to-primary/5 py-12 px-2">
       <AuthCard
         title="Hubnity"
         subtitle="Time Tracking & Team Management"

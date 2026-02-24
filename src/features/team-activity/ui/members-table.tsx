@@ -64,13 +64,13 @@ export const MembersTable = () => {
           <Accordion
             type="single"
             collapsible
-            className="w-full overflow-x-auto"
+            className="w-full overflow-x-auto space-y-3"
           >
             {teamActivity?.members.map((member) => (
               <AccordionItem
                 key={member.userId}
                 value={member.userId}
-                className="group border border-border rounded-xl mb-3 px-2 sm:px-4 bg-card shadow-sm hover:shadow-md hover:border-border/80 transition-all duration-200 min-w-[528px] overflow-hidden"
+                className="group border border-border rounded-xl px-2 sm:px-4 bg-card shadow-sm hover:shadow-md hover:border-border/80 transition-all duration-200 min-w-[528px] overflow-hidden"
               >
                 <AccordionTrigger className="hover:no-underline py-4 flex items-center">
                   <div className="flex items-center gap-4 w-full pr-4">
