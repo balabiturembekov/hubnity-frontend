@@ -67,7 +67,7 @@ export function DailyChart() {
               }}
               formatter={(value?: number, name?: string) => [
                 `${value}h`,
-                name === "hours" ? "Idle" : "Active",
+                name === "hours" ? "Active" : "Idle",
               ]}
               labelFormatter={(label) =>
                 dailyData.find((d) => d.date === label)?.fullDate || label
@@ -82,7 +82,7 @@ export function DailyChart() {
               name="Active"
             />
             <Bar
-              dataKey="hours"
+              dataKey="idleHours"
               stackId="a"
               fill="#f59e0b"
               radius={[4, 4, 0, 0]}

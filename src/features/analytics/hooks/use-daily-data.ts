@@ -8,6 +8,7 @@ interface DailyDataPoint {
   date: string;
   fullDate: string;
   hours: number;
+  idleHours: number;
 }
 
 export const useDailyData = (length: number = 14) => {
@@ -23,9 +24,10 @@ export const useDailyData = (length: number = 14) => {
   const dailyData = useMemo<DailyDataPoint[]>(() => {
     if (!timeEntries || !Array.isArray(timeEntries)) {
       return last7Days.map((date) => ({
-        date: format(date, "EEE"),
+        date: format(date, "yyyy-MM-dd"),
         fullDate: format(date, "MMM dd"),
         hours: 0,
+        idleHours: 0,
       }));
     }
 
@@ -43,9 +45,10 @@ export const useDailyData = (length: number = 14) => {
       );
 
       return {
-        date: format(date, "EEE"),
+        date: format(date, "yyyy-MM-dd"),
         fullDate: format(date, "MMM dd"),
         hours: Number(totalHours.toFixed(2)),
+        idleHours: 0, // Placeholder for future idle time endpoint
       };
     });
   }, [last7Days, timeEntries, user]);
