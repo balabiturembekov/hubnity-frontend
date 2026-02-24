@@ -45,7 +45,7 @@ export function DashboardSidebar() {
           Hubnity
         </Link>
       </div>
-      <nav className="flex-1 space-y-1 p-4">
+      <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
         {dashboardSidebarLinks.map((item) => {
           if (
             item.isAdminOnly &&
