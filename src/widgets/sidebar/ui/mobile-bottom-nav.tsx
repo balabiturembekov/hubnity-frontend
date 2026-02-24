@@ -115,35 +115,38 @@ export function MobileBottomNav() {
 
                   return (
                     <div key={item.id} className="flex flex-col gap-1 mb-2">
-                      <div className="flex items-center gap-3 px-4 py-2 mt-2 text-muted-foreground font-medium">
+                      <div className="flex items-center gap-3 px-3 py-2 mt-2 text-muted-foreground font-medium">
                         <Icon className="h-5 w-5" />
                         <span className="text-sm uppercase tracking-wider">
                           {item.label}
                         </span>
                       </div>
-                      <div className="flex flex-col gap-1 pl-4">
+                      <div className="flex flex-col gap-1 pl-8 relative">
+                        <div className="absolute left-[20px] bottom-8 top-0 w-px bg-gray-300" />
                         {item.childrenLinks.map((link) => {
                           const isChildActive = pathname === link.href;
 
                           return (
-                            <Button
-                              variant={isChildActive ? "secondary" : "ghost"}
-                              key={link.id}
-                              className={cn(
-                                "w-full justify-start h-11 rounded-xl",
-                                {
-                                  "text-muted-foreground": !isChildActive,
-                                  "bg-primary/10 text-primary": isChildActive,
-                                },
-                              )}
-                              asChild
-                            >
-                              <Link href={link.href}>
-                                <span className="text-[15px]">
-                                  {link.label}
-                                </span>
-                              </Link>
-                            </Button>
+                            <div key={link.id} className="relative">
+                              <div className="size-[12px] border-l border-b border-gray-300  absolute -left-[12px] top-3.5 -translate-y-1/2 rounded-bl-md" />
+                              <Button
+                                variant={isChildActive ? "secondary" : "ghost"}
+                                className={cn(
+                                  "w-full justify-start h-11 rounded-xl",
+                                  {
+                                    "text-muted-foreground": !isChildActive,
+                                    "bg-primary/10 text-primary": isChildActive,
+                                  },
+                                )}
+                                asChild
+                              >
+                                <Link href={link.href}>
+                                  <span className="text-[15px]">
+                                    {link.label}
+                                  </span>
+                                </Link>
+                              </Button>
+                            </div>
                           );
                         })}
                       </div>
