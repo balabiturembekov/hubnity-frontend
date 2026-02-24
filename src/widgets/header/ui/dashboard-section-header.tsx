@@ -40,7 +40,7 @@ export const DashboardSectionHeader = ({
             {children}
           </div>
           {link && (
-            <Button variant="link" className="group" asChild>
+            <Button variant="link" className="group py-1 h-auto" asChild>
               <Link href={link.href}>
                 {link.label}
                 <ArrowRight className="group-hover:translate-x-1 transition-transform" />
