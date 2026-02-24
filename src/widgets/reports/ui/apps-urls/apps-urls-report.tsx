@@ -16,7 +16,7 @@ export const AppsUrlsReport = ({ isAll = true }: AppsUrlsReportProps) => {
   });
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-4">
       <AppsUrlsFilters date={date} setDate={setDate} />
       <AppsUrlsTable isAll={isAll} />
     </div>

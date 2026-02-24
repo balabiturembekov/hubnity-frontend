@@ -163,7 +163,7 @@ export const AppsUrlsTable = ({ isAll = true, limit }: AppsUrlsTableProps) => {
   );
 
   return (
-    <div className="rounded-md border mt-4 bg-card">
+    <div className="rounded-md border bg-card">
       <Table>
         <TableHeader>
           <TableRow>
