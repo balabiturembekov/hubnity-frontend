@@ -5,7 +5,6 @@ import { useProjectsStats } from "@/entities/project";
 import { StatsCard } from "@/entities/stats";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
-// TODO: Refactor using new api endpoints
 export const ProjectsStatsCards = () => {
   const {
     totalProjects,
