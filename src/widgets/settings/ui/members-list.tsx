@@ -131,7 +131,7 @@ const MemberAppsUrlsRow = ({ user }: MemberAppUrlItem) => {
 
       <AccordionItem
         value={user.userId}
-        className="border rounded-lg bg-card px-2 sm:hidden"
+        className="border last:border-b rounded-lg bg-card px-2 sm:hidden"
       >
         <AccordionTrigger className="hover:no-underline py-4 flex items-center">
           <UserSummary {...user} />
