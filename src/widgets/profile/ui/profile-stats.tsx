@@ -17,7 +17,7 @@ export const ProfileStats = () => {
   const {
     myTotalStats,
     myTodayStats,
-    myLast7daysStats,
+    myThisWeekStats,
     myThisMonthStats,
     isMyStatsPending,
   } = useMyTimeEntries();
@@ -43,7 +43,7 @@ export const ProfileStats = () => {
       <StatsCard
         title="This Week"
         icon={TrendingUp}
-        stat={`${myLast7daysStats?.totalHours ?? 0}h`}
+        stat={`${myThisWeekStats?.totalHours ?? 0}h`}
         statsClassName="text-2xl"
         description={
           <p className="text-xs text-muted-foreground">

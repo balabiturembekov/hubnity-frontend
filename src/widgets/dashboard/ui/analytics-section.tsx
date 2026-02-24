@@ -1,6 +1,7 @@
 import { BarChart3 } from "lucide-react";
 import {
   DailyChart,
+  GoalProgress,
   HourlyChart,
   MonthlyChart,
   ProductivityScore,
@@ -42,7 +43,10 @@ export const AnalyticsSection = ({
 
       <div className="grid xl:grid-cols-2 gap-4">
         <ProductivityScore />
-        <HourlyChart />
+        <GoalProgress />
+        <div className="xl:col-span-2">
+          <HourlyChart />
+        </div>
         <div className="xl:col-span-2">
           <DailyChart />
         </div>

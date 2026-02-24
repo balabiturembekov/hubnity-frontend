@@ -29,7 +29,7 @@ export const ProfileStatistics = () => {
     myActiveEntries,
     myTotalStats,
     myTodayStats,
-    myLast7daysStats,
+    myThisWeekStats,
     myThisMonthStats,
     isMyStatsPending,
     isMyRecentTimeEntriesPending,
@@ -116,7 +116,7 @@ export const ProfileStatistics = () => {
               </div>
             </div>
             <span className="text-lg font-bold text-foreground">
-              {`${myLast7daysStats?.totalHours ?? 0}h`}
+              {`${myThisWeekStats?.totalHours ?? 0}h`}
             </span>
           </div>
 

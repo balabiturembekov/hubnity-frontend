@@ -17,7 +17,7 @@ const processQueue = (token: string | null) => {
 };
 
 export const api = axios.create({
-  baseURL: `${apiUrl}/api`,
+  baseURL: `${apiUrl}/api/v1`,
   withCredentials: true,
   withXSRFToken: true,
 });
