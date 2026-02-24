@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useGetAnalyticsHoursByProjectQuery } from "@/entities/dashboard-analytics";
-import { mapProjectsToStats } from "../lib/stats.utils";
+import { DEFAULT_PROJECTS_STATS, mapProjectsToStats } from "../lib/stats.utils";
 import { useGetActiveProjectsQuery } from "../model/queries/use-get-active-projects.query";
 import { useGetProjectsQuery } from "../model/queries/use-get-projects.query";
 
@@ -13,8 +13,8 @@ export const useProjectsStats = () => {
     useGetActiveProjectsQuery();
 
   const stats = useMemo(() => {
-    if (!projects || !activeProjects) {
-      return null;
+    if (!projects || !activeProjects || !hoursByProject) {
+      return DEFAULT_PROJECTS_STATS;
     }
 
     return mapProjectsToStats({ projects, activeProjects, hoursByProject });
@@ -22,7 +22,6 @@ export const useProjectsStats = () => {
 
   return {
     ...stats,
-    hoursByProject,
     isPending: isProjectsPending || isActivePending || isHoursPending,
   };
 };
