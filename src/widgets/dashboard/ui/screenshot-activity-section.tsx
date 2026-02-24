@@ -20,7 +20,7 @@ export function ScreenshotActivitySection({
 }: ScreenshotActivitySectionProps) {
   const { data: entries, isPending } = useGetTimeEntriesQuery({
     limit: variant === "default" ? 3 : 2,
-  }); // TODO: send request depending on variant
+  });
 
   const entryId0 = entries?.[0]?.id ?? "";
   const entryId1 = entries?.[1]?.id ?? "";

@@ -116,7 +116,7 @@ export function ScreenshotSettings() {
             </div>
           )}
 
-          <div className="flex flex-col gap-4 rounded-lg border bg-muted/30 p-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex flex-col gap-4 rounded-lg border bg-muted/30 p-4 sm:flex-row items-end sm:items-center sm:justify-between">
             <div className="flex min-w-0 flex-1 items-start gap-3">
               <Tooltip>
                 <TooltipTrigger asChild>
