@@ -35,7 +35,7 @@ interface AppsUrlsFiltersProps {
 
 export const AppsUrlsFilters = ({ date, setDate }: AppsUrlsFiltersProps) => {
   return (
-    <Card className="transition-shadow hover:shadow-md mb-4 bg-background/50 border-border/40 shadow-xs">
+    <Card className="transition-shadow hover:shadow-md mb-4 bg-card">
       <CardHeader>
         <div className="flex items-center gap-2">
           <Filter className="h-5 w-5 text-primary" />
