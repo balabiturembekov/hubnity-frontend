@@ -41,7 +41,7 @@ export function TopPerformers() {
               </p>
             </div>
           </div>
-          <div className="grid grid-cols-[auto_auto] items-center gap-x-2 gap-y-1 rounded-xl bg-muted px-3 py-2 min-w-[89px]">
+          <div className="grid grid-cols-[auto_auto] items-center gap-x-2 gap-y-1 rounded-xl bg-muted px-3 py-2 min-w-22.25">
             <TrendingUp className="h-4 w-4 text-muted-foreground row-span-1 sm:row-span-2" />
             <span className="text-base font-semibold tabular-nums text-right text-foreground leading-tight">
               {totalHours.toFixed(2)}

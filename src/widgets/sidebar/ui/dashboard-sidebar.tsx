@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Bell, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCurrentUser } from "@/entities/user";
 import { UserProfileDropdown } from "@/features/user";
 import { cn } from "@/shared/lib/utils";
@@ -25,6 +25,18 @@ export function DashboardSidebar() {
       setOpenLinks(filtered);
     }
   };
+
+  useEffect(() => {
+    const link = dashboardSidebarLinks.find(
+      (l) => l.childrenLinks && l.href === pathname,
+    );
+
+    if (!link) return;
+
+    setOpenLinks((prevState) =>
+      prevState.includes(link.href) ? prevState : [...prevState, link.href],
+    );
+  }, [pathname]);
 
   return (
     <div className="hidden min-[769px]:flex h-full w-0 min-[769px]:min-w-64 overflow-hidden flex-col border-r bg-background">
@@ -111,7 +123,7 @@ export function DashboardSidebar() {
 
                           return (
                             <div key={link.id} className="relative">
-                              <div className="size-[13px] border-l border-b border-gray-300  absolute -left-[13px] top-3.5 -translate-y-1/2 rounded-bl-full" />
+                              <div className="size-3.25 border-l border-b border-gray-300  absolute -left-3.25 top-3.5 -translate-y-1/2 rounded-bl-full" />
                               <Button
                                 variant={isChildActive ? "default" : "ghost"}
                                 className={cn("w-full justify-between z-10", {

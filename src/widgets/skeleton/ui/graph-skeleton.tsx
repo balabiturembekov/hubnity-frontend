@@ -3,7 +3,7 @@ import { Skeleton } from "@/shared/ui/skeleton";
 
 export const GraphSkeleton = () => {
   return (
-    <Card className="min-h-[418px] h-full flex flex-col">
+    <Card className="min-h-104.5 h-full flex flex-col">
       <CardHeader>
         <Skeleton className="h-6 w-40" />
         <Skeleton className="h-4 w-48" />

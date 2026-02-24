@@ -3,6 +3,7 @@
 import { Bell, Clock, Home, Menu, User as UserIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { useCurrentUser } from "@/entities/user";
 import { UserProfileDropdown } from "@/features/user";
 import { cn } from "@/shared/lib/utils";
@@ -14,7 +15,6 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/shared/ui/drawer";
-
 import { dashboardSidebarLinks } from "@/widgets/sidebar/consts";
 
 const primaryLinks = [
@@ -38,6 +38,7 @@ const primaryLinks = [
 export function MobileBottomNav() {
   const pathname = usePathname();
   const { data: user } = useCurrentUser();
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
     <div className="min-[769px]:hidden fixed bottom-10 left-2 right-6 z-50">
@@ -64,7 +65,7 @@ export function MobileBottomNav() {
           );
         })}
 
-        <Drawer>
+        <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
           <DrawerTrigger asChild>
             <Button
               variant="ghost"
@@ -103,6 +104,7 @@ export function MobileBottomNav() {
                           "text-muted-foreground": !isActive,
                           "bg-primary/10 text-primary": isActive,
                         })}
+                        onClick={() => setIsDrawerOpen(false)}
                         asChild
                       >
                         <Link href={item.href}>
@@ -138,6 +140,7 @@ export function MobileBottomNav() {
                                     "bg-primary/10 text-primary": isChildActive,
                                   },
                                 )}
+                                onClick={() => setIsDrawerOpen(false)}
                                 asChild
                               >
                                 <Link href={link.href}>
