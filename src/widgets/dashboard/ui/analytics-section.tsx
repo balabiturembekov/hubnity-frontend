@@ -3,6 +3,7 @@ import {
   DailyChart,
   HourlyChart,
   MonthlyChart,
+  ProductivityScore,
   ProjectsChart,
   TopPerformers,
   useHourlyData,
@@ -40,8 +41,11 @@ export const AnalyticsSection = ({
       )}
 
       <div className="grid xl:grid-cols-2 gap-4">
+        <ProductivityScore />
         <HourlyChart />
-        <DailyChart />
+        <div className="xl:col-span-2">
+          <DailyChart />
+        </div>
       </div>
 
       {!isPreview && <MonthlyChart />}

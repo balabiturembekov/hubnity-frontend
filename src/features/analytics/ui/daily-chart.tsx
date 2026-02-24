@@ -10,6 +10,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { useMediaQuery } from "usehooks-ts";
 import { useDailyData } from "@/features/analytics/hooks/use-daily-data";
 import {
   Card,
@@ -21,7 +22,8 @@ import {
 import { GraphSkeleton } from "@/widgets/skeleton";
 
 export function DailyChart() {
-  const { dailyData, isPending } = useDailyData();
+  const isMobile = useMediaQuery("(max-width: 767px)");
+  const { dailyData, isPending } = useDailyData(isMobile ? 7 : 14);
 
   if (isPending) {
     return <GraphSkeleton />;
@@ -31,7 +33,9 @@ export function DailyChart() {
     <Card className="w-full">
       <CardHeader>
         <CardTitle>Daily Hours</CardTitle>
-        <CardDescription>Hours tracked over the last 7 days</CardDescription>
+        <CardDescription>
+          Hours tracked over the last {isMobile ? 7 : 14} days
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
@@ -42,6 +46,9 @@ export function DailyChart() {
               tick={{ fontSize: 11, fill: "var(--muted-foreground)" }}
               axisLine={false}
               tickLine={false}
+              tickFormatter={(v) =>
+                `${dailyData.find((d) => d.date === v)?.fullDate}`
+              }
             />
             <YAxis
               width="auto"

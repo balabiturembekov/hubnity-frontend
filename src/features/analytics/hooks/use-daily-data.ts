@@ -10,15 +10,15 @@ interface DailyDataPoint {
   hours: number;
 }
 
-export const useDailyData = () => {
+export const useDailyData = (length: number = 14) => {
   const { data: user } = useCurrentUser();
   const { data: timeEntries = [], isPending } = useGetTimeEntriesQuery();
 
   const last7Days = useMemo(() => {
-    return Array.from({ length: 7 }, (_, i) => {
-      return subDays(new Date(), 6 - i);
+    return Array.from({ length }, (_, i) => {
+      return subDays(new Date(), length - 1 - i);
     });
-  }, []);
+  }, [length]);
 
   const dailyData = useMemo<DailyDataPoint[]>(() => {
     if (!timeEntries || !Array.isArray(timeEntries)) {
