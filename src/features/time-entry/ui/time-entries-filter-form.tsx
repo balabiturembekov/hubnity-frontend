@@ -1,8 +1,8 @@
 "use client";
 
 import { Filter, RefreshCw, Search, X } from "lucide-react";
-import type { TimeEntryStatusType } from "@/entities/time-entry";
 import { useGetProjectsQuery } from "@/entities/project";
+import type { TimeEntryStatusType } from "@/entities/time-entry";
 import { useTimeEntriesStore } from "@/features/time-entry";
 import { Button } from "@/shared/ui/button";
 import {
