@@ -14,6 +14,7 @@ export const useFilteredTimeEntries = (
     isLoading,
     isError,
     refetch,
+    isRefetching,
   } = useGetTimeEntriesQuery({ userId, status });
   const { searchQuery, projectId, period } = useTimeEntriesStore();
 
@@ -80,5 +81,6 @@ export const useFilteredTimeEntries = (
     isLoading,
     refetch,
     isError,
+    isRefetching,
   };
 };

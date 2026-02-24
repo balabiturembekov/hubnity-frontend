@@ -99,7 +99,7 @@ export function TimeEntriesTable({
         </DashboardSectionHeader>
       )}
 
-      <TimeEntriesFilterForm />
+      <TimeEntriesFilterForm userId={userId} status="RUNNING" />
 
       {isLoading ? (
         <TableSkeleton />

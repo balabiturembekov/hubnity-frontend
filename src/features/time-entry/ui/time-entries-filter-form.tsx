@@ -1,6 +1,7 @@
 "use client";
 
 import { Filter, RefreshCw, Search, X } from "lucide-react";
+import type { TimeEntryStatusType } from "@/entities/time-entry";
 import { useGetProjectsQuery } from "@/entities/project";
 import { useTimeEntriesStore } from "@/features/time-entry";
 import { Button } from "@/shared/ui/button";
@@ -23,7 +24,16 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { FilterSkeleton } from "@/widgets/skeleton";
 import { useFilteredTimeEntries } from "../hooks/use-filtered-time-entries";
 
-export const TimeEntriesFilterForm = () => {
+interface TimeEntriesFilterFormProps {
+  /** Same as table: so form and table share the same query and refetch updates the table */
+  userId?: string;
+  status?: TimeEntryStatusType;
+}
+
+export const TimeEntriesFilterForm = ({
+  userId,
+  status,
+}: TimeEntriesFilterFormProps = {}) => {
   const {
     searchQuery,
     projectId,
@@ -34,8 +44,14 @@ export const TimeEntriesFilterForm = () => {
     resetFilters,
   } = useTimeEntriesStore();
   const { data: projects } = useGetProjectsQuery();
-  const { timeEntries, totalCount, hasActiveFilters, refetch, isLoading } =
-    useFilteredTimeEntries();
+  const {
+    timeEntries,
+    totalCount,
+    hasActiveFilters,
+    refetch,
+    isLoading,
+    isRefetching,
+  } = useFilteredTimeEntries(userId, status);
 
   if (isLoading) {
     return <FilterSkeleton />;
@@ -55,11 +71,13 @@ export const TimeEntriesFilterForm = () => {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => !isLoading && refetch()}
-                disabled={isLoading}
+                onClick={() => refetch()}
+                disabled={isRefetching}
                 className="group flex items-center justify-center"
               >
-                <RefreshCw className="group-hover:animate-spin" />
+                <RefreshCw
+                  className={`h-4 w-4 ${isRefetching ? "animate-spin" : "group-hover:animate-spin"}`}
+                />
               </Button>
             </TooltipTrigger>
             <TooltipContent>Reload table</TooltipContent>
@@ -79,7 +97,7 @@ export const TimeEntriesFilterForm = () => {
             />
           </div>
           <Select value={projectId} onValueChange={setProjectId}>
-            <SelectTrigger className="w-full sm:w-[180px]">
+            <SelectTrigger className="w-full sm:w-45">
               <SelectValue placeholder="All projects" />
             </SelectTrigger>
             <SelectContent>
@@ -95,7 +113,7 @@ export const TimeEntriesFilterForm = () => {
             </SelectContent>
           </Select>
           <Select value={period} onValueChange={setPeriod}>
-            <SelectTrigger className="w-full sm:w-[180px]">
+            <SelectTrigger className="w-full sm:w-45">
               <SelectValue placeholder="All time" />
             </SelectTrigger>
             <SelectContent>
