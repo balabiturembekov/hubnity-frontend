@@ -1,3 +1,5 @@
+"use client";
+
 import { Eye, EyeClosed } from "lucide-react";
 import { type ComponentProps, useState } from "react";
 import { Input } from "@/shared/ui/input";
