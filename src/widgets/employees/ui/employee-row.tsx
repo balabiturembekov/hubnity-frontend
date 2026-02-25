@@ -2,8 +2,8 @@ import Link from "next/link";
 import { UserAvatar, useCurrentUser } from "@/entities/user";
 import type { UserEntity } from "@/entities/user/model/user.types";
 import {
-  DeleteEmployeeDialog,
-  UpdateEmployeeDialog,
+  DeleteEmployeeButton,
+  UpdateEmployeeButton,
 } from "@/features/employees";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
@@ -73,8 +73,8 @@ export const EmployeeRow = ({ user }: EmployeeRowProps) => {
       </TableCell>
       <TableCell className="text-right">
         <div className="flex justify-end gap-2">
-          <UpdateEmployeeDialog user={user} />
-          <DeleteEmployeeDialog employee={user} />
+          <UpdateEmployeeButton user={user} />
+          <DeleteEmployeeButton employee={user} />
         </div>
       </TableCell>
     </TableRow>

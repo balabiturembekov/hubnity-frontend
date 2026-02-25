@@ -1,4 +1,4 @@
-import { EditProfileButton } from "@/features/auth";
+import { EditProfileButton } from "@/features/user";
 import { DashboardPageHeader } from "@/widgets/header";
 import {
   ProfileInfo,

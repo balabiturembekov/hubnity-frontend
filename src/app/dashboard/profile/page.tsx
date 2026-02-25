@@ -1,10 +1,9 @@
 "use client";
 
-import { ArrowRight, Edit } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 import { useCurrentUser } from "@/entities/user";
-import { ProfileEditDialog } from "@/features/auth";
+import { EditProfileButton } from "@/features/user";
 import { Button } from "@/shared/ui/button";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { DashboardPageHeader } from "@/widgets/header/ui/dashboard-page-header";
@@ -19,7 +18,6 @@ import { AppsUrlsTable } from "@/widgets/reports";
 
 export default function ProfilePage() {
   const { data, isPending } = useCurrentUser();
-  const [editDialogOpen, setEditDialogOpen] = useState(false);
 
   if (isPending || !data) {
     return <ProfilePageSkeleton />;
@@ -31,10 +29,7 @@ export default function ProfilePage() {
         title="My Profile"
         subTitle="View and manage your profile settings"
       >
-        <Button onClick={() => setEditDialogOpen(true)} className="gap-2">
-          <Edit className="h-4 w-4" />
-          Edit Profile
-        </Button>
+        <EditProfileButton />
       </DashboardPageHeader>
 
       <div className="grid grid-cols-2 p-2 md:p-6 gap-4">
@@ -66,11 +61,6 @@ export default function ProfilePage() {
           <AppsUrlsTable isAll={false} limit={5} />
         </div>
       </div>
-
-      <ProfileEditDialog
-        open={editDialogOpen}
-        onOpenChange={setEditDialogOpen}
-      />
     </DashboardContainer>
   );
 }

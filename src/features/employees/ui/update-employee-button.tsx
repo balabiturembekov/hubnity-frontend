@@ -6,17 +6,17 @@ import type { UserEntity } from "@/entities/user";
 import { Button } from "@/shared/ui/button";
 import { EmployeeDialog } from "./employee-dialog";
 
-interface UpdateEmployeeDialogProps {
+interface UpdateEmployeeButtonProps {
   user: UserEntity;
   variant?: "icon" | "outline";
 }
 
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 
-export function UpdateEmployeeDialog({
+export function UpdateEmployeeButton({
   user,
   variant = "icon",
-}: UpdateEmployeeDialogProps) {
+}: UpdateEmployeeButtonProps) {
   const [open, setOpen] = useState(false);
 
   return (

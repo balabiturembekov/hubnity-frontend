@@ -18,13 +18,13 @@ import {
 import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 
-interface DeleteEmployeeDialogProps {
+interface DeleteEmployeeButtonProps {
   employee: UserEntity;
 }
 
-export const DeleteEmployeeDialog = ({
+export const DeleteEmployeeButton = ({
   employee,
-}: DeleteEmployeeDialogProps) => {
+}: DeleteEmployeeButtonProps) => {
   const [open, setOpen] = useState(false);
   const { data: currentUser } = useCurrentUser();
   const { mutateAsync, isPending } = useDeleteEmployeeMutation();

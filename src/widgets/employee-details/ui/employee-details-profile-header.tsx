@@ -1,8 +1,8 @@
 import { format } from "date-fns";
 import { UserAvatar, type UserEntity } from "@/entities/user";
 import {
-  DeleteEmployeeDialog,
-  UpdateEmployeeDialog,
+  DeleteEmployeeButton,
+  UpdateEmployeeButton,
 } from "@/features/employees";
 import { cn } from "@/shared/lib/utils";
 import { Badge } from "@/shared/ui/badge";
@@ -42,8 +42,8 @@ export const EmployeeDetailsProfileHeader = ({
           </div>
         </div>
         <div className="flex mx-auto sm:mx-0 items-center gap-1">
-          <UpdateEmployeeDialog user={userDetails} variant="outline" />
-          <DeleteEmployeeDialog employee={userDetails} />
+          <UpdateEmployeeButton user={userDetails} variant="outline" />
+          <DeleteEmployeeButton employee={userDetails} />
         </div>
       </CardContent>
     </Card>
