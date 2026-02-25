@@ -1,6 +1,7 @@
 import { Building2, Globe, Lock, Mail, User } from "lucide-react";
 import type { HTMLInputAutoCompleteAttribute } from "react";
 import type {
+  ForgotPasswordFormValues,
   LoginFormValues,
   RegisterFormValues,
 } from "@/features/auth/model/auth.schema";
@@ -105,3 +106,13 @@ export const registerFieldGroups: FieldGroup<RegisterFormValues>[] = [
     ],
   },
 ];
+
+export const forgotPasswordFields: FieldConfig<ForgotPasswordFormValues> = {
+  name: "email",
+  label: "Email address",
+  placeholder: "you@example.com",
+  type: "email",
+  icon: Mail,
+  required: true,
+  autoComplete: "email",
+};
