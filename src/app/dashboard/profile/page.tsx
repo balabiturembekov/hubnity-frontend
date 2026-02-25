@@ -1,10 +1,7 @@
 "use client";
 
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { useCurrentUser } from "@/entities/user";
 import { EditProfileButton } from "@/features/user";
-import { Button } from "@/shared/ui/button";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { DashboardPageHeader } from "@/widgets/header/ui/dashboard-page-header";
 import {
@@ -50,15 +47,7 @@ export default function ProfilePage() {
         </div>
 
         <div className="col-span-2 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-medium">Apps & URLs</h3>
-            <Button variant="link" asChild>
-              <Link href="/dashboard/admin/summaries/full-reports?tab=me">
-                View full report <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-          <AppsUrlsTable isAll={false} limit={5} />
+          <AppsUrlsTable isAll={false} limit={5} isHeader tab="me" />
         </div>
       </div>
     </DashboardContainer>

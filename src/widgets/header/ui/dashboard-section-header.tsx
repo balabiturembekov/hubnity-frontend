@@ -30,13 +30,18 @@ export const DashboardSectionHeader = ({
   return (
     <div>
       <div
-        className={cn("flex items-center justify-between", className)}
+        className={cn(
+          "flex flex-col gap-1 sm:gap-0 items-center justify-between",
+          className,
+        )}
         {...props}
       >
-        <div className="flex items-center justify-between w-full">
-          <div className="flex items-center gap-2">
-            {Icon && <Icon className="h-5 w-5 text-primary" />}
-            <h2 className="text-lg font-semibold text-foreground">{title}</h2>
+        <div className="flex items-start justify-between w-full">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-1 sm:gap-2">
+            <div className="flex items-center gap-2">
+              {Icon && <Icon className="h-5 w-5 text-primary" />}
+              <h2 className="text-lg font-semibold text-foreground">{title}</h2>
+            </div>
             {children}
           </div>
           {link && (
