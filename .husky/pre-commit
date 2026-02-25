@@ -1,2 +1,9 @@
 #!/usr/bin/env sh
+echo "🔍 Running Biome check on staged files..."
 npx @biomejs/biome check --staged --write --no-errors-on-unmatched .
+if [ $? -eq 0 ]; then
+  echo "✅ Biome check passed!"
+else
+  echo "❌ Biome check failed. Fix the issues above before committing."
+  exit 1
+fi
