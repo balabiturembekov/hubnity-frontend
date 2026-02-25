@@ -45,6 +45,16 @@ export interface ForgotPasswordReq {
   email: string;
 }
 
+export interface ResetPasswordRes {
+  message: string;
+}
+
+export interface ResetPasswordReq {
+  token: string;
+  newPassword: string;
+  confirmPassword: string;
+}
+
 export interface RefreshRes {
   access_token: string;
   refresh_token: string;

@@ -1,6 +1,6 @@
 import { UserPlus } from "lucide-react";
 import { RegisterForm } from "@/features/auth";
-import { AuthCard } from "@/widgets/auth/ui/auth-card";
+import { AuthCard } from "@/widgets/auth";
 
 export default function LoginPage() {
   return (

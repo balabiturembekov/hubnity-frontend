@@ -1,6 +1,11 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-const authPaths = ["/login", "/register", "/forgot-password"];
+const authPaths = [
+  "/login",
+  "/register",
+  "/reset-password",
+  "/forgot-password",
+];
 const publicPaths = ["/", "/profile"];
 
 const isAuthPath = (path: string): boolean => {

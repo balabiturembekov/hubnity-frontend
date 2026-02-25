@@ -4,6 +4,7 @@ import type {
   ForgotPasswordFormValues,
   LoginFormValues,
   RegisterFormValues,
+  ResetPasswordFormValues,
 } from "@/features/auth/model/auth.schema";
 
 type FieldConfig<TValues> = {
@@ -116,3 +117,24 @@ export const forgotPasswordFields: FieldConfig<ForgotPasswordFormValues> = {
   required: true,
   autoComplete: "email",
 };
+
+export const resetPasswordFields: FieldConfig<ResetPasswordFormValues>[] = [
+  {
+    name: "newPassword",
+    label: "New password",
+    placeholder: "Enter password",
+    type: "password",
+    icon: Lock,
+    required: true,
+    autoComplete: "new-password",
+  },
+  {
+    name: "confirmPassword",
+    label: "Confirm password",
+    placeholder: "Repeat password",
+    type: "password",
+    icon: Lock,
+    required: true,
+    autoComplete: "new-password",
+  },
+];

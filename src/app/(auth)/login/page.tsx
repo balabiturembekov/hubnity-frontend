@@ -1,6 +1,6 @@
 import { LogIn } from "lucide-react";
 import { LoginForm } from "@/features/auth";
-import { AuthCard } from "@/widgets/auth/ui/auth-card";
+import { AuthCard } from "@/widgets/auth";
 
 export default function LoginPage() {
   return (
