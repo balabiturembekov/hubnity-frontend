@@ -128,6 +128,15 @@ export function MobileBottomNav() {
                         {item.childrenLinks.map((link) => {
                           const isChildActive = pathname === link.href;
 
+                          if (
+                            link.isAdminOnly &&
+                            user?.role !== "ADMIN" &&
+                            user?.role !== "OWNER" &&
+                            user?.role !== "SUPER_ADMIN"
+                          ) {
+                            return null;
+                          }
+
                           return (
                             <div key={link.id} className="relative">
                               <div className="size-[12px] border-l border-b border-gray-300  absolute -left-[12px] top-3.5 -translate-y-1/2 rounded-bl-md" />

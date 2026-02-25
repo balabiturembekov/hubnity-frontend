@@ -51,7 +51,7 @@ export const AppUrlsSection = () => {
         icon={Link2}
         link={{
           label: "View All",
-          href: "/dashboard/admin/summaries/full-reports",
+          href: "/dashboard/summaries/full-reports",
         }}
       />
       <Card className="overflow-hidden border-border/60 shadow-sm p-0 flex-1">

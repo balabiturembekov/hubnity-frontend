@@ -13,6 +13,7 @@ type ChildrenLink = {
   id: string;
   label: string;
   href: string;
+  isAdminOnly?: boolean;
 };
 
 type DashboardSidebarLinks = {
@@ -54,19 +55,19 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
   {
     id: "5",
     label: "Summaries",
-    href: "/dashboard/admin/summaries",
+    href: "/dashboard/summaries",
     icon: BarChart3,
-    isAdminOnly: true,
     childrenLinks: [
       {
         id: "1",
         label: "Activity & Time",
-        href: "/dashboard/admin/summaries",
+        href: "/dashboard/summaries",
+        isAdminOnly: true,
       },
       {
         id: "2",
         label: "Full Reports",
-        href: "/dashboard/admin/summaries/full-reports",
+        href: "/dashboard/summaries/full-reports",
       },
     ],
   },
