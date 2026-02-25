@@ -29,7 +29,7 @@ export function AuthLayout({
 }: AuthLayoutProps) {
   return (
     <main className="h-dvh flex">
-      <div className="w-full lg:w-1/2 h-full flex items-center justify-center">
+      <div className="w-full lg:w-1/2 h-full min-h- overflow-y-auto flex items-center justify-center">
         <div className="flex flex-col justify-center gap-4 w-120 px-5 pb-4">
           <div className="flex flex-col gap-2 mb-4">
             <div className="lg:hidden w-fit self-center mb-5">
@@ -92,7 +92,7 @@ export function AuthLayout({
           priority
           unoptimized
         />
-        <div className="shrink-0 w-fit absolute bottom-0 left-20 -right-120 border-8 border-black rounded-3xl mask-[linear-gradient(to_top,transparent_0%,black_110%)] mask-size-[100%_100%] mask-no-repeat">
+        <div className="shrink-0 w-fit absolute top-80 left-20 -right-120 border-8 border-black rounded-3xl mask-[linear-gradient(to_top,transparent_0%,black_110%)] mask-size-[100%_100%] mask-no-repeat">
           <Image
             src="/img/dashboard-illustration.png"
             alt="Dashboard Illustration"
