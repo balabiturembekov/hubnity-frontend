@@ -1,6 +1,6 @@
 import { AppWindow } from "lucide-react";
 import React from "react";
-import { UserAvatar } from "@/entities/user";
+import { UserAvatar, useUser } from "@/entities/user";
 import { cn } from "@/shared/lib/utils";
 import { Badge } from "@/shared/ui/badge";
 import {
@@ -152,6 +152,8 @@ export const AppsUrlsTable = ({
   isHeader = false,
   tab = "all",
 }: AppsUrlsTableProps) => {
+  const { isAdmin } = useUser();
+
   let filteredData = mockData.filter((item) =>
     isAll ? true : !item.isAllSpecific,
   );
@@ -179,7 +181,7 @@ export const AppsUrlsTable = ({
           icon={AppWindow}
           link={{
             label: "View full report",
-            href: `/dashboard/admin/summaries/full-reports?tab=${tab}`,
+            href: `/dashboard/summaries/full-reports${isAdmin ? `?tab=${tab}` : ""}`,
           }}
           description="Your latest apps and sites usage"
         >

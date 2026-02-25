@@ -5,7 +5,7 @@ import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useCurrentUser } from "@/entities/user";
+import { useCurrentUser, useUser } from "@/entities/user";
 import { UserProfileDropdown } from "@/features/user";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
@@ -16,6 +16,7 @@ export function DashboardSidebar() {
   const pathname = usePathname();
   const { data: user } = useCurrentUser();
   const [openLinks, setOpenLinks] = useState<string[]>([]);
+  const { isAdmin } = useUser();
 
   const handleOpenLink = (link: string) => {
     if (!openLinks.includes(link)) {
@@ -85,7 +86,12 @@ export function DashboardSidebar() {
                   })}
                 >
                   <Link
-                    href={item.href}
+                    href={
+                      isAdmin
+                        ? item.href
+                        : item.childrenLinks.find((link) => !link.isAdminOnly)
+                            ?.href || item.href
+                    }
                     onClick={() => handleOpenLink(item.href)}
                     className="w-full flex items-center gap-2"
                   >
@@ -120,6 +126,15 @@ export function DashboardSidebar() {
                       <div className="flex flex-col gap-1 pl-3 w-full">
                         {item.childrenLinks.map((link) => {
                           const isChildActive = pathname === link.href;
+
+                          if (
+                            link.isAdminOnly &&
+                            user?.role !== "ADMIN" &&
+                            user?.role !== "OWNER" &&
+                            user?.role !== "SUPER_ADMIN"
+                          ) {
+                            return null;
+                          }
 
                           return (
                             <div key={link.id} className="relative">
