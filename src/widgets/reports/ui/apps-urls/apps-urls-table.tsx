@@ -181,6 +181,7 @@ export const AppsUrlsTable = ({
             label: "View full report",
             href: `/dashboard/admin/summaries/full-reports?tab=${tab}`,
           }}
+          description="Your latest apps and sites usage"
         >
           {filteredData.length > 0 && (
             <Badge
