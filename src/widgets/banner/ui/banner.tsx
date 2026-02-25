@@ -1,5 +1,8 @@
+"use client";
+
 import { CircleAlert, CircleCheck, Info, TriangleAlert, X } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 
@@ -10,6 +13,7 @@ interface BannerProps {
 }
 
 export const Banner = ({ variant = "default" }: BannerProps) => {
+  const [open, setOpen] = useState(true);
   const Icon =
     variant === "success"
       ? CircleCheck
@@ -24,6 +28,7 @@ export const Banner = ({ variant = "default" }: BannerProps) => {
       className={cn(
         "min-h-44 w-full flex items-start justify-between border border-gray-300 rounded-sm bg-gray-100 p-4 relative @container",
         {
+          hidden: !open,
           "bg-blue-50 border-blue-200": variant === "blue",
           "bg-green-50 border-green-300": variant === "success",
           "bg-yellow-50 border-yellow-300": variant === "warning",
@@ -79,6 +84,7 @@ export const Banner = ({ variant = "default" }: BannerProps) => {
 
       <button
         type="button"
+        onClick={() => setOpen(false)}
         className="text-gray-600 hover:text-gray-400 transition-colors cursor-pointer"
       >
         <X size={18} />
