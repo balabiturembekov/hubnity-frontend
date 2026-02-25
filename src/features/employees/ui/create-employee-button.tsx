@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Button } from "@/shared/ui/button";
 import { EmployeeDialog } from "./employee-dialog";
 
-export function CreateEmployeeDialog() {
+export function CreateEmployeeButton() {
   const [open, setOpen] = useState(false);
 
   return (

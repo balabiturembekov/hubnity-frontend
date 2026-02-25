@@ -2,7 +2,7 @@
 
 import { useCurrentUser } from "@/entities/user";
 import {
-  CreateEmployeeDialog,
+  CreateEmployeeButton,
   EmployeesFilterForm,
 } from "@/features/employees";
 import { DashboardContainer } from "@/widgets/dashboard";
@@ -26,7 +26,7 @@ export default function EmployeesPage() {
         title="Employees"
         subTitle="Manage your team members and their roles"
       >
-        <CreateEmployeeDialog />
+        <CreateEmployeeButton />
       </DashboardPageHeader>
 
       <div className="p-2 md:p-6 grid gap-4">
