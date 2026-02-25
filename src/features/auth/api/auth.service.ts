@@ -8,6 +8,7 @@ import type {
   RefreshRes,
   RegisterReq,
   RegisterRes,
+  ResetPasswordReq,
 } from "@/features/auth/model/auth.types";
 import { api } from "@/shared/config/api";
 import { apiUrl } from "@/shared/config/env";
@@ -72,6 +73,11 @@ class AuthService {
 
   async forgotPassword(payload: ForgotPasswordReq) {
     const res = await api.post<MessageRes>("/auth/forgot-password", payload);
+    return res.data;
+  }
+
+  async resetPassword(payload: ResetPasswordReq) {
+    const res = await api.post<MessageRes>("/auth/reset-password", payload);
     return res.data;
   }
 }
