@@ -31,7 +31,7 @@ export const DashboardSectionHeader = ({
     <div>
       <div
         className={cn(
-          "flex flex-col gap-1 sm:gap-0 items-center justify-between",
+          "flex flex-col sm:flex-row gap-1 sm:gap-0 items-center justify-between",
           className,
         )}
         {...props}
