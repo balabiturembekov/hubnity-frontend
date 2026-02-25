@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { loginFields } from "@/features/auth/consts";
 import {
@@ -58,28 +59,38 @@ export const LoginForm = () => {
                     {label}
                   </FormLabel>
                   <FormControl>
-                    <div className="relative">
-                      <Icon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground z-10" />
-                      {type === "password" ? (
-                        <PasswordInput
-                          id={name}
-                          type={type}
-                          placeholder={placeholder}
-                          className="pl-9 h-10"
-                          disabled={loginMutation.isPending}
-                          autoComplete={autoComplete}
-                          {...field}
-                        />
-                      ) : (
-                        <Input
-                          id={name}
-                          type={type}
-                          placeholder={placeholder}
-                          className="pl-9 h-10"
-                          disabled={loginMutation.isPending}
-                          autoComplete={autoComplete}
-                          {...field}
-                        />
+                    <div>
+                      <div className="relative">
+                        <Icon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground z-10" />
+                        {type === "password" ? (
+                          <PasswordInput
+                            id={name}
+                            type={type}
+                            placeholder={placeholder}
+                            className="pl-9 h-10"
+                            disabled={loginMutation.isPending}
+                            autoComplete={autoComplete}
+                            {...field}
+                          />
+                        ) : (
+                          <Input
+                            id={name}
+                            type={type}
+                            placeholder={placeholder}
+                            className="pl-9 h-10"
+                            disabled={loginMutation.isPending}
+                            autoComplete={autoComplete}
+                            {...field}
+                          />
+                        )}
+                      </div>
+                      {type === "password" && (
+                        <Link
+                          href="/forgot-password"
+                          className="text-primary hover:underline text-sm mt-1.5 block"
+                        >
+                          Forgot password?
+                        </Link>
                       )}
                     </div>
                   </FormControl>

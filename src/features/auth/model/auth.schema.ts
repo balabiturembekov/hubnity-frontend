@@ -57,3 +57,9 @@ export const changeProfileSchema = z.object({
 });
 
 export type ChangeProfileFormValues = z.infer<typeof changeProfileSchema>;
+
+export const forgotPasswordSchema = z.object({
+  email: z.email("Please enter a valid email").min(1, "Email is required"),
+});
+
+export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
