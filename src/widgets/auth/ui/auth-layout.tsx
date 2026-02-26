@@ -1,4 +1,4 @@
-import { ArrowLeft, BadgeCheck, type LucideIcon } from "lucide-react";
+import { ArrowLeft, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { GoogleLogo } from "@/shared/icons/google-logo";

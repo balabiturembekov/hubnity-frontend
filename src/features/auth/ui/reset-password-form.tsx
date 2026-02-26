@@ -96,7 +96,7 @@ export const ResetPasswordForm = () => {
           {resetPasswordMutation.isPending ? (
             <Loader2 className="animate-spin" />
           ) : (
-            <>Reset password</>
+            <span>Reset password</span>
           )}
         </Button>
       </form>
