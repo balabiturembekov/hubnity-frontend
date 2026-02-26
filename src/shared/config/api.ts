@@ -1,5 +1,6 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
 import Cookies from "js-cookie";
+import { useTopLoader } from "nextjs-toploader";
 import { apiUrl } from "@/shared/config/env";
 
 interface ExtendedAxiosRequestConfig extends InternalAxiosRequestConfig {
@@ -29,6 +30,30 @@ api.interceptors.request.use((config) => {
   }
   return config;
 });
+
+let activeRequests = 0;
+
+api.interceptors.request.use((config) => {
+  const { start } = useTopLoader();
+  if (activeRequests === 0) start();
+  activeRequests++;
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => {
+    const { done } = useTopLoader();
+    activeRequests--;
+    if (activeRequests === 0) done();
+    return response;
+  },
+  (error) => {
+    const { done } = useTopLoader();
+    activeRequests--;
+    if (activeRequests === 0) done();
+    return Promise.reject(error);
+  },
+);
 
 api.interceptors.response.use(
   (res) => res,
