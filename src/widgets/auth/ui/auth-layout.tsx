@@ -9,8 +9,8 @@ type FooterLink = {
 };
 
 export interface AuthLayoutProps {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   footerText?: string;
   footerLink?: FooterLink;
   showGoogleButton?: boolean;
@@ -31,20 +31,25 @@ export function AuthLayout({
     <main className="h-dvh flex">
       <div className="w-full lg:w-1/2 h-full min-h- overflow-y-auto flex items-center justify-center">
         <div className="flex flex-col justify-center gap-4 w-120 px-5 pb-4">
-          <div className="flex flex-col gap-2 mb-4">
-            <div className="lg:hidden w-fit self-center mb-5">
-              <Image
-                src="/img/hubnity-logo.png"
-                alt="Hubnity Logo"
-                width={200}
-                height={100}
-                priority
-                unoptimized
-              />
-            </div>
-            <h1 className="text-3xl font-medium">{title}</h1>
-            <p className="text-muted-foreground">{description}</p>
+          <div className="lg:hidden w-fit self-center mb-5">
+            <Image
+              src="/img/hubnity-logo.png"
+              alt="Hubnity Logo"
+              width={200}
+              height={100}
+              priority
+              unoptimized
+            />
           </div>
+
+          {(title || description) && (
+            <div className="flex flex-col gap-2 mb-4">
+              {title && <h1 className="text-3xl font-medium">{title}</h1>}
+              {description && (
+                <p className="text-muted-foreground">{description}</p>
+              )}
+            </div>
+          )}
 
           {showGoogleButton && (
             <>

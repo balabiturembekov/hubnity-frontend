@@ -5,6 +5,7 @@ const authPaths = [
   "/register",
   "/reset-password",
   "/forgot-password",
+  "/email-confirmation",
 ];
 const publicPaths = ["/", "/profile"];
 
