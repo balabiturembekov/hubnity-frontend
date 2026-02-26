@@ -1,6 +1,7 @@
 "use client";
 
 import { MailOpen } from "lucide-react";
+import { Button } from "@/shared/ui/button";
 import { AuthLayout } from "@/widgets/auth/ui/auth-layout";
 
 export default function EmailConfirmPage() {
@@ -14,12 +15,9 @@ export default function EmailConfirmPage() {
           <span className="text-foreground font-medium">example@gmail.com</span>
         </>
       }
-      footerText="Didn't receive the email?"
-      footerLink={{
-        text: "Click to resend",
-        action: () => console.log("Click to resend"),
-      }}
       showBackToLogin
-    />
+    >
+      <Button>Resend email</Button>
+    </AuthLayout>
   );
 }
