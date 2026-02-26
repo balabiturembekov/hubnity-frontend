@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowRight } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { resetPasswordFields } from "@/features/auth/consts";
@@ -9,6 +9,7 @@ import {
   type ResetPasswordFormValues,
   resetPasswordSchema,
 } from "@/features/auth/model/auth.schema";
+import { useResetPasswordMutation } from "@/features/auth/model/mutations/use-reset-password.mutation";
 import { Button } from "@/shared/ui/button";
 import {
   Form,
@@ -19,7 +20,6 @@ import {
   FormMessage,
 } from "@/shared/ui/form";
 import { PasswordInput } from "@/shared/ui/password-input";
-import { useResetPasswordMutation } from "../model/mutations/use-reset-password.mutation";
 
 export const ResetPasswordForm = () => {
   const resetPasswordMutation = useResetPasswordMutation();
@@ -94,15 +94,9 @@ export const ResetPasswordForm = () => {
           size="lg"
         >
           {resetPasswordMutation.isPending ? (
-            <>
-              <div className="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground border-t-transparent" />
-              Resetting...
-            </>
+            <Loader2 className="animate-spin" />
           ) : (
-            <>
-              Reset password
-              <ArrowRight className="h-4 w-4" />
-            </>
+            <>Reset password</>
           )}
         </Button>
       </form>
