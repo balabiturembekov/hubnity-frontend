@@ -25,48 +25,16 @@ export const NotificationList = ({ unreadOnly }: Props) => {
   if (isPending)
     return (
       <div className="flex flex-col gap-5">
-        <div className="flex items-center gap-3">
-          <Skeleton className="size-10 rounded-full" />
-          <div className="flex flex-col w-full gap-1">
-            <Skeleton className="w-full h-4" />
-            <Skeleton className="w-1/2 h-3" />
+        {Array.from({ length: 6 }).map((_, i) => (
+          // biome-ignore lint/suspicious/noArrayIndexKey: Static mapping
+          <div key={i} className="flex items-center gap-3">
+            <Skeleton className="size-10 rounded-full" />
+            <div className="flex flex-col w-full gap-1">
+              <Skeleton className="w-full h-4" />
+              <Skeleton className="w-1/2 h-3" />
+            </div>
           </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <Skeleton className="size-10 rounded-full" />
-          <div className="flex flex-col w-full gap-1">
-            <Skeleton className="w-full h-4" />
-            <Skeleton className="w-1/2 h-3" />
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <Skeleton className="size-10 rounded-full" />
-          <div className="flex flex-col w-full gap-1">
-            <Skeleton className="w-full h-4" />
-            <Skeleton className="w-1/2 h-3" />
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <Skeleton className="size-10 rounded-full" />
-          <div className="flex flex-col w-full gap-1">
-            <Skeleton className="w-full h-4" />
-            <Skeleton className="w-1/2 h-3" />
-          </div>
-        </div>
-        <div className="flex items-center gap-3">
-          <Skeleton className="size-10 rounded-full" />
-          <div className="flex flex-col w-full gap-1">
-            <Skeleton className="w-full h-4" />
-            <Skeleton className="w-1/2 h-3" />
-          </div>
-        </div>
-        <div className="flex items-center gap-3 mb-5">
-          <Skeleton className="size-10 rounded-full" />
-          <div className="flex flex-col w-full gap-1">
-            <Skeleton className="w-full h-4" />
-            <Skeleton className="w-1/2 h-3" />
-          </div>
-        </div>
+        ))}
       </div>
     );
 

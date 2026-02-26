@@ -9,18 +9,18 @@ export const createOrganizationSteps: StepType[] = [
     id: "1",
     title: "Create organization",
     subTitle:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, error.",
+      "Set up your organization by providing its name, type, and basic company information.",
   },
   {
     id: "2",
-    title: "Create organization",
+    title: "Invite team members",
     subTitle:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, error.",
+      "Add colleagues to your organization and assign roles to control access levels.",
   },
   {
     id: "3",
-    title: "Create organization",
+    title: "Configure workspace",
     subTitle:
-      "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi, error.",
+      "Adjust organization settings, permissions, and preferences to match your workflow.",
   },
 ];
