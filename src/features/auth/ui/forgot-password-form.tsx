@@ -55,6 +55,7 @@ export const ForgotPasswordForm = () => {
                     id={forgotPasswordFields.name}
                     type={forgotPasswordFields.type}
                     placeholder={forgotPasswordFields.placeholder}
+                    required
                     className="pl-9 h-10"
                     disabled={forgotPasswordMutation.isPending}
                     autoComplete={forgotPasswordFields.autoComplete}

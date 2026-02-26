@@ -2,6 +2,8 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { registerFieldGroups } from "@/features/auth/consts";
 import {
@@ -11,6 +13,8 @@ import {
 import { useRegisterMutation } from "@/features/auth/model/mutations/use-register.mutation";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
+import { Checkbox } from "@/shared/ui/checkbox";
+import { Field, FieldLabel } from "@/shared/ui/field";
 import {
   Form,
   FormControl,
@@ -23,6 +27,7 @@ import { Input } from "@/shared/ui/input";
 import { PasswordInput } from "@/shared/ui/password-input";
 
 export const RegisterForm = () => {
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const registerMutation = useRegisterMutation();
 
   const form = useForm<RegisterFormValues>({
@@ -80,6 +85,7 @@ export const RegisterForm = () => {
                             <PasswordInput
                               id={name}
                               type={type}
+                              required={required}
                               placeholder={placeholder}
                               className="pl-9 h-10"
                               disabled={registerMutation.isPending}
@@ -90,6 +96,7 @@ export const RegisterForm = () => {
                             <Input
                               id={name}
                               type={type}
+                              required={required}
                               placeholder={placeholder}
                               className="pl-9 h-10"
                               disabled={registerMutation.isPending}
@@ -112,6 +119,28 @@ export const RegisterForm = () => {
             )}
           </div>
         ))}
+
+        <Field orientation="horizontal" className="gap-2">
+          <Checkbox
+            checked={termsAccepted}
+            onCheckedChange={() => setTermsAccepted((prev) => !prev)}
+            id="accept-terms"
+            required
+          />
+          <FieldLabel
+            htmlFor="accept-terms"
+            className="gap-1 items-end leading-2"
+          >
+            I agree to the
+            <Link href="/terms" className="font-medium hover:underline">
+              Terms
+            </Link>
+            and
+            <Link href="/privacy" className="font-medium hover:underline">
+              Privacy Policy
+            </Link>
+          </FieldLabel>
+        </Field>
 
         <Button
           type="submit"

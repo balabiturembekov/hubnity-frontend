@@ -66,6 +66,7 @@ export const LoginForm = () => {
                           <PasswordInput
                             id={name}
                             type={type}
+                            required={required}
                             placeholder={placeholder}
                             className="pl-9 h-10"
                             disabled={loginMutation.isPending}
@@ -76,6 +77,7 @@ export const LoginForm = () => {
                           <Input
                             id={name}
                             type={type}
+                            required={required}
                             placeholder={placeholder}
                             className="pl-9 h-10"
                             disabled={loginMutation.isPending}
