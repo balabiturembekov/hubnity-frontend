@@ -55,7 +55,7 @@ export const CreateOrganizationLayout = ({
         </div>
       </aside>
 
-      <main className="h-dvh flex-1">{children}</main>
+      <main className="max-h-dvh overflow-y-auto flex-1">{children}</main>
     </div>
   );
 };
