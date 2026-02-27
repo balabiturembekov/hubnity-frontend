@@ -91,6 +91,40 @@ export const footerItems: FooterItemType[] = [
   },
 ];
 
+type SocialType = {
+  id: string;
+  alt: string;
+  imgSrc: string;
+  href: string;
+};
+
+export const socials: SocialType[] = [
+  {
+    id: "1",
+    alt: "Facebook",
+    imgSrc: "/icons/facebook.svg",
+    href: "https://www.facebook.com/hubnity",
+  },
+  {
+    id: "2",
+    alt: "Instagram",
+    imgSrc: "/icons/instagram.svg",
+    href: "https://www.instagram.com/hubnity",
+  },
+  {
+    id: "3",
+    alt: "TikTok",
+    imgSrc: "/icons/tiktok.svg",
+    href: "https://www.tiktok.com/hubnity",
+  },
+  {
+    id: "4",
+    alt: "YouTube",
+    imgSrc: "/icons/youtube.svg",
+    href: "https://www.youtube.com/hubnity",
+  },
+];
+
 export const legalLinks: FooterLinkType[] = [
   {
     id: "1",

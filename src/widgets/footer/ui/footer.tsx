@@ -3,99 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
-import { footerItems, legalLinks } from "@/widgets/footer/consts";
-
-type SocialType = {
-  id: string;
-  alt: string;
-  imgSrc: string;
-  href: string;
-};
-
-const socials: SocialType[] = [
-  {
-    id: "1",
-    alt: "Facebook",
-    imgSrc: "/icons/facebook.svg",
-    href: "https://www.facebook.com/hubnity",
-  },
-  {
-    id: "2",
-    alt: "Instagram",
-    imgSrc: "/icons/instagram.svg",
-    href: "https://www.instagram.com/hubnity",
-  },
-  {
-    id: "3",
-    alt: "TikTok",
-    imgSrc: "/icons/tiktok.svg",
-    href: "https://www.tiktok.com/hubnity",
-  },
-  {
-    id: "4",
-    alt: "YouTube",
-    imgSrc: "/icons/youtube.svg",
-    href: "https://www.youtube.com/hubnity",
-  },
-];
+import { footerItems, legalLinks, socials } from "@/widgets/footer/consts";
 
 export const Footer = () => {
   return (
-    // <footer className="border-t bg-white py-12">
-    //   <div className="container mx-auto px-4">
-    //     <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
-    //       <div>
-    //         <div className="mb-4 flex items-center gap-2">
-    //           <Image
-    //             src="/img/hubnity-logo-without-descr.png"
-    //             alt="Hubnity logo"
-    //             width={110}
-    //             height={25}
-    //           />
-    //         </div>
-    //         <p className="text-sm text-gray-600">
-    //           The modern time tracking solution for teams who value productivity
-    //           and transparency.
-    //         </p>
-    //       </div>
-    //
-    //       {footerItems.map((item) => (
-    //         <div key={item.id}>
-    //           <h4 className="mb-4 font-semibold text-gray-900">{item.label}</h4>
-    //           <ul className="space-y-2 text-sm text-gray-600">
-    //             {item.links.map((link) => (
-    //               <li key={link.id}>
-    //                 <Link href={link.href} className="hover:text-primary">
-    //                   {link.label}
-    //                 </Link>
-    //               </li>
-    //             ))}
-    //           </ul>
-    //         </div>
-    //       ))}
-    //     </div>
-    //
-    //     <div className="mt-12 border-t pt-8">
-    //       <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
-    //         <p className="text-sm text-gray-600">
-    //           © {new Date().getFullYear()} Hubnity. All rights reserved.
-    //         </p>
-    //         <div className="flex items-center gap-6 text-sm text-gray-600">
-    //           {legalLinks.map((link) => (
-    //             <Link
-    //               key={link.id}
-    //               href={link.href}
-    //               className="hover:text-primary"
-    //             >
-    //               {link.label}
-    //             </Link>
-    //           ))}
-    //         </div>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </footer>
-
     <footer className="bg-linear-to-br from-primary/20 via-primary/5 to-primary/15">
       <div className="container mx-auto px-4 pb-10">
         <div className="flex flex-col items-center gap-4 mx-auto py-20 max-w-165 text-center text-pretty">
