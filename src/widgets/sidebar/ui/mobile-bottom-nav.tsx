@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Clock, Home, Menu, User as UserIcon } from "lucide-react";
+import { Clock, Home, Menu, User as UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -16,6 +16,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/shared/ui/drawer";
+import { NotificationPopover } from "@/widgets/notification";
 import { dashboardSidebarLinks } from "@/widgets/sidebar/consts";
 
 const primaryLinks = [
@@ -179,14 +180,7 @@ export function MobileBottomNav() {
 
             <div className="mt-auto pt-4 border-t px-2 flex items-center justify-between">
               <UserProfileDropdown />
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative rounded-full p-2 hover:bg-accent"
-              >
-                <Bell className="h-5 w-5" />
-                <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500" />
-              </Button>
+              <NotificationPopover />
             </div>
           </DrawerContent>
         </Drawer>
