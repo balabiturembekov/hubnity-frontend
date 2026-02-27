@@ -58,7 +58,7 @@ export const CreateOrganizationStep1Form = () => {
   return (
     <Form {...form}>
       <form className="flex flex-col gap-10 mt-5">
-        <div className="flex items-center gap-8">
+        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8">
           <FormField
             control={form.control}
             name="organizationName"
@@ -98,14 +98,14 @@ export const CreateOrganizationStep1Form = () => {
             <FormItem className="flex flex-col gap-2">
               <FormLabel aria-required>Select your team size</FormLabel>
               <FormControl>
-                <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-7 gap-3 w-full">
+                <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-7 gap-3 w-full">
                   {CREATE_ORGANIZATION_TEAM_SIZES.map((size) => (
                     <Button
                       type="button"
                       key={size}
                       variant={field.value === size ? "default" : "outline"}
                       onClick={() => field.onChange(size)}
-                      className="w-36"
+                      className="w-full"
                     >
                       {size}
                     </Button>
