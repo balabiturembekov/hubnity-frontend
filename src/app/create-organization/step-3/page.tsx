@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Check, ChevronDown, Copy, Plus, X } from "lucide-react";
 import { useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
+import { useRequireStep1Complete } from "@/features/create-organization";
 import { capitalize, cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
@@ -46,12 +47,11 @@ export default function CreateOrganizationStep3Page() {
     [invitedUsers],
   );
   const inviteLinkRef = useRef<HTMLInputElement | null>(null);
+  const { isStep1Complete } = useRequireStep1Complete();
 
-  // const { isStep1Complete } = useRequireStep1Complete();
-  //
-  // if (!isStep1Complete) {
-  //   return null;
-  // }
+  if (!isStep1Complete) {
+    return null;
+  }
 
   const handleAddInvitedUser = (role: InviteUserRole) => {
     setInvitedUsers((prev) => [
