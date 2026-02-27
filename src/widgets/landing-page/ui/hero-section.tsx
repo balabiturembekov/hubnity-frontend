@@ -5,7 +5,7 @@ import { Button } from "@/shared/ui/button";
 
 export const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden bg-linear-to-br from-primary/20 via-primary/5 to-primary/15 pt-20 sm:pt-32">
+    <section className="relative overflow-hidden bg-linear-to-br from-primary/20 via-primary/5 to-primary/15 pt-32 mask-[linear-gradient(to_top,transparent_0%,black_20%)] mask-size-[100%_100%] mask-no-repeat">
       <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-5" />
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-4xl text-center">
@@ -15,12 +15,13 @@ export const HeroSection = () => {
               New: Real-time team activity tracking
             </span>
           </div>
-          <h1 className="mb-6 text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
+          <h1 className="relative mb-6 text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
             Time Tracking That
             <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
               {" "}
               Works for You
             </span>
+            <div className="absolute right-0 -top-30 pointer-events-none -z-10 h-100 w-100 rounded-full bg-linear-to-br from-primary/40 via-purple-400/30 to-indigo-500/20 opacity-90 blur-[100px]" />
           </h1>
           <p className="mb-8 text-xl text-gray-600 sm:text-2xl">
             The all-in-one solution for teams who want to track time, manage
@@ -55,7 +56,7 @@ export const HeroSection = () => {
             height={1200}
             priority
             unoptimized
-            className="mt-12 w-full h-auto object-cover rounded-lg sm:rounded-xl rounded-b-none shadow-sm mask-[linear-gradient(to_top,transparent_0%,black_100%)] mask-size-[100%_100%] mask-no-repeat"
+            className="mt-12 w-full h-auto object-cover rounded-lg sm:rounded-xl rounded-b-none shadow-sm"
           />
         </div>
       </div>
