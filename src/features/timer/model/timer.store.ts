@@ -28,7 +28,7 @@ const initialState: Pick<
   isLoading: false,
 };
 
-export const useTimerStore = create<TimerState>((set) => ({
+export const useTimerStore = create<TimerState>((set, get) => ({
   ...initialState,
 
   setFromEntry: (entry) =>
@@ -49,5 +49,5 @@ export const useTimerStore = create<TimerState>((set) => ({
 
   setLoading: (isLoading) => set({ isLoading }),
 
-  reset: () => set(initialState),
+  reset: () => set({ ...initialState, projectId: get().projectId }),
 }));

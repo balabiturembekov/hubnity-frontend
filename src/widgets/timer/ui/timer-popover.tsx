@@ -95,6 +95,10 @@ export const TimerPopover = () => {
                   <SelectItem value="none">No project</SelectItem>
                   {projects.map((project) => (
                     <SelectItem key={project.id} value={project.id}>
+                      <div
+                        className="size-2 rounded-full"
+                        style={{ backgroundColor: project.color }}
+                      />
                       {project.name}
                     </SelectItem>
                   ))}
