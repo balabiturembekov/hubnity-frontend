@@ -49,7 +49,7 @@ export const features: FeatureType[] = [
     icon: Users,
     title: "Team Management",
     description:
-      "Manage your entire team from one dashboard. Assign projects, set hourly rates, and monitor productivity in real-time.",
+      "Manage your entire team from one dashboard. Assign campaigns, set hourly rates, and monitor productivity in real-time.",
     color: "bg-green-500/10 text-green-600",
   },
   {
@@ -89,7 +89,7 @@ export const features: FeatureType[] = [
     icon: FileText,
     title: "Project Organization",
     description:
-      "Organize work by projects with budgets, clients, and status time-entry. Keep everything in one place.",
+      "Organize work by campaigns with budgets, clients, and status time-entry. Keep everything in one place.",
     color: "bg-indigo-500/10 text-indigo-600",
   },
   {
@@ -161,7 +161,7 @@ export const howItWorks: HowItWorksType[] = [
   {
     id: "2",
     title: "Invite Team",
-    description: "Add team members and assign them to projects",
+    description: "Add team members and assign them to campaigns",
     icon: Users,
   },
   {

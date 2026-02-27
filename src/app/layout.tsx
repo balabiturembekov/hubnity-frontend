@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { cn } from "@/shared/lib/utils";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
@@ -7,24 +7,33 @@ import { Toaster } from "sonner";
 import { QueryProvider } from "@/shared/providers/query-provider";
 import { TooltipProvider } from "@/shared/ui/tooltip";
 
-const geistSans = Geist({
+const manRope = Manrope({
   subsets: ["latin"],
+  fallback: [
+    "system-ui",
+    "-apple-system",
+    "BlinkMacSystemFont",
+    "Segoe UI",
+    "Roboto",
+    "Arial",
+    "sans-serif",
+  ],
 });
 
 export const metadata: Metadata = {
   title: "Hubnity - Time Tracking & Team Management",
   description:
-    "Track time, manage projects, and boost productivity with Hubnity. The all-in-one time time-entry solution for teams.",
+    "Track time, manage campaigns, and boost productivity with Hubnity.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={cn(geistSans.className, "antialiased relative")}>
+      <body className={cn(manRope.className, "antialiased relative")}>
         <QueryProvider>
           <TooltipProvider>
             <NextTopLoader

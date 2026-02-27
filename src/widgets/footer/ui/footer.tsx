@@ -13,7 +13,7 @@ export const Footer = () => {
                 src="/img/hubnity-logo-without-descr.png"
                 alt="Hubnity logo"
                 width={110}
-                height={110}
+                height={25}
               />
             </div>
             <p className="text-sm text-gray-600">

@@ -1,5 +1,3 @@
-import { Footer } from "@/widgets/footer";
-import { Header } from "@/widgets/header";
 import {
   BenefitSection,
   CTASection,
@@ -8,11 +6,11 @@ import {
   HowItWorksSection,
   StatsSection,
 } from "@/widgets/landing-page";
+import { SiteShell } from "@/widgets/site/ui/site-shell";
 
 export default function Home() {
   return (
-    <>
-      <Header />
+    <SiteShell>
       <main>
         <HeroSection />
         <StatsSection />
@@ -21,7 +19,6 @@ export default function Home() {
         <BenefitSection />
         <CTASection />
       </main>
-      <Footer />
-    </>
+    </SiteShell>
   );
 }

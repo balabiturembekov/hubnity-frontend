@@ -18,7 +18,7 @@ export function Header() {
             src="/img/hubnity-logo-without-descr.png"
             alt="Hubnity logo"
             width={110}
-            height={110}
+            height={25}
           />
         </Link>
 

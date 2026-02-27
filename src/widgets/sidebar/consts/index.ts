@@ -47,10 +47,24 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
   },
   {
     id: "4",
-    label: "Projects",
-    href: "/dashboard/admin/projects",
+    label: "Management",
+    href: "/dashboard/admin/campaigns",
     icon: FileText,
     isAdminOnly: true,
+    // childrenLinks: [
+    //   {
+    //     id: "1",
+    //     label: "Campaigns",
+    //     href: "/dashboard/admin/campaigns",
+    //     isAdminOnly: true,
+    //   },
+    //   {
+    //     id: "2",
+    //     label: "Jobs",
+    //     href: "/dashboard/admin/campaigns/jobs",
+    //     isAdminOnly: true,
+    //   },
+    // ],
   },
   {
     id: "5",

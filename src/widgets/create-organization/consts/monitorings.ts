@@ -26,7 +26,7 @@ export const monitorings: Monitoring[] = [
     id: "1",
     icon: Clock,
     title: "Time tracking",
-    description: "Track time spent on tasks and projects",
+    description: "Track time spent on tasks and campaigns",
     isPopular: true,
   },
   {

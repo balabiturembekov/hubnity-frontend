@@ -48,7 +48,7 @@ export function DashboardSidebar() {
             src="/img/hubnity-logo-without-descr.png"
             alt="Logo"
             width={110}
-            height={110}
+            height={25}
           />
         </Link>
       </div>
