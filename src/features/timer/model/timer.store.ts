@@ -51,4 +51,3 @@ export const useTimerStore = create<TimerState>((set) => ({
 
   reset: () => set(initialState),
 }));
-
