@@ -5,7 +5,6 @@ import {
   TeamActivityBadgeVariant,
 } from "@/entities/team-activity";
 import { UserAvatar, useUser } from "@/entities/user";
-import { formatDurationFull } from "@/shared/lib/utils";
 import {
   Accordion,
   AccordionContent,
