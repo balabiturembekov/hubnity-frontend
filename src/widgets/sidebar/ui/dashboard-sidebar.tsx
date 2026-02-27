@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -43,7 +44,12 @@ export function DashboardSidebar() {
     <div className="hidden min-[769px]:flex h-full w-0 min-[769px]:min-w-64 overflow-hidden flex-col border-r bg-background">
       <div className="flex min-h-16 items-center border-b px-6">
         <Link href="/" className="text-xl font-bold">
-          Hubnity
+          <Image
+            src="/img/hubnity-logo-without-descr.png"
+            alt="Logo"
+            width={110}
+            height={110}
+          />
         </Link>
       </div>
       <nav className="flex-1 space-y-1 p-4 overflow-y-auto">

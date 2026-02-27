@@ -1,6 +1,7 @@
 "use client";
 
 import { Bell, Clock, Home, Menu, User as UserIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -77,7 +78,15 @@ export function MobileBottomNav() {
           </DrawerTrigger>
           <DrawerContent className="h-[85vh] rounded-t-3xl pt-4 pb-4 px-4 flex flex-col">
             <DrawerHeader className="text-left mb-6 px-2">
-              <DrawerTitle className="text-xl font-bold">Hubnity</DrawerTitle>
+              <DrawerTitle className="text-xl font-bold">
+                <Image
+                  src="/img/hubnity-logo-without-descr.png"
+                  className="mx-auto"
+                  alt="Logo"
+                  width={110}
+                  height={110}
+                />
+              </DrawerTitle>
             </DrawerHeader>
 
             <div className="flex-1 overflow-y-auto pr-2 pb-8 scrollbar-hide">
