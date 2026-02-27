@@ -1,4 +1,4 @@
-import { Clock } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { footerItems, legalLinks } from "@/widgets/footer/consts";
 
@@ -9,10 +9,12 @@ export const Footer = () => {
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="mb-4 flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-                <Clock className="h-5 w-5 text-primary-foreground" />
-              </div>
-              <span className="text-lg font-bold text-gray-900">Hubnity</span>
+              <Image
+                src="/img/hubnity-logo-without-descr.png"
+                alt="Hubnity logo"
+                width={110}
+                height={110}
+              />
             </div>
             <p className="text-sm text-gray-600">
               The modern time tracking solution for teams who value productivity
