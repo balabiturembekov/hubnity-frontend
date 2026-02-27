@@ -96,7 +96,7 @@ export const MembersTable = () => {
                           Hours
                         </div>
                         <div className="font-bold text-primary group-hover:text-primary transition-colors text-base">
-                          {formatDurationFull(member.totalHours * 3600)}
+                          {`${member.totalHours.toFixed(2)}h`}
                         </div>
                       </div>
                       <div className="text-right flex flex-col items-end">
@@ -202,7 +202,7 @@ export const MembersTable = () => {
                                     </div>
                                   </TableCell>
                                   <TableCell className="text-right font-medium text-muted-foreground group-hover:text-primary transition-colors">
-                                    {formatDurationFull(project.hours * 3600)}
+                                    {`${project.hours.toFixed(2)}h`}
                                   </TableCell>
                                   <TableCell className="text-right font-semibold text-emerald-600/90">
                                     ${project.earned.toFixed(2)}
