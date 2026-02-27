@@ -1,6 +1,9 @@
+"use client";
+
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { createOrganizationSteps } from "@/widgets/organization";
@@ -9,13 +12,22 @@ interface CreateOrganizationLayoutProps {
   children: React.ReactNode;
   currentStep: number;
   nextLinkDisabled?: boolean;
+  className?: string;
 }
 
 export const CreateOrganizationLayout = ({
   currentStep,
   children,
   nextLinkDisabled = false,
+  className,
 }: CreateOrganizationLayoutProps) => {
+  const router = useRouter();
+
+  const nextHref =
+    currentStep === 1
+      ? "/create-organization/step-2"
+      : "/create-organization/step-3";
+
   return (
     <div className="flex">
       <aside className="flex flex-col gap-30 h-dvh w-1/3 border-r bg-gray-100 border-input px-8 py-10">
@@ -23,7 +35,7 @@ export const CreateOrganizationLayout = ({
           src="/img/hubnity-logo.png"
           alt="Hubnity logo"
           width={200}
-          height={50}
+          height={66}
         />
 
         <div className="flex flex-col gap-32">
@@ -62,7 +74,7 @@ export const CreateOrganizationLayout = ({
 
       <div className="max-h-dvh overflow-y-auto flex-1 px-5 sm:px-10 py-10 flex flex-col gap-4">
         <header>
-          <h1 className="text-3xl font-semibold">
+          <h1 className="text-3xl font-bold">
             {createOrganizationSteps[currentStep - 1].title}
           </h1>
           <p className="text-muted-foreground">
@@ -70,7 +82,7 @@ export const CreateOrganizationLayout = ({
           </p>
         </header>
 
-        <main className="flex-1">{children}</main>
+        <main className={cn("flex-1", className)}>{children}</main>
 
         <footer className="w-full flex items-center justify-between mt-4">
           {currentStep !== 1 && (
@@ -90,19 +102,24 @@ export const CreateOrganizationLayout = ({
           )}
           {currentStep !== 3 && (
             <Button
-              asChild
               size="lg"
               className={cn("h-10 text-sm", {
                 "ml-auto": currentStep === 1,
               })}
               disabled={nextLinkDisabled}
+              onClick={() => {
+                if (!nextLinkDisabled) {
+                  router.push(nextHref);
+                }
+              }}
             >
-              <Link
-                href={`/create-organization/${currentStep === 1 ? "step-2" : "step-3"}`}
-              >
-                Next step
-                <ArrowRight className="ml-2 h-5 w-5" strokeWidth={2.5} />
-              </Link>
+              Next step
+              <ArrowRight className="ml-2 h-5 w-5" strokeWidth={2.5} />
+            </Button>
+          )}
+          {currentStep === 3 && (
+            <Button size="lg" className="h-10 text-sm">
+              Finish
             </Button>
           )}
         </footer>

@@ -96,7 +96,7 @@ export const CreateOrganizationStep1Form = () => {
           name="teamSize"
           render={({ field }) => (
             <FormItem className="flex flex-col gap-2">
-              <FormLabel>Select your team size</FormLabel>
+              <FormLabel aria-required>Select your team size</FormLabel>
               <FormControl>
                 <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 2xl:grid-cols-7 gap-3 w-full">
                   {CREATE_ORGANIZATION_TEAM_SIZES.map((size) => (

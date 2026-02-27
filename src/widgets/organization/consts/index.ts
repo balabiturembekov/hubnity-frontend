@@ -13,14 +13,13 @@ export const createOrganizationSteps: StepType[] = [
   },
   {
     id: "2",
-    title: "Invite team members",
-    subTitle:
-      "Add colleagues to your organization and assign roles to control access levels.",
+    title: "What are your goals?",
+    subTitle: "Choose the tools that best support how your team works",
   },
   {
     id: "3",
-    title: "Configure workspace",
+    title: "Invite team members",
     subTitle:
-      "Adjust organization settings, permissions, and preferences to match your workflow.",
+      "Add colleagues to your organization and assign roles to control access levels.",
   },
 ];

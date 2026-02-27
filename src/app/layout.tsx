@@ -27,7 +27,12 @@ export default function RootLayout({
       <body className={cn(geistSans.className, "antialiased relative")}>
         <QueryProvider>
           <TooltipProvider>
-            <NextTopLoader color="var(--primary)" height={3} easing="ease" />
+            <NextTopLoader
+              color="var(--primary)"
+              height={3}
+              easing="ease"
+              showSpinner={false}
+            />
             {children}
             <Toaster richColors position="top-right" />
           </TooltipProvider>
