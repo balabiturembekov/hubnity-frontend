@@ -1,10 +1,11 @@
 import { ArrowRight, Play, Zap } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/shared/ui/button";
 
 export const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-gray-50 via-white to-gray-50 py-20 sm:py-32">
+    <section className="relative overflow-hidden bg-linear-to-br from-primary/20 via-primary/5 to-primary/15 pt-20 sm:pt-32">
       <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-5" />
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-4xl text-center">
@@ -16,7 +17,7 @@ export const HeroSection = () => {
           </div>
           <h1 className="mb-6 text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
             Time Tracking That
-            <span className="bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
               {" "}
               Works for You
             </span>
@@ -45,8 +46,17 @@ export const HeroSection = () => {
             </Button>
           </div>
           <p className="mt-6 text-sm text-gray-500">
-            No credit card required • 14-day free trial
+            No credit card required • 21-day free trial
           </p>
+          <Image
+            src="/img/dashboard-illustration.png"
+            alt="Dashboard Preview"
+            width={1920}
+            height={1200}
+            priority
+            unoptimized
+            className="mt-12 w-full h-auto object-cover rounded-lg sm:rounded-xl rounded-b-none shadow-sm mask-[linear-gradient(to_top,transparent_0%,black_100%)] mask-size-[100%_100%] mask-no-repeat"
+          />
         </div>
       </div>
     </section>
