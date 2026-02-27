@@ -43,16 +43,14 @@ export function Header() {
       )}
     >
       <div className="container grid grid-cols-2 xl:grid-cols-[1fr_2fr_1fr] mx-auto items-center justify-between px-4">
-        <div>
-          <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/img/hubnity-logo-without-descr.png"
-              alt="Hubnity logo"
-              width={110}
-              height={25}
-            />
-          </Link>
-        </div>
+        <Link href="/" className="flex items-center gap-2 w-fit">
+          <Image
+            src="/img/hubnity-logo-without-descr.png"
+            alt="Hubnity logo"
+            width={110}
+            height={25}
+          />
+        </Link>
 
         <nav className="hidden xl:flex items-center justify-center text-sm font-medium">
           {LANDING_HEADER_LINKS.map((link) => (

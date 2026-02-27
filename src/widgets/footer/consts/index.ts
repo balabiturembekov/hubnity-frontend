@@ -33,7 +33,7 @@ export const footerItems: FooterItemType[] = [
       {
         id: "4",
         label: "Team Activity",
-        href: "/admin/team-acitivy",
+        href: "/admin/team-activity",
       },
     ],
   },
@@ -48,7 +48,7 @@ export const footerItems: FooterItemType[] = [
       },
       {
         id: "2",
-        label: "blog",
+        label: "Blog",
         href: "#", // TODO: Create blog page
       },
       {
@@ -94,17 +94,12 @@ export const footerItems: FooterItemType[] = [
 export const legalLinks: FooterLinkType[] = [
   {
     id: "1",
-    label: "Terms",
-    href: "#", // TODO: Create terms page
-  },
-  {
-    id: "2",
     label: "Privacy",
     href: "#", // TODO: Create privacy page
   },
   {
-    id: "3",
-    label: "Security",
-    href: "#", // TODO: Create Security page
+    id: "2",
+    label: "Terms",
+    href: "#", // TODO: Create terms page
   },
 ];
