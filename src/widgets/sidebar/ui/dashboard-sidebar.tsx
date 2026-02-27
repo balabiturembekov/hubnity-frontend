@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { ChevronLeft } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, Timer } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,6 +10,7 @@ import { useCurrentUser, useUser } from "@/entities/user";
 import { UserProfileDropdown } from "@/features/user";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
+import { Separator } from "@/shared/ui/separator";
 import { NotificationPopover } from "@/widgets/notification";
 import { dashboardSidebarLinks } from "@/widgets/sidebar/consts";
 
@@ -53,6 +54,16 @@ export function DashboardSidebar() {
         </Link>
       </div>
       <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
+        <Button variant="outline" className={cn("w-full justify-between")}>
+          <div className="flex items-center gap-2">
+            <Timer />
+            <span className="text-primary">0:00:00</span>
+          </div>
+          <ArrowUpRight />
+        </Button>
+
+        <Separator className="my-2" />
+
         {dashboardSidebarLinks.map((item) => {
           if (
             item.isAdminOnly &&

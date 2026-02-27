@@ -4,9 +4,7 @@ import { SiteShell } from "@/widgets/site/ui/site-shell";
 export default function NotFound() {
   return (
     <SiteShell>
-      <main>
-        <NotFoundPage />
-      </main>
+      <NotFoundPage />
     </SiteShell>
   );
 }

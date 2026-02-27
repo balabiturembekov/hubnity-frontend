@@ -16,7 +16,7 @@ export const useFilteredTimeEntries = (
     refetch,
     isRefetching,
     ...queryParams
-  } = useGetTimeEntriesQuery({ userId, status, limit: 15 });
+  } = useGetTimeEntriesQuery({ userId, status });
   const { searchQuery, projectId, period } = useTimeEntriesStore();
 
   const filteredTimeEntries = useMemo(() => {

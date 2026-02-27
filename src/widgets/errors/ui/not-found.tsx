@@ -16,10 +16,14 @@ export const NotFoundPage = ({ variant = "default" }: NotFoundPageProps) => {
         },
       )}
     >
-      <div className="flex flex-col items-center text-center w-150 text-pretty">
-        <h1 className="text-xl text-muted-foreground mb-6">404 Not Found</h1>
-        <h2 className="text-5xl font-semibold mb-4">Oops! Page Not found</h2>
-        <p className="text-xl text-muted-foreground mb-10">
+      <div className="flex flex-col items-center text-center w-150 text-pretty px-5">
+        <h1 className="text-base lg:text-xl text-muted-foreground mb-3 lg:mb-6">
+          404 Not Found
+        </h1>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-semibold mb-4">
+          Oops! Page Not found
+        </h2>
+        <p className="text-base md: lg:text-xl text-muted-foreground mb-10">
           The page you are looking for doesn't exist. Click button below to go
           to the {variant === "default" ? "homepage" : "dashboard"}.
         </p>
