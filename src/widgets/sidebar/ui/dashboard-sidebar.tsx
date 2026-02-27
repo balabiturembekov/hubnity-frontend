@@ -13,6 +13,7 @@ import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
 import { NotificationPopover } from "@/widgets/notification";
 import { dashboardSidebarLinks } from "@/widgets/sidebar/consts";
+import { TimerPopover } from "@/widgets/timer";
 
 export function DashboardSidebar() {
   const pathname = usePathname();
@@ -54,13 +55,7 @@ export function DashboardSidebar() {
         </Link>
       </div>
       <nav className="flex-1 space-y-1 p-4 overflow-y-auto">
-        <Button variant="outline" className={cn("w-full justify-between")}>
-          <div className="flex items-center gap-2">
-            <Timer />
-            <span className="text-primary">0:00:00</span>
-          </div>
-          <ArrowUpRight />
-        </Button>
+        <TimerPopover />
 
         <Separator className="my-2" />
 
