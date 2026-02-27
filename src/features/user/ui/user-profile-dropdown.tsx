@@ -20,10 +20,12 @@ import { Skeleton } from "@/shared/ui/skeleton";
 
 interface UserProfileDropdownProps {
   className?: string;
+  isHideInitials?: boolean;
 }
 
 export const UserProfileDropdown = ({
   className,
+  isHideInitials = false,
 }: UserProfileDropdownProps) => {
   const { data: user } = useCurrentUser();
   const router = useRouter();
@@ -57,7 +59,12 @@ export const UserProfileDropdown = ({
           )}
         >
           <UserAvatar name={user.name} avatar={user.avatar} size="md" />
-          <span className="text-xs font-medium mr-1 text-left">
+          <span
+            className={cn(
+              "text-xs font-medium mr-1 text-left",
+              isHideInitials ? "hidden sm:block" : "",
+            )}
+          >
             {user.name}
           </span>
         </Button>
