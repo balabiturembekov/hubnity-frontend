@@ -29,8 +29,8 @@ export const CreateOrganizationLayout = ({
       : "/create-organization/step-3";
 
   return (
-    <div className="flex">
-      <aside className="flex flex-col gap-30 h-dvh w-1/3 border-r bg-gray-100 border-input px-8 py-10">
+    <div className="flex flex-col lg:flex-row">
+      <aside className="hidden lg:flex flex-col min-h-dvh gap-30 w-1/3 border-r bg-gray-100 border-input px-8 py-10 overflow-y-auto">
         <Image
           src="/img/hubnity-logo.png"
           alt="Hubnity logo"
@@ -72,7 +72,31 @@ export const CreateOrganizationLayout = ({
         </div>
       </aside>
 
-      <div className="max-h-dvh overflow-y-auto flex-1 px-5 sm:px-10 py-10 flex flex-col gap-4">
+      <aside className="flex items-center justify-between lg:hidden gap-6 w-full bg-gray-100 px-5 sm:px-10 py-3 sticky top-0 z-50 shadow-sm">
+        <div className="flex items-center gap-4 relative">
+          <div className="flex items-end">
+            <div className="shrink-0 size-9 rounded-full flex items-center justify-center bg-primary text-white">
+              {currentStep}
+            </div>
+            <span className="text-primary">/3</span>
+          </div>
+          <div className="flex flex-col gap-0.5 font-semibold">
+            <h3>{createOrganizationSteps[currentStep - 1].title}</h3>
+            <p className="hidden sm:block text-muted-foreground font-light text-sm">
+              {createOrganizationSteps[currentStep - 1].subTitle}
+            </p>
+          </div>
+        </div>
+
+        <Image
+          src="/img/hubnity-logo-without-text.png"
+          alt="Hubnity logo"
+          width={40}
+          height={40}
+        />
+      </aside>
+
+      <div className="overflow-y-auto flex-1 px-5 sm:px-10 py-10 flex flex-col gap-4">
         <header>
           <h1 className="text-3xl font-bold">
             {createOrganizationSteps[currentStep - 1].title}
@@ -82,9 +106,10 @@ export const CreateOrganizationLayout = ({
           </p>
         </header>
 
-        <main className={cn("flex-1", className)}>{children}</main>
-
-        <footer className="w-full flex items-center justify-between mt-4">
+        <main className={cn("flex-1 pb-12 lg:pb-0", className)}>
+          {children}
+        </main>
+        <footer className="w-full flex items-center justify-between mt-4 fixed lg:static bottom-0 left-0 bg-gray-100 lg:bg-background py-3 lg:py-0 px-5 sm:px-10 lg:px-0 shadow-[0_-1px_3px_0_#0000001a] lg:shadow-none">
           {currentStep !== 1 && (
             <Button
               asChild
