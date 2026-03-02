@@ -1,4 +1,5 @@
 import { BarChart3 } from "lucide-react";
+import { useUser } from "@/entities/user";
 import {
   DailyChart,
   GoalProgress,
@@ -22,6 +23,7 @@ export const AnalyticsSection = ({
 }: AnalyticsSectionProps) => {
   const { isPending: isPendingHourly } = useHourlyData();
   const { isPending: isPendingDaily } = useDailyData();
+  const { isAdmin } = useUser();
 
   const isPending = isPendingHourly || isPendingDaily;
 
@@ -34,8 +36,11 @@ export const AnalyticsSection = ({
           title="Analytics"
           icon={BarChart3}
           link={
-            isPreview
-              ? { label: "View All Reports", href: "/dashboard/admin/reports" }
+            isPreview && isAdmin
+              ? {
+                  label: "View All Reports",
+                  href: "/dashboard/summaries",
+                }
               : undefined
           }
         />

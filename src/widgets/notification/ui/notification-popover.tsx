@@ -15,7 +15,12 @@ export const NotificationPopover = () => {
         <NotificationTrigger />
       </div>
 
-      <PopoverContent className="px-0 w-130 ml-5 pb-0">
+      <PopoverContent
+        className="px-0 w-[95vw] sm:w-130 ml-5 pb-0"
+        onWheel={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
+        onTouchMove={(e) => e.stopPropagation()}
+      >
         <NotificationPopoverHeader onClose={() => setOpen(false)} />
         <NotificationPopoverContent />
       </PopoverContent>

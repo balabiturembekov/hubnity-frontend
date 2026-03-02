@@ -1,6 +1,7 @@
 "use client";
 
 import { useCurrentUser } from "@/entities/user";
+import { AdminGuard } from "@/features/auth";
 import { ReportsPeriodSelect } from "@/features/reports";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { AnalyticsSection } from "@/widgets/dashboard/ui/analytics-section";
@@ -16,23 +17,25 @@ export default function AdminReportsPage() {
   }
 
   return (
-    <DashboardContainer>
-      <DashboardPageHeader
-        title="Reports"
-        subTitle="Analyze time tracking data and generate insights"
-      >
-        <ReportsPeriodSelect />
-        <ExportDialog />
-      </DashboardPageHeader>
+    <AdminGuard>
+      <DashboardContainer>
+        <DashboardPageHeader
+          title="Reports"
+          subTitle="Analyze time tracking data and generate insights"
+        >
+          <ReportsPeriodSelect />
+          <ExportDialog />
+        </DashboardPageHeader>
 
-      <div className="p-2 md:p-6 grid grid-cols-2 gap-4">
-        <div className="col-span-2">
-          <ReportsStatsSection />
+        <div className="p-2 md:p-6 grid grid-cols-2 gap-4">
+          <div className="col-span-2">
+            <ReportsStatsSection />
+          </div>
+          <div className="col-span-2">
+            <AnalyticsSection />
+          </div>
         </div>
-        <div className="col-span-2">
-          <AnalyticsSection />
-        </div>
-      </div>
-    </DashboardContainer>
+      </DashboardContainer>
+    </AdminGuard>
   );
 }

@@ -2,6 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import { useUser } from "@/entities/user";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { DashboardPageHeader } from "@/widgets/header";
@@ -11,6 +12,7 @@ function FullReportContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
+  const { isAdmin } = useUser();
   const defaultTab = searchParams?.get("tab") === "me" ? "me" : "all";
 
   const handleTabChange = (value: string) => {
@@ -21,19 +23,23 @@ function FullReportContent() {
 
   return (
     <div className="p-2 md:p-6 space-y-8">
-      <Tabs defaultValue={defaultTab} onValueChange={handleTabChange}>
-        <TabsList className="w-32">
-          <TabsTrigger value="me">Me</TabsTrigger>
-          <TabsTrigger value="all">All</TabsTrigger>
-        </TabsList>
+      {isAdmin ? (
+        <Tabs defaultValue={defaultTab} onValueChange={handleTabChange}>
+          <TabsList className="w-32">
+            <TabsTrigger value="me">Me</TabsTrigger>
+            <TabsTrigger value="all">All</TabsTrigger>
+          </TabsList>
 
-        <TabsContent value="all">
-          <AppsUrlsReport />
-        </TabsContent>
-        <TabsContent value="me">
-          <AppsUrlsReport isAll={false} />
-        </TabsContent>
-      </Tabs>
+          <TabsContent value="all">
+            <AppsUrlsReport />
+          </TabsContent>
+          <TabsContent value="me">
+            <AppsUrlsReport isAll={false} />
+          </TabsContent>
+        </Tabs>
+      ) : (
+        <AppsUrlsReport isAll={false} />
+      )}
     </div>
   );
 }

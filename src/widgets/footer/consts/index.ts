@@ -33,7 +33,7 @@ export const footerItems: FooterItemType[] = [
       {
         id: "4",
         label: "Team Activity",
-        href: "/admin/team-acitivy",
+        href: "/admin/team-activity",
       },
     ],
   },
@@ -48,7 +48,7 @@ export const footerItems: FooterItemType[] = [
       },
       {
         id: "2",
-        label: "blog",
+        label: "Blog",
         href: "#", // TODO: Create blog page
       },
       {
@@ -91,20 +91,49 @@ export const footerItems: FooterItemType[] = [
   },
 ];
 
-export const legalLinks: FooterLinkType[] = [
+type SocialType = {
+  id: string;
+  alt: string;
+  imgSrc: string;
+  href: string;
+};
+
+export const socials: SocialType[] = [
   {
     id: "1",
-    label: "Terms",
-    href: "#", // TODO: Create terms page
+    alt: "Facebook",
+    imgSrc: "/icons/facebook.svg",
+    href: "https://www.facebook.com/hubnity",
   },
   {
     id: "2",
+    alt: "Instagram",
+    imgSrc: "/icons/instagram.svg",
+    href: "https://www.instagram.com/hubnity",
+  },
+  {
+    id: "3",
+    alt: "TikTok",
+    imgSrc: "/icons/tiktok.svg",
+    href: "https://www.tiktok.com/hubnity",
+  },
+  {
+    id: "4",
+    alt: "YouTube",
+    imgSrc: "/icons/youtube.svg",
+    href: "https://www.youtube.com/hubnity",
+  },
+];
+
+export const legalLinks: FooterLinkType[] = [
+  {
+    id: "1",
     label: "Privacy",
     href: "#", // TODO: Create privacy page
   },
   {
-    id: "3",
-    label: "Security",
-    href: "#", // TODO: Create Security page
+    id: "2",
+    label: "Terms",
+    href: "#", // TODO: Create terms page
   },
 ];

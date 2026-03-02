@@ -22,7 +22,7 @@ export const NotificationTrigger = () => {
             variant="destructive"
             className="absolute top-0 right-0 p-0 size-5 flex items-center justify-center text-[10px]"
           >
-            {notificationsCount.count}
+            {notificationsCount.count > 99 ? "99+" : notificationsCount.count}
           </Badge>
         )}
       </Button>

@@ -1,21 +1,18 @@
-import { LogIn } from "lucide-react";
+import { FingerprintPattern } from "lucide-react";
 import { LoginForm } from "@/features/auth";
-import { AuthCard } from "@/widgets/auth/ui/auth-card";
+import { AuthLayout } from "@/widgets/auth/ui/auth-layout";
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen w-full flex items-center justify-center bg-linear-to-br from-primary/5 via-white to-primary/5 py-12 px-2">
-      <AuthCard
-        title="Hubnity"
-        subtitle="Time Tracking & Team Management"
-        cardIcon={LogIn}
-        cardTitle="Welcome back"
-        cardDescription="Enter your credentials to access your account"
-        footerText="Don't have an account?"
-        footerLink={{ text: "Create one", href: "/register" }}
-      >
-        <LoginForm />
-      </AuthCard>
-    </main>
+    <AuthLayout
+      icon={FingerprintPattern}
+      title="Welcome back"
+      description="Enter your credentials to access your account"
+      footerText="Don't have an account?"
+      footerLink={{ text: "Create one", href: "/register" }}
+      showGoogleButton
+    >
+      <LoginForm />
+    </AuthLayout>
   );
 }

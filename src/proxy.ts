@@ -1,6 +1,12 @@
 import { type NextRequest, NextResponse } from "next/server";
 
-const authPaths = ["/login", "/register"];
+const authPaths = [
+  "/login",
+  "/register",
+  "/reset-password",
+  "/forgot-password",
+  "/email-confirmation",
+];
 const publicPaths = ["/", "/profile"];
 
 const isAuthPath = (path: string): boolean => {
@@ -39,5 +45,5 @@ export default function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|favicon.ico|images|uploads|fonts|api|assets).*)"],
+  matcher: ["/((?!_next|favicon.ico|images|img|uploads|fonts|api|assets).*)"],
 };

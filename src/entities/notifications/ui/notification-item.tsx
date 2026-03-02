@@ -37,10 +37,10 @@ export const NotificationItem = ({ notification }: NotificationItemProps) => {
           </span>
         </div>
         <div className="flex items-center gap-1">
-          <Button size="sm" variant="outline" className="w-22 text-sm">
+          <Button size="sm" variant="outline" className="sm:w-22 text-sm">
             Decline
           </Button>
-          <Button size="sm" className="w-22 text-sm">
+          <Button size="sm" className="sm:w-22 text-sm">
             Accept
           </Button>
         </div>
@@ -51,7 +51,7 @@ export const NotificationItem = ({ notification }: NotificationItemProps) => {
           <Button
             variant="ghost"
             size="icon-sm"
-            className="opacity-0 group-hover:opacity-100 transition-discrete"
+            className="opacity-100 min-[769px]:opacity-0 min-[769px]:group-hover:opacity-100 transition-discrete"
             onClick={() => markAsRead()}
             asChild
           >

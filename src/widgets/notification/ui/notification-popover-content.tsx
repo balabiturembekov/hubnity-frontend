@@ -15,7 +15,7 @@ export const NotificationPopoverContent = () => {
   return (
     <div className="flex items-center justify-between pt-5">
       <Tabs defaultValue="all" className="w-full">
-        <div className="flex items-center justify-between mx-5">
+        <div className="flex flex-col sm:flex-row items-center justify-between mx-5 gap-1">
           <TabsList>
             <TabsTrigger value="all" className="w-32">
               View all
@@ -33,14 +33,16 @@ export const NotificationPopoverContent = () => {
         </div>
         <TabsContent
           value="all"
-          className="max-h-130 overflow-y-auto mt-5 flex flex-col gap-5 px-5"
+          className="max-h-[50vh] overflow-y-auto mt-2 min-[769px]:mt-5 flex flex-col gap-5 px-5"
+          data-vaul-no-drag
         >
           <NotificationList />
         </TabsContent>
 
         <TabsContent
           value="unread"
-          className="max-h-130 overflow-y-auto mt-5 flex flex-col gap-5 px-5"
+          className="max-h-[50vh] overflow-y-auto mt-2 min-[769px]:mt-5 flex flex-col gap-5 px-5"
+          data-vaul-no-drag
         >
           <NotificationList unreadOnly />
         </TabsContent>

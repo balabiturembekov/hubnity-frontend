@@ -1,6 +1,7 @@
 "use client";
 
-import { Bell, Clock, Home, Menu, User as UserIcon } from "lucide-react";
+import { Clock, Home, Menu, User as UserIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
@@ -15,6 +16,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/shared/ui/drawer";
+import { NotificationPopover } from "@/widgets/notification";
 import { dashboardSidebarLinks } from "@/widgets/sidebar/consts";
 
 const primaryLinks = [
@@ -77,7 +79,15 @@ export function MobileBottomNav() {
           </DrawerTrigger>
           <DrawerContent className="h-[85vh] rounded-t-3xl pt-4 pb-4 px-4 flex flex-col">
             <DrawerHeader className="text-left mb-6 px-2">
-              <DrawerTitle className="text-xl font-bold">Hubnity</DrawerTitle>
+              <DrawerTitle className="text-xl font-bold">
+                <Image
+                  src="/img/hubnity-logo-without-descr.png"
+                  className="mx-auto"
+                  alt="Logo"
+                  width={110}
+                  height={110}
+                />
+              </DrawerTitle>
             </DrawerHeader>
 
             <div className="flex-1 overflow-y-auto pr-2 pb-8 scrollbar-hide">
@@ -128,6 +138,15 @@ export function MobileBottomNav() {
                         {item.childrenLinks.map((link) => {
                           const isChildActive = pathname === link.href;
 
+                          if (
+                            link.isAdminOnly &&
+                            user?.role !== "ADMIN" &&
+                            user?.role !== "OWNER" &&
+                            user?.role !== "SUPER_ADMIN"
+                          ) {
+                            return null;
+                          }
+
                           return (
                             <div key={link.id} className="relative">
                               <div className="size-[12px] border-l border-b border-gray-300  absolute -left-[12px] top-3.5 -translate-y-1/2 rounded-bl-md" />
@@ -161,14 +180,7 @@ export function MobileBottomNav() {
 
             <div className="mt-auto pt-4 border-t px-2 flex items-center justify-between">
               <UserProfileDropdown />
-              <Button
-                variant="ghost"
-                size="icon"
-                className="relative rounded-full p-2 hover:bg-accent"
-              >
-                <Bell className="h-5 w-5" />
-                <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500" />
-              </Button>
+              <NotificationPopover />
             </div>
           </DrawerContent>
         </Drawer>

@@ -28,7 +28,7 @@ export const settingsItems: SettingsItemType[] = [
   //       href: "/dashboard/admin/settings/organization",
   //       icon: FolderRoot,
   //       description:
-  //         "Create and manage projects, tasks and internal workflows.",
+  //         "Create and manage campaigns, tasks and internal workflows.",
   //     },
   //     {
   //       id: "4",
@@ -155,7 +155,7 @@ export const settingsItems: SettingsItemType[] = [
   //       label: "Jira",
   //       href: "/dashboard/admin/settings/integrations",
   //       icon: KanbanSquare,
-  //       description: "Sync projects and tasks with Jira.",
+  //       description: "Sync campaigns and tasks with Jira.",
   //     },
   //     {
   //       id: "4",

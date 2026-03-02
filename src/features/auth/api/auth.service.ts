@@ -2,11 +2,13 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import type {
   ChangePasswordReq,
+  ForgotPasswordReq,
   LoginReq,
   LoginRes,
   RefreshRes,
   RegisterReq,
   RegisterRes,
+  ResetPasswordReq,
 } from "@/features/auth/model/auth.types";
 import { api } from "@/shared/config/api";
 import { apiUrl } from "@/shared/config/env";
@@ -66,6 +68,16 @@ class AuthService {
 
   async changePassword(payload: ChangePasswordReq) {
     const res = await api.post<MessageRes>("/auth/change-password", payload);
+    return res.data;
+  }
+
+  async forgotPassword(payload: ForgotPasswordReq) {
+    const res = await api.post<MessageRes>("/auth/forgot-password", payload);
+    return res.data;
+  }
+
+  async resetPassword(payload: ResetPasswordReq) {
+    const res = await api.post<MessageRes>("/auth/reset-password", payload);
     return res.data;
   }
 }

@@ -2,6 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { loginFields } from "@/features/auth/consts";
 import {
@@ -35,65 +36,74 @@ export const LoginForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit((values) => loginMutation.mutate(values))}
-        className="space-y-5"
+        className="flex flex-col gap-3"
       >
-        {loginFields.map(
-          ({
-            name,
-            label,
-            placeholder,
-            type = "text",
-            required,
-            icon: Icon,
-            bottomMessage,
-            autoComplete,
-          }) => (
-            <FormField
-              key={name}
-              control={form.control}
-              name={name}
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel htmlFor={name} aria-required={required}>
-                    {label}
-                  </FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <Icon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground z-10" />
-                      {type === "password" ? (
-                        <PasswordInput
-                          id={name}
-                          type={type}
-                          placeholder={placeholder}
-                          className="pl-9 h-10"
-                          disabled={loginMutation.isPending}
-                          autoComplete={autoComplete}
-                          {...field}
-                        />
-                      ) : (
-                        <Input
-                          id={name}
-                          type={type}
-                          placeholder={placeholder}
-                          className="pl-9 h-10"
-                          disabled={loginMutation.isPending}
-                          autoComplete={autoComplete}
-                          {...field}
-                        />
-                      )}
-                    </div>
-                  </FormControl>
-                  {bottomMessage && (
-                    <span className="text-xs text-muted-foreground">
-                      {bottomMessage}
-                    </span>
-                  )}
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          ),
-        )}
+        <div className="flex flex-col gap-5">
+          {loginFields.map(
+            ({
+              name,
+              label,
+              placeholder,
+              type = "text",
+              required,
+              icon: Icon,
+              bottomMessage,
+              autoComplete,
+            }) => (
+              <FormField
+                key={name}
+                control={form.control}
+                name={name}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor={name} aria-required={required}>
+                      {label}
+                    </FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Icon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground z-10" />
+                        {type === "password" ? (
+                          <PasswordInput
+                            id={name}
+                            type={type}
+                            required={required}
+                            placeholder={placeholder}
+                            className="pl-9 h-10"
+                            disabled={loginMutation.isPending}
+                            autoComplete={autoComplete}
+                            {...field}
+                          />
+                        ) : (
+                          <Input
+                            id={name}
+                            type={type}
+                            required={required}
+                            placeholder={placeholder}
+                            className="pl-9 h-10"
+                            disabled={loginMutation.isPending}
+                            autoComplete={autoComplete}
+                            {...field}
+                          />
+                        )}
+                      </div>
+                    </FormControl>
+                    {bottomMessage && (
+                      <span className="text-xs text-muted-foreground">
+                        {bottomMessage}
+                      </span>
+                    )}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ),
+          )}
+        </div>
+
+        <Button size="sm" variant="link" className="self-end" asChild>
+          <Link href="/forgot-password">Forgot password?</Link>
+        </Button>
+
         <Button
           type="submit"
           className="w-full gap-2"

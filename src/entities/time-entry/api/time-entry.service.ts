@@ -32,6 +32,21 @@ class TimeEntryService {
     return res.data;
   }
 
+  async pauseTimeEntry(id: string) {
+    const res = await api.put(`/time-entries/${id}/pause`);
+    return res.data;
+  }
+
+  async resumeTimeEntry(id: string) {
+    const res = await api.put(`/time-entries/${id}/resume`);
+    return res.data;
+  }
+
+  async stopTimeEntry(id: string) {
+    const res = await api.put(`/time-entries/${id}/stop`);
+    return res.data;
+  }
+
   async updateTimeEntry(id: string, payload: UpdateTimeEntryReq) {
     const res = await api.patch<TimeEntryEntity>(
       `/time-entries/${id}`,

@@ -20,7 +20,7 @@ export const useUpdateProjectMutation = () => {
     mutationFn: ({ id, data }) => projectService.updateProject(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
-      queryClient.invalidateQueries({ queryKey: ["active-projects"] });
+      queryClient.invalidateQueries({ queryKey: ["active-campaigns"] });
     },
     onError: (error) => {
       toast.error(handleError(error, "Failed to update project"));

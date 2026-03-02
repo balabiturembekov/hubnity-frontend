@@ -1,8 +1,10 @@
 import { Building2, Globe, Lock, Mail, User } from "lucide-react";
 import type { HTMLInputAutoCompleteAttribute } from "react";
 import type {
+  ForgotPasswordFormValues,
   LoginFormValues,
   RegisterFormValues,
+  ResetPasswordFormValues,
 } from "@/features/auth/model/auth.schema";
 
 type FieldConfig<TValues> = {
@@ -103,5 +105,36 @@ export const registerFieldGroups: FieldGroup<RegisterFormValues>[] = [
         autoComplete: "new-password",
       },
     ],
+  },
+];
+
+export const forgotPasswordFields: FieldConfig<ForgotPasswordFormValues> = {
+  name: "email",
+  label: "Email address",
+  placeholder: "you@example.com",
+  type: "email",
+  icon: Mail,
+  required: true,
+  autoComplete: "email",
+};
+
+export const resetPasswordFields: FieldConfig<ResetPasswordFormValues>[] = [
+  {
+    name: "newPassword",
+    label: "New password",
+    placeholder: "Enter password",
+    type: "password",
+    icon: Lock,
+    required: true,
+    autoComplete: "new-password",
+  },
+  {
+    name: "confirmPassword",
+    label: "Confirm password",
+    placeholder: "Repeat password",
+    type: "password",
+    icon: Lock,
+    required: true,
+    autoComplete: "new-password",
   },
 ];

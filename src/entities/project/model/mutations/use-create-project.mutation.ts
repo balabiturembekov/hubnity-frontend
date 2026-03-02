@@ -15,7 +15,7 @@ export const useCreateProjectMutation = () => {
     mutationFn: (payload) => projectService.createProject(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
-      queryClient.invalidateQueries({ queryKey: ["active-projects"] });
+      queryClient.invalidateQueries({ queryKey: ["active-campaigns"] });
     },
     onError: (error) => {
       toast.error(handleError(error, "Failed to create project"));
