@@ -1,12 +1,11 @@
 import {
   AlarmClock,
   ArchiveRestore,
-  BarChart3,
+  ChartNoAxesCombined,
   CheckCircle2,
   FolderOpen,
   GitBranch,
   type LucideIcon,
-  Play,
   Settings,
   Timer,
   Users,
@@ -83,14 +82,14 @@ export const features: Feature[] = [
   },
 ];
 
-type BenefitType = {
+interface Benefit {
   id: string;
   icon: LucideIcon;
   title: string;
   description: string;
-};
+}
 
-export const benefits: BenefitType[] = [
+export const benefits: Benefit[] = [
   {
     id: "1",
     icon: CheckCircle2,
@@ -117,36 +116,45 @@ export const benefits: BenefitType[] = [
   },
 ];
 
-type HowItWorksType = {
+export interface HowItWorks {
   id: string;
   icon: LucideIcon;
   title: string;
   description: string;
-};
+  width: number;
+  height: number;
+  src: string;
+}
 
-export const howItWorks: HowItWorksType[] = [
+export const howItWorks: HowItWorks[] = [
   {
     id: "1",
-    title: "Sign Up",
-    description: "Create your account and set up your company in minutes",
+    title: "Organization Setup",
+    description:
+      "Create your organization profile and configure tracking settings to perfectly fit your team's workflow.",
     icon: Settings,
+    width: 400,
+    height: 201,
+    src: "/img/organization-setups.png",
   },
   {
     id: "2",
-    title: "Invite Team",
-    description: "Add team members and assign them to campaigns",
-    icon: Users,
+    title: "Seamless Time Tracking",
+    description:
+      "Log working hours and switch between projects with a single click. Keep your focus on the task, not the timer.",
+    icon: Timer,
+    width: 400,
+    height: 238,
+    src: "/img/tracker.png",
   },
   {
     id: "3",
-    title: "Start Tracking",
-    description: "Begin time-entry time with our simple, intuitive interface",
-    icon: Play,
-  },
-  {
-    id: "4",
-    title: "Analyze & Improve",
-    description: "Review summaries and insights to optimize your workflow",
-    icon: BarChart3,
+    title: "Analytics & Reports",
+    description:
+      "Gain actionable insights into your team's performance with detailed, real-time productivity reports.",
+    icon: ChartNoAxesCombined,
+    width: 400,
+    height: 205,
+    src: "/img/productivity-score.png",
   },
 ];
