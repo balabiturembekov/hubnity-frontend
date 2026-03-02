@@ -13,8 +13,8 @@ export default function Home() {
     <SiteShell>
       <main>
         <HeroSection />
-        <StatsSection />
         <FeaturesSection />
+        <StatsSection />
         <HowItWorksSection />
         <BenefitSection />
         <CTASection />
