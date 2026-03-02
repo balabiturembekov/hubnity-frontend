@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { ArrowRight, Play, Zap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,17 +13,21 @@ export const HeroSection = () => {
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-4xl text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border bg-white px-4 py-2 text-sm shadow-sm">
-            <Zap className="h-4 w-4 text-yellow-500" />
+            <Zap className="h-4 w-4 text-yellow-500 animate-pulse" />
             <span className="text-gray-700">
               New: Real-time team activity tracking
             </span>
           </div>
           <h1 className="relative mb-6 text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
             Time Tracking That
-            <span className="bg-linear-to-r from-primary to-primary/60 bg-clip-text text-transparent">
+            <motion.span
+              animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
+              transition={{ duration: 5, ease: "linear", repeat: Infinity }}
+              className="bg-[linear-gradient(to_right,var(--color-primary),#1449e667,var(--color-primary))] bg-size-[200%_auto] bg-clip-text text-transparent"
+            >
               {" "}
               Works for You
-            </span>
+            </motion.span>
             <div className="absolute right-0 -top-30 pointer-events-none -z-10 h-100 w-100 rounded-full bg-linear-to-br from-primary/40 via-purple-400/30 to-indigo-500/20 opacity-90 blur-[100px]" />
           </h1>
           <p className="mb-8 text-xl text-gray-600 sm:text-2xl">
