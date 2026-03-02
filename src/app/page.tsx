@@ -1,10 +1,8 @@
 import {
-  BenefitSection,
-  CTASection,
+  BenefitsCardsSection,
   FeaturesSection,
   HeroSection,
   HowWeWorkSection,
-  StatsSection,
 } from "@/widgets/landing-page";
 import { SiteShell } from "@/widgets/site/ui/site-shell";
 
@@ -15,9 +13,10 @@ export default function Home() {
         <HeroSection />
         <FeaturesSection />
         <HowWeWorkSection />
-        <StatsSection />
-        <BenefitSection />
-        <CTASection />
+        <BenefitsCardsSection />
+        {/*<StatsSection />*/}
+        {/*<BenefitSection />*/}
+        {/*<CTASection />*/}
       </main>
     </SiteShell>
   );

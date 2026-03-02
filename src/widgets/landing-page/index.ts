@@ -1,3 +1,4 @@
+export { BenefitsCardsSection } from "./ui/benefits-cards-section";
 export { BenefitSection } from "./ui/benefits-section";
 export { CTASection } from "./ui/cta-section";
 export { FeaturesSection } from "./ui/features-section";

@@ -8,6 +8,7 @@ import {
   type LucideIcon,
   Settings,
   Timer,
+  UserRound,
   Users,
 } from "lucide-react";
 
@@ -113,6 +114,64 @@ export const benefits: Benefit[] = [
     icon: CheckCircle2,
     title: "Team Transparency",
     description: "Everyone knows what everyone is working on",
+  },
+];
+
+export interface BenefitCardItem {
+  id: string;
+  icon: LucideIcon;
+  title: string;
+  description: string;
+  imageUrl: string;
+  imageAlt: string;
+  className?: string;
+  imageClassName?: string;
+}
+
+export const benefitCards: BenefitCardItem[] = [
+  {
+    id: "1",
+    icon: UserRound,
+    title: "User-Friendly Interface",
+    description:
+      "Designed with simplicity in mind, our platform is incredibly user-friendly, making it easy to navigate and use.",
+    imageUrl: "/img/summaries-screenshot.png",
+    imageAlt: "Summaries Illustration",
+    className: "col-span-1 xl:col-span-2 2xl:col-span-3",
+    imageClassName: "-right-10",
+  },
+  {
+    id: "2",
+    icon: UserRound,
+    title: "Secure & Reliable",
+    description:
+      "Rest assured, your data is protected with the highest level of security measures. We prioritize your privacy.",
+    imageUrl: "/img/summaries-screenshot.png",
+    imageAlt: "Summaries Illustration",
+    className: "xl:col-span-1 2xl:col-span-2",
+    imageClassName: "left-1/2 -translate-x-1/2",
+  },
+  {
+    id: "3",
+    icon: UserRound,
+    title: "24/7 Support",
+    description:
+      "Our dedicated support team is always available to assist you, no matter the time whether you have a question.",
+    imageUrl: "/img/summaries-screenshot.png",
+    imageAlt: "Summaries Illustration",
+    className: "xl:col-span-1 2xl:col-span-2",
+    imageClassName: " left-1/2 -translate-x-1/2",
+  },
+  {
+    id: "4",
+    icon: UserRound,
+    title: "Scalable for team",
+    description:
+      "Our platform is thoughtfully engineering to grow alongside your business, offering flexible.",
+    imageUrl: "/img/summaries-screenshot.png",
+    imageAlt: "Summaries Illustration",
+    className: "xl:col-span-2 2xl:col-span-3",
+    imageClassName: "-left-10",
   },
 ];
 

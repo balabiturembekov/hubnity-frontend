@@ -25,10 +25,10 @@ export const SectionHeader = ({
           <span>{badge}</span>
         </Badge>
       </div>
-      <h2 className="mb-4 text-4xl font-bold text-gray-900 sm:text-4xl mt-6">
+      <h2 className="mb-4 text-4xl font-semibold text-gray-900 sm:text-5xl mt-6">
         {title}
       </h2>
-      <p className="mx-auto max-w-140 text-lg text-gray-600">{description}</p>
+      <p className="mx-auto max-w-180 text-lg text-gray-600">{description}</p>
     </div>
   );
 };
