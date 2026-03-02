@@ -9,7 +9,10 @@ import { SectionHeader } from "./section-header";
 
 export const HowWeWorkSection = () => {
   return (
-    <section className="sm:py-12 sm:px-4">
+    <section
+      id="how-it-works"
+      className="sm:py-12 sm:px-4 scroll-mt-15 lg:scroll-mt-10"
+    >
       <div className="relative container space-y-24 mx-auto px-4 py-12 sm:rounded-lg bg-linear-to-br from-primary/6 via-primary/3 to-primary/7">
         <div className="absolute left-0 top-30 pointer-events-none -z-10 h-100 w-100 rounded-full bg-linear-to-br from-primary/40 via-purple-400/30 to-indigo-500/20 opacity-40 blur-[100px]" />
         <div className="absolute right-0 bottom-30 pointer-events-none -z-10 h-100 w-100 rounded-full bg-linear-to-br from-primary/40 via-purple-400/30 to-indigo-500/20 opacity-40 blur-[100px]" />
