@@ -6,21 +6,19 @@ import type { Feature } from "../consts";
 
 interface FeatureCardProps {
   feature: Feature;
-  index: number;
 }
 
 export const FeatureCard = ({
   feature: { icon: Icon, ...feature },
-  index,
 }: FeatureCardProps) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 75, scale: 0.8 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.3, ease: "easeOut", delay: index * 0.05 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
     >
-      <Card className="group transition-all hover:shadow-lg hover:-translate-y-1 bg-linear-to-br from-primary/7 via-primary/2 to-primary/6 text-center">
+      <Card className="group transition-all hover:shadow-lg h-full hover:-translate-y-1 bg-linear-to-br from-primary/7 via-primary/2 to-primary/6 text-center">
         <CardContent className="p-6">
           <div
             className={`mb-4 inline-flex size-12 items-center justify-center rounded-full ${feature.color}`}

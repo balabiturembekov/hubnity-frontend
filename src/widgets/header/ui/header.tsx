@@ -92,7 +92,12 @@ export function Header() {
               </Button>
             </div>
           ) : (
-            <UserProfileDropdown isHideInitials />
+            <UserProfileDropdown
+              isHideInitials
+              className={cn(
+                isScrolled ? "hover:bg-white/60" : "hover:bg-primary/5",
+              )}
+            />
           )}
 
           <Drawer
