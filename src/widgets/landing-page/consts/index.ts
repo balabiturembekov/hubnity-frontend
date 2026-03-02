@@ -1,112 +1,85 @@
 import {
+  AlarmClock,
+  ArchiveRestore,
   BarChart3,
-  Camera,
   CheckCircle2,
-  Clock,
-  FileText,
-  Globe,
+  FolderOpen,
+  GitBranch,
   type LucideIcon,
   Play,
   Settings,
-  Shield,
-  TrendingUp,
+  Timer,
   Users,
-  Zap,
 } from "lucide-react";
 
-type StatType = {
+export interface Stat {
   id: string;
   value: string;
   label: string;
-};
+}
 
-export const stats: StatType[] = [
+export const stats: Stat[] = [
   { id: "1", value: "99.9%", label: "Uptime" },
   { id: "2", value: "10K+", label: "Active Users" },
   { id: "3", value: "1M+", label: "Hours Tracked" },
   { id: "4", value: "24/7", label: "Support" },
 ];
 
-type FeatureType = {
+export interface Feature {
   id: string;
   icon: LucideIcon;
   title: string;
   description: string;
   color: string;
-};
+}
 
-export const features: FeatureType[] = [
+export const features: Feature[] = [
   {
     id: "1",
-    icon: Clock,
-    title: "Precise Time Tracking",
+    icon: AlarmClock,
+    title: "Auto tracking",
     description:
-      "Track every minute with our intuitive timer. Start, pause, and resume with keyboard shortcuts for maximum efficiency.",
+      "Record a calendar timeline of all your work activities throughout the day",
     color: "bg-blue-500/10 text-blue-600",
   },
   {
     id: "2",
-    icon: Users,
-    title: "Team Management",
+    icon: Timer,
+    title: "Online work timer",
     description:
-      "Manage your entire team from one dashboard. Assign campaigns, set hourly rates, and monitor productivity in real-time.",
+      "Capture every minute that your team spends accurately that helps you track",
     color: "bg-green-500/10 text-green-600",
   },
   {
     id: "3",
-    icon: BarChart3,
-    title: "Advanced Analytics",
+    icon: FolderOpen,
+    title: "Timesheet report",
     description:
-      "Get detailed insights with beautiful charts and summaries. Export data to CSV for further analysis.",
+      "Use time tracking data to generate timesheets for every team member",
     color: "bg-purple-500/10 text-purple-600",
   },
   {
     id: "4",
-    icon: Camera,
-    title: "Automatic Screenshots",
+    icon: ArchiveRestore,
+    title: "Easily invoicing",
     description:
-      "Optional automatic screenshot capture to track work activity. Fully configurable intervals and privacy controls.",
+      "Easily track billable time with one click multiple projects leave behind messy",
     color: "bg-orange-500/10 text-orange-600",
   },
   {
     id: "5",
-    icon: Shield,
-    title: "Enterprise Security",
-    description:
-      "Your data is protected with JWT authentication, encrypted storage, and role-based access control.",
+    icon: GitBranch,
+    title: "Integrations tools",
+    description: "Inside 100+ tools via browser extensions data to Trackflow",
     color: "bg-red-500/10 text-red-600",
   },
   {
     id: "6",
-    icon: Zap,
-    title: "Real-time Sync",
+    icon: Users,
+    title: "Report & Analysis",
     description:
-      "Live updates across all devices. See team activity as it happens with WebSocket and SSE technology.",
+      "See exactly how your team spends time on their work with Trackflow",
     color: "bg-yellow-500/10 text-yellow-600",
-  },
-  {
-    id: "7",
-    icon: FileText,
-    title: "Project Organization",
-    description:
-      "Organize work by campaigns with budgets, clients, and status time-entry. Keep everything in one place.",
-    color: "bg-indigo-500/10 text-indigo-600",
-  },
-  {
-    id: "8",
-    icon: TrendingUp,
-    title: "Performance Insights",
-    description:
-      "Track productivity trends, identify bottlenecks, and make data-driven decisions with comprehensive summaries.",
-    color: "bg-pink-500/10 text-pink-600",
-  },
-  {
-    id: "9",
-    icon: Globe,
-    title: "Multi-tenant Architecture",
-    description:
-      "Perfect for agencies and companies. Each organization has isolated data with custom settings.",
-    color: "bg-cyan-500/10 text-cyan-600",
   },
 ];
 
