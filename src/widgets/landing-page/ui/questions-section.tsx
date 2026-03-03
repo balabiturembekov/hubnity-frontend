@@ -17,10 +17,7 @@ export const QuestionsSection = () => {
   const [open, setOpen] = useState<string | null>("1");
 
   return (
-    <section
-      id="features"
-      className="pb-20 pt-10 mt-4 scroll-mt-2 lg:-scroll-mt-10"
-    >
+    <section id="faq" className="pb-20 pt-10 mt-4 scroll-mt-2 lg:-scroll-mt-10">
       <div className="container mx-auto px-4 space-y-18">
         <SectionHeader
           title="Frequently Asked Questions"
@@ -33,6 +30,7 @@ export const QuestionsSection = () => {
           collapsible
           className="max-w-3xl mx-auto flex flex-col gap-4"
           defaultValue="1"
+          onValueChange={(value) => setOpen(value)}
         >
           {questions.map((question) => (
             <motion.div
@@ -51,9 +49,6 @@ export const QuestionsSection = () => {
                     ? "bg-linear-to-br from-primary/10 via-primary/4 to-primary/6"
                     : "bg-card",
                 )}
-                onClick={() =>
-                  setOpen((prev) => (prev === question.id ? null : question.id))
-                }
               >
                 <AccordionTrigger>
                   <p className="font-bold">{question.question}</p>

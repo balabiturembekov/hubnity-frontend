@@ -9,7 +9,7 @@ export const BenefitsCardsSection = () => {
   return (
     <section
       id="benefits"
-      className="container mx-auto space-y-12 px-4 py-12 sm:space-y-16 sm:py-16 md:space-y-20 md:py-20 lg:space-y-24 lg:py-24"
+      className="container mx-auto space-y-12 px-4 py-12 sm:space-y-16 sm:py-16 md:space-y-20 md:py-20 lg:space-y-24 lg:py-24 scroll-mt-14 lg:-scroll-mt-2"
     >
       <SectionHeader
         title="Power-Packed Benefit to Boost Your Working Time"

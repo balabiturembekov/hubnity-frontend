@@ -21,7 +21,7 @@ export const ReviewsSection = () => {
   return (
     <section
       id="reviews"
-      className="relative pb-20 sm:pb-32 pt-20 space-y-18 scroll-mt-2 lg:-scroll-mt-10 overflow-hidden"
+      className="relative pb-20 sm:pb-32 pt-20 space-y-18 scroll-mt-6 sm:scroll-mt-14 lg:scroll-mt-2 overflow-hidden"
     >
       <div className="container mx-auto px-4">
         <SectionHeader

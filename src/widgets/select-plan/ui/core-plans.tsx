@@ -1,9 +1,6 @@
-import {
-  CorePlanCard,
-  corePlans,
-  type SelectType,
-} from "@/entities/select-plan";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
+"use client";
+
+import { SelectPlanTabs } from "@/features/select-plan";
 
 export const CorePlans = () => {
   return (
@@ -18,36 +15,7 @@ export const CorePlans = () => {
         </div>
       </div>
 
-      <Tabs defaultValue="monthly" className="w-full">
-        <TabsList className="mx-auto">
-          <TabsTrigger value="monthly">Monthly</TabsTrigger>
-          <TabsTrigger value="quarterly">Quarterly</TabsTrigger>
-          <TabsTrigger value="yearly">Yearly</TabsTrigger>
-        </TabsList>
-        <TabsContent value="monthly">
-          <PlansList period="monthly" />
-        </TabsContent>
-        <TabsContent value="quarterly">
-          <PlansList period="quarterly" />
-        </TabsContent>
-        <TabsContent value="yearly">
-          <PlansList period="yearly" />
-        </TabsContent>
-      </Tabs>
+      <SelectPlanTabs />
     </section>
-  );
-};
-
-interface PlansListProps {
-  period: SelectType;
-}
-
-const PlansList = ({ period }: PlansListProps) => {
-  return (
-    <div className="grid grid-cols-1 w-full lg:grid-cols-3 gap-4">
-      {corePlans.map((plan) => (
-        <CorePlanCard key={plan.id} plan={plan} period={period} />
-      ))}
-    </div>
   );
 };
