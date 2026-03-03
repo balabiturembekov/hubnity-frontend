@@ -12,8 +12,8 @@ export const LANDING_HEADER_LINKS = [
     label: "How it works",
   },
   {
-    id: "time-boost",
-    label: "Time boost",
+    id: "benefits",
+    label: "Benefits",
   },
   {
     id: "reviews",

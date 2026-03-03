@@ -6,4 +6,5 @@ export { HeroSection } from "./ui/hero-section";
 export { HowWeWorkSection } from "./ui/how-we-work-section";
 export { QuestionsSection } from "./ui/questions-section";
 export { ReviewsSection } from "./ui/reviews-section";
+export { SelectPlanSection } from "./ui/select-plan-section";
 export { StatsSection } from "./ui/stats-section";
