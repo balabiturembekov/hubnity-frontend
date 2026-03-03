@@ -13,22 +13,20 @@ export const BenefitCard = ({
   imageUrl,
   imageAlt,
   imageClassName,
-}: BenefitCardItem) => {
+  index,
+}: BenefitCardItem & { index: number }) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 75, scale: 0.8 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.4, ease: "easeOut" }}
-      className={cn(
-        "h-full min-h-0 relative overflow-hidden row-span-1",
-        className,
-      )}
+      className={cn("h-full min-h-0 relative row-span-1", className)}
     >
-      <Card className="pb-0 px-0">
+      <Card className="pb-0 px-0 hover:-translate-y-1 hover:shadow-lg transition-all">
         <CardContent className={cn("flex flex-col h-full gap-6 p-0")}>
-          <div className="flex min-w-0 flex-1 flex-col gap-3 sm:gap-4 px-4 pt-4">
-            <h3 className="text-xl font-medium leading-tight sm:text-2xl">
+          <div className="flex min-w-0 flex-1 flex-col gap-3 sm:gap-4 px-4 pt-2">
+            <h3 className="text-xl font-semibold leading-tight sm:text-2xl">
               {title}
             </h3>
             <p className={cn("text-muted-foreground text-sm sm:text-base")}>
@@ -36,7 +34,12 @@ export const BenefitCard = ({
             </p>
           </div>
 
-          <div className="min-h-70 relative w-full overflow-hidden max-h-50 mx-auto">
+          <div
+            className={cn(
+              "relative w-full overflow-hidden mx-auto rounded-xl",
+              [1, 2].includes(index) ? "h-40" : "h-40 sm:h-70",
+            )}
+          >
             <div
               className={cn(
                 "border rounded-xl overflow-hidden absolute w-[90%] top-0",
