@@ -33,7 +33,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={cn(manRope.className, "antialiased relative")}>
+      <body
+        className={cn(
+          manRope.className,
+          "antialiased relative overflow-x-hidden",
+        )}
+      >
         <QueryProvider>
           <TooltipProvider>
             <NextTopLoader

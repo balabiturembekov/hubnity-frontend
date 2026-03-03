@@ -217,3 +217,69 @@ export const howItWorks: HowItWorks[] = [
     src: "/img/productivity-score.png",
   },
 ];
+
+export interface Review {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  rating: number;
+  review: string;
+}
+
+export const reviews: Review[] = [
+  {
+    id: "1",
+    name: "Alexey Smirnov",
+    role: "Engineering Manager",
+    company: "TechFlow Solutions",
+    rating: 5,
+    review:
+      "This app has completely transformed how our development team tracks billable hours. The browser extension is incredibly seamless, and the timesheet generation saves me at least 3 hours every Friday.",
+  },
+  {
+    id: "2",
+    name: "Maria Ivanova",
+    role: "Freelance Designer",
+    company: "Creative Minds",
+    rating: 5,
+    review:
+      "As a freelancer juggling multiple clients, accurate billing is everything. The ability to switch between projects with a single click and automatically generate professional invoices has been a game changer for my business. Highly recommended!",
+  },
+  {
+    id: "3",
+    name: "David Chen",
+    role: "Operations Director",
+    company: "Global Logistics",
+    rating: 5,
+    review:
+      "Great tool for team transparency. It's much easier to see where our operational bottlenecks are now. The reporting dashboard is highly customizable and visualizes our resource allocation beautifully.",
+  },
+  {
+    id: "4",
+    name: "Elena Rostova",
+    role: "Product Owner",
+    company: "SaaS Builders",
+    rating: 5,
+    review:
+      "Finally, a time tracker that my team actually doesn't hate using. The auto-tracking feature takes away the mental load of remembering to start and stop timers. Our recorded hours have gone up by 15% simply because we are no longer forgetting to log them.",
+  },
+  {
+    id: "5",
+    name: "Michael Peterson",
+    role: "Agency Owner",
+    company: "Peterson Digital",
+    rating: 5,
+    review:
+      "The integrations are fantastic. It plugs directly into our project management tools, meaning we don't have to duplicate data entry. The customer support team was also incredibly helpful during our initial onboarding.",
+  },
+  {
+    id: "6",
+    name: "Sarah Williams",
+    role: "HR Manager",
+    company: "FinCorp Ltd",
+    rating: 5,
+    review:
+      "We use this primarily for attendance and overtime tracking. The accuracy and ease of use are exactly what our corporate environment needed. It's robust enough for management but simple enough for daily employee use.",
+  },
+];
