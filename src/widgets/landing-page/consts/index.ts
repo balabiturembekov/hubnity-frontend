@@ -70,7 +70,7 @@ export const features: Feature[] = [
     id: "5",
     icon: GitBranch,
     title: "Integrations tools",
-    description: "Inside 100+ tools via browser extensions data to Trackflow",
+    description: "Inside 100+ tools via browser extensions data to Hubnity",
     color: "bg-red-500/10 text-red-600",
   },
   {
@@ -78,7 +78,7 @@ export const features: Feature[] = [
     icon: Users,
     title: "Report & Analysis",
     description:
-      "See exactly how your team spends time on their work with Trackflow",
+      "See exactly how your team spends time on their work with Hubnity",
     color: "bg-yellow-500/10 text-yellow-600",
   },
 ];
@@ -281,5 +281,74 @@ export const reviews: Review[] = [
     rating: 5,
     review:
       "We use this primarily for attendance and overtime tracking. The accuracy and ease of use are exactly what our corporate environment needed. It's robust enough for management but simple enough for daily employee use.",
+  },
+];
+
+export interface Question {
+  id: string;
+  question: string;
+  answer: string;
+}
+
+export const questions: Question[] = [
+  {
+    id: "1",
+    question: "What is Hubnity, and who is it for?",
+    answer:
+      "Hubnity is a comprehensive time tracking and productivity platform designed for freelancers, agencies, and distributed teams to monitor work hours, track billable time, and generate seamless reports.",
+  },
+  {
+    id: "2",
+    question: "How does the auto-tracking feature work?",
+    answer:
+      "Our auto-tracking feature runs quietly in the background (via desktop app or browser extension), logging the apps and websites you use. It reconstructs your daily timeline so you can easily assign time blocks to specific tasks later.",
+  },
+  {
+    id: "3",
+    question: "Can I use Trackflow for client billing and invoicing?",
+    answer:
+      "Absolutely. You can mark specific projects and tasks as billable, assign custom hourly rates, and generate polished invoices directly from your tracked hours to send to clients.",
+  },
+  {
+    id: "4",
+    question: "What happens if I forget to start or stop the timer?",
+    answer:
+      "No problem! You can manually add, edit, or delete time entries after the fact. If you have auto-tracking enabled, you can also use your daily activity timeline to accurately fill in missing gaps.",
+  },
+  {
+    id: "5",
+    question: "Does Hubnity integrate with tools my team already uses?",
+    answer:
+      "Yes, Hubnity seamlessly integrates with over 50 popular project management and communication tools, including Jira, Trello, Asana, Slack, and Notion.",
+  },
+  {
+    id: "6",
+    question: "Is it suitable for remote and distributed teams?",
+    answer:
+      "Yes! Hubnity is built with remote teams in mind. It provides managers with clear visibility into team workloads and attendance, helping prevent burnout while maintaining accountability across different time zones.",
+  },
+  {
+    id: "7",
+    question: "Can I track time on my mobile phone?",
+    answer:
+      "Yes, we have dedicated mobile apps for both iOS and Android. You can start and stop timers, view your daily stats, and manage tasks while on the go.",
+  },
+  {
+    id: "8",
+    question: "How secure is my data?",
+    answer:
+      "We take data security very seriously. All user data is encrypted at rest and in transit. Our infrastructure is hosted on enterprise-grade cloud providers and is fully GDPR compliant.",
+  },
+  {
+    id: "9",
+    question: "How do timesheets and reporting work?",
+    answer:
+      "Hubnity automatically aggregates your tracked time into visual dashboards and timesheets. You can filter data by user, project, or date range, and export reports to CSV or PDF for payroll processing.",
+  },
+  {
+    id: "10",
+    question: "Is there a free trial, and do I need a credit card to sign up?",
+    answer:
+      "We offer a full-featured 14-day free trial on all paid plans, and you do not need a credit card to sign up. After the trial ends, you can choose to upgrade or switch to our basic free tier.",
   },
 ];
