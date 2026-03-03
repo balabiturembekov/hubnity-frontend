@@ -122,7 +122,7 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
       },
       {
         id: "4",
-        label: "Activity & tracking",
+        label: "Activity & Tracking",
         href: "/dashboard/admin/settings/activity-tracking",
       },
       // {
