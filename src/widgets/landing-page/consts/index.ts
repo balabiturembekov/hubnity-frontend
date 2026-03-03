@@ -138,7 +138,7 @@ export const benefitCards: BenefitCardItem[] = [
     imageUrl: "/img/summaries-screenshot.png",
     imageAlt: "Summaries Illustration",
     className: "col-span-1 xl:col-span-2 2xl:col-span-3",
-    imageClassName: "-right-10",
+    imageClassName: "-right-10 -bottom-5",
   },
   {
     id: "2",
@@ -149,7 +149,8 @@ export const benefitCards: BenefitCardItem[] = [
     imageUrl: "/img/summaries-screenshot.png",
     imageAlt: "Summaries Illustration",
     className: "xl:col-span-1 2xl:col-span-2",
-    imageClassName: "left-1/2 -translate-x-1/2",
+    imageClassName:
+      "left-1/2 -translate-x-1/2 top-auto -bottom-5 sm:-bottom-10",
   },
   {
     id: "3",
@@ -160,7 +161,8 @@ export const benefitCards: BenefitCardItem[] = [
     imageUrl: "/img/summaries-screenshot.png",
     imageAlt: "Summaries Illustration",
     className: "xl:col-span-1 2xl:col-span-2",
-    imageClassName: " left-1/2 -translate-x-1/2",
+    imageClassName:
+      "left-1/2 -translate-x-1/2 top-auto -bottom-5 sm:-bottom-10",
   },
   {
     id: "4",
@@ -171,7 +173,7 @@ export const benefitCards: BenefitCardItem[] = [
     imageUrl: "/img/summaries-screenshot.png",
     imageAlt: "Summaries Illustration",
     className: "xl:col-span-2 2xl:col-span-3",
-    imageClassName: "-left-10",
+    imageClassName: "-left-10 -bottom-5",
   },
 ];
 

@@ -18,8 +18,8 @@ export const BenefitsCardsSection = () => {
         Icon={Trophy}
       />
       <div className="grid grid-cols-1 gap-6 xl:grid-cols-3 xl:gap-8 2xl:grid-cols-5 2xl:gap-10">
-        {benefitCards.map((item) => (
-          <BenefitCard key={item.id} {...item} />
+        {benefitCards.map((item, index) => (
+          <BenefitCard key={item.id} {...item} index={index} />
         ))}
       </div>
     </section>
