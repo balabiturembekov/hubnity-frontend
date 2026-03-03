@@ -17,7 +17,10 @@ export const QuestionsSection = () => {
   const [open, setOpen] = useState<string | null>("1");
 
   return (
-    <section id="faq" className="pb-20 pt-10 mt-4 scroll-mt-2 lg:-scroll-mt-10">
+    <section
+      id="faq"
+      className="pb-20 pt-10 mt-4 scroll-mt-16 sm:scroll-mt-24 lg:scroll-mt-12"
+    >
       <div className="container mx-auto px-4 space-y-18">
         <SectionHeader
           title="Frequently Asked Questions"

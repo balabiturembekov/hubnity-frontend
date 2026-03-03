@@ -8,7 +8,7 @@ export const SelectPlanSection = () => {
   return (
     <section
       id="pricing"
-      className="pb-20 py-8 container mx-auto px-4 mt-4 space-y-18 scroll-mt-2 lg:-scroll-mt-10"
+      className="pb-20 py-8 container mx-auto px-4 mt-4 space-y-18 scroll-mt-18 sm:scroll-mt-26 lg:scroll-mt-14"
     >
       <SectionHeader
         title="Simple, Transparent Pricing"
