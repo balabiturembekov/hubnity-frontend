@@ -67,7 +67,7 @@ export function DailyChart() {
               }}
               formatter={(value?: number, name?: string) => [
                 `${value}h`,
-                name === "hours" ? "Active" : "Idle",
+                name === "hours" ? "Idle" : "Active",
               ]}
               labelFormatter={(label) =>
                 dailyData.find((d) => d.date === label)?.fullDate || label
