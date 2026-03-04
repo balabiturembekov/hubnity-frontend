@@ -2,7 +2,7 @@
 
 import { formatDistanceToNow } from "date-fns";
 import { Filter, RefreshCw, Search, X } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { useGetProjectsQuery } from "@/entities/project";
 import type { TimeEntryStatusType } from "@/entities/time-entry";
 import { useUser } from "@/entities/user";
