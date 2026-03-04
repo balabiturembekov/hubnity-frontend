@@ -1,5 +1,6 @@
 "use client";
 
+import { format } from "date-fns";
 import { DollarSign, Mail, Shield, User } from "lucide-react";
 import { useState } from "react";
 import { UserAvatar, useCurrentUser } from "@/entities/user";
@@ -44,13 +45,16 @@ export const ProfileInfo = () => {
                 <Shield className="h-4 w-4 text-primary" />
               </div>
             </div>
-            <div className="flex-1 space-y-1">
+            <div className="flex-1 flex flex-col gap-1">
               <h3 className="text-2xl font-bold tracking-tight text-foreground">
                 {user.name}
               </h3>
-              <p className="text-sm font-medium text-muted-foreground">
+              <span className="text-sm font-medium text-muted-foreground">
                 {user.email}
-              </p>
+              </span>
+              <span className="text-muted-foreground text-xs">
+                Joined {format(user.createdAt, "dd/MM/yyyy")}
+              </span>
               <div className="pt-2">
                 <Badge
                   variant={
