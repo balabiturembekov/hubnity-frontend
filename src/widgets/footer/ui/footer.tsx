@@ -60,19 +60,14 @@ export const Footer = () => {
                 Follow our social media
               </span>
               <div className="flex items-center sm:justify-end lg:justify-start gap-3">
-                {socials.map((social) => (
+                {socials.map(({ icon: Icon, ...social }) => (
                   <Link
                     key={social.id}
                     href={social.href}
                     target="_blank"
                     className="bg-primary rounded-full size-7 flex items-center justify-center"
                   >
-                    <Image
-                      src={social.imgSrc}
-                      alt={social.alt}
-                      width={20}
-                      height={20}
-                    />
+                    <Icon className="w-5" />
                   </Link>
                 ))}
               </div>

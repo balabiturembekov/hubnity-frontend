@@ -1,7 +1,7 @@
 import { ArrowLeft, type LucideIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { GoogleLogo } from "@/shared/icons/google-logo";
+import { GoogleIcon } from "@/shared/icons/google-icon";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { Card, CardContent } from "@/shared/ui/card";
@@ -73,7 +73,7 @@ export function AuthLayout({
                 className="h-12"
                 onClick={onGoogleClick}
               >
-                <GoogleLogo className="size-6" />
+                <GoogleIcon className="size-6" />
                 <span>Sign in with Google</span>
               </Button>
 
