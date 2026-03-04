@@ -132,48 +132,48 @@ export const benefitCards: BenefitCardItem[] = [
   {
     id: "1",
     icon: UserRound,
-    title: "User-Friendly Interface",
+    title: "Everything at a Glance",
     description:
-      "Designed with simplicity in mind, our platform is incredibly user-friendly, making it easy to navigate and use.",
-    imageUrl: "/img/summaries-screenshot.png",
-    imageAlt: "Summaries Illustration",
+      "Navigate effortlessly through your workday. Our clean interface puts your most important metrics, from hours tracked to goal progress, right at your fingertips.",
+    imageUrl: "/img/dashboard.png",
+    imageAlt: "Dashboard Illustration",
     className: "col-span-1 xl:col-span-2 2xl:col-span-3",
     imageClassName: "-right-10 -bottom-5",
   },
   {
     id: "2",
     icon: UserRound,
-    title: "Secure & Reliable",
+    title: "Your Data is Protected",
     description:
-      "Rest assured, your data is protected with the highest level of security measures. We prioritize your privacy.",
-    imageUrl: "/img/summaries-screenshot.png",
-    imageAlt: "Summaries Illustration",
+      "Keep your workspace secure with enterprise-grade encryption. Manage access safely and ensure your company's data stays protected at all times.",
+    imageUrl: "/img/login.png",
+    imageAlt: "Login Illustration",
     className: "xl:col-span-1 2xl:col-span-2",
     imageClassName:
-      "left-1/2 -translate-x-1/2 top-auto -bottom-5 sm:-bottom-10",
+      "left-1/2 -translate-x-1/2 top-auto -bottom-5 sm:-bottom-15 lg:-bottom-30 xl:-bottom-5",
   },
   {
     id: "3",
     icon: UserRound,
-    title: "24/7 Support",
+    title: "Complete Team Visibility",
     description:
-      "Our dedicated support team is always available to assist you, no matter the time whether you have a question.",
-    imageUrl: "/img/summaries-screenshot.png",
-    imageAlt: "Summaries Illustration",
+      "Get a clear view of your team's daily operations. Easily monitor activity logs, manage roles, and stay aligned with everyone's progress.",
+    imageUrl: "/img/team-activity.png",
+    imageAlt: "Team Activity Illustration",
     className: "xl:col-span-1 2xl:col-span-2",
     imageClassName:
-      "left-1/2 -translate-x-1/2 top-auto -bottom-5 sm:-bottom-10",
+      "left-1/2 -translate-x-1/2 top-auto -bottom-5 sm:-bottom-15 lg:-bottom-30 xl:-bottom-5",
   },
   {
     id: "4",
     icon: UserRound,
-    title: "Scalable for team",
+    title: "Personalized Insights",
     description:
-      "Our platform is thoughtfully engineering to grow alongside your business, offering flexible.",
-    imageUrl: "/img/summaries-screenshot.png",
-    imageAlt: "Summaries Illustration",
+      "Empower your team with individual performance stats. Users can track their own tracked time, analyze productivity trends, and manage personal settings.",
+    imageUrl: "/img/profile.png",
+    imageAlt: "Profile Illustration",
     className: "xl:col-span-2 2xl:col-span-3",
-    imageClassName: "-left-10 -bottom-5",
+    imageClassName: "-right-10 -bottom-5",
   },
 ];
 

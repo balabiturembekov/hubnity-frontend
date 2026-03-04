@@ -57,10 +57,10 @@ export const HeroSection = () => {
             No credit card required • 21-day free trial
           </p>
           <Image
-            src="/img/dashboard-illustration.png"
+            src="/img/dashboard.png"
             alt="Dashboard Preview"
             width={1920}
-            height={1200}
+            height={1080}
             priority
             unoptimized
             className="mt-12 w-full h-auto object-cover rounded-lg sm:rounded-xl rounded-b-none shadow-sm"
