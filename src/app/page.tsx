@@ -12,7 +12,7 @@ import { SiteShell } from "@/widgets/site/ui/site-shell";
 export default function Home() {
   return (
     <SiteShell>
-      <div className="overflow-x-hidden pt-32">
+      <div className="overflow-x-hidden">
         <HeroSection />
         <FeaturesSection />
         <HowWeWorkSection />
