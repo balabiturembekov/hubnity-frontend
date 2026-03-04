@@ -7,7 +7,7 @@ const authPaths = [
   "/forgot-password",
   "/email-confirmation",
 ];
-const publicPaths = ["/", "/profile"];
+const publicPaths = ["/", "/privacy"];
 
 const isAuthPath = (path: string): boolean => {
   return authPaths.includes(path);
