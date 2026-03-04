@@ -14,10 +14,10 @@ export const useResumeTimeEntryMutation = () => {
       queryClient.invalidateQueries({ queryKey: ["timeEntries"] });
       queryClient.invalidateQueries({ queryKey: ["myTimeEntries"] });
       queryClient.invalidateQueries({ queryKey: ["activeTimeEntries"] });
-      toast.success("Time entry resumed successfully");
+      toast.success("Timer resumed successfully");
     },
     onError: (error) => {
-      toast.error(handleError(error, "Failed to resume time entry"));
+      toast.error(handleError(error, "Failed to resume timer"));
     },
   });
 };

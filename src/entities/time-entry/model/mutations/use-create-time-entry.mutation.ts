@@ -18,10 +18,10 @@ export const useCreateTimeEntryMutation = () => {
       queryClient.invalidateQueries({ queryKey: ["timeEntries"] });
       queryClient.invalidateQueries({ queryKey: ["myTimeEntries"] });
       queryClient.invalidateQueries({ queryKey: ["activeTimeEntries"] });
-      toast.success("Time entry started successfully");
+      toast.success("Timer started successfully");
     },
     onError: (error) => {
-      toast.error(handleError(error, "Failed to start time entry"));
+      toast.error(handleError(error, "Failed to start timer"));
     },
   });
 };

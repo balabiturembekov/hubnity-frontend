@@ -14,10 +14,10 @@ export const useStopTimeEntryMutation = () => {
       queryClient.invalidateQueries({ queryKey: ["timeEntries"] });
       queryClient.invalidateQueries({ queryKey: ["myTimeEntries"] });
       queryClient.invalidateQueries({ queryKey: ["activeTimeEntries"] });
-      toast.success("Time entry stopped successfully");
+      toast.success("Timer stopped successfully");
     },
     onError: (error) => {
-      toast.error(handleError(error, "Failed to stop time entry"));
+      toast.error(handleError(error, "Failed to stop timer"));
     },
   });
 };
