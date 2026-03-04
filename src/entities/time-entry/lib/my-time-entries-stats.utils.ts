@@ -9,6 +9,7 @@ interface MapMyTimeEntriesDataParams {
     thisWeek: DashboardAnalyticsResponse;
     thisMonth: DashboardAnalyticsResponse;
     lastMonth: DashboardAnalyticsResponse;
+    thisYear: DashboardAnalyticsResponse;
     prev1: DashboardAnalyticsResponse;
     prev2: DashboardAnalyticsResponse;
     prev3: DashboardAnalyticsResponse;
@@ -35,6 +36,7 @@ export const DEFAULT_MY_TIME_ENTRIES_STATE = {
   myThisWeekStats: DEFAULT_ANALYTICS_PERIOD,
   myThisMonthStats: DEFAULT_ANALYTICS_PERIOD,
   myLastMonthStats: DEFAULT_ANALYTICS_PERIOD,
+  myThisYearStats: DEFAULT_ANALYTICS_PERIOD,
   prev1WeekStats: DEFAULT_ANALYTICS_PERIOD,
   prev2WeekStats: DEFAULT_ANALYTICS_PERIOD,
   prev3WeekStats: DEFAULT_ANALYTICS_PERIOD,
@@ -56,6 +58,7 @@ export const mapMyTimeEntriesData = ({
     myThisWeekStats: stats.thisWeek,
     myThisMonthStats: stats.thisMonth,
     myLastMonthStats: stats.lastMonth,
+    myThisYearStats: stats.thisYear,
     prev1WeekStats: stats.prev1,
     prev2WeekStats: stats.prev2,
     prev3WeekStats: stats.prev3,
