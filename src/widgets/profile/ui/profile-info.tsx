@@ -32,7 +32,7 @@ export const ProfileInfo = () => {
           <CardDescription>Your personal details</CardDescription>
         </CardHeader>
 
-        <CardContent className="space-y-8">
+        <CardContent className="flex flex-col justify-between h-full gap-8">
           <div className="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left pt-2 pb-6 border-b border-border/50">
             <div className="relative">
               <UserAvatar
@@ -124,16 +124,14 @@ export const ProfileInfo = () => {
             </div>
           </div>
 
-          <div className="pt-6">
-            <Button
-              variant="outline"
-              className="w-full gap-2 rounded-xl h-11 border-dashed hover:border-solid hover:bg-primary/5 transition-all"
-              onClick={() => setPasswordDialogOpen(true)}
-            >
-              <Shield className="h-4 w-4 text-muted-foreground" />
-              Change Password
-            </Button>
-          </div>
+          <Button
+            variant="outline"
+            className="w-full gap-2 rounded-xl h-11 border-dashed hover:border-solid hover:bg-primary/5 transition-all"
+            onClick={() => setPasswordDialogOpen(true)}
+          >
+            <Shield className="h-4 w-4 text-muted-foreground" />
+            Change Password
+          </Button>
         </CardContent>
       </Card>
 

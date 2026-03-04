@@ -71,6 +71,17 @@ export const useMyTimeEntries = () => {
       },
     );
 
+  const { data: myThisYearStats, isPending: isMyThisYearStatsPending } =
+    useGetDashboardAnalyticsQuery(
+      {
+        userId: user?.id,
+        period: "this_year",
+      },
+      {
+        enabled: !!user?.id,
+      },
+    );
+
   const { data: prev1WeekStats, isPending: isPrev1WeekStatsPending } =
     useGetDashboardAnalyticsQuery({
       userId: user?.id,
@@ -103,6 +114,7 @@ export const useMyTimeEntries = () => {
       !myThisWeekStats ||
       !myThisMonthStats ||
       !myLastMonthStats ||
+      !myThisYearStats ||
       !prev1WeekStats ||
       !prev2WeekStats ||
       !prev3WeekStats
@@ -118,6 +130,7 @@ export const useMyTimeEntries = () => {
         thisWeek: myThisWeekStats,
         thisMonth: myThisMonthStats,
         lastMonth: myLastMonthStats,
+        thisYear: myThisYearStats,
         prev1: prev1WeekStats,
         prev2: prev2WeekStats,
         prev3: prev3WeekStats,
@@ -130,6 +143,7 @@ export const useMyTimeEntries = () => {
     myThisWeekStats,
     myThisMonthStats,
     myLastMonthStats,
+    myThisYearStats,
     prev1WeekStats,
     prev2WeekStats,
     prev3WeekStats,
@@ -142,7 +156,8 @@ export const useMyTimeEntries = () => {
       isMyTodayStatsPending ||
       isMyThisWeekStatsPending ||
       isMyThisMonthStatsPending ||
-      isMyLastMonthStatsPending,
+      isMyLastMonthStatsPending ||
+      isMyThisYearStatsPending,
     isMyPrevWeeksPending:
       isPrev1WeekStatsPending ||
       isPrev2WeekStatsPending ||

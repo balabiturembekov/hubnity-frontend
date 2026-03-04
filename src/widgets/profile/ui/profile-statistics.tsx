@@ -1,15 +1,18 @@
 import {
   endOfMonth,
   endOfWeek,
+  endOfYear,
   format,
   startOfMonth,
   startOfWeek,
+  startOfYear,
   subMonths,
 } from "date-fns";
 import {
   Activity,
   Calendar,
   CalendarArrowDown,
+  Calendars,
   Clock,
   FileText,
   TrendingUp,
@@ -32,6 +35,7 @@ export const ProfileStatistics = () => {
     myThisWeekStats,
     myThisMonthStats,
     myLastMonthStats,
+    myThisYearStats,
     isMyStatsPending,
     isMyRecentTimeEntriesPending,
   } = useMyTimeEntries();
@@ -49,7 +53,7 @@ export const ProfileStatistics = () => {
         </div>
         <CardDescription>Your tracked time overview</CardDescription>
       </CardHeader>
-      <CardContent className="space-y-6">
+      <CardContent className="flex flex-col h-full gap-8">
         <div className="rounded-xl bg-linear-to-br from-primary/10 to-primary/5 p-5 border border-primary/10 relative overflow-hidden">
           <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-primary/10 rounded-full blur-2xl pointer-events-none" />
           <div className="flex items-center justify-between mb-4 relative z-10">
@@ -77,7 +81,7 @@ export const ProfileStatistics = () => {
           </div>
         </div>
 
-        <div className="space-y-4 pt-2">
+        <div className="flex flex-col gap-4 justify-between flex-1 pt-2">
           <div className="group flex justify-between items-center p-3 rounded-xl hover:bg-muted/40 border border-transparent hover:border-border transition-all duration-200">
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-500/10 text-blue-600 group-hover:bg-blue-500 group-hover:text-white transition-colors">
@@ -158,6 +162,26 @@ export const ProfileStatistics = () => {
             </div>
             <span className="text-lg font-bold text-foreground">
               {`${myLastMonthStats?.totalHours ?? 0}h`}
+            </span>
+          </div>
+
+          <div className="group flex justify-between items-center p-3 rounded-xl hover:bg-muted/40 border border-transparent hover:border-border transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-amber-500/10 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">
+                <Calendars className="h-5 w-5" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-base font-semibold text-foreground tracking-tight">
+                  This Year
+                </span>
+                <span className="text-xs text-muted-foreground font-medium">
+                  {format(startOfYear(new Date()), "MMM d")} -{" "}
+                  {format(endOfYear(new Date()), "MMM d")}
+                </span>
+              </div>
+            </div>
+            <span className="text-lg font-bold text-foreground">
+              {`${myThisYearStats?.totalHours ?? 0}h`}
             </span>
           </div>
         </div>
