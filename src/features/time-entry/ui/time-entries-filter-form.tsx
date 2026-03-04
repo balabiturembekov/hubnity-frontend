@@ -2,7 +2,7 @@
 
 import { formatDistanceToNow } from "date-fns";
 import { Filter, RefreshCw, Search, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useGetProjectsQuery } from "@/entities/project";
 import type { TimeEntryStatusType } from "@/entities/time-entry";
 import { useUser } from "@/entities/user";
@@ -75,6 +75,8 @@ export const TimeEntriesFilterForm = ({
     return <FilterSkeleton />;
   }
 
+  const activeProjects = projects?.filter((p) => p.status === "ACTIVE");
+
   return (
     <Card className="transition-shadow hover:shadow-md">
       <CardHeader>
@@ -129,14 +131,14 @@ export const TimeEntriesFilterForm = ({
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All projects</SelectItem>
-              <SelectItem value="none">No project</SelectItem>
-              {projects
-                ?.filter((p) => p.status === "ACTIVE")
-                .map((project) => (
-                  <SelectItem key={project.id} value={project.id}>
-                    {project.name}
-                  </SelectItem>
-                ))}
+              {activeProjects?.length === 0 && (
+                <SelectItem value="none">No project</SelectItem>
+              )}
+              {activeProjects?.map((project) => (
+                <SelectItem key={project.id} value={project.id}>
+                  {project.name}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <Select value={period} onValueChange={setPeriod}>
