@@ -136,7 +136,8 @@ export const benefitCards: BenefitCardItem[] = [
     description:
       "Navigate effortlessly through your workday. Our clean interface puts your most important metrics, from hours tracked to goal progress, right at your fingertips.",
     imageUrl: "/img/dashboard.png",
-    imageAlt: "Dashboard Illustration",
+    imageAlt:
+      "Hubnity dashboard showing time tracking, projects, and key metrics at a glance",
     className: "col-span-1 xl:col-span-2 2xl:col-span-3",
     imageClassName: "-right-10 -bottom-5",
   },
@@ -147,7 +148,7 @@ export const benefitCards: BenefitCardItem[] = [
     description:
       "Keep your workspace secure with enterprise-grade encryption. Manage access safely and ensure your company's data stays protected at all times.",
     imageUrl: "/img/login.png",
-    imageAlt: "Login Illustration",
+    imageAlt: "Hubnity secure login and authentication screen",
     className: "xl:col-span-1 2xl:col-span-2",
     imageClassName:
       "left-1/2 -translate-x-1/2 top-auto -bottom-5 sm:-bottom-15 lg:-bottom-30 xl:-bottom-5",
@@ -159,7 +160,7 @@ export const benefitCards: BenefitCardItem[] = [
     description:
       "Get a clear view of your team's daily operations. Easily monitor activity logs, manage roles, and stay aligned with everyone's progress.",
     imageUrl: "/img/team-activity.png",
-    imageAlt: "Team Activity Illustration",
+    imageAlt: "Hubnity team activity and activity logs view",
     className: "xl:col-span-1 2xl:col-span-2",
     imageClassName:
       "left-1/2 -translate-x-1/2 top-auto -bottom-5 sm:-bottom-15 lg:-bottom-30 xl:-bottom-5",
@@ -171,7 +172,7 @@ export const benefitCards: BenefitCardItem[] = [
     description:
       "Empower your team with individual performance stats. Users can track their own tracked time, analyze productivity trends, and manage personal settings.",
     imageUrl: "/img/profile.png",
-    imageAlt: "Profile Illustration",
+    imageAlt: "Hubnity user profile and personalized productivity insights",
     className: "xl:col-span-2 2xl:col-span-3",
     imageClassName: "-right-10 -bottom-5",
   },
@@ -185,6 +186,7 @@ export interface HowItWorks {
   width: number;
   height: number;
   src: string;
+  imageAlt: string;
 }
 
 export const howItWorks: HowItWorks[] = [
@@ -197,6 +199,7 @@ export const howItWorks: HowItWorks[] = [
     width: 400,
     height: 201,
     src: "/img/organization-setups.png",
+    imageAlt: "Hubnity organization setup and tracking settings screen",
   },
   {
     id: "2",
@@ -207,6 +210,7 @@ export const howItWorks: HowItWorks[] = [
     width: 400,
     height: 238,
     src: "/img/tracker.png",
+    imageAlt: "Hubnity time tracker and project switching interface",
   },
   {
     id: "3",
@@ -217,6 +221,7 @@ export const howItWorks: HowItWorks[] = [
     width: 400,
     height: 205,
     src: "/img/productivity-score.png",
+    imageAlt: "Hubnity analytics and productivity reports dashboard",
   },
 ];
 
@@ -307,9 +312,9 @@ export const questions: Question[] = [
   },
   {
     id: "3",
-    question: "Can I use Trackflow for client billing and invoicing?",
+    question: "Can I use Hubnity for client billing and invoicing?",
     answer:
-      "Absolutely. You can mark specific projects and tasks as billable, assign custom hourly rates, and generate polished invoices directly from your tracked hours to send to clients.",
+      "Absolutely. You can mark specific projects and tasks as billable, assign custom hourly rates, and generate polished invoices directly from your tracked hours in Hubnity to send to clients.",
   },
   {
     id: "4",

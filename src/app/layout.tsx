@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { getSiteBaseUrl } from "@/shared/lib/site-url";
 import { cn } from "@/shared/lib/utils";
 import "./globals.css";
 import NextTopLoader from "nextjs-toploader";
@@ -20,10 +21,55 @@ const manRope = Manrope({
   ],
 });
 
+const siteUrl = getSiteBaseUrl();
+const title = "Hubnity - Time Tracking & Team Management";
+const description =
+  "Track time, manage projects, and boost productivity with Hubnity. Time tracking software for freelancers, agencies, and remote teams. Free trial, no credit card required.";
+
 export const metadata: Metadata = {
-  title: "Hubnity - Time Tracking & Team Management",
-  description:
-    "Track time, manage campaigns, and boost productivity with Hubnity.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: title,
+    template: "%s | Hubnity",
+  },
+  description,
+  keywords: [
+    "time tracking",
+    "time tracker",
+    "team management",
+    "project management",
+    "productivity",
+    "timesheet",
+    "billable hours",
+    "invoicing",
+    "remote team",
+    "freelance",
+    "Hubnity",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en",
+    url: siteUrl,
+    siteName: "Hubnity",
+    title,
+    description,
+    images: [
+      {
+        url: `${siteUrl}/img/dashboard.png`,
+        width: 1920,
+        height: 1080,
+        alt: "Hubnity time tracking dashboard with projects and productivity metrics",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title,
+    description,
+  },
+  alternates: {
+    canonical: siteUrl,
+  },
 };
 
 export default function RootLayout({

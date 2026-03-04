@@ -8,7 +8,10 @@ import { Button } from "@/shared/ui/button";
 
 export const HeroSection = () => {
   return (
-    <section className="pt-32 relative overflow-hidden bg-linear-to-br from-primary/20 via-primary/5 to-primary/15 mask-[linear-gradient(to_top,transparent_0%,black_20%)] mask-size-[100%_100%] mask-no-repeat">
+    <section
+      id="home"
+      className="pt-32 relative overflow-hidden bg-linear-to-br from-primary/20 via-primary/5 to-primary/15 mask-[linear-gradient(to_top,transparent_0%,black_20%)] mask-size-[100%_100%] mask-no-repeat"
+    >
       <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-5" />
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-4xl text-center">
@@ -58,7 +61,7 @@ export const HeroSection = () => {
           </p>
           <Image
             src="/img/dashboard.png"
-            alt="Dashboard Preview"
+            alt="Hubnity time tracking dashboard with projects, timer, and productivity metrics"
             width={1920}
             height={1080}
             priority

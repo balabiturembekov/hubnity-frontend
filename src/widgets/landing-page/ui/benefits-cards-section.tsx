@@ -17,11 +17,11 @@ export const BenefitsCardsSection = () => {
         badge="Benefits"
         Icon={Trophy}
       />
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-3 xl:gap-8 2xl:grid-cols-5 2xl:gap-10">
+      <ul className="grid grid-cols-1 gap-6 xl:grid-cols-3 xl:gap-8 2xl:grid-cols-5 2xl:gap-10 list-none p-0 m-0">
         {benefitCards.map((item, index) => (
           <BenefitCard key={item.id} {...item} index={index} />
         ))}
-      </div>
+      </ul>
     </section>
   );
 };

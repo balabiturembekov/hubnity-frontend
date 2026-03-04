@@ -136,7 +136,7 @@ const FeatureImage = ({ item, index, isMobile = false }: FeatureImageProps) => {
       <div className="p-1.5 lg:p-2 rounded-lg hover:shadow-lg shadow-md bg-primary/10 hover:-translate-y-1 transition-all">
         <Image
           src={item.src}
-          alt={item.title}
+          alt={item.imageAlt}
           width={item.width}
           height={item.height}
           className="rounded-md"

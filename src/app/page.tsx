@@ -3,6 +3,7 @@ import {
   FeaturesSection,
   HeroSection,
   HowWeWorkSection,
+  LandingStructuredData,
   QuestionsSection,
   ReviewsSection,
   SelectPlanSection,
@@ -12,6 +13,7 @@ import { SiteShell } from "@/widgets/site/ui/site-shell";
 export default function Home() {
   return (
     <SiteShell>
+      <LandingStructuredData />
       <div className="overflow-x-hidden">
         <HeroSection />
         <FeaturesSection />

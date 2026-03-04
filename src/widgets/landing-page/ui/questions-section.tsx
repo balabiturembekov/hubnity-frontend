@@ -36,15 +36,15 @@ export const QuestionsSection = () => {
           onValueChange={(value) => setOpen(value)}
         >
           {questions.map((question) => (
-            <motion.div
+            <motion.article
               key={question.id}
               initial={{ opacity: 0, y: 75 }}
               viewport={{ once: true, amount: 0.2 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
+              aria-labelledby={`faq-question-${question.id}`}
             >
               <AccordionItem
-                key={question.id}
                 value={question.id}
                 className={cn(
                   "px-4 hover:bg-gray-50 rounded-lg border last:border-b",
@@ -53,14 +53,17 @@ export const QuestionsSection = () => {
                     : "bg-card",
                 )}
               >
+                <h3 id={`faq-question-${question.id}`} className="sr-only">
+                  {question.question}
+                </h3>
                 <AccordionTrigger>
-                  <p className="font-bold">{question.question}</p>
+                  <span className="font-bold">{question.question}</span>
                 </AccordionTrigger>
                 <AccordionContent>
                   <p className="font-medium">{question.answer}</p>
                 </AccordionContent>
               </AccordionItem>
-            </motion.div>
+            </motion.article>
           ))}
         </Accordion>
       </div>

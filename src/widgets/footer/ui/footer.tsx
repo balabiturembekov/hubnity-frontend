@@ -20,21 +20,26 @@ export const Footer = () => {
             </span>
           </Badge>
 
-          <h3 className="text-3xl md:text-5xl font-medium">
+          <h2 className="text-3xl md:text-5xl font-medium">
             Track Time Effortlessly, Boost Productivity Instantly
-          </h3>
+          </h2>
           <p className="text-sm lg:text-base text-muted-foreground">
             Effortlessly track time, generate insightful reports, and integrate
             with your favorite tools, all with a user-friendly interface
             designed to boost productivity
           </p>
 
-          <div className="flex items-center gap-3 mt-1">
-            <Button className="w-32 h-11">Get Started</Button>
-            <Button variant="outline" className="w-32 h-11">
-              View Demo
+          <nav
+            className="flex items-center gap-3 mt-1"
+            aria-label="Footer call to action"
+          >
+            <Button className="w-32 h-11" asChild>
+              <Link href="/register">Get Started</Link>
             </Button>
-          </div>
+            <Button variant="outline" className="w-32 h-11" asChild>
+              <Link href="/login">View Demo</Link>
+            </Button>
+          </nav>
         </div>
 
         <div className="flex flex-col lg:flex-row pb-10">
@@ -43,7 +48,7 @@ export const Footer = () => {
               <Link href="/" className="w-fit">
                 <Image
                   src="/img/hubnity-logo-without-descr.png"
-                  alt="Hubnity Logo"
+                  alt="Hubnity - Time tracking and team management"
                   width={160}
                   height={37}
                 />
@@ -55,7 +60,10 @@ export const Footer = () => {
               </p>
             </div>
 
-            <div className="flex flex-col gap-3 w-100">
+            <nav
+              className="flex flex-col gap-3 w-100"
+              aria-label="Social media links"
+            >
               <span className="text-lg font-medium">
                 Follow our social media
               </span>
@@ -65,18 +73,24 @@ export const Footer = () => {
                     key={social.id}
                     href={social.href}
                     target="_blank"
+                    rel="noopener noreferrer"
                     className="bg-primary rounded-full size-7 flex items-center justify-center"
+                    aria-label={`Follow Hubnity on ${social.alt}`}
                   >
                     <Icon className="w-5" />
                   </Link>
                 ))}
               </div>
-            </div>
+            </nav>
           </div>
-          <div className="w-full lg:w-1/2 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3">
+          <div
+            className="w-full lg:w-1/2 grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3"
+            role="navigation"
+            aria-label="Footer links"
+          >
             {footerItems.map((item) => (
               <div key={item.id}>
-                <h4 className="text-lg mb-4 font-light">{item.label}</h4>
+                <h3 className="text-lg mb-4 font-light">{item.label}</h3>
                 <ul className="space-y-5 text-sm font-semibold text-foreground">
                   {item.links.map((link) => (
                     <li key={link.id}>

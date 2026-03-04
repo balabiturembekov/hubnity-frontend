@@ -50,13 +50,16 @@ export function Header() {
         <Link href="/" className="flex items-center gap-2 w-fit">
           <Image
             src="/img/hubnity-logo-without-descr.png"
-            alt="Hubnity logo"
+            alt="Hubnity - Time tracking and team management"
             width={110}
             height={25}
           />
         </Link>
 
-        <nav className="hidden xl:flex items-center justify-center text-sm font-medium">
+        <nav
+          className="hidden xl:flex items-center justify-center text-sm font-medium"
+          aria-label="Main navigation"
+        >
           {LANDING_HEADER_LINKS.map((link) => (
             <Button
               key={link.id}
@@ -123,7 +126,7 @@ export function Header() {
                 <DrawerTitle className="flex items-center justify-between text-left">
                   <Image
                     src="/img/hubnity-logo-without-descr.png"
-                    alt="Hubnity logo"
+                    alt="Hubnity - Time tracking and team management"
                     width={110}
                     height={25}
                   />
