@@ -132,10 +132,6 @@ export const RegisterForm = () => {
             className="gap-1 items-end leading-2"
           >
             I agree to the
-            <Link href="/terms" className="font-medium hover:underline">
-              Terms
-            </Link>
-            and
             <Link href="/privacy" className="font-medium hover:underline">
               Privacy Policy
             </Link>
