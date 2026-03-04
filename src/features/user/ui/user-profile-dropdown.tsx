@@ -40,7 +40,7 @@ export const UserProfileDropdown = ({
       });
     } catch {
     } finally {
-      router.replace("/login");
+      router.push("/login");
     }
   };
 
