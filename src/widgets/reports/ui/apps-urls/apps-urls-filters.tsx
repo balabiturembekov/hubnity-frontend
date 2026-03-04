@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
 import type { DateRange } from "react-day-picker";
+import { useUser } from "@/entities/user";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { Calendar } from "@/shared/ui/calendar";
@@ -34,6 +35,8 @@ interface AppsUrlsFiltersProps {
 }
 
 export const AppsUrlsFilters = ({ date, setDate }: AppsUrlsFiltersProps) => {
+  const { isAdmin } = useUser();
+
   return (
     <Card className="transition-shadow hover:shadow-md bg-card">
       <CardHeader>
@@ -57,7 +60,9 @@ export const AppsUrlsFilters = ({ date, setDate }: AppsUrlsFiltersProps) => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="date">Group by Date</SelectItem>
-                <SelectItem value="member">Group by Member</SelectItem>
+                {isAdmin && (
+                  <SelectItem value="member">Group by Member</SelectItem>
+                )}
                 <SelectItem value="project">Group by Project</SelectItem>
               </SelectContent>
             </Select>

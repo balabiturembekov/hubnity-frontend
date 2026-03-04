@@ -52,7 +52,7 @@ export function TimeEntriesTable({
   isPreview = false,
   userId,
 }: TimeEntriesTableProps) {
-  const { user, isAdmin } = useUser();
+  const { isAdmin } = useUser();
   const { data: projects } = useGetProjectsQuery();
   const { timeEntries, isLoading } = useFilteredTimeEntries(userId, "RUNNING");
   const { searchQuery, projectId, period } = useTimeEntriesStore();
@@ -60,12 +60,6 @@ export function TimeEntriesTable({
   const [screenshotGalleryOpen, setScreenshotGalleryOpen] = useState(false);
   const [entryForScreenshots, setEntryForScreenshots] =
     useState<TimeEntryEntity | null>(null);
-
-  const isEmployee = user?.role === "EMPLOYEE";
-
-  const canEdit = (entry: TimeEntryEntity) => {
-    return entry.userId === user?.id || isAdmin;
-  };
 
   const getProjectColor = (projectId?: string | null) => {
     if (!projectId || !projects) return undefined;
@@ -109,7 +103,7 @@ export function TimeEntriesTable({
             <Table className="min-w-[810px]">
               <TableHeader>
                 <TableRow>
-                  {!isEmployee && <TableHead>User</TableHead>}
+                  {isAdmin && <TableHead>User</TableHead>}
                   <TableHead>Project</TableHead>
                   <TableHead>Date</TableHead>
                   <TableHead>Duration</TableHead>
@@ -124,7 +118,7 @@ export function TimeEntriesTable({
                   <TableRow>
                     <TableCell
                       colSpan={
-                        showActions ? (isEmployee ? 5 : 6) : isEmployee ? 4 : 5
+                        showActions ? (isAdmin ? 6 : 5) : isAdmin ? 5 : 4
                       }
                       className="h-64"
                     >
@@ -150,7 +144,7 @@ export function TimeEntriesTable({
                 ) : (
                   timeEntries.map((entry) => (
                     <TableRow key={entry.id} className="">
-                      {!isEmployee && (
+                      {isAdmin && (
                         <TableCell className="font-medium flex flex-col">
                           <Button
                             className="p-0 justify-start h-auto"
@@ -240,7 +234,7 @@ export function TimeEntriesTable({
                                 <p>View screenshots</p>
                               </TooltipContent>
                             </Tooltip>
-                            {canEdit(entry) && (
+                            {isAdmin && (
                               <>
                                 <UpdateTimeEntryDialog timeEntry={entry} />
                                 <DeleteTimeEntryDialog timeEntry={entry} />
