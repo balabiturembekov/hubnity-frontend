@@ -46,6 +46,14 @@ export const metadata: Metadata = {
     "freelance",
     "Hubnity",
   ],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/icons/web-app-manifest-192x192.png",
+  },
+  manifest: "/manifest.json",
   openGraph: {
     type: "website",
     locale: "en",
