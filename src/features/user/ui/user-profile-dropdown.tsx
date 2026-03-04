@@ -49,7 +49,7 @@ export const UserProfileDropdown = ({
   }
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger asChild>
         <Button
           variant="ghost"
@@ -69,7 +69,12 @@ export const UserProfileDropdown = ({
           </span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-56 ml-3">
+      <DropdownMenuContent
+        align="end"
+        className={cn("w-56", {
+          "ml-3": pathname.includes("/dashboard"),
+        })}
+      >
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
             <p className="text-sm font-medium leading-none">{user.name}</p>
