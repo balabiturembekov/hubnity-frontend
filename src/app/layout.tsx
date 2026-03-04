@@ -70,6 +70,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
+  other: {
+    "apple-mobile-web-app-title": "Hubnity",
+  },
 };
 
 export default function RootLayout({
