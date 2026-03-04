@@ -1,4 +1,3 @@
-import type { ReactNode } from "react";
 import { FacebookIcon } from "@/shared/icons/facebook-icon";
 import { InstagramIcon } from "@/shared/icons/instagram-icon";
 import { TiktokIcon } from "@/shared/icons/tiktok-icon";
