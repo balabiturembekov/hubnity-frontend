@@ -4,10 +4,12 @@ import {
   format,
   startOfMonth,
   startOfWeek,
+  subMonths,
 } from "date-fns";
 import {
   Activity,
   Calendar,
+  CalendarArrowDown,
   CheckCircle2,
   Clock,
   FileText,
@@ -31,6 +33,7 @@ export const ProfileStatistics = () => {
     myTodayStats,
     myThisWeekStats,
     myThisMonthStats,
+    myLastMonthStats,
     isMyStatsPending,
     isMyRecentTimeEntriesPending,
   } = useMyTimeEntries();
@@ -137,6 +140,26 @@ export const ProfileStatistics = () => {
             </div>
             <span className="text-lg font-bold text-foreground">
               {`${myThisMonthStats?.totalHours ?? 0}h`}
+            </span>
+          </div>
+
+          <div className="group flex justify-between items-center p-3 rounded-xl hover:bg-muted/40 border border-transparent hover:border-border transition-all duration-200">
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-teal-500/10 text-teal-600 group-hover:bg-teal-500 group-hover:text-white transition-colors">
+                <CalendarArrowDown className="h-5 w-5" />
+              </div>
+              <div className="flex flex-col">
+                <span className="text-base font-semibold text-foreground tracking-tight">
+                  Last Month
+                </span>
+                <span className="text-xs text-muted-foreground font-medium">
+                  {format(startOfMonth(subMonths(new Date(), 1)), "MMM d")} -{" "}
+                  {format(endOfMonth(subMonths(new Date(), 1)), "MMM d")}
+                </span>
+              </div>
+            </div>
+            <span className="text-lg font-bold text-foreground">
+              {`${myLastMonthStats?.totalHours ?? 0}h`}
             </span>
           </div>
         </div>

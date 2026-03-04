@@ -1,3 +1,8 @@
+import { FacebookIcon } from "@/shared/icons/facebook-icon";
+import { InstagramIcon } from "@/shared/icons/instagram-icon";
+import { TiktokIcon } from "@/shared/icons/tiktok-icon";
+import { YoutubeIcon } from "@/shared/icons/youtube-icon";
+
 type FooterLinkType = {
   id: string;
   label: string;
@@ -94,7 +99,7 @@ export const footerItems: FooterItemType[] = [
 type SocialType = {
   id: string;
   alt: string;
-  imgSrc: string;
+  icon: ({ className }: { className?: string }) => React.JSX.Element;
   href: string;
 };
 
@@ -102,25 +107,25 @@ export const socials: SocialType[] = [
   {
     id: "1",
     alt: "Facebook",
-    imgSrc: "/icons/facebook.svg",
+    icon: FacebookIcon,
     href: "https://www.facebook.com/hubnity",
   },
   {
     id: "2",
     alt: "Instagram",
-    imgSrc: "/icons/instagram.svg",
+    icon: InstagramIcon,
     href: "https://www.instagram.com/hubnity",
   },
   {
     id: "3",
     alt: "TikTok",
-    imgSrc: "/icons/tiktok.svg",
+    icon: TiktokIcon,
     href: "https://www.tiktok.com/hubnity",
   },
   {
     id: "4",
     alt: "YouTube",
-    imgSrc: "/icons/youtube.svg",
+    icon: YoutubeIcon,
     href: "https://www.youtube.com/hubnity",
   },
 ];
