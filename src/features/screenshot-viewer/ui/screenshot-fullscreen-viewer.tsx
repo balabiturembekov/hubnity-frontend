@@ -84,7 +84,7 @@ export function ScreenshotFullscreenViewer({
 
   return (
     <div
-      className="absolute left-0 top-0 h-screen w-screen bg-black/80 flex items-center justify-center z-20"
+      className="absolute left-0 top-0 h-screen w-screen bg-black/80 flex items-center justify-center z-20 overflow-hidden"
       onClick={handleBackdropClick}
       role="dialog"
       aria-modal="true"
@@ -101,7 +101,7 @@ export function ScreenshotFullscreenViewer({
 
         <div
           onClick={handleContentClick}
-          className="relative flex items-center"
+          className="relative flex items-center h-full w-full sm:w-[85vw]"
         >
           <Button
             type="button"
@@ -115,13 +115,14 @@ export function ScreenshotFullscreenViewer({
             <ChevronLeft />
           </Button>
 
-          <div className="flex flex-col items-center gap-2">
+          <div className="flex flex-col items-center justify-center gap-2 h-[90dvh] max-w-[100vw] sm:max-w-[90vw] w-full">
             <Image
               src={`${apiUrl}${currentScreenshot.imageUrl}`}
               alt={currentScreenshot.imageUrl}
               width={1280}
-              height={960}
+              height={720}
               onClick={(e) => e.stopPropagation()}
+              className="max-h-full flex-1 max-w-full w-auto h-auto object-contain"
             />
             <p className="text-sm text-white/90">
               {formatDate(currentScreenshot.timestamp)}
