@@ -25,7 +25,7 @@ export const ReviewCard = ({ review }: ReviewCardProps) => {
       <CardFooter className="flex gap-3 items-center mt-auto pt-2">
         <UserAvatar name={review.name} />
         <div>
-          <h2 className="text-sm font-medium">{review.name}</h2>
+          <p className="text-sm font-medium">{review.name}</p>
           <p className="text-sm text-muted-foreground">
             {review.company} \ {review.role}
           </p>

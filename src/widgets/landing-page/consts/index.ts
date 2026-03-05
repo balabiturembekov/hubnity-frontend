@@ -47,7 +47,7 @@ export const features: Feature[] = [
     icon: Timer,
     title: "Online work timer",
     description:
-      "Capture every minute that your team spends accurately that helps you track",
+      "Capture every minute your team spends and track productivity with precision",
     color: "bg-green-500/10 text-green-600",
   },
   {
@@ -61,16 +61,17 @@ export const features: Feature[] = [
   {
     id: "4",
     icon: ArchiveRestore,
-    title: "Easily invoicing",
+    title: "Easy Invoicing",
     description:
-      "Easily track billable time with one click multiple projects leave behind messy",
+      "Easily track billable time across multiple projects with one click and generate accurate invoices",
     color: "bg-orange-500/10 text-orange-600",
   },
   {
     id: "5",
     icon: GitBranch,
-    title: "Integrations tools",
-    description: "Inside 100+ tools via browser extensions data to Hubnity",
+    title: "Integration Tools",
+    description:
+      "Connect 100+ tools via browser extensions and sync your data to Hubnity seamlessly",
     color: "bg-red-500/10 text-red-600",
   },
   {
@@ -356,6 +357,6 @@ export const questions: Question[] = [
     id: "10",
     question: "Is there a free trial, and do I need a credit card to sign up?",
     answer:
-      "We offer a full-featured 14-day free trial on all paid plans, and you do not need a credit card to sign up. After the trial ends, you can choose to upgrade or switch to our basic free tier.",
+      "We offer a full-featured 21-day free trial on all paid plans, and you do not need a credit card to sign up. After the trial ends, you can choose to upgrade or switch to our basic free tier.",
   },
 ];

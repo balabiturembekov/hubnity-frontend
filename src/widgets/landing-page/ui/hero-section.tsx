@@ -10,6 +10,7 @@ export const HeroSection = () => {
   return (
     <section
       id="home"
+      aria-labelledby="home-title"
       className="pt-32 relative overflow-hidden bg-linear-to-br from-primary/20 via-primary/5 to-primary/15 mask-[linear-gradient(to_top,transparent_0%,black_20%)] mask-size-[100%_100%] mask-no-repeat"
     >
       <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-5" />
@@ -21,16 +22,20 @@ export const HeroSection = () => {
               New: Real-time team activity tracking
             </span>
           </div>
-          <h1 className="relative mb-6 text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl">
-            Time Tracking That
+          <h1
+            id="home-title"
+            className="relative mb-6 text-5xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:text-7xl"
+          >
+            Hubnity: Smart Time Tracking That
             <motion.span
               animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
               transition={{ duration: 5, ease: "linear", repeat: Infinity }}
               className="bg-[linear-gradient(to_right,var(--color-primary),#1449e667,var(--color-primary))] bg-size-[200%_auto] bg-clip-text text-transparent"
             >
               {" "}
-              Works for You
-            </motion.span>
+              Works for Your
+            </motion.span>{" "}
+            Team
             <div className="absolute right-0 -top-30 pointer-events-none -z-10 h-100 w-100 rounded-full bg-linear-to-br from-primary/40 via-purple-400/30 to-indigo-500/20 opacity-90 blur-[100px]" />
           </h1>
           <p className="mb-8 text-xl text-gray-600 sm:text-2xl">
@@ -50,7 +55,7 @@ export const HeroSection = () => {
               className="w-full sm:w-auto"
               asChild
             >
-              <Link href="/login">
+              <Link href="#features">
                 <Play className="mr-2 h-4 w-4" />
                 Watch Demo
               </Link>

@@ -14,17 +14,15 @@ export default function Home() {
   return (
     <SiteShell>
       <LandingStructuredData />
-      <div className="overflow-x-hidden">
-        <HeroSection />
-        <FeaturesSection />
-        <HowWeWorkSection />
-        <BenefitsCardsSection />
-        <ReviewsSection />
-        <SelectPlanSection />
-        <QuestionsSection />
-        {/*<StatsSection />*/}
-        {/*<CTASection />*/}
-      </div>
+      <HeroSection />
+      <FeaturesSection />
+      <HowWeWorkSection />
+      <BenefitsCardsSection />
+      <ReviewsSection />
+      <SelectPlanSection />
+      <QuestionsSection />
+      {/*<StatsSection />*/}
+      {/*<CTASection />*/}
     </SiteShell>
   );
 }

@@ -6,6 +6,7 @@ interface SectionHeaderProps {
   description: string;
   badge: string;
   Icon: LucideIcon;
+  sectionId: string;
 }
 
 export const SectionHeader = ({
@@ -13,9 +14,10 @@ export const SectionHeader = ({
   description,
   badge,
   Icon,
+  sectionId,
 }: SectionHeaderProps) => {
   return (
-    <div className="mx-auto max-w-2xl text-center">
+    <header className="mx-auto max-w-2xl text-center">
       <div className="mx-auto max-w-2xl text-center flex justify-center">
         <Badge
           variant="outline"
@@ -25,10 +27,13 @@ export const SectionHeader = ({
           <span>{badge}</span>
         </Badge>
       </div>
-      <h2 className="mb-4 text-4xl font-semibold text-gray-900 sm:text-5xl mt-6">
+      <h2
+        id={sectionId}
+        className="mb-4 text-4xl font-semibold text-gray-900 sm:text-5xl mt-6"
+      >
         {title}
       </h2>
       <p className="mx-auto max-w-180 text-lg text-gray-600">{description}</p>
-    </div>
+    </header>
   );
 };

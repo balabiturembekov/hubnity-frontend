@@ -78,6 +78,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteUrl,
   },
+  robots: { index: true, follow: true },
   other: {
     "apple-mobile-web-app-title": "Hubnity",
   },
