@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hubnity
 
-## Getting Started
+Фронтенд-приложение для тайм-трекинга и управления командной продуктивностью.
 
-First, run the development server:
+## Технологии
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 16** (App Router), **React 19**, **TypeScript**
+- **Tailwind CSS 4**, **Radix UI**, **Framer Motion**
+- **React Query** — серверное состояние, **Zustand** — клиентское состояние
+- **React Hook Form** + **Zod** — формы и валидация
+- **Biome** — линтинг и форматирование, **Husky** — pre-commit хуки
+- **Sentry** — мониторинг ошибок
+
+## Архитектура (FSD)
+
+Проект построен по методологии [Feature-Sliced Design](https://feature-sliced.design):
+
+```
+src/
+├── app/         — роуты и лейауты Next.js (App Router)
+├── widgets/     — составные блоки UI (sidebar, header, dashboard, ...)
+├── features/    — бизнес-фичи (auth, timer, analytics, ...)
+├── entities/    — доменные сущности (user, project, time-entry, ...)
+├── shared/      — общее (ui-компоненты, hooks, lib, config)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Импорты идут строго сверху вниз по слоям: `app → widgets → features → entities → shared`. Слой не может импортировать из слоя выше или из соседних модулей на своём уровне.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Запуск
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+# Установка зависимостей
+pnpm install
 
-## Learn More
+# Dev-сервер (http://localhost:3000)
+pnpm dev
 
-To learn more about Next.js, take a look at the following resources:
+# Продакшен-билд
+pnpm build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Линтинг и форматирование
+pnpm lint
+pnpm format
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Переменные окружения
 
-## Deploy on Vercel
+Скопируйте `.env.local.example` → `.env.local` и заполните значения:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Переменная             | Описание         |
+| ---------------------- | ---------------- |
+| `NEXT_PUBLIC_API_URL`  | URL бэкенд-API   |
+| `NEXT_PUBLIC_APP_URL`  | URL фронтенда    |
