@@ -21,6 +21,7 @@ export const FeatureCard = ({
       <Card className="group transition-all hover:shadow-lg h-full hover:-translate-y-1 bg-linear-to-br from-primary/7 via-primary/2 to-primary/6 text-center">
         <CardContent className="p-6">
           <div
+            aria-hidden="true"
             className={`mb-4 inline-flex size-12 items-center justify-center rounded-full ${feature.color}`}
           >
             <Icon className="size-6" />

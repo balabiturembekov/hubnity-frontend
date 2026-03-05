@@ -21,8 +21,6 @@ export default function Home() {
       <ReviewsSection />
       <SelectPlanSection />
       <QuestionsSection />
-      {/*<StatsSection />*/}
-      {/*<CTASection />*/}
     </SiteShell>
   );
 }
