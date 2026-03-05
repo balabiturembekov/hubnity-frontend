@@ -58,8 +58,7 @@ export const NotificationList = ({ unreadOnly }: Props) => {
         ))}
       </div>
 
-      {/* Sentinel element triggers next page load */}
-      <div ref={sentinelRef} className="h-4" />
+      <div ref={sentinelRef} className="pb-4 w-full" />
 
       {isFetchingNextPage && (
         <div className="flex items-center justify-center pb-8">
