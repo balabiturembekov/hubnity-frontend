@@ -3,7 +3,7 @@
 import { History, Images, TrendingDown } from "lucide-react";
 import {
   RecentActivityItem,
-  useScreenshotsByTimeEntryQuery,
+  useGetScreenshotsByTimeEntriesQuery,
 } from "@/entities/screenshot";
 import { useGetTimeEntriesQuery } from "@/entities/time-entry";
 import { Card, CardContent } from "@/shared/ui/card";
@@ -18,33 +18,31 @@ interface ScreenshotActivitySectionProps {
 export function ScreenshotActivitySection({
   variant = "default",
 }: ScreenshotActivitySectionProps) {
-  const { data: entries, isPending } = useGetTimeEntriesQuery({
-    limit: variant === "default" ? 3 : 2,
+  const { data: entries, isPending: isPendingEntries } = useGetTimeEntriesQuery(
+    {
+      limit: variant === "default" ? 3 : 2,
+    },
+  );
+
+  const entryIds = entries?.map((entry) => entry.id) ?? [];
+
+  const screenshotQueries = useGetScreenshotsByTimeEntriesQuery({
+    timeEntryIds: entryIds,
   });
 
-  const entryId0 = entries?.[0]?.id ?? "";
-  const entryId1 = entries?.[1]?.id ?? "";
-  const entryId2 = entries?.[2]?.id ?? "";
-
-  const screenshots0 = useScreenshotsByTimeEntryQuery(entryId0);
-  const screenshots1 = useScreenshotsByTimeEntryQuery(entryId1);
-  const screenshots2 = useScreenshotsByTimeEntryQuery(entryId2);
-
-  const isPendingScreenshots =
-    (!!entryId0 && screenshots0.isPending) ||
-    (!!entryId1 && screenshots1.isPending) ||
-    (!!entryId2 && screenshots2.isPending);
-
-  const hasAnyScreenshots =
-    (screenshots0.data?.length ?? 0) > 0 ||
-    (screenshots1.data?.length ?? 0) > 0 ||
-    (screenshots2.data?.length ?? 0) > 0;
+  const isPendingScreenshots = screenshotQueries.some((q) => q.isPending);
+  const hasAnyScreenshots = screenshotQueries.some(
+    (q) => (q.data?.length ?? 0) > 0,
+  );
 
   const hasEntries = entries && entries.length > 0;
   const showEmptyState =
-    hasEntries && !isPending && !isPendingScreenshots && !hasAnyScreenshots;
+    hasEntries &&
+    !isPendingEntries &&
+    !isPendingScreenshots &&
+    !hasAnyScreenshots;
 
-  if (!entries || isPending) {
+  if (isPendingEntries || isPendingScreenshots) {
     return <ScreenshotsSkeleton />;
   }
 
@@ -64,11 +62,9 @@ export function ScreenshotActivitySection({
               className="py-8"
             />
           ) : (
-            entries.map((activity, index) => {
-              const screenshotsByEntry =
-                [screenshots0.data, screenshots1.data, screenshots2.data][
-                  index
-                ] ?? [];
+            entries?.map((activity, index) => {
+              const screenshotsByEntry = screenshotQueries[index]?.data ?? [];
+
               return (
                 <RecentActivityItem
                   key={activity.id}
