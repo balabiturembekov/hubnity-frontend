@@ -174,7 +174,7 @@ export const AppsUrlsTable = ({
   );
 
   return (
-    <>
+    <section className="space-y-4">
       {isHeader && (
         <DashboardSectionHeader
           title="Apps & URLs"
@@ -284,6 +284,6 @@ export const AppsUrlsTable = ({
           </TableBody>
         </Table>
       </div>
-    </>
+    </section>
   );
 };
