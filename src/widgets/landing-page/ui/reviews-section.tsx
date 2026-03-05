@@ -1,5 +1,5 @@
 import { UserStar } from "lucide-react";
-import { reviews } from "../consts";
+import { type ExtendedReview, reviews } from "../consts";
 import { ReviewCard } from "./review-card";
 import { SectionHeader } from "./section-header";
 
@@ -37,41 +37,11 @@ export const ReviewsSection = () => {
       <div className="relative overflow-hidden w-full py-8 -my-8">
         <div className="relative flex flex-col gap-6 py-4 w-full transform-gpu">
           <div className="flex w-max animate-marquee hover:paused active:paused will-change-transform transform-gpu">
-            {[1, 2].map((group) => (
-              <div
-                key={`group1-${group}`}
-                className="flex gap-6 px-3"
-                aria-hidden={group === 2 ? "true" : "false"}
-              >
-                {extendedRow1.map((review) => (
-                  <div
-                    key={`${group}-${review.uniqueId}`}
-                    className="shrink-0 select-none transform-gpu backface-hidden"
-                  >
-                    <ReviewCard review={review} />
-                  </div>
-                ))}
-              </div>
-            ))}
+            <ReviewRow extendedReviews={extendedRow1} />
           </div>
 
           <div className="flex w-max animate-marquee-reverse hover:paused active:paused will-change-transform transform-gpu">
-            {[1, 2].map((group) => (
-              <div
-                key={`group2-${group}`}
-                className="flex gap-6 px-3"
-                aria-hidden={group === 2 ? "true" : "false"}
-              >
-                {extendedRow2.map((review) => (
-                  <div
-                    key={`${group}-${review.uniqueId}`}
-                    className="shrink-0 select-none transform-gpu backface-hidden"
-                  >
-                    <ReviewCard review={review} />
-                  </div>
-                ))}
-              </div>
-            ))}
+            <ReviewRow extendedReviews={extendedRow2} />
           </div>
 
           <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-linear-to-r from-background to-transparent z-10 transform-gpu" />
@@ -80,4 +50,27 @@ export const ReviewsSection = () => {
       </div>
     </section>
   );
+};
+
+interface ReviewRowProps {
+  extendedReviews: ExtendedReview[];
+}
+
+const ReviewRow = ({ extendedReviews }: ReviewRowProps) => {
+  return [1, 2].map((group) => (
+    <div
+      key={`group1-${group}`}
+      className="flex gap-6 px-3"
+      aria-hidden={group === 2 ? "true" : "false"}
+    >
+      {extendedReviews.map((review) => (
+        <div
+          key={`${group}-${review.uniqueId}`}
+          className="shrink-0 select-none transform-gpu backface-hidden"
+        >
+          <ReviewCard review={review} />
+        </div>
+      ))}
+    </div>
+  ));
 };
