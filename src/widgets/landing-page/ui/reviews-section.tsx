@@ -21,11 +21,13 @@ export const ReviewsSection = () => {
   return (
     <section
       id="reviews"
+      aria-labelledby="reviews-title"
       className="relative pb-20 sm:pb-32 pt-20 space-y-18 scroll-mt-6 sm:scroll-mt-14 lg:scroll-mt-2 overflow-hidden"
     >
       <div className="container mx-auto px-4">
         <SectionHeader
-          title="What Our Customers Say"
+          sectionId="reviews-title"
+          title="Hubnity Reviews — What Our Customers Say"
           description="Read reviews from our satisfied customers and see how our time tracking software has helped them improve their productivity and attendance."
           badge="Reviews"
           Icon={UserStar}

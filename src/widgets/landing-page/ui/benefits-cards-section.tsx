@@ -9,11 +9,13 @@ export const BenefitsCardsSection = () => {
   return (
     <section
       id="benefits"
+      aria-labelledby="benefits-title"
       className="container mx-auto space-y-12 px-4 py-12 sm:space-y-16 sm:py-16 md:space-y-20 md:py-20 lg:space-y-24 lg:py-24 scroll-mt-14 lg:-scroll-mt-2"
     >
       <SectionHeader
-        title="Power-Packed Benefit to Boost Your Working Time"
-        description="Our intuitive interface ensures that even the most complex time tracking."
+        sectionId="benefits-title"
+        title="Why Teams Choose Hubnity for Time Tracking"
+        description="Our intuitive interface makes even the most complex time tracking effortless."
         badge="Benefits"
         Icon={Trophy}
       />

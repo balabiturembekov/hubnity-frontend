@@ -12,7 +12,7 @@ export const FeatureCard = ({
   feature: { icon: Icon, ...feature },
 }: FeatureCardProps) => {
   return (
-    <motion.div
+    <motion.li
       initial={{ opacity: 0, y: 75, scale: 0.8 }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -31,6 +31,6 @@ export const FeatureCard = ({
           <p className="text-gray-600">{feature.description}</p>
         </CardContent>
       </Card>
-    </motion.div>
+    </motion.li>
   );
 };

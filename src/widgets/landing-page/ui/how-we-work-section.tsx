@@ -11,12 +11,14 @@ export const HowWeWorkSection = () => {
   return (
     <section
       id="how-it-works"
+      aria-labelledby="how-it-works-title"
       className="sm:py-12 sm:px-4 scroll-mt-15 lg:scroll-mt-10"
     >
       <div className="relative container space-y-24 mx-auto px-4 py-12 sm:rounded-lg bg-linear-to-br from-primary/6 via-primary/3 to-primary/7">
         <div className="absolute left-0 top-30 pointer-events-none h-100 w-100 rounded-full bg-linear-to-br from-primary/40 via-purple-400/30 to-indigo-500/20 opacity-25 blur-[100px]" />
         <div className="absolute right-0 bottom-30 pointer-events-none h-100 w-100 rounded-full bg-linear-to-br from-primary/40 via-purple-400/30 to-indigo-500/20 opacity-25 blur-[100px]" />
         <SectionHeader
+          sectionId="how-it-works-title"
           title="How Hubnity Works"
           description="Discover the power of decentralized time tracking. Our AI-driven platform helps you manage your team's time and boost productivity effortlessly."
           badge="How It Works"
@@ -24,7 +26,7 @@ export const HowWeWorkSection = () => {
         />
         <div className="hidden lg:flex flex-col gap-12 relative">
           {howItWorks.map(({ icon: Icon, ...item }, index) => (
-            <div
+            <article
               key={item.id}
               className="relative grid grid-cols-[1fr_48px_1fr] w-full items-center gap-4"
             >
@@ -37,13 +39,13 @@ export const HowWeWorkSection = () => {
                 <FeatureIcon Icon={Icon} />
               </div>
               <FeatureImage item={item} index={index} />
-            </div>
+            </article>
           ))}
           <div className="absolute h-full w-1 rounded-full bg-linear-to-b from-transparent via-primary/20 to-transparent top-0 left-[calc(50%-2px)] z-0"></div>
         </div>
         <div className="flex flex-col gap-12 lg:hidden">
           {howItWorks.map(({ icon: Icon, ...item }, index) => (
-            <div
+            <article
               key={item.id}
               className="w-full flex flex-col justify-center gap-6"
             >
@@ -56,7 +58,7 @@ export const HowWeWorkSection = () => {
                 <FeatureIcon Icon={Icon} isMobile />
               </FeatureTitle>
               <FeatureImage item={item} index={index} isMobile />
-            </div>
+            </article>
           ))}
         </div>
       </div>

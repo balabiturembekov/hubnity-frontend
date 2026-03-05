@@ -37,7 +37,7 @@ export const Footer = () => {
               <Link href="/register">Get Started</Link>
             </Button>
             <Button variant="outline" className="w-32 h-11" asChild>
-              <Link href="/login">View Demo</Link>
+              <Link href="#features">View Demo</Link>
             </Button>
           </nav>
         </div>

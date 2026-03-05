@@ -72,6 +72,16 @@ function buildStructuredData() {
     reviewBody: r.review,
   }));
 
+  const webSite = {
+    "@type": "WebSite",
+    "@id": `${baseUrl}/#website`,
+    name: "Hubnity",
+    url: baseUrl,
+    description:
+      "Time tracking and team management platform for freelancers, agencies, and remote teams.",
+    publisher: { "@id": `${baseUrl}/#organization` },
+  };
+
   const localBusinessOrProduct = {
     "@type": "SoftwareApplication",
     "@id": `${baseUrl}/#product`,
@@ -84,7 +94,13 @@ function buildStructuredData() {
 
   return {
     "@context": "https://schema.org",
-    "@graph": [organization, webApplication, faqPage, localBusinessOrProduct],
+    "@graph": [
+      organization,
+      webSite,
+      webApplication,
+      faqPage,
+      localBusinessOrProduct,
+    ],
   };
 }
 

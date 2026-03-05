@@ -19,11 +19,13 @@ export const QuestionsSection = () => {
   return (
     <section
       id="faq"
+      aria-labelledby="faq-title"
       className="pb-20 pt-10 mt-4 scroll-mt-16 sm:scroll-mt-24 lg:scroll-mt-12"
     >
       <div className="container mx-auto px-4 space-y-18">
         <SectionHeader
-          title="Frequently Asked Questions"
+          sectionId="faq-title"
+          title="Hubnity FAQ — Time Tracking Questions Answered"
           description="Find answers to common questions about setting up your workspace, tracking time, and managing your team."
           badge="FAQ"
           Icon={CircleQuestionMark}
