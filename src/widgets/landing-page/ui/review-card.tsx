@@ -9,7 +9,7 @@ interface ReviewCardProps {
 
 export const ReviewCard = ({ review }: ReviewCardProps) => {
   return (
-    <Card className="h-full min-w-60 max-w-75 sm:max-w-100 shrink-0 select-none hover:bg-gray-50 active:bg-gray-50 transition-colors duration-75 gap-4">
+    <Card className="h-full min-w-60 max-w-75 sm:max-w-100 shrink-0 select-none hover:-translate-y-1 hover:shadow-lg active:shadow-lg transition-all duration-75 gap-4">
       <CardHeader className="gap-0">
         <div className="flex items-center gap-1">
           {Array.from({ length: review.rating }, (_, i) => i).map((i) => (

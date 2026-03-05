@@ -235,6 +235,10 @@ export interface Review {
   review: string;
 }
 
+export interface ExtendedReview extends Review {
+  uniqueId: string;
+}
+
 export const reviews: Review[] = [
   {
     id: "1",
