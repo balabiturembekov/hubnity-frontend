@@ -1,4 +1,8 @@
 export { userService } from "./api/user.service";
+export {
+  PROFILE_STATISTICS,
+  type ProfileStatisticId,
+} from "./consts/profile-statistics";
 export { useEmployeesStats } from "./hooks/use-employees-stats";
 export { useUser } from "./hooks/use-user";
 export { useCreateEmployeeMutation } from "./model/mutations/use-create-employee.mutation";

@@ -24,7 +24,7 @@ const manRope = Manrope({
 const siteUrl = getSiteBaseUrl();
 const title = "Hubnity - Time Tracking & Team Management";
 const description =
-  "Track time, manage projects, and boost productivity with Hubnity. Time tracking software for freelancers, agencies, and remote teams. Free trial, no credit card required.";
+  "Track time, manage projects, and boost productivity with Hubnity. Time tracking software for freelancers, agencies, and remote teams.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
