@@ -23,7 +23,7 @@ export const SectionHeader = ({
           variant="outline"
           className="bg-primary/10 text-base px-6 py-2 flex items-center font-semibold text-primary border-none shadow-sm"
         >
-          <Icon className="mr-2 size-4!" />
+          <Icon aria-hidden="true" className="mr-2 size-4!" />
           <span>{badge}</span>
         </Badge>
       </div>

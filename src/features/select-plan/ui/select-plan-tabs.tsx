@@ -22,7 +22,10 @@ export const SelectPlanTabs = () => {
       className="w-full gap-4"
       onValueChange={(value) => setPeriod(value as SelectType)}
     >
-      <TabsList className="mx-auto bg-primary/5 rounded-full py-5">
+      <TabsList
+        aria-label="Select billing period"
+        className="mx-auto bg-primary/5 rounded-full py-5"
+      >
         {selectTypes.map((type) => (
           <TabsTrigger
             key={type.value}

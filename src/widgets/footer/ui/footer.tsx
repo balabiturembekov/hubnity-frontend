@@ -14,7 +14,10 @@ export const Footer = () => {
             variant="outline"
             className="bg-white py-2 px-3 flex items-center gap-1"
           >
-            <Sparkles className="text-transparent fill-primary w-5! h-5!" />
+            <Sparkles
+              aria-hidden="true"
+              className="text-transparent fill-primary w-5! h-5!"
+            />
             <span className="text-sm text-primary uppercase">
               Your time tracker assistant
             </span>
@@ -45,7 +48,7 @@ export const Footer = () => {
         <div className="flex flex-col lg:flex-row pb-10">
           <div className="sm:w-full lg:w-1/2 flex items-start justify-between lg:justify-start flex-col sm:flex-row lg:flex-col gap-10 pb-10 lg:pb-0">
             <div className="flex flex-col gap-10">
-              <Link href="/" className="w-fit">
+              <Link aria-label="Home page" href="/" className="w-fit">
                 <Image
                   src="/img/hubnity-logo-without-descr.png"
                   alt="Hubnity - Time tracking and team management"
@@ -77,7 +80,7 @@ export const Footer = () => {
                     className="bg-primary rounded-full size-7 flex items-center justify-center"
                     aria-label={`Follow Hubnity on ${social.alt}`}
                   >
-                    <Icon className="w-5" />
+                    <Icon aria-hidden="true" className="w-5" />
                   </Link>
                 ))}
               </div>

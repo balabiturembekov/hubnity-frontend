@@ -47,7 +47,11 @@ export function Header() {
       )}
     >
       <div className="container grid grid-cols-2 xl:grid-cols-[1fr_2fr_1fr] mx-auto items-center justify-between px-4">
-        <Link href="/" className="flex items-center gap-2 w-fit">
+        <Link
+          aria-label="Home page"
+          href="/"
+          className="flex items-center gap-2 w-fit"
+        >
           <Image
             src="/img/hubnity-logo-without-descr.png"
             alt="Hubnity - Time tracking and team management"
@@ -90,7 +94,7 @@ export function Header() {
               <Button className="gap-2" asChild>
                 <Link href="/register">
                   Get Started
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight aria-hidden="true" className="h-4 w-4" />
                 </Link>
               </Button>
             </div>
@@ -104,6 +108,7 @@ export function Header() {
           )}
 
           <Drawer
+            aria-label="Mobile navigation"
             direction="right"
             open={isMenuOpen}
             onOpenChange={setIsMenuOpen}
@@ -143,7 +148,7 @@ export function Header() {
                 </DrawerTitle>
               </DrawerHeader>
               <div className="flex flex-col justify-between h-full w-full overflow-y-auto pt-2 pb-10">
-                <div className="flex flex-col space-y-2">
+                <div role="navigation" className="flex flex-col space-y-2">
                   {LANDING_HEADER_LINKS.map((link) => (
                     <DrawerClose asChild key={link.id}>
                       <Link

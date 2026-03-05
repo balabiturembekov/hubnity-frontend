@@ -15,8 +15,14 @@ export const HowWeWorkSection = () => {
       className="sm:py-12 sm:px-4 scroll-mt-15 lg:scroll-mt-10"
     >
       <div className="relative container space-y-24 mx-auto px-4 py-12 sm:rounded-lg bg-linear-to-br from-primary/6 via-primary/3 to-primary/7">
-        <div className="absolute left-0 top-30 pointer-events-none h-100 w-100 rounded-full bg-linear-to-br from-primary/40 via-purple-400/30 to-indigo-500/20 opacity-25 blur-[100px]" />
-        <div className="absolute right-0 bottom-30 pointer-events-none h-100 w-100 rounded-full bg-linear-to-br from-primary/40 via-purple-400/30 to-indigo-500/20 opacity-25 blur-[100px]" />
+        <div
+          aria-hidden="true"
+          className="absolute left-0 top-30 pointer-events-none h-100 w-100 rounded-full bg-linear-to-br from-primary/40 via-purple-400/30 to-indigo-500/20 opacity-25 blur-[100px]"
+        />
+        <div
+          aria-hidden="true"
+          className="absolute right-0 bottom-30 pointer-events-none h-100 w-100 rounded-full bg-linear-to-br from-primary/40 via-purple-400/30 to-indigo-500/20 opacity-25 blur-[100px]"
+        />
         <SectionHeader
           sectionId="how-it-works-title"
           title="How Hubnity Works"
@@ -35,13 +41,19 @@ export const HowWeWorkSection = () => {
                 description={item.description}
                 index={index}
               />
-              <div className="relative z-10 mb-4 flex items-center justify-center rounded-full bg-white">
+              <div
+                aria-hidden="true"
+                className="relative z-10 mb-4 flex items-center justify-center rounded-full bg-white"
+              >
                 <FeatureIcon Icon={Icon} />
               </div>
               <FeatureImage item={item} index={index} />
             </article>
           ))}
-          <div className="absolute h-full w-1 rounded-full bg-linear-to-b from-transparent via-primary/20 to-transparent top-0 left-[calc(50%-2px)] z-0"></div>
+          <div
+            aria-hidden="true"
+            className="absolute h-full w-1 rounded-full bg-linear-to-b from-transparent via-primary/20 to-transparent top-0 left-[calc(50%-2px)] z-0"
+          ></div>
         </div>
         <div className="flex flex-col gap-12 lg:hidden">
           {howItWorks.map(({ icon: Icon, ...item }, index) => (
@@ -55,7 +67,7 @@ export const HowWeWorkSection = () => {
                 index={index}
                 isMobile
               >
-                <FeatureIcon Icon={Icon} isMobile />
+                <FeatureIcon aria-hidden="true" Icon={Icon} isMobile />
               </FeatureTitle>
               <FeatureImage item={item} index={index} isMobile />
             </article>

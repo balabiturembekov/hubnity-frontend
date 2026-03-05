@@ -9,15 +9,22 @@ import { Button } from "@/shared/ui/button";
 export const HeroSection = () => {
   return (
     <section
+      role="banner"
       id="home"
       aria-labelledby="home-title"
       className="pt-32 relative overflow-hidden bg-linear-to-br from-primary/20 via-primary/5 to-primary/15 mask-[linear-gradient(to_top,transparent_0%,black_20%)] mask-size-[100%_100%] mask-no-repeat"
     >
-      <div className="absolute inset-0 -z-10 bg-grid-pattern opacity-5" />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 -z-10 bg-grid-pattern opacity-5"
+      />
       <div className="container mx-auto px-4">
         <div className="mx-auto max-w-4xl text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border bg-white px-4 py-2 text-sm shadow-sm">
-            <Zap className="h-4 w-4 text-yellow-500 animate-pulse" />
+            <Zap
+              aria-hidden="true"
+              className="h-4 w-4 text-yellow-500 animate-pulse"
+            />
             <span className="text-gray-700">
               New: Real-time team activity tracking
             </span>
@@ -28,6 +35,7 @@ export const HeroSection = () => {
           >
             Hubnity: Smart Time Tracking That
             <motion.span
+              aria-hidden="true"
               animate={{ backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"] }}
               transition={{ duration: 5, ease: "linear", repeat: Infinity }}
               className="bg-[linear-gradient(to_right,var(--color-primary),#1449e667,var(--color-primary))] bg-size-[200%_auto] bg-clip-text text-transparent"
@@ -46,7 +54,7 @@ export const HeroSection = () => {
             <Button size="lg" className="w-full gap-2 sm:w-auto" asChild>
               <Link href="/register">
                 Start Free Trial
-                <ArrowRight className="h-4 w-4" />
+                <ArrowRight aria-hidden="true" className="h-4 w-4" />
               </Link>
             </Button>
             <Button
@@ -56,7 +64,7 @@ export const HeroSection = () => {
               asChild
             >
               <Link href="#features">
-                <Play className="mr-2 h-4 w-4" />
+                <Play aria-hidden="true" className="mr-2 h-4 w-4" />
                 Watch Demo
               </Link>
             </Button>

@@ -1,6 +1,5 @@
 export { BenefitsCardsSection } from "./ui/benefits-cards-section";
 export { BenefitSection } from "./ui/benefits-section";
-export { CTASection } from "./ui/cta-section";
 export { FeaturesSection } from "./ui/features-section";
 export { HeroSection } from "./ui/hero-section";
 export { HowWeWorkSection } from "./ui/how-we-work-section";
@@ -8,4 +7,3 @@ export { LandingStructuredData } from "./ui/landing-structured-data";
 export { QuestionsSection } from "./ui/questions-section";
 export { ReviewsSection } from "./ui/reviews-section";
 export { SelectPlanSection } from "./ui/select-plan-section";
-export { StatsSection } from "./ui/stats-section";

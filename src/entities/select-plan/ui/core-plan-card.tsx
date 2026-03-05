@@ -64,6 +64,7 @@ export const CorePlanCard = ({ plan, period, mounted }: CorePlanCardProps) => {
         </CardHeader>
         <CardContent>
           <Button
+            aria-label={`Select ${plan.name} plan`}
             className={cn(
               "w-full",
               !plan.isPopular &&
@@ -75,7 +76,11 @@ export const CorePlanCard = ({ plan, period, mounted }: CorePlanCardProps) => {
           </Button>
         </CardContent>
         <CardFooter>
-          <CardDescription className="space-y-2 border-t w-full pt-4">
+          <CardDescription
+            role="list"
+            aria-label="Plan features"
+            className="space-y-2 border-t w-full pt-4"
+          >
             {plan.features.map((feature) => (
               <PlanFeature key={feature} feature={feature} />
             ))}
@@ -88,8 +93,8 @@ export const CorePlanCard = ({ plan, period, mounted }: CorePlanCardProps) => {
 
 const PlanFeature = ({ feature }: { feature: string }) => {
   return (
-    <div className="flex items-center gap-2">
-      <Check className="size-4 text-primary" />
+    <div role="listitem" className="flex items-center gap-2">
+      <Check aria-hidden="true" className="size-4 text-primary" />
       <p className="text-base">{feature}</p>
     </div>
   );
