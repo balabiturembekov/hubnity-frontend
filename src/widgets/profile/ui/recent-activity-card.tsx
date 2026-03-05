@@ -11,7 +11,7 @@ interface RecentActivityCardProps {
 
 export const RecentActivityCard = ({ entry }: RecentActivityCardProps) => {
   return (
-    <div
+    <li
       key={entry.id}
       className="group flex flex-col sm:flex-row sm:items-center justify-between p-4 rounded-xl border border-border bg-card shadow-sm hover:shadow-md hover:border-border/80 transition-all duration-200 gap-4"
     >
@@ -65,6 +65,6 @@ export const RecentActivityCard = ({ entry }: RecentActivityCardProps) => {
           </span>
         </div>
       </div>
-    </div>
+    </li>
   );
 };

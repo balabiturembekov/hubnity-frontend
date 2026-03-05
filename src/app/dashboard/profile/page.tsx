@@ -9,9 +9,8 @@ import {
   ProfilePageSkeleton,
   ProfileStatistics,
   ProfileStats,
-  RecentActivity,
+  ProfileTabs,
 } from "@/widgets/profile";
-import { AppsUrlsTable } from "@/widgets/reports";
 
 export default function ProfilePage() {
   const { data, isPending } = useCurrentUser();
@@ -42,13 +41,7 @@ export default function ProfilePage() {
           <ProfileStatistics />
         </div>
 
-        <div className="col-span-2">
-          <RecentActivity />
-        </div>
-
-        <div className="col-span-2 space-y-4">
-          <AppsUrlsTable isAll={false} limit={5} isHeader tab="me" />
-        </div>
+        <ProfileTabs />
       </div>
     </DashboardContainer>
   );

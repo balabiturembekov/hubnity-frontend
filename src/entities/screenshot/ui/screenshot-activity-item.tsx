@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import type { ScreenshotEntity } from "@/entities/screenshot";
 import type { TimeEntryEntity } from "@/entities/time-entry";
-import { UserAvatar } from "@/entities/user";
+import { UserAvatar, useCurrentUser } from "@/entities/user";
 import { ScreenshotFullscreenViewer } from "@/features/screenshot-viewer";
 import { apiUrl } from "@/shared/config/env";
 import { formatDate } from "@/shared/lib/utils";
@@ -23,6 +23,7 @@ export const RecentActivityItem = ({
 }: RecentActivityItemProps) => {
   const [viewerOpen, setViewerOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const { data: currentUser } = useCurrentUser();
 
   if (!screenshots.length) {
     return null;
@@ -32,6 +33,11 @@ export const RecentActivityItem = ({
     setSelectedIndex(index);
     setViewerOpen(true);
   };
+
+  const viewAllLink =
+    currentUser?.id === user.id
+      ? "/dashboard/profile?tab=screenshots"
+      : `/dashboard/admin/employees/${user.id}?tab=screenshots`;
 
   return (
     <>
@@ -43,9 +49,7 @@ export const RecentActivityItem = ({
           </div>
 
           <Button variant="link" className="group text-xs" asChild>
-            <Link
-              href={`/dashboard/admin/employees/${user.id}?tab=screenshots`}
-            >
+            <Link href={viewAllLink}>
               View all
               <ArrowRight className="group-hover:translate-x-1 transition-transform size-3.5" />
             </Link>

@@ -16,7 +16,7 @@ export const RecentActivity = () => {
   const displayedCount = Math.min(stoppedEntries.length, 5);
 
   return (
-    <section className="flex flex-col gap-4">
+    <section className="space-y-4">
       <DashboardSectionHeader
         title="Recent Activity"
         description="Your latest tracked time records"
@@ -41,11 +41,11 @@ export const RecentActivity = () => {
           </p>
         </div>
       ) : (
-        <div className="space-y-2 pt-2">
+        <ul className="space-y-2">
           {stoppedEntries.slice(0, 5).map((entry) => (
             <RecentActivityCard key={entry.id} entry={entry} />
           ))}
-        </div>
+        </ul>
       )}
     </section>
   );
