@@ -1,24 +1,7 @@
-import {
-  endOfMonth,
-  endOfWeek,
-  endOfYear,
-  format,
-  startOfMonth,
-  startOfWeek,
-  startOfYear,
-  subMonths,
-} from "date-fns";
-import {
-  Activity,
-  Calendar,
-  CalendarArrowDown,
-  Calendars,
-  Clock,
-  FileText,
-  TrendingUp,
-} from "lucide-react";
+import { Activity, Clock } from "lucide-react";
 import { useMyTimeEntries } from "@/entities/time-entry";
-import { formatDurationFull } from "@/shared/lib/utils";
+import { PROFILE_STATISTICS, type ProfileStatisticId } from "@/entities/user";
+import { cn } from "@/shared/lib/utils";
 import {
   Card,
   CardContent,
@@ -39,6 +22,17 @@ export const ProfileStatistics = () => {
     isMyStatsPending,
     isMyRecentTimeEntriesPending,
   } = useMyTimeEntries();
+
+  const statsMap: Record<
+    ProfileStatisticId,
+    { totalHours: number } | undefined
+  > = {
+    today: myTodayStats,
+    "this-week": myThisWeekStats,
+    "this-month": myThisMonthStats,
+    "last-month": myLastMonthStats,
+    "this-year": myThisYearStats,
+  };
 
   if (isMyStatsPending || isMyRecentTimeEntriesPending) {
     return <ProfileTimeStatisticsSkeleton />;
@@ -82,108 +76,39 @@ export const ProfileStatistics = () => {
         </div>
 
         <div className="flex flex-col gap-4 justify-between flex-1 pt-2">
-          <div className="group flex justify-between items-center p-3 rounded-xl hover:bg-muted/40 border border-transparent hover:border-border transition-all duration-200">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-blue-500/10 text-blue-600 group-hover:bg-blue-500 group-hover:text-white transition-colors">
-                <Calendar className="h-5 w-5" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-base font-semibold text-foreground tracking-tight">
-                  Today
-                </span>
-                <span className="text-xs text-muted-foreground font-medium">
-                  {format(new Date(), "MMM d")}
-                </span>
-              </div>
-            </div>
-            <span className="text-lg font-bold text-foreground">
-              {formatDurationFull((myTodayStats?.totalHours ?? 0) * 3600)}
-            </span>
-          </div>
+          {PROFILE_STATISTICS.map(({ icon: Icon, ...stat }) => {
+            const hours = statsMap[stat.id]?.totalHours ?? 0;
+            const formattedHours = stat.formatHours(hours);
 
-          <div className="group flex justify-between items-center p-3 rounded-xl hover:bg-muted/40 border border-transparent hover:border-border transition-all duration-200">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-indigo-500/10 text-indigo-600 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
-                <TrendingUp className="h-5 w-5" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-base font-semibold text-foreground tracking-tight">
-                  This Week
-                </span>
-                <span className="text-xs text-muted-foreground font-medium">
-                  {format(
-                    startOfWeek(new Date(), { weekStartsOn: 1 }),
-                    "MMM d",
-                  )}{" "}
-                  -{" "}
-                  {format(endOfWeek(new Date(), { weekStartsOn: 1 }), "MMM d")}
-                </span>
-              </div>
-            </div>
-            <span className="text-lg font-bold text-foreground">
-              {`${myThisWeekStats?.totalHours ?? 0}h`}
-            </span>
-          </div>
-
-          <div className="group flex justify-between items-center p-3 rounded-xl hover:bg-muted/40 border border-transparent hover:border-border transition-all duration-200">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-purple-500/10 text-purple-600 group-hover:bg-purple-500 group-hover:text-white transition-colors">
-                <FileText className="h-5 w-5" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-base font-semibold text-foreground tracking-tight">
-                  This Month
-                </span>
-                <span className="text-xs text-muted-foreground font-medium">
-                  {format(startOfMonth(new Date()), "MMM d")} -{" "}
-                  {format(endOfMonth(new Date()), "MMM d")}
+            return (
+              <div
+                key={stat.id}
+                className="group flex justify-between items-center p-3 rounded-xl hover:bg-muted/40 border border-transparent hover:border-border transition-all duration-200"
+              >
+                <div className="flex items-center gap-3">
+                  <div
+                    className={cn(
+                      "flex items-center justify-center w-10 h-10 rounded-lg group-hover:text-white transition-colors",
+                      stat.colorClasses,
+                    )}
+                  >
+                    <Icon className="h-5 w-5" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-base font-semibold text-foreground tracking-tight">
+                      {stat.label}
+                    </span>
+                    <span className="text-xs text-muted-foreground font-medium">
+                      {stat.getDateValue()}
+                    </span>
+                  </div>
+                </div>
+                <span className="text-lg font-bold text-foreground">
+                  {formattedHours}
                 </span>
               </div>
-            </div>
-            <span className="text-lg font-bold text-foreground">
-              {`${myThisMonthStats?.totalHours ?? 0}h`}
-            </span>
-          </div>
-
-          <div className="group flex justify-between items-center p-3 rounded-xl hover:bg-muted/40 border border-transparent hover:border-border transition-all duration-200">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-teal-500/10 text-teal-600 group-hover:bg-teal-500 group-hover:text-white transition-colors">
-                <CalendarArrowDown className="h-5 w-5" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-base font-semibold text-foreground tracking-tight">
-                  Last Month
-                </span>
-                <span className="text-xs text-muted-foreground font-medium">
-                  {format(startOfMonth(subMonths(new Date(), 1)), "MMM d")} -{" "}
-                  {format(endOfMonth(subMonths(new Date(), 1)), "MMM d")}
-                </span>
-              </div>
-            </div>
-            <span className="text-lg font-bold text-foreground">
-              {`${myLastMonthStats?.totalHours ?? 0}h`}
-            </span>
-          </div>
-
-          <div className="group flex justify-between items-center p-3 rounded-xl hover:bg-muted/40 border border-transparent hover:border-border transition-all duration-200">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-amber-500/10 text-amber-600 group-hover:bg-amber-500 group-hover:text-white transition-colors">
-                <Calendars className="h-5 w-5" />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-base font-semibold text-foreground tracking-tight">
-                  This Year
-                </span>
-                <span className="text-xs text-muted-foreground font-medium">
-                  {format(startOfYear(new Date()), "MMM d")} -{" "}
-                  {format(endOfYear(new Date()), "MMM d")}
-                </span>
-              </div>
-            </div>
-            <span className="text-lg font-bold text-foreground">
-              {`${myThisYearStats?.totalHours ?? 0}h`}
-            </span>
-          </div>
+            );
+          })}
         </div>
       </CardContent>
     </Card>
