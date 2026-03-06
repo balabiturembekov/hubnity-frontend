@@ -20,9 +20,11 @@ export const useLoginMutation = () => {
 
       Cookies.set("access_token", access_token, {
         sameSite: "strict",
+        secure: true,
       });
       Cookies.set("refresh_token", refresh_token, {
         sameSite: "strict",
+        secure: true,
       });
 
       await queryClient.invalidateQueries({ queryKey: ["me"] });

@@ -76,8 +76,14 @@ api.interceptors.response.use(
         ).data;
 
         // Update cookies
-        Cookies.set("access_token", access_token, { sameSite: "strict" });
-        Cookies.set("refresh_token", newRefreshToken, { sameSite: "strict" });
+        Cookies.set("access_token", access_token, {
+          sameSite: "strict",
+          secure: true,
+        });
+        Cookies.set("refresh_token", newRefreshToken, {
+          sameSite: "strict",
+          secure: true,
+        });
 
         // Retry failed requests
         originalRequest.headers.Authorization = `Bearer ${access_token}`;
