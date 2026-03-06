@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:test": "vitest run && next build",
+    "build:global": "biome format --write && biome check && vitest run && next build",
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
