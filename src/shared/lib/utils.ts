@@ -124,5 +124,9 @@ export function formatHours(seconds: number | undefined): string {
  * @returns Formatted date string in "EEE, MMM d, yyyy hh:mm am/pm" format
  */
 export const formatDate = (timestamp: number | string | Date) => {
+  const date = new Date(timestamp);
+
+  if (Number.isNaN(date.getTime())) return "Invalid date";
+
   return format(new Date(timestamp), "EEE, MMM d, yyyy hh:mma");
 };

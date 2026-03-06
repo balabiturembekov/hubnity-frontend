@@ -37,9 +37,11 @@ class AuthService {
       );
       Cookies.set("access_token", res.data.access_token, {
         sameSite: "strict",
+        secure: true,
       });
       Cookies.set("refresh_token", res.data.refresh_token, {
         sameSite: "strict",
+        secure: true,
       });
       return res.data;
     } catch {
