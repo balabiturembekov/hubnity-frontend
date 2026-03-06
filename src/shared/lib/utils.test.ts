@@ -32,6 +32,14 @@ describe("cn", () => {
 });
 
 describe("handleError", () => {
+  beforeEach(() => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
   it("returns response.data.message from AxiosError", () => {
     const error = new AxiosError("Request failed");
     error.response = {
