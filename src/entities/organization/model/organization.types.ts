@@ -1,3 +1,20 @@
+export interface OrganizationEntity {
+  id: string;
+  name: string;
+  ownerId: string;
+  settings: {
+    theme: string;
+  };
+  timezone: string;
+  currency: string;
+  createdAt: string;
+  updatedAt: string;
+  membersCount: number;
+  projectsCount: number;
+  clientsCount: number;
+  teamSize: TeamSize;
+}
+
 export type TeamSize =
   | "SIZE_1_2"
   | "SIZE_3_6"

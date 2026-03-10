@@ -1,19 +1,28 @@
 "use client";
 
-import { useRequireStep1Complete } from "@/features/create-organization";
-import { MonitoringSetups } from "@/widgets/create-organization";
+import { Suspense } from "react";
+import {
+  CreateOrganizationStep2Form,
+  useRequireOrganization,
+} from "@/features/create-organization";
 import { CreateOrganizationLayout } from "@/widgets/organization";
 
-export default function CreateOrganizationStep2Page() {
-  const { isStep1Complete } = useRequireStep1Complete();
+const CreateOrganizationStep2PageContent = () => {
+  const { isReady } = useRequireOrganization();
 
-  if (!isStep1Complete) {
-    return null;
-  }
+  if (!isReady) return null;
 
   return (
     <CreateOrganizationLayout currentStep={2}>
-      <MonitoringSetups />
+      <CreateOrganizationStep2Form />
     </CreateOrganizationLayout>
+  );
+};
+
+export default function CreateOrganizationStep2Page() {
+  return (
+    <Suspense>
+      <CreateOrganizationStep2PageContent />
+    </Suspense>
   );
 }
