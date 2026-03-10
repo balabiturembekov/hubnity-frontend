@@ -16,9 +16,9 @@ export function useRequireStep1Complete() {
   const step1 = useCreateOrganizationStore((s) => s.step1);
   const isStep1Valid = useCreateOrganizationStore((s) => s.isStep1Valid);
 
-  const hasOrganizationName = Boolean(step1?.organizationName?.trim());
+  const hasName = Boolean(step1?.name?.trim());
   const hasTeamSize = Boolean(step1?.teamSize?.trim());
-  const isStep1Complete = isStep1Valid && hasOrganizationName && hasTeamSize;
+  const isStep1Complete = isStep1Valid && hasName && hasTeamSize;
 
   useEffect(() => {
     if (!isStep1Complete) {
