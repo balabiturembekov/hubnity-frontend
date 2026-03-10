@@ -1,11 +1,11 @@
 import { create } from "zustand";
-import type { CreateOrganizationStep1FormValues } from "./create-organization.schema";
+import type { CreateOrganizationStep1Values } from "./create-organization-step-1.schema";
 
 interface CreateOrganizationState {
-  step1: Partial<CreateOrganizationStep1FormValues> | null;
+  step1: Partial<CreateOrganizationStep1Values> | null;
   isStep1Valid: boolean;
 
-  setStep1: (data: Partial<CreateOrganizationStep1FormValues> | null) => void;
+  setStep1: (data: Partial<CreateOrganizationStep1Values> | null) => void;
   setStep1Valid: (valid: boolean) => void;
   reset: () => void;
 }
