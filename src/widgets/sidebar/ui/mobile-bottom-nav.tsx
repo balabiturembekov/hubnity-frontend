@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { useCurrentUser } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { UserProfileDropdown } from "@/features/user";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
@@ -39,7 +39,7 @@ const primaryLinks = [
 
 export function MobileBottomNav() {
   const pathname = usePathname();
-  const { data: user } = useCurrentUser();
+  const { data: user } = useGetCurrentUserQuery();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (

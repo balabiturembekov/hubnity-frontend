@@ -1,6 +1,6 @@
 "use client";
 
-import { useCurrentUser } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import {
   CreateEmployeeButton,
   EmployeesFilterForm,
@@ -14,7 +14,7 @@ import {
 import { DashboardPageHeader } from "@/widgets/header/ui/dashboard-page-header";
 
 export default function EmployeesPage() {
-  const { data, isPending } = useCurrentUser();
+  const { data, isPending } = useGetCurrentUserQuery();
 
   if (isPending || !data) {
     return <EmployeesPageSkeleton />;

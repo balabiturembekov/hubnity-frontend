@@ -2,7 +2,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useCurrentUser, useUpdateProfileMutation } from "@/entities/user";
+import {
+  useGetCurrentUserQuery,
+  useUpdateProfileMutation,
+} from "@/entities/user";
 import { handleError } from "@/shared/lib/utils";
 import {
   type ChangeProfileFormValues,
@@ -18,7 +21,7 @@ export const useChangeProfile = ({
   open,
   onOpenChange,
 }: UseChangeProfileProps) => {
-  const { data: user } = useCurrentUser();
+  const { data: user } = useGetCurrentUserQuery();
   const { mutateAsync, isPending } = useUpdateProfileMutation();
 
   const [avatarPreview, setAvatarPreview] = useState<string>("");
@@ -34,9 +37,9 @@ export const useChangeProfile = ({
   } = useForm<ChangeProfileFormValues>({
     resolver: zodResolver(changeProfileSchema),
     defaultValues: {
-      name: "",
+      firstName: "",
+      lastName: "",
       email: "",
-      hourlyRate: undefined,
       avatar: "",
     },
   });
@@ -44,9 +47,9 @@ export const useChangeProfile = ({
   useEffect(() => {
     if (open && user) {
       reset({
-        name: user.name,
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email,
-        hourlyRate: user.hourlyRate || undefined,
         avatar: user.avatar || "",
       });
       setAvatarPreview(user.avatar || "");
@@ -58,9 +61,9 @@ export const useChangeProfile = ({
   const onSubmit = async (data: ChangeProfileFormValues) => {
     try {
       await mutateAsync({
-        name: data.name,
+        firstName: data.firstName,
+        lastName: data.lastName,
         email: data.email,
-        hourlyRate: data.hourlyRate,
         avatar: data.avatar,
       });
 

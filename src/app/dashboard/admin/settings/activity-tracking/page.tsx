@@ -1,13 +1,13 @@
 "use client";
 
-import { useCurrentUser } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { ActivityTrackingTabs } from "@/widgets/activity-tracking";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { DashboardPageHeader } from "@/widgets/header";
 import { MembersPageSkeleton } from "@/widgets/members";
 
 export default function ActivityTrackingSettingsPage() {
-  const { data, isPending } = useCurrentUser();
+  const { data, isPending } = useGetCurrentUserQuery();
 
   if (isPending || !data) {
     return <MembersPageSkeleton />;

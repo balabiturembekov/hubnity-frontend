@@ -1,7 +1,7 @@
 "use client";
 
 import { Upload, X } from "lucide-react";
-import { UserAvatar, useUser } from "@/entities/user";
+import { UserAvatar } from "@/entities/user";
 import { useChangeProfile } from "@/features/auth/hooks/use-change-profile";
 import { AvatarCropDialog } from "@/shared/ui/avatar-crop";
 import { Button } from "@/shared/ui/button";
@@ -42,8 +42,6 @@ export function ProfileEditDialog({
     handleCropComplete,
   } = useChangeProfile({ open, onOpenChange });
 
-  const { isAdmin } = useUser();
-
   if (!user) return null;
 
   return (
@@ -58,7 +56,11 @@ export function ProfileEditDialog({
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="flex flex-col items-center gap-4">
-              <UserAvatar name={user.name} avatar={avatarPreview} size="xl" />
+              <UserAvatar
+                name={`${user.firstName} ${user.lastName}`}
+                avatar={avatarPreview}
+                size="xl"
+              />
               <div className="flex gap-2">
                 <Label htmlFor="avatar" className="cursor-pointer">
                   <Button
@@ -100,16 +102,30 @@ export function ProfileEditDialog({
               </p>
             </div>
             <div className="grid gap-2">
-              <Label htmlFor="name">Full Name</Label>
+              <Label htmlFor="name">First name</Label>
               <Input
                 id="name"
-                {...register("name")}
+                {...register("firstName")}
                 disabled={isPending}
-                className={errors.name ? "border-destructive" : ""}
+                className={errors.firstName ? "border-destructive" : ""}
               />
-              {errors.name && (
+              {errors.firstName && (
                 <p className="text-xs text-destructive">
-                  {errors.name.message}
+                  {errors.firstName.message}
+                </p>
+              )}
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="name">Last name</Label>
+              <Input
+                id="name"
+                {...register("lastName")}
+                disabled={isPending}
+                className={errors.lastName ? "border-destructive" : ""}
+              />
+              {errors.lastName && (
+                <p className="text-xs text-destructive">
+                  {errors.lastName.message}
                 </p>
               )}
             </div>
@@ -128,26 +144,6 @@ export function ProfileEditDialog({
                 </p>
               )}
             </div>
-            {isAdmin && (
-              <div className="grid gap-2">
-                <Label htmlFor="hourlyRate">Hourly Rate ($/hr)</Label>
-                <Input
-                  id="hourlyRate"
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  {...register("hourlyRate")}
-                  disabled={isPending}
-                  placeholder="0.00"
-                  className={errors.hourlyRate ? "border-destructive" : ""}
-                />
-                {errors.hourlyRate && (
-                  <p className="text-xs text-destructive">
-                    {errors.hourlyRate.message}
-                  </p>
-                )}
-              </div>
-            )}
           </div>
           <DialogFooter>
             <Button

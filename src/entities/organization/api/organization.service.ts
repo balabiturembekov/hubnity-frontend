@@ -1,6 +1,9 @@
 import type { OrganizationGoalEntity } from "@/entities/organization-goal";
 import { api } from "@/shared/config/api";
-import type { OrganizationEntity } from "../model/organization.types";
+import type {
+  MemberEntity,
+  OrganizationEntity,
+} from "../model/organization.types";
 import type { CreateOrganizationValues } from "../model/schemas/create-organization.schema";
 
 class OrganizationService {
@@ -13,6 +16,20 @@ class OrganizationService {
     const res = await api.put<OrganizationGoalEntity[]>(
       `/organizations/${orgId}/goals`,
       payload,
+    );
+    return res.data;
+  }
+
+  async getMember(orgId: string, memberId: string) {
+    const res = await api.get<MemberEntity>(
+      `/organizations/${orgId}/members/${memberId}`,
+    );
+    return res.data;
+  }
+
+  async getMembers(orgId: string) {
+    const res = await api.get<MemberEntity[]>(
+      `/organizations/${orgId}/members`,
     );
     return res.data;
   }

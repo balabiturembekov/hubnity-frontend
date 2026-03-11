@@ -4,9 +4,9 @@ import { format } from "date-fns";
 import { Camera, Clock, FileText } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useOrganizationRole } from "@/entities/organization";
 import { useGetProjectsQuery } from "@/entities/project";
 import type { TimeEntryEntity } from "@/entities/time-entry";
-import { useUser } from "@/entities/user";
 import {
   DeleteTimeEntryDialog,
   TimeEntriesFilterForm,
@@ -52,7 +52,7 @@ export function TimeEntriesTable({
   isPreview = false,
   userId,
 }: TimeEntriesTableProps) {
-  const { isAdmin } = useUser();
+  const { isAdmin } = useOrganizationRole();
   const { data: projects } = useGetProjectsQuery();
   const { timeEntries, isLoading } = useFilteredTimeEntries(userId, "RUNNING");
   const { searchQuery, projectId, period } = useTimeEntriesStore();

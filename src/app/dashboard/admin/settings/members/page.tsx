@@ -1,6 +1,6 @@
 "use client";
 
-import { useCurrentUser } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { DashboardPageHeader } from "@/widgets/header";
 import { MembersPageSkeleton } from "@/widgets/members";
@@ -8,7 +8,7 @@ import { MembersIdleSettingsForm } from "@/widgets/settings/ui/members-idle-sett
 import { MembersList } from "@/widgets/settings/ui/members-list";
 
 export default function MembersSettingsPage() {
-  const { data, isPending } = useCurrentUser();
+  const { data, isPending } = useGetCurrentUserQuery();
 
   if (isPending || !data) {
     return <MembersPageSkeleton />;

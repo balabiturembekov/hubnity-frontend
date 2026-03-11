@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useCurrentUser, useUser } from "@/entities/user";
+import { useOrganizationRole } from "@/entities/organization";
 import { UserProfileDropdown } from "@/features/user";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
@@ -17,9 +17,8 @@ import { TimerPopover } from "@/widgets/timer";
 
 export function DashboardSidebar() {
   const pathname = usePathname();
-  const { data: user } = useCurrentUser();
   const [openLinks, setOpenLinks] = useState<string[]>([]);
-  const { isAdmin } = useUser();
+  const { isUser, isAdmin } = useOrganizationRole();
 
   const handleOpenLink = (link: string) => {
     if (!openLinks.includes(link)) {
@@ -60,12 +59,7 @@ export function DashboardSidebar() {
         <Separator className="my-2" />
 
         {dashboardSidebarLinks.map((item) => {
-          if (
-            item.isAdminOnly &&
-            user?.role !== "ADMIN" &&
-            user?.role !== "OWNER" &&
-            user?.role !== "SUPER_ADMIN"
-          ) {
+          if (item.isAdminOnly && isUser) {
             return null;
           }
 
@@ -139,12 +133,7 @@ export function DashboardSidebar() {
                         {item.childrenLinks.map((link) => {
                           const isChildActive = pathname === link.href;
 
-                          if (
-                            link.isAdminOnly &&
-                            user?.role !== "ADMIN" &&
-                            user?.role !== "OWNER" &&
-                            user?.role !== "SUPER_ADMIN"
-                          ) {
+                          if (link.isAdminOnly && isUser) {
                             return null;
                           }
 

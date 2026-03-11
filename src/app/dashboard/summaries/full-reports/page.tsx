@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
-import { useUser } from "@/entities/user";
+import { useOrganizationRole } from "@/entities/organization";
 import { useTabParam } from "@/shared/hooks/useTabParam";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shared/ui/tabs";
 import { DashboardContainer } from "@/widgets/dashboard";
@@ -9,7 +9,7 @@ import { DashboardPageHeader } from "@/widgets/header";
 import { AppsUrlsReport } from "@/widgets/reports";
 
 function FullReportContent() {
-  const { isAdmin } = useUser();
+  const { isAdmin } = useOrganizationRole();
   const defaultTab = "all";
   const { tab, handleTabChange } = useTabParam({ defaultTab });
 

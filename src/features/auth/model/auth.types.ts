@@ -17,12 +17,10 @@ export interface LoginRes {
 }
 
 export interface RegisterReq {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  companyName: string;
-  companyDomain: string;
   password: string;
-  // confirmPassword: string; TODO: Uncomment after fixing on backend
 }
 
 export interface RegisterRes {
@@ -34,7 +32,6 @@ export interface RegisterRes {
 export interface ChangePasswordReq {
   currentPassword: string;
   newPassword: string;
-  confirmPassword: string;
 }
 
 export interface ForgotPasswordRes {
@@ -52,7 +49,6 @@ export interface ResetPasswordRes {
 export interface ResetPasswordReq {
   token: string;
   newPassword: string;
-  confirmPassword: string;
 }
 
 export interface RefreshRes {

@@ -3,17 +3,19 @@
 import { format } from "date-fns";
 import { ArrowRight, Clock, TrendingUp } from "lucide-react";
 import Link from "next/link";
-import { useUser } from "@/entities/user";
+import { useOrganizationRole } from "@/entities/organization";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { greeting } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { DashboardPageHeader } from "@/widgets/header";
 
 export const MainDashboardHeader = () => {
-  const { user, isAdmin } = useUser();
+  const { isAdmin } = useOrganizationRole();
+  const { data: currentUser } = useGetCurrentUserQuery();
 
   return (
     <DashboardPageHeader
-      title={`${greeting()}, ${user?.name}! 👋`}
+      title={`${greeting()}, ${currentUser?.firstName} ${currentUser?.lastName}! 👋`}
       subTitle={format(new Date(), "EEEE, MMMM d, yyyy")}
     >
       <Link href="/dashboard/tracking">

@@ -1,14 +1,14 @@
 "use client";
 
 import { Bell } from "lucide-react";
-import { useCurrentUser } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { UserProfileDropdown } from "@/features/user";
 import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 import { DashboardHeaderSkeleton } from "./dashboard-header-skeleton";
 
 export const DashboardHeader = () => {
-  const { data: user, isPending } = useCurrentUser();
+  const { data: user, isPending } = useGetCurrentUserQuery();
 
   if (!user || isPending) return <DashboardHeaderSkeleton />;
 

@@ -2,8 +2,8 @@ import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import {
   type UserEntity,
-  useCurrentUser,
   useDeleteEmployeeMutation,
+  useGetCurrentUserQuery,
 } from "@/entities/user";
 import {
   AlertDialog,
@@ -26,7 +26,7 @@ export const DeleteEmployeeButton = ({
   employee,
 }: DeleteEmployeeButtonProps) => {
   const [open, setOpen] = useState(false);
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentUser } = useGetCurrentUserQuery();
   const { mutateAsync, isPending } = useDeleteEmployeeMutation();
 
   const isSelf = employee.id === currentUser?.id;

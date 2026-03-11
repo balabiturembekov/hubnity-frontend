@@ -1,6 +1,7 @@
 "use client";
 
-import { useCurrentUser, useUser } from "@/entities/user";
+import { useOrganizationRole } from "@/entities/organization";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { ExportDialog } from "@/widgets/export";
 import { DashboardPageHeader } from "@/widgets/header";
@@ -8,8 +9,8 @@ import { TimeEntriesTable, TimeEntryStatsCards } from "@/widgets/time-entry";
 import { TrackingPageSkeleton } from "@/widgets/tracking";
 
 export default function TrackingPage() {
-  const { isAdmin } = useUser();
-  const { data, isPending } = useCurrentUser();
+  const { isAdmin } = useOrganizationRole();
+  const { data, isPending } = useGetCurrentUserQuery();
 
   if (isPending || !data) {
     return <TrackingPageSkeleton />;

@@ -31,7 +31,7 @@ export const useRegisterMutation = () => {
         queryKey: ["me"],
       });
 
-      router.push("/dashboard");
+      router.push("/welcome");
     },
     onError: (error) => {
       toast.error(

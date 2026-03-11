@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 import type { Dispatch, SetStateAction } from "react";
 import type { DateRange } from "react-day-picker";
-import { useUser } from "@/entities/user";
+import { useOrganizationRole } from "@/entities/organization";
 import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { Calendar } from "@/shared/ui/calendar";
@@ -35,7 +35,7 @@ interface AppsUrlsFiltersProps {
 }
 
 export const AppsUrlsFilters = ({ date, setDate }: AppsUrlsFiltersProps) => {
-  const { isAdmin } = useUser();
+  const { isAdmin } = useOrganizationRole();
 
   return (
     <Card className="transition-shadow hover:shadow-md bg-card">

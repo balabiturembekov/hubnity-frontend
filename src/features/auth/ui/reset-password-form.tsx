@@ -29,7 +29,6 @@ export const ResetPasswordForm = () => {
     resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
       newPassword: "",
-      confirmPassword: "",
       token: token || "",
     },
   });

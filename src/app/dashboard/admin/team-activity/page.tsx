@@ -1,6 +1,7 @@
 "use client";
 
-import { useCurrentUser, useUser } from "@/entities/user";
+import { useOrganizationRole } from "@/entities/organization";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import {
   ExportTeamActivityCSV,
   MembersTable,
@@ -14,8 +15,8 @@ import {
 } from "@/widgets/team-activity";
 
 export default function AdminTeamActivityPage() {
-  const { isAdmin } = useUser();
-  const { data, isPending } = useCurrentUser();
+  const { isAdmin } = useOrganizationRole();
+  const { data, isPending } = useGetCurrentUserQuery();
 
   if (isPending || !data) {
     return <TeamActivityPageSkeleton />;

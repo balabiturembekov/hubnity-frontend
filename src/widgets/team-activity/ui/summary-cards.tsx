@@ -2,15 +2,15 @@
 
 import { format } from "date-fns";
 import { Calendar, Clock, Users } from "lucide-react";
+import { useOrganizationRole } from "@/entities/organization";
 import { StatsCard } from "@/entities/stats";
 import { periodsLabels } from "@/entities/team-activity";
 import { useTimeEntries } from "@/entities/time-entry";
-import { useUser } from "@/entities/user";
 import { useTeamActivityStore } from "@/features/team-activity";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const SummaryCards = () => {
-  const { isAdmin } = useUser();
+  const { isAdmin } = useOrganizationRole();
   const {
     isPending,
     totalMembers,

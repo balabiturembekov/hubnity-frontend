@@ -1,14 +1,15 @@
 import { create } from "zustand";
-import type { UserRole, UserStatus } from "@/entities/user";
+import type { MemberStatus } from "@/entities/organization";
+import type { UserRole } from "@/entities/user";
 
 interface EmployeesState {
   searchQuery: string;
   roleFilter: UserRole | "all";
-  statusFilter: UserStatus | "all";
+  statusFilter: MemberStatus | "all";
 
   setSearchQuery: (query: string) => void;
   setRoleFilter: (role: UserRole | "all") => void;
-  setStatusFilter: (status: UserStatus | "all") => void;
+  setStatusFilter: (status: MemberStatus | "all") => void;
   resetFilters: () => void;
 }
 

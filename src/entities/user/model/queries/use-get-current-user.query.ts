@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
-import { userService } from "@/entities/user";
+import { type UserEntity, userService } from "@/entities/user";
 
-export const useCurrentUser = () =>
-  useQuery({
+export const useGetCurrentUserQuery = () =>
+  useQuery<UserEntity, Error>({
     queryKey: ["me"],
     queryFn: userService.getMe,
     retry: false,

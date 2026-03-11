@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useGetDashboardAnalyticsQuery } from "@/entities/dashboard-analytics";
-import { useCurrentUser } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { getPeriods } from "@/shared/lib/date/date-periods";
 import {
   DEFAULT_MY_TIME_ENTRIES_STATE,
@@ -9,7 +9,7 @@ import {
 import { useGetMyTimeEntriesQuery } from "../model/query/use-get-my-time-entries.query";
 
 export const useMyTimeEntries = () => {
-  const { data: user } = useCurrentUser();
+  const { data: user } = useGetCurrentUserQuery();
   const periods = useMemo(() => getPeriods(), []);
 
   const { data: myTimeEntries, isPending: isMyTimeEntriesPending } =

@@ -5,13 +5,12 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { registerFieldGroups } from "@/features/auth/consts";
+import { registerFields } from "@/features/auth/consts";
 import {
   type RegisterFormValues,
   registerSchema,
 } from "@/features/auth/model/auth.schema";
 import { useRegisterMutation } from "@/features/auth/model/mutations/use-register.mutation";
-import { cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { Checkbox } from "@/shared/ui/checkbox";
 import { Field, FieldLabel } from "@/shared/ui/field";
@@ -33,12 +32,10 @@ export const RegisterForm = () => {
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      name: "",
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
-      confirmPassword: "",
-      companyName: "",
-      companyDomain: "",
     },
   });
 
@@ -50,75 +47,67 @@ export const RegisterForm = () => {
         )}
         className="space-y-5"
       >
-        {registerFieldGroups.map((group) => (
-          <div
-            key={group.id}
-            className={cn(
-              "grid gap-5",
-              group.columns === 2 && "grid-cols-1 md:grid-cols-2",
-            )}
-          >
-            {group.fields.map(
-              ({
-                name,
-                label,
-                placeholder,
-                type = "text",
-                required,
-                icon: Icon,
-                bottomMessage,
-                autoComplete,
-              }) => (
-                <FormField
-                  key={name}
-                  control={form.control}
-                  name={name}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel htmlFor={name} aria-required={required}>
-                        {label}
-                      </FormLabel>
-                      <FormControl>
-                        <div className="relative">
-                          <Icon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground z-10" />
-                          {type === "password" ? (
-                            <PasswordInput
-                              id={name}
-                              type={type}
-                              required={required}
-                              placeholder={placeholder}
-                              className="pl-9 h-10"
-                              disabled={registerMutation.isPending}
-                              autoComplete={autoComplete}
-                              {...field}
-                            />
-                          ) : (
-                            <Input
-                              id={name}
-                              type={type}
-                              required={required}
-                              placeholder={placeholder}
-                              className="pl-9 h-10"
-                              disabled={registerMutation.isPending}
-                              autoComplete={autoComplete}
-                              {...field}
-                            />
-                          )}
-                        </div>
-                      </FormControl>
-                      {bottomMessage && (
-                        <span className="text-xs text-muted-foreground">
-                          {bottomMessage}
-                        </span>
-                      )}
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              ),
-            )}
-          </div>
-        ))}
+        <div className="flex flex-col gap-5">
+          {registerFields.map(
+            ({
+              name,
+              label,
+              placeholder,
+              type = "text",
+              required,
+              icon: Icon,
+              bottomMessage,
+              autoComplete,
+            }) => (
+              <FormField
+                key={name}
+                control={form.control}
+                name={name}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel htmlFor={name} aria-required={required}>
+                      {label}
+                    </FormLabel>
+                    <FormControl>
+                      <div className="relative">
+                        <Icon className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground z-10" />
+                        {type === "password" ? (
+                          <PasswordInput
+                            id={name}
+                            type={type}
+                            required={required}
+                            placeholder={placeholder}
+                            className="pl-9 h-10"
+                            disabled={registerMutation.isPending}
+                            autoComplete={autoComplete}
+                            {...field}
+                          />
+                        ) : (
+                          <Input
+                            id={name}
+                            type={type}
+                            required={required}
+                            placeholder={placeholder}
+                            className="pl-9 h-10"
+                            disabled={registerMutation.isPending}
+                            autoComplete={autoComplete}
+                            {...field}
+                          />
+                        )}
+                      </div>
+                    </FormControl>
+                    {bottomMessage && (
+                      <span className="text-xs text-muted-foreground">
+                        {bottomMessage}
+                      </span>
+                    )}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            ),
+          )}
+        </div>
 
         <Field orientation="horizontal" className="gap-2">
           <Checkbox

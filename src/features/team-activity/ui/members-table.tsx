@@ -1,10 +1,11 @@
 import { format } from "date-fns";
 import { Activity, TrendingUp } from "lucide-react";
+import { useOrganizationRole } from "@/entities/organization";
 import {
   TeamActivityBadgeColor,
   TeamActivityBadgeVariant,
 } from "@/entities/team-activity";
-import { UserAvatar, useUser } from "@/entities/user";
+import { UserAvatar } from "@/entities/user";
 import {
   Accordion,
   AccordionContent,
@@ -26,7 +27,7 @@ import { ListItemsSkeleton } from "@/widgets/skeleton";
 import { useFilteredTeamActivity } from "../hooks/use-filtered-team-activity";
 
 export const MembersTable = () => {
-  const { isAdmin } = useUser();
+  const { isAdmin } = useOrganizationRole();
   const { teamActivity, isLoading } = useFilteredTeamActivity();
 
   if (isLoading) {

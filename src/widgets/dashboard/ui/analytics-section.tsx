@@ -1,5 +1,5 @@
 import { BarChart3 } from "lucide-react";
-import { useUser } from "@/entities/user";
+import { useOrganizationRole } from "@/entities/organization";
 import {
   DailyChart,
   GoalProgress,
@@ -23,7 +23,7 @@ export const AnalyticsSection = ({
 }: AnalyticsSectionProps) => {
   const { isPending: isPendingHourly } = useHourlyData();
   const { isPending: isPendingDaily } = useDailyData();
-  const { isAdmin } = useUser();
+  const { isAdmin } = useOrganizationRole();
 
   const isPending = isPendingHourly || isPendingDaily;
 

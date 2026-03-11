@@ -1,6 +1,6 @@
 "use client";
 
-import { useCurrentUser } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { CreateProjectButton } from "@/features/project/ui/create-project-button";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { DashboardPageHeader } from "@/widgets/header";
@@ -9,7 +9,7 @@ import { ProjectsList } from "@/widgets/project/ui/projects-list";
 import { ProjectsPageSkeleton } from "@/widgets/project/ui/projects-page-skeleton";
 
 export default function AdminProjectsPage() {
-  const { data, isPending } = useCurrentUser();
+  const { data, isPending } = useGetCurrentUserQuery();
 
   if (isPending || !data) {
     return <ProjectsPageSkeleton />;

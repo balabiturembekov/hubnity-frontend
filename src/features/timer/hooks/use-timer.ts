@@ -6,12 +6,12 @@ import {
   useResumeTimeEntryMutation,
   useStopTimeEntryMutation,
 } from "@/entities/time-entry";
-import { useCurrentUser } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { useTimerStore } from "@/features/timer";
 import { formatDurationFull } from "@/shared/lib/utils";
 
 export const useTimer = () => {
-  const { data: user } = useCurrentUser();
+  const { data: user } = useGetCurrentUserQuery();
   const { data: latestEntries, isPending: isLatestPending } =
     useGetTimeEntriesQuery(
       user?.id

@@ -29,7 +29,6 @@ export const useChangePassword = ({
     defaultValues: {
       currentPassword: "",
       newPassword: "",
-      confirmPassword: "",
     },
   });
 

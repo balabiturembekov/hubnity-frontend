@@ -7,24 +7,12 @@ export const loginSchema = z.object({
 
 export type LoginFormValues = z.infer<typeof loginSchema>;
 
-export const registerSchema = z
-  .object({
-    name: z.string().min(1, "Name is required"),
-    email: z.email().min(1, "Email is required"),
-    password: z.string().min(8, "Password must be at least 6 characters"),
-    confirmPassword: z.string().min(1, "Confirm passwords is required"),
-    companyName: z.string().min(1, "Company name is required"),
-    companyDomain: z
-      .string()
-      .min(1, "Company domain is required")
-      .refine((value) => /^[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/.test(value), {
-        message: "Please enter a valid domain (e.g., example.com)",
-      }),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Passwords do not match",
-  });
+export const registerSchema = z.object({
+  firstName: z.string().min(1, "First name is required"),
+  lastName: z.string().min(1, "Last name is required"),
+  email: z.email().min(1, "Email is required"),
+  password: z.string().min(8, "Password must be at least 6 characters"),
+});
 
 export type RegisterFormValues = z.infer<typeof registerSchema>;
 
@@ -32,11 +20,6 @@ export const changePasswordSchema = z
   .object({
     currentPassword: z.string().min(1, "Current password is required"),
     newPassword: z.string().min(8, "Password must be at least 8 characters"),
-    confirmPassword: z.string().min(1, "Confirm passwords is required"),
-  })
-  .refine((data) => data.newPassword === data.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Passwords do not match",
   })
   .refine((data) => data.newPassword !== data.currentPassword, {
     path: ["newPassword"],
@@ -46,13 +29,9 @@ export const changePasswordSchema = z
 export type ChangePasswordFormValues = z.infer<typeof changePasswordSchema>;
 
 export const changeProfileSchema = z.object({
-  name: z.string().optional(),
+  firstName: z.string().optional(),
+  lastName: z.string().optional(),
   email: z.email("Please enter a valid email").optional(),
-  hourlyRate: z.coerce
-    .number<number>()
-    .min(0, "Hourly rate cannot be negative")
-    .max(10000, "Hourly rate cannot exceed $10,000")
-    .optional(),
   avatar: z.string().optional().nullable(),
 });
 
@@ -64,15 +43,9 @@ export const forgotPasswordSchema = z.object({
 
 export type ForgotPasswordFormValues = z.infer<typeof forgotPasswordSchema>;
 
-export const resetPasswordSchema = z
-  .object({
-    token: z.string().min(1, "Token is required"),
-    newPassword: z.string().min(8, "Password must be at least 8 characters"),
-    confirmPassword: z.string().min(1, "Confirm passwords is required"),
-  })
-  .refine((data) => data.newPassword === data.confirmPassword, {
-    path: ["confirmPassword"],
-    message: "Passwords do not match",
-  });
+export const resetPasswordSchema = z.object({
+  token: z.string().min(1, "Token is required"),
+  newPassword: z.string().min(8, "Password must be at least 8 characters"),
+});
 
 export type ResetPasswordFormValues = z.infer<typeof resetPasswordSchema>;

@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-import { useCurrentUser } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { UserProfileDropdown } from "@/features/user";
 import { LANDING_HEADER_LINKS } from "@/shared/consts/landing-header-links";
 import { cn } from "@/shared/lib/utils";
@@ -20,7 +20,7 @@ import {
 } from "@/shared/ui/drawer";
 
 export function Header() {
-  const { data: user, isPending } = useCurrentUser();
+  const { data: user, isPending } = useGetCurrentUserQuery();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 

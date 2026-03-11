@@ -1,8 +1,9 @@
 import { format, subDays } from "date-fns";
 import { useMemo } from "react";
+import { useOrganizationRole } from "@/entities/organization";
 import type { TimeEntryEntity } from "@/entities/time-entry";
 import { useGetTimeEntriesQuery } from "@/entities/time-entry";
-import { type UserEntity, useCurrentUser } from "@/entities/user";
+import { type UserEntity, useGetCurrentUserQuery } from "@/entities/user";
 
 interface DailyDataPoint {
   date: string;
@@ -12,8 +13,9 @@ interface DailyDataPoint {
 }
 
 export const useDailyData = (length: number = 14) => {
-  const { data: user } = useCurrentUser();
+  const { data: user } = useGetCurrentUserQuery();
   const { data: timeEntries = [], isPending } = useGetTimeEntriesQuery();
+  const { isUser } = useOrganizationRole();
 
   const last7Days = useMemo(() => {
     return Array.from({ length }, (_, i) => {
@@ -41,6 +43,7 @@ export const useDailyData = (length: number = 14) => {
         timeEntries,
         dayStart,
         dayEnd,
+        isUser,
         user,
       );
 
@@ -51,7 +54,7 @@ export const useDailyData = (length: number = 14) => {
         idleHours: 0, // Placeholder for future idle time endpoint
       };
     });
-  }, [last7Days, timeEntries, user]);
+  }, [last7Days, timeEntries, user, isUser]);
 
   return {
     dailyData,
@@ -63,6 +66,7 @@ function calculateDailyTotal(
   timeEntries: TimeEntryEntity[],
   dayStart: Date,
   dayEnd: Date,
+  isUser: boolean,
   user?: UserEntity,
 ): number {
   // Filter entries for this day
@@ -81,12 +85,7 @@ function calculateDailyTotal(
   });
 
   // Filter by user role
-  if (
-    user &&
-    user.role !== "ADMIN" &&
-    user.role !== "OWNER" &&
-    user.role !== "SUPER_ADMIN"
-  ) {
+  if (user && isUser) {
     entriesInDay = entriesInDay.filter((entry) => entry.userId === user.id);
   }
 

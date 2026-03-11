@@ -2,7 +2,8 @@
 
 import { Upload, X } from "lucide-react";
 import { Controller } from "react-hook-form";
-import type { UserEntity, UserStatus } from "@/entities/user";
+import type { MemberStatus } from "@/entities/organization";
+import type { UserEntity } from "@/entities/user";
 import { UserAvatar } from "@/entities/user";
 import { AvatarCropDialog } from "@/shared/ui/avatar-crop";
 import { Button } from "@/shared/ui/button";
@@ -192,7 +193,7 @@ export function EmployeeDialog({ open, onOpenChange, user }: UserDialogProps) {
                 render={({ field }) => (
                   <Select
                     value={field.value}
-                    onValueChange={(val) => field.onChange(val as UserStatus)}
+                    onValueChange={(val) => field.onChange(val as MemberStatus)}
                     disabled={isPending}
                   >
                     <SelectTrigger>

@@ -3,9 +3,9 @@
 import { formatDistanceToNow } from "date-fns";
 import { Filter, RefreshCw, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useOrganizationRole } from "@/entities/organization";
 import { useGetProjectsQuery } from "@/entities/project";
 import type { TimeEntryStatusType } from "@/entities/time-entry";
-import { useUser } from "@/entities/user";
 import { useTimeEntriesStore } from "@/features/time-entry";
 import { Button } from "@/shared/ui/button";
 import {
@@ -57,7 +57,7 @@ export const TimeEntriesFilterForm = ({
     dataUpdatedAt,
   } = useFilteredTimeEntries(userId, status);
   const [now, setNow] = useState(Date.now());
-  const { isAdmin } = useUser();
+  const { isAdmin } = useOrganizationRole();
 
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 5000);

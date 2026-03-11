@@ -1,6 +1,6 @@
 "use client";
 
-import { useCurrentUser } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { Banner } from "@/widgets/banner";
 import {
   AppUrlsSection,
@@ -14,7 +14,7 @@ import { AnalyticsSection } from "@/widgets/dashboard/ui/analytics-section";
 import { TimeEntriesTable } from "@/widgets/time-entry";
 
 export default function DashboardPage() {
-  const { data, isPending } = useCurrentUser();
+  const { data, isPending } = useGetCurrentUserQuery();
 
   if (isPending || !data) {
     return <DashboardPageSkeleton />;

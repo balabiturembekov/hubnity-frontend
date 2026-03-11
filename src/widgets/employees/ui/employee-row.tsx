@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { UserAvatar, useCurrentUser } from "@/entities/user";
+import { UserAvatar, useGetCurrentUserQuery } from "@/entities/user";
 import type { UserEntity } from "@/entities/user/model/user.types";
 import {
   DeleteEmployeeButton,
@@ -14,7 +14,7 @@ interface EmployeeRowProps {
 }
 
 export const EmployeeRow = ({ user }: EmployeeRowProps) => {
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentUser } = useGetCurrentUserQuery();
 
   return (
     <TableRow key={user.id} className="transition-colors hover:bg-muted/50">

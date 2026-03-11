@@ -1,6 +1,6 @@
 "use client";
 
-import { useCurrentUser } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { AdminGuard } from "@/features/auth";
 import { ReportsPeriodSelect } from "@/features/reports";
 import { DashboardContainer } from "@/widgets/dashboard";
@@ -10,7 +10,7 @@ import { DashboardPageHeader } from "@/widgets/header";
 import { ReportsPageSkeleton, ReportsStatsSection } from "@/widgets/reports";
 
 export default function AdminReportsPage() {
-  const { data, isPending } = useCurrentUser();
+  const { data, isPending } = useGetCurrentUserQuery();
 
   if (isPending || !data) {
     return <ReportsPageSkeleton />;

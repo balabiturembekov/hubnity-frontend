@@ -1,6 +1,7 @@
 import { AppWindow } from "lucide-react";
 import React from "react";
-import { UserAvatar, useUser } from "@/entities/user";
+import { useOrganizationRole } from "@/entities/organization";
+import { UserAvatar } from "@/entities/user";
 import { cn } from "@/shared/lib/utils";
 import { Badge } from "@/shared/ui/badge";
 import {
@@ -152,7 +153,7 @@ export const AppsUrlsTable = ({
   isHeader = false,
   tab = "all",
 }: AppsUrlsTableProps) => {
-  const { isAdmin } = useUser();
+  const { isAdmin } = useOrganizationRole();
 
   let filteredData = mockData.filter((item) =>
     isAll ? true : !item.isAllSpecific,
