@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { organizationService } from "@/entities/organization/api/organization.service";
 
 export default function DashboardRedirectPage() {
@@ -18,8 +18,7 @@ export default function DashboardRedirectPage() {
         }
 
         const savedOrgId = localStorage.getItem("orgId");
-        const validSaved =
-          savedOrgId && orgs.some((o) => o.id === savedOrgId);
+        const validSaved = savedOrgId && orgs.some((o) => o.id === savedOrgId);
 
         if (validSaved) {
           router.replace(`/dashboard/${savedOrgId}`);

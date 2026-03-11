@@ -40,8 +40,7 @@ export const useLoginMutation = () => {
         }
 
         const savedOrgId = localStorage.getItem("orgId");
-        const validSaved =
-          savedOrgId && orgs.some((o) => o.id === savedOrgId);
+        const validSaved = savedOrgId && orgs.some((o) => o.id === savedOrgId);
 
         if (validSaved) {
           router.push(`/dashboard/${savedOrgId}`);
