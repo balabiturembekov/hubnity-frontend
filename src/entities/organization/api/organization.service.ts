@@ -15,7 +15,9 @@ class OrganizationService {
   async addOrganizationGoals(orgId: string, payload: string[]) {
     const res = await api.put<OrganizationGoalEntity[]>(
       `/organizations/${orgId}/goals`,
-      payload,
+      {
+        goalIds: payload,
+      },
     );
     return res.data;
   }
@@ -31,6 +33,11 @@ class OrganizationService {
     const res = await api.get<MemberEntity[]>(
       `/organizations/${orgId}/members`,
     );
+    return res.data;
+  }
+
+  async getMyOrganizations() {
+    const res = await api.get<OrganizationEntity[]>("/organizations");
     return res.data;
   }
 }

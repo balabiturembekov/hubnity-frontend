@@ -1,43 +1,43 @@
 "use client";
 
-import { useGetCurrentUserQuery } from "@/entities/user";
-import { Banner } from "@/widgets/banner";
-import {
-  AppUrlsSection,
-  DashboardContainer,
-  DashboardPageSkeleton,
-  MainDashboardHeader,
-  OverviewSection,
-  ScreenshotActivitySection,
-} from "@/widgets/dashboard";
-import { AnalyticsSection } from "@/widgets/dashboard/ui/analytics-section";
-import { TimeEntriesTable } from "@/widgets/time-entry";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { organizationService } from "@/entities/organization/api/organization.service";
 
-export default function DashboardPage() {
-  const { data, isPending } = useGetCurrentUserQuery();
+export default function DashboardRedirectPage() {
+  const router = useRouter();
 
-  if (isPending || !data) {
-    return <DashboardPageSkeleton />;
-  }
+  useEffect(() => {
+    const redirect = async () => {
+      try {
+        const orgs = await organizationService.getMyOrganizations();
+
+        if (orgs.length === 0) {
+          router.replace("/welcome");
+          return;
+        }
+
+        const savedOrgId = localStorage.getItem("orgId");
+        const validSaved =
+          savedOrgId && orgs.some((o) => o.id === savedOrgId);
+
+        if (validSaved) {
+          router.replace(`/dashboard/${savedOrgId}`);
+        } else {
+          localStorage.setItem("orgId", orgs[0].id);
+          router.replace(`/dashboard/${orgs[0].id}`);
+        }
+      } catch {
+        router.replace("/welcome");
+      }
+    };
+
+    redirect();
+  }, [router]);
 
   return (
-    <DashboardContainer>
-      <MainDashboardHeader />
-
-      <div className="p-2 md:p-6 grid gap-4">
-        <Banner variant="blue" />
-
-        <OverviewSection />
-        <AnalyticsSection isPreview />
-        <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
-          <ScreenshotActivitySection />
-          <div className="space-y-4">
-            <AppUrlsSection />
-            <ScreenshotActivitySection variant="lowActivity" />
-          </div>
-        </div>
-        <TimeEntriesTable isPreview />
-      </div>
-    </DashboardContainer>
+    <div className="flex h-screen items-center justify-center bg-background">
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
+    </div>
   );
 }

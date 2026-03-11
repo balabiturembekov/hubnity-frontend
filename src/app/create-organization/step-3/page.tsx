@@ -11,6 +11,7 @@ import {
   X,
 } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { Suspense, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useRequireOrganization } from "@/features/create-organization";
@@ -33,6 +34,9 @@ type InviteUserType = {
 const INVITE_LINK = "https://hubnity.de/organization?invite=token";
 
 const CreateOrganizationStep3PageContent = () => {
+  const searchParams = useSearchParams();
+  const orgId = searchParams.get("orgId");
+
   const [invitedUsers, setInvitedUsers] = useState<InviteUserType[]>([
     {
       id: "1",
@@ -254,7 +258,7 @@ const CreateOrganizationStep3PageContent = () => {
         <footer className="w-full flex items-center justify-between fixed lg:static bottom-0 left-0 bg-gray-100 lg:bg-background py-3 lg:py-0 px-5 sm:px-10 lg:px-0 shadow-[0_-1px_3px_0_#0000001a] lg:shadow-none">
           <Button asChild variant="outline" size="lg" className="h-10 text-sm">
             {/* TODO: Поставить настоящий id */}
-            <Link href={`/create-organization/step-2?${123123}`}>
+            <Link href={`/create-organization/step-2?orgId=${orgId}`}>
               <ArrowLeft className="mr-2 h-5 w-5" strokeWidth={2.5} />
               Back
             </Link>

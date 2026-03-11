@@ -1,12 +1,15 @@
+"use client";
+
 import { useGetCurrentUserQuery } from "@/entities/user";
+import { useGetOrganizationId } from "@/shared/hooks/use-get-organization-id";
 import { useGetMemberQuery } from "../model/queries/use-get-member.query";
 
-// TODO: remove default values
-export const useOrganizationRole = (orgId: string = "123123") => {
+export const useOrganizationRole = () => {
+  const orgId = useGetOrganizationId();
+
   const { data: currentUser, isPending: isUserPending } =
     useGetCurrentUserQuery();
   const { data: member, isPending: isMemberPending } = useGetMemberQuery(
-    orgId,
     currentUser?.id as string,
     { enabled: !!currentUser?.id && !!orgId },
   );
