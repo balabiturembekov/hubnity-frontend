@@ -29,7 +29,7 @@ export const CreateOrganizationStep1Form = () => {
     mode: "onChange",
     defaultValues: {
       name: "",
-      domain: "",
+      domain: undefined,
       teamSize: "",
     },
   });
