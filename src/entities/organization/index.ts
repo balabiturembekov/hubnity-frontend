@@ -15,6 +15,7 @@ export {
   newMemberRoles,
   type OrganizationEntity,
 } from "./model/organization.types";
+export { useGetCurrentUserByOrganizationQuery } from "./model/queries/use-get-current-user-by-organization.query";
 export { useGetGoalsByOrganization } from "./model/queries/use-get-goals-by-organization.query";
 export { useGetMemberQuery } from "./model/queries/use-get-member.query";
 export { useGetMembersQuery } from "./model/queries/use-get-members.query";

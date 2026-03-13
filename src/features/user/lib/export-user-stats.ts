@@ -1,9 +1,9 @@
+import type { MemberEntity } from "@/entities/organization";
 import type { TimeEntryEntity } from "@/entities/time-entry";
-import type { UserEntity } from "@/entities/user";
 import { downloadCSV, generateCSV } from "@/shared/lib/export/csv-export";
 
 export const exportUserStatsToCSV = (
-  users: UserEntity[],
+  users: MemberEntity[],
   entries: TimeEntryEntity[],
   filename: string,
 ) => {
@@ -22,8 +22,8 @@ export const exportUserStatsToCSV = (
       userEntries.reduce((sum, e) => sum + e.duration, 0) / 3600;
 
     return [
-      user.name,
-      user.email,
+      `${user.user.firstName} ${user.user.lastName}`,
+      user.user.email,
       user.role,
       userEntries.length.toString(),
       totalHours.toFixed(2),

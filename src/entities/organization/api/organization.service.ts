@@ -38,6 +38,13 @@ class OrganizationService {
     return res.data;
   }
 
+  async getCurrentUser(orgId: string) {
+    const res = await api.get<MemberEntity>(
+      `/organizations/${orgId}/members/me`,
+    );
+    return res.data;
+  }
+
   async getGoals(orgId: string) {
     const res = await api.get<OrganizationGoalEntity[]>(
       `/organizations/${orgId}/goals`,

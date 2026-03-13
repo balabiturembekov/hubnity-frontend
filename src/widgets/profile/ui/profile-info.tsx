@@ -4,10 +4,11 @@ import { format } from "date-fns";
 import { DollarSign, Mail, Shield, User } from "lucide-react";
 import { useState } from "react";
 import {
+  useGetCurrentUserByOrganizationQuery,
   useGetMemberQuery,
   useOrganizationRole,
 } from "@/entities/organization";
-import { UserAvatar, useGetCurrentUserQuery } from "@/entities/user";
+import { UserAvatar } from "@/entities/user";
 import { ChangePasswordDialog } from "@/features/auth";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
@@ -20,14 +21,14 @@ import {
 } from "@/shared/ui/card";
 
 export const ProfileInfo = () => {
-  const { data: user } = useGetCurrentUserQuery();
+  const { data: currentUser } = useGetCurrentUserByOrganizationQuery();
   const { role, isUser } = useOrganizationRole();
-  const { data: userDetails } = useGetMemberQuery(user?.id as string, {
-    enabled: !!user?.id,
+  const { data: userDetails } = useGetMemberQuery(currentUser?.id as string, {
+    enabled: !!currentUser?.id,
   });
   const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
 
-  if (!user) return null;
+  if (!currentUser) return null;
 
   return (
     <>
@@ -44,8 +45,8 @@ export const ProfileInfo = () => {
           <div className="flex flex-col sm:flex-row items-center gap-5 text-center sm:text-left pt-2 pb-6 border-b border-border/50">
             <div className="relative">
               <UserAvatar
-                name={`${user.firstName} ${user.lastName}`}
-                avatar={user.avatar}
+                name={`${currentUser.user.firstName} ${currentUser.user.lastName}`}
+                avatar={currentUser.user.avatar}
                 size="xl"
                 className="h-20 w-20 ring-4 ring-background shadow-sm"
               />
@@ -55,13 +56,13 @@ export const ProfileInfo = () => {
             </div>
             <div className="flex-1 flex flex-col gap-1">
               <h3 className="text-2xl font-bold tracking-tight text-foreground">
-                {`${user.firstName} ${user.lastName}`}
+                {`${currentUser.user.firstName} ${currentUser.user.lastName}`}
               </h3>
               <span className="text-sm font-medium text-muted-foreground">
-                {user.email}
+                {currentUser.user.email}
               </span>
               <span className="text-muted-foreground text-xs">
-                Joined {format(user.createdAt, "dd/MM/yyyy")}
+                Joined {format(currentUser.createdAt, "dd/MM/yyyy")}
               </span>
               <div className="pt-2">
                 <Badge
@@ -82,7 +83,7 @@ export const ProfileInfo = () => {
               <div className="flex-1">
                 <p className="text-sm font-medium text-foreground">Full Name</p>
                 <p className="text-sm text-muted-foreground">
-                  {`${user.firstName} ${user.lastName}`}
+                  {`${currentUser.user.firstName} ${currentUser.user.lastName}`}
                 </p>
               </div>
             </div>
@@ -94,7 +95,7 @@ export const ProfileInfo = () => {
               <div className="flex-1">
                 <p className="text-sm font-medium text-foreground">Email</p>
                 <p className="text-sm text-muted-foreground cursor-auto select-all">
-                  {user.email}
+                  {currentUser.user.email}
                 </p>
               </div>
             </div>

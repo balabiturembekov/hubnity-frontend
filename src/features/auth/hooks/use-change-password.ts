@@ -42,7 +42,6 @@ export const useChangePassword = ({
     try {
       await mutateAsync(data);
 
-      toast.success("Password changed successfully");
       onOpenChange(false);
     } catch (error) {
       console.error(handleError(error, "Failed to change password"));

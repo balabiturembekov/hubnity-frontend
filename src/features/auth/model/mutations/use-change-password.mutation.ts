@@ -9,6 +9,9 @@ export const useChangePasswordMutation = () => {
   return useMutation<MessageRes, Error, ChangePasswordReq>({
     mutationKey: ["updateProfile"],
     mutationFn: (payload) => authService.changePassword(payload),
+    onSuccess: () => {
+      toast.success("Password changed successfully");
+    },
     onError: (error) => {
       toast.error(handleError(error, "Failed to update password"));
     },
