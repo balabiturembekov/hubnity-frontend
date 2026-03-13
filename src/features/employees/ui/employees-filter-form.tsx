@@ -1,4 +1,6 @@
 import { Filter, Search, X } from "lucide-react";
+import { memberRoles, memberStatuses } from "@/entities/organization";
+import { capitalize } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import {
   Card,
@@ -62,8 +64,11 @@ export const EmployeesFilterForm = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Roles</SelectItem>
-              <SelectItem value="ADMIN">Admin</SelectItem>
-              <SelectItem value="EMPLOYEE">Employee</SelectItem>
+              {memberRoles.map((role) => (
+                <SelectItem key={role} value={role}>
+                  {capitalize(role)}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
@@ -72,8 +77,11 @@ export const EmployeesFilterForm = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="ACTIVE">Active</SelectItem>
-              <SelectItem value="INACTIVE">Inactive</SelectItem>
+              {memberStatuses.map((status) => (
+                <SelectItem key={status} value={status}>
+                  {capitalize(status)}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
           {hasActiveFilters && (
