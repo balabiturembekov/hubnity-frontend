@@ -12,14 +12,14 @@ import {
 type ChildrenLink = {
   id: string;
   label: string;
-  href: string;
+  path: string;
   isAdminOnly?: boolean;
 };
 
 type DashboardSidebarLinks = {
   id: string;
   label: string;
-  href: string;
+  path?: string;
   icon: LucideIcon;
   isAdminOnly?: boolean;
   childrenLinks?: ChildrenLink[];
@@ -29,26 +29,25 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
   {
     id: "1",
     label: "Dashboard",
-    href: "/dashboard",
     icon: LayoutDashboard,
   },
   {
     id: "2",
     label: "Time Tracking",
-    href: "/dashboard/tracking",
+    path: "/tracking",
     icon: BarChart3,
   },
   {
     id: "6",
     label: "Team & Activity",
-    href: "/dashboard/admin/team-activity",
+    path: "/admin/team-activity",
     icon: Activity,
     isAdminOnly: true,
   },
   {
     id: "4",
     label: "Management",
-    href: "/dashboard/admin/campaigns",
+    path: "/admin/campaigns",
     icon: FileText,
     isAdminOnly: true,
     // childrenLinks: [
@@ -69,46 +68,46 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
   {
     id: "5",
     label: "Summaries",
-    href: "/dashboard/summaries",
+    path: "/summaries",
     icon: BarChart3,
     childrenLinks: [
       {
         id: "1",
         label: "Activity & Time",
-        href: "/dashboard/summaries",
+        path: "/summaries",
         isAdminOnly: true,
       },
       {
         id: "2",
         label: "Full Reports",
-        href: "/dashboard/summaries/full-reports",
+        path: "/summaries/full-reports",
       },
     ],
   },
   {
     id: "3",
     label: "Employees",
-    href: "/dashboard/admin/employees",
+    path: "/admin/employees",
     icon: Users,
     isAdminOnly: true,
   },
   {
     id: "7",
     label: "Profile",
-    href: "/dashboard/profile",
+    path: "/profile",
     icon: User,
   },
   {
     id: "8",
     label: "Settings",
-    href: "/dashboard/admin/settings",
+    path: "/admin/settings",
     icon: Settings,
     isAdminOnly: true,
     childrenLinks: [
       {
         id: "1",
         label: "General",
-        href: "/dashboard/admin/settings",
+        path: "/admin/settings",
       },
       // {
       //   id: "2",
@@ -118,12 +117,12 @@ export const dashboardSidebarLinks: DashboardSidebarLinks[] = [
       {
         id: "3",
         label: "Members",
-        href: "/dashboard/admin/settings/members",
+        path: "/admin/settings/members",
       },
       {
         id: "4",
         label: "Activity & Tracking",
-        href: "/dashboard/admin/settings/activity-tracking",
+        path: "/admin/settings/activity-tracking",
       },
       // {
       //   id: "5",

@@ -130,3 +130,7 @@ export const formatDate = (timestamp: number | string | Date) => {
 
   return format(new Date(timestamp), "EEE, MMM d, yyyy hh:mma");
 };
+
+// TODO: Добавить тесты
+export const buildOrgHref = (orgId: string, path?: string) =>
+  `/dashboard/${orgId}${path ?? ""}`;

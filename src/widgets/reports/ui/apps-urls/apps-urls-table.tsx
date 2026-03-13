@@ -153,7 +153,7 @@ export const AppsUrlsTable = ({
   isHeader = false,
   tab = "all",
 }: AppsUrlsTableProps) => {
-  const { isAdmin } = useOrganizationRole();
+  const isUser = useOrganizationRole().isUser;
 
   let filteredData = mockData.filter((item) =>
     isAll ? true : !item.isAllSpecific,
@@ -182,7 +182,7 @@ export const AppsUrlsTable = ({
           icon={AppWindow}
           link={{
             label: "View full report",
-            href: `/dashboard/summaries/full-reports${isAdmin ? `?tab=${tab}` : ""}`,
+            href: `/dashboard/summaries/full-reports${!isUser ? `?tab=${tab}` : ""}`,
           }}
           description="Your latest apps and sites usage"
         >

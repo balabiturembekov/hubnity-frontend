@@ -22,7 +22,7 @@ import { FilterSkeleton } from "@/widgets/skeleton";
 import { useFilteredTeamActivity } from "../hooks/use-filtered-team-activity";
 
 export const TeamActivityFilterForm = () => {
-  const { isAdmin } = useOrganizationRole();
+  const isUser = useOrganizationRole().isUser;
   const {
     period,
     userId,
@@ -34,7 +34,7 @@ export const TeamActivityFilterForm = () => {
   } = useTeamActivityStore();
   const { hasActiveFilters, projects, isLoading } = useFilteredTeamActivity();
 
-  if (!isAdmin) return null;
+  if (isUser) return null;
 
   if (isLoading) {
     return <FilterSkeleton />;

@@ -27,7 +27,7 @@ import { ListItemsSkeleton } from "@/widgets/skeleton";
 import { useFilteredTeamActivity } from "../hooks/use-filtered-team-activity";
 
 export const MembersTable = () => {
-  const { isAdmin } = useOrganizationRole();
+  const isUser = useOrganizationRole().isUser;
   const { teamActivity, isLoading } = useFilteredTeamActivity();
 
   if (isLoading) {
@@ -40,7 +40,7 @@ export const MembersTable = () => {
         title="Team Members"
         icon={Activity}
         description={
-          isAdmin
+          !isUser
             ? "Time worked and amounts earned per team member"
             : "Your time worked and amounts earned per project"
         }
@@ -53,9 +53,9 @@ export const MembersTable = () => {
         {teamActivity?.members.length === 0 ? (
           <EmptyState
             icon={<Activity className="h-12 w-12 mx-auto" />}
-            title={isAdmin ? "No team activity" : "No activity"}
+            title={!isUser ? "No team activity" : "No activity"}
             description={
-              isAdmin
+              !isUser
                 ? "No time entries found for the selected period and filters."
                 : "No time entries found for the selected period."
             }

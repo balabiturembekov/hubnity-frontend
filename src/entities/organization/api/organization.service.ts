@@ -4,7 +4,9 @@ import type {
   MemberEntity,
   OrganizationEntity,
 } from "../model/organization.types";
+import type { CreateMemberValues } from "../model/schemas/create-member.schema";
 import type { CreateOrganizationValues } from "../model/schemas/create-organization.schema";
+import type { UpdateMemberValues } from "../model/schemas/update-member.schema";
 
 class OrganizationService {
   async createOrganization(payload: CreateOrganizationValues) {
@@ -51,6 +53,30 @@ class OrganizationService {
   async getOrganization(orgId: string) {
     const res = await api.get<OrganizationEntity>(`/organizations/${orgId}`);
     return res.data;
+  }
+
+  async createMember(orgId: string, payload: CreateMemberValues) {
+    const res = await api.post<MemberEntity>(
+      `/organizations/${orgId}/members`,
+      payload,
+    );
+    return res.data;
+  }
+
+  async updateMember(
+    orgId: string,
+    memberId: string,
+    payload: UpdateMemberValues,
+  ) {
+    const res = await api.put<MemberEntity>(
+      `/organizations/${orgId}/members/${memberId}`,
+      payload,
+    );
+    return res.data;
+  }
+
+  async deleteMember(orgId: string, memberId: string) {
+    await api.delete(`/organizations/${orgId}/members/${memberId}`);
   }
 }
 

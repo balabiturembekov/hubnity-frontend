@@ -10,7 +10,7 @@ import { Button } from "@/shared/ui/button";
 import { DashboardPageHeader } from "@/widgets/header";
 
 export const MainDashboardHeader = () => {
-  const { isAdmin } = useOrganizationRole();
+  const isUser = useOrganizationRole().isUser;
   const { data: currentUser } = useGetCurrentUserQuery();
 
   return (
@@ -25,7 +25,7 @@ export const MainDashboardHeader = () => {
           <ArrowRight className="h-4 w-4 hidden sm:block" />
         </Button>
       </Link>
-      {isAdmin && (
+      {!isUser && (
         <Button variant="outline" className="gap-2" asChild>
           <Link href="/dashboard/admin/summaries/full-reports">
             <TrendingUp className="h-4 w-4" />

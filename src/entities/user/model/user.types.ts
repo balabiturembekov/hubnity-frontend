@@ -7,7 +7,12 @@ export interface UserEntity extends Timestamps {
   firstName: string;
   lastName: string;
   email: string;
+  password: string;
   avatar: string | null;
+  deletedAt: string;
+  role: UserRole;
+  resetPasswordToken: string | null;
+  resetPasswordExpires: string | null;
 }
 
 export type PatchUserReq = {

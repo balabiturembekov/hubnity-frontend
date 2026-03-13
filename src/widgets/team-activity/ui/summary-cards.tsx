@@ -10,7 +10,7 @@ import { useTeamActivityStore } from "@/features/team-activity";
 import { StatsCardsSkeleton } from "@/widgets/skeleton";
 
 export const SummaryCards = () => {
-  const { isAdmin } = useOrganizationRole();
+  const isUser = useOrganizationRole().isUser;
   const {
     isPending,
     totalMembers,
@@ -23,14 +23,14 @@ export const SummaryCards = () => {
   const { period } = useTeamActivityStore();
 
   if (isPending) {
-    return <StatsCardsSkeleton count={isAdmin ? 4 : 3} />;
+    return <StatsCardsSkeleton count={!isUser ? 4 : 3} />;
   }
 
   return (
     <div
-      className={`grid gap-4 ${isAdmin ? "sm:grid-cols-2 xl:grid-cols-4" : "xl:grid-cols-3"}`}
+      className={`grid gap-4 ${!isUser ? "sm:grid-cols-2 xl:grid-cols-4" : "xl:grid-cols-3"}`}
     >
-      {isAdmin && (
+      {!isUser && (
         <StatsCard
           title="Members"
           icon={Users}
@@ -68,7 +68,7 @@ export const SummaryCards = () => {
         stat={formattedTotalEarned}
         description={
           <p className="text-xs text-muted-foreground">
-            {isAdmin && totalMembers > 0
+            {!isUser && totalMembers > 0
               ? `$${avgEarnedPerMember.toFixed(2)} per member`
               : "Total earnings"}
           </p>
@@ -83,7 +83,7 @@ export const SummaryCards = () => {
         statsClassName="text-2xl"
         description={
           <p className="text-xs text-muted-foreground">
-            {isAdmin && totalMembers > 0
+            {!isUser && totalMembers > 0
               ? `${(teamActivityTotalHours / totalMembers).toFixed(2)}h per member`
               : "Hours tracked"}
           </p>

@@ -35,7 +35,7 @@ interface AppsUrlsFiltersProps {
 }
 
 export const AppsUrlsFilters = ({ date, setDate }: AppsUrlsFiltersProps) => {
-  const { isAdmin } = useOrganizationRole();
+  const isUser = useOrganizationRole().isUser;
 
   return (
     <Card className="transition-shadow hover:shadow-md bg-card">
@@ -60,7 +60,7 @@ export const AppsUrlsFilters = ({ date, setDate }: AppsUrlsFiltersProps) => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="date">Group by Date</SelectItem>
-                {isAdmin && (
+                {!isUser && (
                   <SelectItem value="member">Group by Member</SelectItem>
                 )}
                 <SelectItem value="project">Group by Project</SelectItem>

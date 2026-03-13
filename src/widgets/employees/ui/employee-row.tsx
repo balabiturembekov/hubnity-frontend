@@ -1,80 +1,82 @@
 import Link from "next/link";
+import type { MemberEntity } from "@/entities/organization";
 import { UserAvatar, useGetCurrentUserQuery } from "@/entities/user";
-import type { UserEntity } from "@/entities/user/model/user.types";
 import {
   DeleteEmployeeButton,
   UpdateEmployeeButton,
 } from "@/features/employees";
+import { useGetOrganizationId } from "@/shared/hooks/use-get-organization-id";
+import { buildOrgHref } from "@/shared/lib/utils";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { TableCell, TableRow } from "@/shared/ui/table";
 
 interface EmployeeRowProps {
-  user: UserEntity;
+  employee: MemberEntity;
 }
 
-export const EmployeeRow = ({ user }: EmployeeRowProps) => {
+export const EmployeeRow = ({ employee }: EmployeeRowProps) => {
   const { data: currentUser } = useGetCurrentUserQuery();
+  const orgId = useGetOrganizationId();
+
+  const userLink = buildOrgHref(orgId, `/admin/employees/${employee.id}`);
 
   return (
-    <TableRow key={user.id} className="transition-colors hover:bg-muted/50">
+    <TableRow key={employee.id} className="transition-colors hover:bg-muted/50">
       <TableCell>
         <div className="flex items-center gap-3">
-          <UserAvatar name={user.name} avatar={user.avatar} size="md" />
+          <UserAvatar
+            name={`${employee.user.firstName} ${employee.user.lastName}`}
+            avatar={employee.user.avatar}
+            size="md"
+          />
           <div>
             <Button variant="link" asChild>
-              <Link
-                className="font-medium"
-                href={`/dashboard/admin/employees/${user.id}`}
-              >
-                {user.name}
+              <Link className="font-medium" href={userLink}>
+                {`${employee.user.firstName} ${employee.user.lastName}`}
               </Link>
             </Button>
-            {user.id === currentUser?.id && (
+            {employee.user.id === currentUser?.id && (
               <span className="text-xs text-muted-foreground">(You)</span>
             )}
           </div>
         </div>
       </TableCell>
       <TableCell>
-        <span className="text-sm">{user.email}</span>
+        <span className="text-sm">{employee.user.email}</span>
       </TableCell>
       <TableCell>
         <Badge
           variant={
-            user.role === "ADMIN" ||
-            user.role === "OWNER" ||
-            user.role === "SUPER_ADMIN"
-              ? "default"
-              : "secondary"
+            ["OWNER", "ADMIN"].includes(employee.role) ? "default" : "secondary"
           }
         >
-          {user.role}
+          {employee.role}
         </Badge>
       </TableCell>
       <TableCell>
         <Badge
-          variant={user.status === "ACTIVE" ? "default" : "outline"}
+          variant={employee.status === "ACTIVE" ? "default" : "outline"}
           className={
-            user.status === "ACTIVE"
+            employee.status === "ACTIVE"
               ? "bg-green-500/10 text-green-700 hover:bg-green-500/20 border-green-500/20"
               : ""
           }
         >
-          {user.status}
+          {employee.status}
         </Badge>
       </TableCell>
       <TableCell>
-        {user.hourlyRate ? (
-          <span className="font-medium">${user.hourlyRate}/hr</span>
+        {employee.hourlyRate ? (
+          <span className="font-medium">${employee.hourlyRate}/hr</span>
         ) : (
           <span className="text-muted-foreground">-</span>
         )}
       </TableCell>
       <TableCell className="text-right">
         <div className="flex justify-end gap-2">
-          <UpdateEmployeeButton user={user} />
-          <DeleteEmployeeButton employee={user} />
+          <UpdateEmployeeButton employee={employee} />
+          <DeleteEmployeeButton employee={employee} />
         </div>
       </TableCell>
     </TableRow>

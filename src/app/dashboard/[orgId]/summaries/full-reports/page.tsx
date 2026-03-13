@@ -9,13 +9,13 @@ import { DashboardPageHeader } from "@/widgets/header";
 import { AppsUrlsReport } from "@/widgets/reports";
 
 function FullReportContent() {
-  const { isAdmin } = useOrganizationRole();
+  const isUser = useOrganizationRole().isUser;
   const defaultTab = "all";
   const { tab, handleTabChange } = useTabParam({ defaultTab });
 
   return (
     <div className="p-2 md:p-6 space-y-8">
-      {isAdmin ? (
+      {!isUser ? (
         <Tabs defaultValue={tab} onValueChange={handleTabChange}>
           <TabsList className="w-32">
             <TabsTrigger value="me">Me</TabsTrigger>

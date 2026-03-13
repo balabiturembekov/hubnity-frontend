@@ -4,10 +4,10 @@ import { userService } from "@/entities/user";
 import type { UserEntity } from "../user.types";
 
 export const useGetEmployeesQuery = () => {
-  const { isAdmin } = useOrganizationRole();
+  const isUser = useOrganizationRole().isUser;
   return useQuery<UserEntity[], Error>({
     queryKey: ["employees"],
     queryFn: userService.getAll,
-    enabled: isAdmin,
+    enabled: !isUser,
   });
 };

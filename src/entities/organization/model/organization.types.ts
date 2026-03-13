@@ -1,8 +1,19 @@
 import type { UserEntity } from "@/entities/user";
 import type { Timestamps } from "@/shared/model/types";
 
-export type MemberRole = "OWNER" | "ADMIN" | "MANAGER" | "USER";
-export type MemberStatus = "PENDING" | "ACTIVE" | "SUSPENDED" | "INACTIVE";
+export const memberRoles = ["OWNER", "ADMIN", "MANAGER", "USER"] as const;
+export type MemberRole = (typeof memberRoles)[number];
+
+export const newMemberRoles = ["ADMIN", "MANAGER", "USER"] as const;
+export type NewMemberRole = (typeof newMemberRoles)[number];
+
+export const memberStatuses = [
+  "PENDING",
+  "ACTIVE",
+  "SUSPENDED",
+  "INACTIVE",
+] as const;
+export type MemberStatus = (typeof memberStatuses)[number];
 
 export interface OrganizationEntity extends Timestamps {
   id: string;

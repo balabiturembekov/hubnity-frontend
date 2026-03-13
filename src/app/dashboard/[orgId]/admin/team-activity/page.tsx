@@ -15,7 +15,7 @@ import {
 } from "@/widgets/team-activity";
 
 export default function AdminTeamActivityPage() {
-  const { isAdmin } = useOrganizationRole();
+  const isUser = useOrganizationRole().isUser;
   const { data, isPending } = useGetCurrentUserQuery();
 
   if (isPending || !data) {
@@ -27,7 +27,7 @@ export default function AdminTeamActivityPage() {
       <DashboardPageHeader
         title="Team & Activity"
         subTitle={
-          isAdmin
+          !isUser
             ? "See team members' time worked, activity levels, and amounts earned per project"
             : "View your time worked, activity levels, and amounts earned per project"
         }

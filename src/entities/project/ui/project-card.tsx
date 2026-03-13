@@ -20,7 +20,7 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
-  const { isAdmin } = useOrganizationRole();
+  const isUser = useOrganizationRole().isUser;
 
   return (
     <Card
@@ -43,7 +43,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
               </CardDescription>
             )}
           </div>
-          {isAdmin && (
+          {!isUser && (
             <div className="flex gap-1 ml-2">
               <UpdateProjectButton project={project} />
               <DeleteProjectButton project={project} />

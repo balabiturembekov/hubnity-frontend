@@ -2,19 +2,19 @@
 
 import { Edit, Pencil } from "lucide-react";
 import { useState } from "react";
-import type { UserEntity } from "@/entities/user";
+import type { MemberEntity } from "@/entities/organization";
 import { Button } from "@/shared/ui/button";
 import { EmployeeDialog } from "./employee-dialog";
 
 interface UpdateEmployeeButtonProps {
-  user: UserEntity;
+  employee: MemberEntity;
   variant?: "icon" | "outline";
 }
 
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 
 export function UpdateEmployeeButton({
-  user,
+  employee,
   variant = "icon",
 }: UpdateEmployeeButtonProps) {
   const [open, setOpen] = useState(false);
@@ -40,7 +40,7 @@ export function UpdateEmployeeButton({
         </TooltipTrigger>
         <TooltipContent>Edit employee</TooltipContent>
       </Tooltip>
-      <EmployeeDialog open={open} onOpenChange={setOpen} user={user} />
+      <EmployeeDialog open={open} onOpenChange={setOpen} employee={employee} />
     </>
   );
 }

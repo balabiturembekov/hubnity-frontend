@@ -9,7 +9,7 @@ import { TimeEntriesTable, TimeEntryStatsCards } from "@/widgets/time-entry";
 import { TrackingPageSkeleton } from "@/widgets/tracking";
 
 export default function TrackingPage() {
-  const { isAdmin } = useOrganizationRole();
+  const isUser = useOrganizationRole().isUser;
   const { data, isPending } = useGetCurrentUserQuery();
 
   if (isPending || !data) {
@@ -26,7 +26,7 @@ export default function TrackingPage() {
       </DashboardPageHeader>
 
       <div className="p-2 md:p-6 grid gap-4">
-        {isAdmin && <TimeEntryStatsCards />}
+        {!isUser && <TimeEntryStatsCards />}
         {/* <div className="grid md:grid-cols-2 gap-4">
               <TodaySummary />
             </div> */}
