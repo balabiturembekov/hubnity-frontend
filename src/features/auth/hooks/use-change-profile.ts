@@ -2,10 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import {
-  useGetCurrentUserQuery,
-  useUpdateProfileMutation,
-} from "@/entities/user";
+import { useGetCurrentUserByOrganizationQuery } from "@/entities/organization";
+import { useUpdateProfileMutation } from "@/entities/user";
 import { handleError } from "@/shared/lib/utils";
 import {
   type ChangeProfileFormValues,
@@ -21,7 +19,7 @@ export const useChangeProfile = ({
   open,
   onOpenChange,
 }: UseChangeProfileProps) => {
-  const { data: user } = useGetCurrentUserQuery();
+  const { data: currentUser } = useGetCurrentUserByOrganizationQuery();
   const { mutateAsync, isPending } = useUpdateProfileMutation();
 
   const [avatarPreview, setAvatarPreview] = useState<string>("");
@@ -45,18 +43,18 @@ export const useChangeProfile = ({
   });
 
   useEffect(() => {
-    if (open && user) {
+    if (open && currentUser) {
       reset({
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        avatar: user.avatar || "",
+        firstName: currentUser.user.firstName,
+        lastName: currentUser.user.lastName,
+        email: currentUser.user.email,
+        avatar: currentUser.user.avatar || "",
       });
-      setAvatarPreview(user.avatar || "");
+      setAvatarPreview(currentUser.user.avatar || "");
       setCropDialogOpen(false);
       setImageToCrop("");
     }
-  }, [open, user, reset]);
+  }, [open, currentUser, reset]);
 
   const onSubmit = async (data: ChangeProfileFormValues) => {
     try {
@@ -67,7 +65,6 @@ export const useChangeProfile = ({
         avatar: data.avatar,
       });
 
-      toast.success("Profile updated successfully");
       onOpenChange(false);
     } catch (error) {
       console.error(handleError(error, "Failed to change profile"));
@@ -125,7 +122,7 @@ export const useChangeProfile = ({
     isPending,
     onSubmit,
     handleClose,
-    user,
+    currentUser,
     avatarPreview,
     handleAvatarChange,
     handleRemoveAvatar,

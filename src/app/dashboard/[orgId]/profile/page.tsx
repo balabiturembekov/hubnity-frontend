@@ -1,6 +1,6 @@
 "use client";
 
-import { useGetCurrentUserQuery } from "@/entities/user";
+import { useGetCurrentUserByOrganizationQuery } from "@/entities/organization";
 import { EditProfileButton } from "@/features/user";
 import { DashboardContainer } from "@/widgets/dashboard";
 import { DashboardPageHeader } from "@/widgets/header/ui/dashboard-page-header";
@@ -13,7 +13,7 @@ import {
 } from "@/widgets/profile";
 
 export default function ProfilePage() {
-  const { data, isPending } = useGetCurrentUserQuery();
+  const { data, isPending } = useGetCurrentUserByOrganizationQuery();
 
   if (isPending || !data) {
     return <ProfilePageSkeleton />;

@@ -10,7 +10,13 @@ export const useUpdateProfileMutation = () => {
   return useMutation<UserEntity, Error, PatchUserReq>({
     mutationKey: ["update-profile"],
     mutationFn: (payload) => userService.updateMyProfile(payload),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["me"] }),
+    onSuccess: () => {
+      toast.success("Profile updated successfully");
+
+      queryClient.invalidateQueries({
+        queryKey: ["current-user-by-organization"],
+      });
+    },
     onError: (error) => {
       toast.error(handleError(error, "Failed to update profile"));
     },

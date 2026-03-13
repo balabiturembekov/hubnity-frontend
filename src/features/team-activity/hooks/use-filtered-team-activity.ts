@@ -1,9 +1,9 @@
+import { useGetMembersQuery } from "@/entities/organization";
 import { useGetProjectsQuery } from "@/entities/project";
 import {
   TeamActivityPeriod,
   useGetTeamActivityQuery,
 } from "@/entities/team-activity";
-import { useGetEmployeesQuery } from "@/entities/user";
 import { useTeamActivityStore } from "../model/team-activity.store";
 
 export const useFilteredTeamActivity = () => {
@@ -18,7 +18,7 @@ export const useFilteredTeamActivity = () => {
     data: employees = [],
     isLoading: isEmployeesLoading,
     isError: isEmployeesError,
-  } = useGetEmployeesQuery();
+  } = useGetMembersQuery();
   const {
     data: teamActivity,
     isLoading: isTimeActivityLoading,

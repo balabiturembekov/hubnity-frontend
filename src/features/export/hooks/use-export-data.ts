@@ -1,9 +1,12 @@
 import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
-import { useOrganizationRole } from "@/entities/organization";
+import {
+  useGetMembersQuery,
+  useOrganizationRole,
+} from "@/entities/organization";
 import { useGetProjectsQuery } from "@/entities/project";
 import { useGetTimeEntriesQuery } from "@/entities/time-entry";
-import { useGetCurrentUserQuery, useGetEmployeesQuery } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 import { exportProjectStatsToCSV } from "@/features/project/lib/export-projects-stats";
 import { exportTimeEntriesToCSV } from "@/features/time-entry/lib/export-time-entries";
 import { exportUserStatsToCSV } from "@/features/user/lib/export-user-stats";
@@ -15,7 +18,7 @@ export const useExportData = () => {
   const { data: currentUser } = useGetCurrentUserQuery();
   const { data: timeEntries } = useGetTimeEntriesQuery();
   const { data: projects } = useGetProjectsQuery();
-  const { data: users } = useGetEmployeesQuery();
+  const { data: users } = useGetMembersQuery();
 
   const [exportType, setExportType] = useState<ExportType>("entries");
   const [userFilter, setUserFilter] = useState<string>("all");

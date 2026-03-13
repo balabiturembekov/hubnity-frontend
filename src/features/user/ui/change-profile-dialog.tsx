@@ -32,7 +32,7 @@ export function ProfileEditDialog({
     isPending,
     onSubmit,
     handleClose,
-    user,
+    currentUser,
     avatarPreview,
     handleAvatarChange,
     handleRemoveAvatar,
@@ -42,7 +42,7 @@ export function ProfileEditDialog({
     handleCropComplete,
   } = useChangeProfile({ open, onOpenChange });
 
-  if (!user) return null;
+  if (!currentUser) return null;
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
@@ -54,10 +54,11 @@ export function ProfileEditDialog({
               Update your profile information like name, email and hourly rate.
             </DialogDescription>
           </DialogHeader>
+
           <div className="grid gap-4 py-4">
             <div className="flex flex-col items-center gap-4">
               <UserAvatar
-                name={`${user.firstName} ${user.lastName}`}
+                name={`${currentUser.user.firstName} ${currentUser.user.lastName}`}
                 avatar={avatarPreview}
                 size="xl"
               />
@@ -75,6 +76,7 @@ export function ProfileEditDialog({
                       Upload Photo
                     </span>
                   </Button>
+
                   <Input
                     id="avatar"
                     type="file"
@@ -84,6 +86,7 @@ export function ProfileEditDialog({
                     disabled={isPending}
                   />
                 </Label>
+
                 {avatarPreview && (
                   <Button
                     type="button"
@@ -97,10 +100,12 @@ export function ProfileEditDialog({
                   </Button>
                 )}
               </div>
+
               <p className="text-xs text-muted-foreground text-center">
                 JPG, PNG or GIF. Max size 50MB
               </p>
             </div>
+
             <div className="grid gap-2">
               <Label htmlFor="name">First name</Label>
               <Input
@@ -115,6 +120,7 @@ export function ProfileEditDialog({
                 </p>
               )}
             </div>
+
             <div className="grid gap-2">
               <Label htmlFor="name">Last name</Label>
               <Input
@@ -129,6 +135,7 @@ export function ProfileEditDialog({
                 </p>
               )}
             </div>
+
             <div className="grid gap-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -145,6 +152,7 @@ export function ProfileEditDialog({
               )}
             </div>
           </div>
+
           <DialogFooter>
             <Button
               type="button"
@@ -154,6 +162,7 @@ export function ProfileEditDialog({
             >
               Cancel
             </Button>
+
             <Button type="submit" disabled={isPending}>
               {isPending ? "Saving..." : "Save Changes"}
             </Button>
