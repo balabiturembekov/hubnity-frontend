@@ -9,7 +9,6 @@ import {
 } from "@/entities/organization";
 import { UserAvatar, useGetCurrentUserQuery } from "@/entities/user";
 import { ChangePasswordDialog } from "@/features/auth";
-import { useGetOrganizationId } from "@/shared/hooks/use-get-organization-id";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import {
@@ -23,7 +22,6 @@ import {
 export const ProfileInfo = () => {
   const { data: user } = useGetCurrentUserQuery();
   const { role, isUser } = useOrganizationRole();
-  const orgId = useGetOrganizationId();
   const { data: userDetails } = useGetMemberQuery(user?.id as string, {
     enabled: !!user?.id,
   });
