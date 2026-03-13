@@ -7,13 +7,14 @@ type UseGetOrganizationOptions = Omit<
   "queryKey" | "queryFn"
 >;
 
-export const useGetOrganization = (
+export const useGetOrganizationQuery = (
   orgId: string,
   options?: UseGetOrganizationOptions,
 ) => {
   return useQuery<OrganizationEntity>({
     queryKey: ["organization", orgId],
     queryFn: () => organizationService.getOrganization(orgId),
+    enabled: Boolean(orgId),
     ...options,
   });
 };

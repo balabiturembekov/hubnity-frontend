@@ -20,7 +20,7 @@ export { useGetGoalsByOrganization } from "./model/queries/use-get-goals-by-orga
 export { useGetMemberQuery } from "./model/queries/use-get-member.query";
 export { useGetMembersQuery } from "./model/queries/use-get-members.query";
 export { useGetMyOrganizationsQuery } from "./model/queries/use-get-my-organizations.query";
-export { useGetOrganization } from "./model/queries/use-get-organization.query";
+export { useGetOrganizationQuery } from "./model/queries/use-get-organization.query";
 export {
   type AddOrganizationGoalsValues,
   addOrganizationGoalsSchema,

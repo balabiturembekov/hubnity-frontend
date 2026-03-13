@@ -3,7 +3,7 @@
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo } from "react";
-import { useGetOrganization } from "@/entities/organization";
+import { useGetOrganizationQuery } from "@/entities/organization";
 
 const TERMINAL_STATUSES = new Set([400, 403, 404]);
 
@@ -35,7 +35,7 @@ export function useRequireOrganization() {
     isError,
     isLoading,
     error,
-  } = useGetOrganization(orgId ?? "", {
+  } = useGetOrganizationQuery(orgId ?? "", {
     enabled: Boolean(orgId),
     retry: (failureCount, err) => isTransientError(err) && failureCount < 3,
     retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 8000),

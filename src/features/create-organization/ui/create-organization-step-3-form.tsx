@@ -32,7 +32,7 @@ export const CreateOrganizationStep3Form = () => {
       return "";
     }
 
-    const inviteUrl = new URL("/organization", getSiteBaseUrl());
+    const inviteUrl = new URL("/join", getSiteBaseUrl());
     inviteUrl.searchParams.set("invite", inviteLink.token);
 
     return inviteUrl.toString();
