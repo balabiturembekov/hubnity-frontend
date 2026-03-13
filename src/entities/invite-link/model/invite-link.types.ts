@@ -18,3 +18,8 @@ export interface CreateInviteLinkReq {
   expiresInDays: number;
   maxUses: number;
 }
+
+export interface OrganizationByTokenEntity {
+  id: string;
+  name: string;
+}

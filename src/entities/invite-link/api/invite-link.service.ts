@@ -3,6 +3,7 @@ import { api } from "@/shared/config/api";
 import type {
   CreateInviteLinkReq,
   InviteLinkEntity,
+  OrganizationByTokenEntity,
 } from "../model/invite-link.types";
 
 class InviteLinkService {
@@ -18,6 +19,17 @@ class InviteLinkService {
       expiresInDays: 7,
     });
 
+    return res.data;
+  }
+
+  async acceptInviteLink(token: string) {
+    await api.post<InviteLinkEntity>(`/invite-link/links/${token}/join`);
+  }
+
+  async getOrganizationByInviteToken(token: string) {
+    const res = await api.get<OrganizationByTokenEntity>(
+      `/invite-link/links/${token}/organization`,
+    );
     return res.data;
   }
 }
