@@ -20,16 +20,7 @@ export const useFilteredEmployees = () => {
     }
 
     if (roleFilter !== "all") {
-      filtered = filtered.filter((employee) => {
-        if (roleFilter === "ADMIN") {
-          return (
-            employee.role === "ADMIN" ||
-            employee.role === "OWNER" ||
-            employee.role === "MANAGER"
-          );
-        }
-        return employee.role === roleFilter;
-      });
+      filtered = filtered.filter((employee) => employee.role === roleFilter);
     }
 
     if (statusFilter !== "all") {
