@@ -4,7 +4,7 @@ import {
   useGetScreenshotSettingsQuery,
   useUpdateScreenshotSettingsMutation,
 } from "@/entities/screenshot-settings";
-import { useCurrentUser } from "@/entities/user";
+import { useGetCurrentUserQuery } from "@/entities/user";
 
 const DEFAULT_SETTINGS = {
   screenshotEnabled: false,
@@ -12,7 +12,7 @@ const DEFAULT_SETTINGS = {
 };
 
 export function useScreenshotSettings() {
-  const { data: user } = useCurrentUser();
+  const { data: user } = useGetCurrentUserQuery();
   const { data, isLoading } = useGetScreenshotSettingsQuery({
     enabled: !!user,
   });

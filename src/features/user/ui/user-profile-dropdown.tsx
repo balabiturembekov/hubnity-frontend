@@ -3,7 +3,7 @@
 import { LayoutDashboard, LogOut, Settings } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { UserAvatar, useCurrentUser } from "@/entities/user";
+import { UserAvatar, useGetCurrentUserQuery } from "@/entities/user";
 import { useLogoutMutation } from "@/features/auth";
 import { queryClient } from "@/shared/config/query-client";
 import { cn } from "@/shared/lib/utils";
@@ -27,7 +27,7 @@ export const UserProfileDropdown = ({
   className,
   isHideInitials = false,
 }: UserProfileDropdownProps) => {
-  const { data: user } = useCurrentUser();
+  const { data: user } = useGetCurrentUserQuery();
   const router = useRouter();
   const { mutateAsync: logout } = useLogoutMutation();
   const pathname = usePathname();
@@ -58,14 +58,18 @@ export const UserProfileDropdown = ({
             className,
           )}
         >
-          <UserAvatar name={user.name} avatar={user.avatar} size="md" />
+          <UserAvatar
+            name={`${user.firstName} ${user.lastName}`}
+            avatar={user.avatar}
+            size="md"
+          />
           <span
             className={cn(
               "text-xs font-medium mr-1 text-left",
               isHideInitials ? "hidden sm:block" : "",
             )}
           >
-            {user.name}
+            {`${user.firstName} ${user.lastName}`}
           </span>
         </Button>
       </DropdownMenuTrigger>
@@ -77,7 +81,9 @@ export const UserProfileDropdown = ({
       >
         <DropdownMenuLabel>
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.name}</p>
+            <p className="text-sm font-medium leading-none">
+              {`${user.firstName} ${user.lastName}`}
+            </p>
             <p className="text-xs leading-none text-muted-foreground">
               {user.email}
             </p>

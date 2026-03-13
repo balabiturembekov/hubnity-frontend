@@ -6,9 +6,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { useCurrentUser, useUser } from "@/entities/user";
+import { useOrganizationRole } from "@/entities/organization";
 import { UserProfileDropdown } from "@/features/user";
-import { cn } from "@/shared/lib/utils";
+import { useGetOrganizationId } from "@/shared/hooks/use-get-organization-id";
+import { buildOrgHref, cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import { Separator } from "@/shared/ui/separator";
 import { NotificationPopover } from "@/widgets/notification";
@@ -17,9 +18,9 @@ import { TimerPopover } from "@/widgets/timer";
 
 export function DashboardSidebar() {
   const pathname = usePathname();
-  const { data: user } = useCurrentUser();
   const [openLinks, setOpenLinks] = useState<string[]>([]);
-  const { isAdmin } = useUser();
+  const isUser = useOrganizationRole().isUser;
+  const orgId = useGetOrganizationId();
 
   const handleOpenLink = (link: string) => {
     if (!openLinks.includes(link)) {
@@ -32,15 +33,16 @@ export function DashboardSidebar() {
 
   useEffect(() => {
     const link = dashboardSidebarLinks.find(
-      (l) => l.childrenLinks && l.href === pathname,
+      (l) =>
+        l.childrenLinks && pathname.startsWith(buildOrgHref(orgId, l.path)),
     );
 
     if (!link) return;
 
     setOpenLinks((prevState) =>
-      prevState.includes(link.href) ? prevState : [...prevState, link.href],
+      prevState.includes(link.id) ? prevState : [...prevState, link.id],
     );
-  }, [pathname]);
+  }, [pathname, orgId]);
 
   return (
     <div className="hidden min-[769px]:flex h-full w-0 min-[769px]:min-w-64 overflow-hidden flex-col border-r bg-background">
@@ -60,16 +62,12 @@ export function DashboardSidebar() {
         <Separator className="my-2" />
 
         {dashboardSidebarLinks.map((item) => {
-          if (
-            item.isAdminOnly &&
-            user?.role !== "ADMIN" &&
-            user?.role !== "OWNER" &&
-            user?.role !== "SUPER_ADMIN"
-          ) {
+          if (item.isAdminOnly && isUser) {
             return null;
           }
 
-          const isActive = pathname === item.href;
+          const itemHref = buildOrgHref(orgId, item.path);
+          const isActive = pathname === itemHref;
           const Icon = item.icon;
 
           if (!item.childrenLinks) {
@@ -82,29 +80,35 @@ export function DashboardSidebar() {
                 })}
                 asChild
               >
-                <Link href={item.href}>
+                <Link href={itemHref}>
                   <Icon />
                   {item.label}
                 </Link>
               </Button>
             );
           } else {
+            const isParentOpen = openLinks.includes(item.id);
+            const firstNonAdminChild = item.childrenLinks.find(
+              (link) => !link.isAdminOnly,
+            );
+
             return (
               <div key={item.id}>
                 <Button
                   variant="ghost"
                   className={cn("w-full justify-between pl-3 pr-0", {
-                    "text-muted-foreground": !pathname.includes(item.href),
+                    "text-muted-foreground": !pathname.startsWith(itemHref),
                   })}
                 >
                   <Link
                     href={
-                      isAdmin
-                        ? item.href
-                        : item.childrenLinks.find((link) => !link.isAdminOnly)
-                            ?.href || item.href
+                      !isUser
+                        ? itemHref
+                        : firstNonAdminChild?.path
+                          ? buildOrgHref(orgId, firstNonAdminChild.path)
+                          : itemHref
                     }
-                    onClick={() => handleOpenLink(item.href)}
+                    onClick={() => handleOpenLink(item.id)}
                     className="w-full flex items-center gap-2"
                   >
                     <Icon />
@@ -113,18 +117,18 @@ export function DashboardSidebar() {
 
                   <div
                     className="p-2 hover:text-gray-900 transition-colors"
-                    onClick={() => handleOpenLink(item.href)}
+                    onClick={() => handleOpenLink(item.id)}
                   >
                     <ChevronLeft
                       className={cn("transition-transform", {
-                        "-rotate-90": openLinks.includes(item.href),
+                        "-rotate-90": isParentOpen,
                       })}
                     />
                   </div>
                 </Button>
 
                 <AnimatePresence>
-                  {openLinks.includes(item.href) && (
+                  {isParentOpen && (
                     <motion.div
                       initial={{ height: 0 }}
                       animate={{ height: "auto" }}
@@ -137,14 +141,10 @@ export function DashboardSidebar() {
                       <div className="absolute left-0 bottom-6 top-0 w-px bg-gray-300" />
                       <div className="flex flex-col gap-1 pl-3 w-full">
                         {item.childrenLinks.map((link) => {
-                          const isChildActive = pathname === link.href;
+                          const childHref = buildOrgHref(orgId, link.path);
+                          const isChildActive = pathname === childHref;
 
-                          if (
-                            link.isAdminOnly &&
-                            user?.role !== "ADMIN" &&
-                            user?.role !== "OWNER" &&
-                            user?.role !== "SUPER_ADMIN"
-                          ) {
+                          if (link.isAdminOnly && isUser) {
                             return null;
                           }
 
@@ -158,7 +158,7 @@ export function DashboardSidebar() {
                                 })}
                                 asChild
                               >
-                                <Link href={link.href}>{link.label}</Link>
+                                <Link href={childHref}>{link.label}</Link>
                               </Button>
                             </div>
                           );

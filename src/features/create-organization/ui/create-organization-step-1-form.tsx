@@ -29,7 +29,7 @@ export const CreateOrganizationStep1Form = () => {
     mode: "onChange",
     defaultValues: {
       name: "",
-      website: "",
+      domain: undefined,
       teamSize: "",
     },
   });
@@ -68,16 +68,12 @@ export const CreateOrganizationStep1Form = () => {
             />
             <FormField
               control={form.control}
-              name="website"
+              name="domain"
               render={({ field }) => (
                 <FormItem className="flex flex-col gap-2 w-full">
-                  <FormLabel>Website</FormLabel>
+                  <FormLabel>Domain</FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="https://example.com"
-                      type="url"
-                      {...field}
-                    />
+                    <Input placeholder="example.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

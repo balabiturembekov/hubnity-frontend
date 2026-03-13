@@ -2,9 +2,10 @@
 
 import { format } from "date-fns";
 import { useEffect, useMemo, useState } from "react";
+import { useOrganizationRole } from "@/entities/organization";
 import type { TimeEntryEntity } from "@/entities/time-entry";
 import { useGetTimeEntriesQuery } from "@/entities/time-entry";
-import { type UserEntity, useCurrentUser } from "@/entities/user";
+import { type UserEntity, useGetCurrentUserQuery } from "@/entities/user";
 
 interface HourlyDataPoint {
   time: string;
@@ -12,7 +13,8 @@ interface HourlyDataPoint {
 }
 
 export const useHourlyData = () => {
-  const { data: user } = useCurrentUser();
+  const { data: user } = useGetCurrentUserQuery();
+  const { isUser } = useOrganizationRole();
   const { data: timeEntries = [], isPending } = useGetTimeEntriesQuery();
   const [currentTime, setCurrentTime] = useState(0);
 
@@ -55,6 +57,7 @@ export const useHourlyData = () => {
         hourStart,
         hourEnd,
         currentTime,
+        isUser,
         user,
       );
 
@@ -63,7 +66,7 @@ export const useHourlyData = () => {
         hours: Number(totalHours.toFixed(2)),
       };
     });
-  }, [last24Hours, timeEntries, user, currentTime]);
+  }, [last24Hours, timeEntries, user, currentTime, isUser]);
 
   return {
     hourlyData,
@@ -76,6 +79,7 @@ function calculateHourlyTotal(
   hourStart: number,
   hourEnd: number,
   currentTime: number,
+  isUser: boolean,
   user?: UserEntity,
 ): number {
   // Filter entries for this hour
@@ -104,12 +108,7 @@ function calculateHourlyTotal(
   });
 
   // Filter by user role
-  if (
-    user &&
-    user.role !== "ADMIN" &&
-    user.role !== "OWNER" &&
-    user.role !== "SUPER_ADMIN"
-  ) {
+  if (user && isUser) {
     entriesInHour = entriesInHour.filter((entry) => entry.userId === user.id);
   }
 

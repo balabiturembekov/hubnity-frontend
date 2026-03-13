@@ -1,0 +1,41 @@
+"use client";
+
+import { useGetCurrentUserQuery } from "@/entities/user";
+import { AdminGuard } from "@/features/auth";
+import { ReportsPeriodSelect } from "@/features/reports";
+import { DashboardContainer } from "@/widgets/dashboard";
+import { AnalyticsSection } from "@/widgets/dashboard/ui/analytics-section";
+import { ExportDialog } from "@/widgets/export";
+import { DashboardPageHeader } from "@/widgets/header";
+import { ReportsPageSkeleton, ReportsStatsSection } from "@/widgets/reports";
+
+export default function AdminReportsPage() {
+  const { data, isPending } = useGetCurrentUserQuery();
+
+  if (isPending || !data) {
+    return <ReportsPageSkeleton />;
+  }
+
+  return (
+    <AdminGuard>
+      <DashboardContainer>
+        <DashboardPageHeader
+          title="Reports"
+          subTitle="Analyze time tracking data and generate insights"
+        >
+          <ReportsPeriodSelect />
+          <ExportDialog />
+        </DashboardPageHeader>
+
+        <div className="p-2 md:p-6 grid grid-cols-2 gap-4">
+          <div className="col-span-2">
+            <ReportsStatsSection />
+          </div>
+          <div className="col-span-2">
+            <AnalyticsSection />
+          </div>
+        </div>
+      </DashboardContainer>
+    </AdminGuard>
+  );
+}

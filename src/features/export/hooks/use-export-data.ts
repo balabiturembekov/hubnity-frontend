@@ -1,8 +1,9 @@
 import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
+import { useOrganizationRole } from "@/entities/organization";
 import { useGetProjectsQuery } from "@/entities/project";
 import { useGetTimeEntriesQuery } from "@/entities/time-entry";
-import { useCurrentUser, useGetEmployeesQuery } from "@/entities/user";
+import { useGetCurrentUserQuery, useGetEmployeesQuery } from "@/entities/user";
 import { exportProjectStatsToCSV } from "@/features/project/lib/export-projects-stats";
 import { exportTimeEntriesToCSV } from "@/features/time-entry/lib/export-time-entries";
 import { exportUserStatsToCSV } from "@/features/user/lib/export-user-stats";
@@ -11,7 +12,7 @@ import { handleError } from "@/shared/lib/utils";
 export type ExportType = "entries" | "users" | "projects";
 
 export const useExportData = () => {
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentUser } = useGetCurrentUserQuery();
   const { data: timeEntries } = useGetTimeEntriesQuery();
   const { data: projects } = useGetProjectsQuery();
   const { data: users } = useGetEmployeesQuery();
@@ -20,19 +21,7 @@ export const useExportData = () => {
   const [userFilter, setUserFilter] = useState<string>("all");
   const [projectFilter, setProjectFilter] = useState<string>("all");
   const [dateFilter, setDateFilter] = useState<string>("all");
-
-  const isAdmin = useMemo(
-    () =>
-      currentUser?.role === "ADMIN" ||
-      currentUser?.role === "OWNER" ||
-      currentUser?.role === "SUPER_ADMIN",
-    [currentUser],
-  );
-
-  const isEmployee = useMemo(
-    () => currentUser?.role === "EMPLOYEE",
-    [currentUser],
-  );
+  const isUser = useOrganizationRole().isUser;
 
   const filteredEntries = useMemo(() => {
     if (!timeEntries) return [];
@@ -40,7 +29,7 @@ export const useExportData = () => {
     let filtered = [...timeEntries];
 
     // Filter by user (members only see their own)
-    if (isEmployee) {
+    if (isUser) {
       filtered = filtered.filter((e) => e.userId === currentUser?.id);
     } else if (userFilter !== "all") {
       filtered = filtered.filter((e) => e.userId === userFilter);
@@ -80,7 +69,7 @@ export const useExportData = () => {
     return filtered;
   }, [
     timeEntries,
-    isEmployee,
+    isUser,
     currentUser?.id,
     userFilter,
     projectFilter,
@@ -133,8 +122,7 @@ export const useExportData = () => {
     dateFilter,
     setDateFilter,
     handleExport,
-    isAdmin,
-    isEmployee,
+    isUser,
     users,
     projects,
   };

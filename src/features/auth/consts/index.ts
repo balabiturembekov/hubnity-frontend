@@ -1,4 +1,4 @@
-import { Building2, Globe, Lock, Mail, User } from "lucide-react";
+import { Lock, Mail, User } from "lucide-react";
 import type { HTMLInputAutoCompleteAttribute } from "react";
 import type {
   ForgotPasswordFormValues,
@@ -16,12 +16,6 @@ type FieldConfig<TValues> = {
   required?: boolean;
   bottomMessage?: string;
   autoComplete?: HTMLInputAutoCompleteAttribute;
-};
-
-type FieldGroup<TValues> = {
-  id: string;
-  columns?: number;
-  fields: FieldConfig<TValues>[];
 };
 
 export const loginFields: FieldConfig<LoginFormValues>[] = [
@@ -45,66 +39,40 @@ export const loginFields: FieldConfig<LoginFormValues>[] = [
   },
 ];
 
-export const registerFieldGroups: FieldGroup<RegisterFormValues>[] = [
+export const registerFields: FieldConfig<RegisterFormValues>[] = [
   {
-    id: "1",
-    fields: [
-      {
-        name: "name",
-        label: "Full name",
-        placeholder: "John Doe",
-        icon: User,
-        required: true,
-        autoComplete: "name",
-      },
-      {
-        name: "email",
-        label: "Email address",
-        placeholder: "you@example.com",
-        type: "email",
-        icon: Mail,
-        required: true,
-        autoComplete: "email",
-      },
-      {
-        name: "companyName",
-        label: "Company name",
-        placeholder: "Acme Inc.",
-        icon: Building2,
-        required: true,
-      },
-      {
-        name: "companyDomain",
-        label: "Company domain",
-        placeholder: "mycompany.com",
-        icon: Globe,
-        bottomMessage: "Optional: Your company domain for branding",
-      },
-    ],
+    name: "firstName",
+    label: "First name",
+    placeholder: "John",
+    icon: User,
+    required: true,
+    autoComplete: "name",
   },
   {
-    id: "2",
-    columns: 2,
-    fields: [
-      {
-        name: "password",
-        label: "Password",
-        placeholder: "Enter password",
-        type: "password",
-        icon: Lock,
-        required: true,
-        autoComplete: "new-password",
-      },
-      {
-        name: "confirmPassword",
-        label: "Confirm password",
-        placeholder: "Repeat password",
-        type: "password",
-        icon: Lock,
-        required: true,
-        autoComplete: "new-password",
-      },
-    ],
+    name: "lastName",
+    label: "Last name",
+    placeholder: "Doe",
+    icon: User,
+    required: true,
+    autoComplete: "name",
+  },
+  {
+    name: "email",
+    label: "Email address",
+    placeholder: "you@example.com",
+    type: "email",
+    icon: Mail,
+    required: true,
+    autoComplete: "email",
+  },
+  {
+    name: "password",
+    label: "Password",
+    placeholder: "Enter password",
+    type: "password",
+    icon: Lock,
+    required: true,
+    autoComplete: "new-password",
   },
 ];
 
@@ -123,15 +91,6 @@ export const resetPasswordFields: FieldConfig<ResetPasswordFormValues>[] = [
     name: "newPassword",
     label: "New password",
     placeholder: "Enter password",
-    type: "password",
-    icon: Lock,
-    required: true,
-    autoComplete: "new-password",
-  },
-  {
-    name: "confirmPassword",
-    label: "Confirm password",
-    placeholder: "Repeat password",
     type: "password",
     icon: Lock,
     required: true,

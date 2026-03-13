@@ -1,8 +1,8 @@
 "use client";
 
 import { Archive, CheckCircle2 } from "lucide-react";
+import { useOrganizationRole } from "@/entities/organization";
 import type { ProjectEntity } from "@/entities/project";
-import { useUser } from "@/entities/user";
 import { DeleteProjectButton } from "@/features/project";
 import { UpdateProjectButton } from "@/features/project/ui/update-project-button";
 import { capitalize } from "@/shared/lib/utils";
@@ -20,7 +20,7 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard = ({ project }: ProjectCardProps) => {
-  const { isAdmin } = useUser();
+  const isUser = useOrganizationRole().isUser;
 
   return (
     <Card
@@ -43,7 +43,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
               </CardDescription>
             )}
           </div>
-          {isAdmin && (
+          {!isUser && (
             <div className="flex gap-1 ml-2">
               <UpdateProjectButton project={project} />
               <DeleteProjectButton project={project} />

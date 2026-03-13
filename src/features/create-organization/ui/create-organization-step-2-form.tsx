@@ -3,11 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AlertCircle, ArrowRight, ChartPie } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import { type ControllerRenderProps, useForm } from "react-hook-form";
 import {
   type AddOrganizationGoalsValues,
   addOrganizationGoalsSchema,
   useAddOrganizationGoalsMutation,
+  useGetGoalsByOrganization,
 } from "@/entities/organization";
 import {
   OrganizationGoalCard,
@@ -24,8 +26,13 @@ export const CreateOrganizationStep2Form = () => {
   const router = useRouter();
 
   const {
+    data: selectedOrganizationGoals,
+    isLoading: isSelectedOrganizationGoalsLoading,
+  } = useGetGoalsByOrganization(orgId ?? "");
+
+  const {
     data: organizationGoals,
-    isLoading,
+    isLoading: isOranizationGoalsLoading,
     error,
   } = useGetOrganizationGoalsQuery();
 
@@ -36,6 +43,19 @@ export const CreateOrganizationStep2Form = () => {
       goalsIds: [],
     },
   });
+
+  useEffect(() => {
+    if (!orgId || isSelectedOrganizationGoalsLoading) return;
+
+    form.reset({
+      goalsIds: selectedOrganizationGoals?.map((goal) => goal.id) ?? [],
+    });
+  }, [
+    form,
+    orgId,
+    selectedOrganizationGoals,
+    isSelectedOrganizationGoalsLoading,
+  ]);
 
   const { mutate: addOrganizationGoals, isPending } =
     useAddOrganizationGoalsMutation();
@@ -65,6 +85,9 @@ export const CreateOrganizationStep2Form = () => {
       },
     );
   };
+
+  const isLoading =
+    isOranizationGoalsLoading || isSelectedOrganizationGoalsLoading;
 
   return (
     <Form {...form}>

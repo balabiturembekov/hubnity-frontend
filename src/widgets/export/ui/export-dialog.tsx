@@ -36,8 +36,7 @@ export function ExportDialog({ buttonLabel }: ExportDialogProps) {
     dateFilter,
     setDateFilter,
     handleExport,
-    isAdmin,
-    isEmployee,
+    isUser,
     users,
     projects,
   } = useExportData();
@@ -79,10 +78,10 @@ export function ExportDialog({ buttonLabel }: ExportDialogProps) {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="entries">Time Entries</SelectItem>
-                  {isAdmin && (
+                  {!isUser && (
                     <SelectItem value="users">User Statistics</SelectItem>
                   )}
-                  {isAdmin && (
+                  {!isUser && (
                     <SelectItem value="projects">Project Statistics</SelectItem>
                   )}
                 </SelectContent>
@@ -91,7 +90,7 @@ export function ExportDialog({ buttonLabel }: ExportDialogProps) {
 
             {exportType === "entries" && (
               <>
-                {!isEmployee && (
+                {!isUser && (
                   <div className="grid gap-2">
                     <Label htmlFor="userFilter">User Filter</Label>
                     <Select value={userFilter} onValueChange={setUserFilter}>
@@ -102,7 +101,7 @@ export function ExportDialog({ buttonLabel }: ExportDialogProps) {
                         <SelectItem value="all">All users</SelectItem>
                         {users?.map((user) => (
                           <SelectItem key={user.id} value={user.id}>
-                            {user.name}
+                            {`${user.firstName} ${user.lastName}`}
                           </SelectItem>
                         ))}
                       </SelectContent>

@@ -32,7 +32,7 @@ export default function WelcomePage() {
             size="lg"
             className="h-10 text-sm bg-primary border-primary-foreground mt-4"
           >
-            <Link href="/create-organization">
+            <Link href="/create-organization/step-1">
               Create your organization
               <ArrowRight className="ml-2 h-5 w-5" strokeWidth={2.5} />
             </Link>

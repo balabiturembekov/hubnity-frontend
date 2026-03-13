@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { useGetEmployeesQuery } from "@/entities/user";
+import { useGetMembersQuery } from "@/entities/organization";
 
 export const useEmployeesStats = () => {
-  const { data: users = [], isLoading, isError } = useGetEmployeesQuery();
+  const { data: users = [], isLoading, isError } = useGetMembersQuery();
 
   const stats = useMemo(() => {
     const total = users.length;
@@ -10,13 +10,11 @@ export const useEmployeesStats = () => {
     const inactive = users.filter((user) => user.status === "INACTIVE").length;
     const admins = users.filter(
       (user) =>
+        user.role === "MANAGER" ||
         user.role === "ADMIN" ||
-        user.role === "OWNER" ||
-        user.role === "SUPER_ADMIN",
+        user.role === "OWNER",
     ).length;
-    const employeesCount = users.filter(
-      (user) => user.role === "EMPLOYEE",
-    ).length;
+    const employeesCount = users.filter((user) => user.role === "USER").length;
 
     const withRate = users.filter(
       (user) => user.hourlyRate && user.hourlyRate > 0,

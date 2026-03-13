@@ -3,9 +3,9 @@
 import { formatDistanceToNow } from "date-fns";
 import { Filter, RefreshCw, Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useOrganizationRole } from "@/entities/organization";
 import { useGetProjectsQuery } from "@/entities/project";
 import type { TimeEntryStatusType } from "@/entities/time-entry";
-import { useUser } from "@/entities/user";
 import { useTimeEntriesStore } from "@/features/time-entry";
 import { Button } from "@/shared/ui/button";
 import {
@@ -57,7 +57,7 @@ export const TimeEntriesFilterForm = ({
     dataUpdatedAt,
   } = useFilteredTimeEntries(userId, status);
   const [now, setNow] = useState(Date.now());
-  const { isAdmin } = useUser();
+  const isUser = useOrganizationRole().isUser;
 
   useEffect(() => {
     const id = setInterval(() => setNow(Date.now()), 5000);
@@ -112,7 +112,7 @@ export const TimeEntriesFilterForm = ({
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-          {isAdmin && (
+          {!isUser && (
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
@@ -125,7 +125,7 @@ export const TimeEntriesFilterForm = ({
           )}
           <Select value={projectId} onValueChange={setProjectId}>
             <SelectTrigger
-              className={`w-full ${isAdmin ? "sm:w-45" : "flex-1"}`}
+              className={`w-full ${!isUser ? "sm:w-45" : "flex-1"}`}
             >
               <SelectValue placeholder="All projects" />
             </SelectTrigger>
@@ -143,7 +143,7 @@ export const TimeEntriesFilterForm = ({
           </Select>
           <Select value={period} onValueChange={setPeriod}>
             <SelectTrigger
-              className={`w-full ${isAdmin ? "sm:w-45" : "flex-1"}`}
+              className={`w-full ${!isUser ? "sm:w-45" : "flex-1"}`}
             >
               <SelectValue placeholder="All time" />
             </SelectTrigger>

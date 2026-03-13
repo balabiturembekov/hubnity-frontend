@@ -5,10 +5,19 @@ import {
   CreateOrganizationStep2Form,
   useRequireOrganization,
 } from "@/features/create-organization";
+import { ScreenLoader } from "@/widgets/loader";
 import { CreateOrganizationLayout } from "@/widgets/organization";
 
 const CreateOrganizationStep2PageContent = () => {
-  const { isReady } = useRequireOrganization();
+  const { isReady, isLoading } = useRequireOrganization();
+
+  if (isLoading) {
+    return (
+      <CreateOrganizationLayout currentStep={2}>
+        <ScreenLoader className="h-auto text-primary" size={40} />
+      </CreateOrganizationLayout>
+    );
+  }
 
   if (!isReady) return null;
 

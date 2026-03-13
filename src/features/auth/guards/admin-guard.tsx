@@ -1,7 +1,7 @@
 "use client";
 
 import { Shield } from "lucide-react";
-import { useUser } from "@/entities/user";
+import { useOrganizationRole } from "@/entities/organization";
 import { Card, CardContent } from "@/shared/ui/card";
 
 interface AdminGuardProps {
@@ -9,11 +9,11 @@ interface AdminGuardProps {
 }
 
 export const AdminGuard = ({ children }: AdminGuardProps) => {
-  const { isAdmin, isPending } = useUser();
+  const { isUser, isPending } = useOrganizationRole();
 
   if (isPending) return <>{children}</>;
 
-  if (!isAdmin) {
+  if (isUser) {
     return (
       <div className="flex h-screen overflow-hidden bg-background">
         <div className="flex flex-1 flex-col overflow-hidden">

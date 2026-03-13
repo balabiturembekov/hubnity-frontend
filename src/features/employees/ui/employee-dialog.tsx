@@ -1,10 +1,10 @@
 "use client";
 
-import { Upload, X } from "lucide-react";
 import { Controller } from "react-hook-form";
-import type { UserEntity, UserStatus } from "@/entities/user";
-import { UserAvatar } from "@/entities/user";
-import { AvatarCropDialog } from "@/shared/ui/avatar-crop";
+import type { MemberEntity, MemberStatus } from "@/entities/organization";
+import { memberStatuses, newMemberRoles } from "@/entities/organization";
+import { UserAvatar, useGetCurrentUserQuery } from "@/entities/user";
+import { capitalize, cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import {
   Dialog,
@@ -16,7 +16,6 @@ import {
 } from "@/shared/ui/dialog";
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
-import { PasswordInput } from "@/shared/ui/password-input";
 import {
   Select,
   SelectContent,
@@ -29,27 +28,21 @@ import { useEmployeeForm } from "../hooks/use-employee-form";
 interface UserDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  user?: UserEntity | null;
+  employee?: MemberEntity | null;
 }
 
-export function EmployeeDialog({ open, onOpenChange, user }: UserDialogProps) {
-  const {
-    form,
-    onSubmit,
-    isPending,
-    handleClose,
-    avatarPreview,
-    cropDialogOpen,
-    setCropDialogOpen,
-    imageToCrop,
-    handleAvatarChange,
-    handleRemoveAvatar,
-    handleCropComplete,
-  } = useEmployeeForm({
+export function EmployeeDialog({
+  open,
+  onOpenChange,
+  employee,
+}: UserDialogProps) {
+  const { data: currentUser } = useGetCurrentUserQuery();
+
+  const { form, onSubmit, isPending, handleClose } = useEmployeeForm({
     open,
     onOpenChange,
-    variant: user ? "update" : "create",
-    employee: user || undefined,
+    variant: employee ? "update" : "create",
+    employee: employee || undefined,
   });
 
   const {
@@ -58,158 +51,116 @@ export function EmployeeDialog({ open, onOpenChange, user }: UserDialogProps) {
     formState: { errors },
   } = form;
 
-  const name = form.watch("name");
+  const isSelf = employee?.user.id === currentUser?.id;
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-[425px] max-h-[85vh] overflow-y-auto">
         <form onSubmit={onSubmit}>
           <DialogHeader>
-            <DialogTitle>{user ? "Edit User" : "Create User"}</DialogTitle>
+            <DialogTitle>{employee ? "Edit User" : "Create User"}</DialogTitle>
             <DialogDescription>
-              {user
+              {employee
                 ? "Update user information"
                 : "Add a new user to the system"}
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="flex flex-col items-center gap-4">
-              <UserAvatar
-                name={name || "New User"}
-                avatar={avatarPreview}
-                size="xl"
-              />
-              <div className="flex gap-2">
-                <Label htmlFor="avatar-upload" className="cursor-pointer">
-                  <Button type="button" variant="outline" size="sm" asChild>
-                    <span>
-                      <Upload className="mr-2 h-4 w-4" />
-                      Upload Photo
-                    </span>
-                  </Button>
-                  <Input
-                    id="avatar-upload"
-                    type="file"
-                    accept="image/*"
-                    onChange={handleAvatarChange}
-                    className="hidden"
-                    disabled={isPending}
-                  />
-                </Label>
-                {avatarPreview && (
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={handleRemoveAvatar}
-                    disabled={isPending}
-                  >
-                    <X className="mr-2 h-4 w-4" />
-                    Remove
-                  </Button>
+              {employee && (
+                <UserAvatar
+                  name={`${employee.user.firstName} ${employee.user.lastName}`}
+                  avatar={employee.user.avatar}
+                  size="xl"
+                />
+              )}
+            </div>
+
+            {!employee && (
+              <div className="grid gap-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  placeholder="Enter user email"
+                  {...register("email")}
+                  disabled={isPending}
+                />
+                {errors.email && (
+                  <p className="text-xs text-destructive">
+                    {errors.email.message}
+                  </p>
                 )}
               </div>
-              <p className="text-xs text-muted-foreground text-center">
-                JPG, PNG or GIF. Max size 50MB
-              </p>
-            </div>
+            )}
 
-            <div className="grid gap-2">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" {...register("name")} disabled={isPending} />
-              {errors.name && (
-                <p className="text-xs text-destructive">
-                  {errors.name.message}
-                </p>
+            <div
+              className={cn("grid grid-cols-2 gap-4", isSelf && "grid-cols-1")}
+            >
+              {!isSelf && (
+                <div className="grid gap-2">
+                  <Label htmlFor="role">Role</Label>
+                  <Controller
+                    control={control}
+                    name="role"
+                    render={({ field }) => (
+                      <Select
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        disabled={isPending}
+                      >
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select a role" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {newMemberRoles.map((role) => (
+                            <SelectItem key={role} value={role}>
+                              {capitalize(role)}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    )}
+                  />
+                  {errors.role && (
+                    <p className="text-xs text-destructive">
+                      {errors.role.message}
+                    </p>
+                  )}
+                </div>
               )}
-            </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                {...register("email")}
-                disabled={isPending || !!user}
-              />
-              {errors.email && (
-                <p className="text-xs text-destructive">
-                  {errors.email.message}
-                </p>
-              )}
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="password">
-                Password {user && "(leave empty to keep current)"}
-              </Label>
-              <PasswordInput
-                id="password"
-                type="password"
-                {...register("password")}
-                disabled={isPending}
-              />
-              {errors.password && (
-                <p className="text-xs text-destructive">
-                  {errors.password.message}
-                </p>
-              )}
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="role">Role</Label>
-              <Controller
-                control={control}
-                name="role"
-                render={({ field }) => (
-                  <Select
-                    value={field.value}
-                    onValueChange={field.onChange}
-                    disabled={isPending}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="EMPLOYEE">Employee</SelectItem>
-                      <SelectItem value="ADMIN">Admin</SelectItem>
-                    </SelectContent>
-                  </Select>
+              <div className="grid gap-2">
+                <Label htmlFor="status">Status</Label>
+                <Controller
+                  control={control}
+                  name="status"
+                  render={({ field }) => (
+                    <Select
+                      value={field.value}
+                      onValueChange={(val) =>
+                        field.onChange(val as MemberStatus)
+                      }
+                      disabled={isPending}
+                    >
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Select a status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {memberStatuses.map((status) => (
+                          <SelectItem key={status} value={status}>
+                            {capitalize(status)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+                {errors.status && (
+                  <p className="text-xs text-destructive">
+                    {errors.status.message}
+                  </p>
                 )}
-              />
-              {errors.role && (
-                <p className="text-xs text-destructive">
-                  {errors.role.message}
-                </p>
-              )}
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="status">Status</Label>
-              <Controller
-                control={control}
-                name="status"
-                render={({ field }) => (
-                  <Select
-                    value={field.value}
-                    onValueChange={(val) => field.onChange(val as UserStatus)}
-                    disabled={isPending}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="ACTIVE">Active</SelectItem>
-                      <SelectItem value="INACTIVE">Inactive</SelectItem>
-                    </SelectContent>
-                  </Select>
-                )}
-              />
-              {errors.status && (
-                <p className="text-xs text-destructive">
-                  {errors.status.message}
-                </p>
-              )}
+              </div>
             </div>
 
             <div className="grid gap-2">
@@ -218,12 +169,30 @@ export function EmployeeDialog({ open, onOpenChange, user }: UserDialogProps) {
                 id="hourlyRate"
                 type="number"
                 step="0.01"
+                placeholder="e.g. 25"
                 {...register("hourlyRate")}
                 disabled={isPending}
               />
               {errors.hourlyRate && (
                 <p className="text-xs text-destructive">
                   {errors.hourlyRate.message}
+                </p>
+              )}
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="weeklyLimit">Weekly Limit (hours)</Label>
+              <Input
+                id="weeklyLimit"
+                type="number"
+                step="0.5"
+                placeholder="e.g. 40"
+                {...register("weeklyLimit")}
+                disabled={isPending}
+              />
+              {errors.weeklyLimit && (
+                <p className="text-xs text-destructive">
+                  {errors.weeklyLimit.message}
                 </p>
               )}
             </div>
@@ -238,18 +207,11 @@ export function EmployeeDialog({ open, onOpenChange, user }: UserDialogProps) {
               Cancel
             </Button>
             <Button type="submit" disabled={isPending}>
-              {isPending ? "Saving..." : user ? "Update" : "Create"}
+              {isPending ? "Saving..." : employee ? "Update" : "Create"}
             </Button>
           </DialogFooter>
         </form>
       </DialogContent>
-
-      <AvatarCropDialog
-        open={cropDialogOpen}
-        onOpenChange={setCropDialogOpen}
-        imageSrc={imageToCrop}
-        onCropComplete={handleCropComplete}
-      />
     </Dialog>
   );
 }

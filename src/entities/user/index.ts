@@ -4,12 +4,11 @@ export {
   type ProfileStatisticId,
 } from "./consts/profile-statistics";
 export { useEmployeesStats } from "./hooks/use-employees-stats";
-export { useUser } from "./hooks/use-user";
 export { useCreateEmployeeMutation } from "./model/mutations/use-create-employee.mutation";
 export { useDeleteEmployeeMutation } from "./model/mutations/use-delete-employee.mutation";
 export { useUpdateEmployeeMutation } from "./model/mutations/use-update-employee.mutation";
 export { useUpdateProfileMutation } from "./model/mutations/use-update-profile.mutation";
-export { useCurrentUser } from "./model/queries/use-current-user";
+export { useGetCurrentUserQuery } from "./model/queries/use-get-current-user.query";
 export { useGetEmployeesQuery } from "./model/queries/use-get-employees.query";
 export {
   type CreateEmployeeSchemaValues,
@@ -23,6 +22,5 @@ export type {
   PatchUserReq,
   UserEntity,
   UserRole,
-  UserStatus,
 } from "./model/user.types";
 export { UserAvatar } from "./ui/user-avatar";

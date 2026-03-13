@@ -4,9 +4,9 @@ import { format } from "date-fns";
 import { Camera, Clock, FileText } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { useOrganizationRole } from "@/entities/organization";
 import { useGetProjectsQuery } from "@/entities/project";
 import type { TimeEntryEntity } from "@/entities/time-entry";
-import { useUser } from "@/entities/user";
 import {
   DeleteTimeEntryDialog,
   TimeEntriesFilterForm,
@@ -14,7 +14,8 @@ import {
   useTimeEntriesStore,
 } from "@/features/time-entry";
 import { useFilteredTimeEntries } from "@/features/time-entry/hooks/use-filtered-time-entries";
-import { formatDurationFull } from "@/shared/lib/utils";
+import { useGetOrganizationId } from "@/shared/hooks/use-get-organization-id";
+import { buildOrgHref, formatDurationFull } from "@/shared/lib/utils";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import {
@@ -52,10 +53,11 @@ export function TimeEntriesTable({
   isPreview = false,
   userId,
 }: TimeEntriesTableProps) {
-  const { isAdmin } = useUser();
+  const isUser = useOrganizationRole().isUser;
   const { data: projects } = useGetProjectsQuery();
   const { timeEntries, isLoading } = useFilteredTimeEntries(userId, "RUNNING");
   const { searchQuery, projectId, period } = useTimeEntriesStore();
+  const orgId = useGetOrganizationId();
 
   const [screenshotGalleryOpen, setScreenshotGalleryOpen] = useState(false);
   const [entryForScreenshots, setEntryForScreenshots] =
@@ -103,7 +105,7 @@ export function TimeEntriesTable({
             <Table className="min-w-[810px]">
               <TableHeader>
                 <TableRow>
-                  {isAdmin && <TableHead>User</TableHead>}
+                  {!isUser && <TableHead>User</TableHead>}
                   <TableHead>Project</TableHead>
                   <TableHead>Date</TableHead>
                   <TableHead>Duration</TableHead>
@@ -118,7 +120,7 @@ export function TimeEntriesTable({
                   <TableRow>
                     <TableCell
                       colSpan={
-                        showActions ? (isAdmin ? 6 : 5) : isAdmin ? 5 : 4
+                        showActions ? (!isUser ? 6 : 5) : !isUser ? 5 : 4
                       }
                       className="h-64"
                     >
@@ -142,109 +144,113 @@ export function TimeEntriesTable({
                     </TableCell>
                   </TableRow>
                 ) : (
-                  timeEntries.map((entry) => (
-                    <TableRow key={entry.id} className="">
-                      {isAdmin && (
-                        <TableCell className="font-medium flex flex-col">
-                          <Button
-                            className="p-0 justify-start h-auto"
-                            variant="link"
-                            asChild
-                          >
-                            <Link
-                              className="font-medium"
-                              href={`/dashboard/admin/employees/${entry.userId}`}
+                  timeEntries.map((entry) => {
+                    const userLink = buildOrgHref(
+                      orgId,
+                      `/admin/employees/${entry.id}`,
+                    );
+
+                    return (
+                      <TableRow key={entry.id} className="">
+                        {!isUser && (
+                          <TableCell className="font-medium flex flex-col">
+                            <Button
+                              className="p-0 justify-start h-auto"
+                              variant="link"
+                              asChild
                             >
-                              {entry.user.name}
-                            </Link>
-                          </Button>
-                          <span className="text-xs text-muted-foreground">
-                            {entry.user.email}
-                          </span>
+                              <Link className="font-medium" href={userLink}>
+                                {entry.user.name}
+                              </Link>
+                            </Button>
+                            <span className="text-xs text-muted-foreground">
+                              {entry.user.email}
+                            </span>
+                          </TableCell>
+                        )}
+                        <TableCell>
+                          {entry.project ? (
+                            <Badge
+                              variant="outline"
+                              style={{
+                                borderColor: getProjectColor(entry.projectId),
+                                color: getProjectColor(entry.projectId),
+                              }}
+                            >
+                              {entry.project.name}
+                            </Badge>
+                          ) : (
+                            <span className="text-muted-foreground">
+                              No project
+                            </span>
+                          )}
                         </TableCell>
-                      )}
-                      <TableCell>
-                        {entry.project ? (
+                        <TableCell>
+                          {format(
+                            new Date(entry.startTime),
+                            "MMM dd, yyyy HH:mm",
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          {entry.status === "RUNNING" ? (
+                            <div className="flex items-center gap-2">
+                              <span className="relative flex size-3">
+                                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                                <span className="relative inline-flex size-3 rounded-full bg-green-500"></span>
+                              </span>
+                              <span className="text-green-500 font-medium">
+                                Live
+                              </span>
+                            </div>
+                          ) : (
+                            formatDurationFull(entry.duration)
+                          )}
+                        </TableCell>
+                        <TableCell>
                           <Badge
-                            variant="outline"
-                            style={{
-                              borderColor: getProjectColor(entry.projectId),
-                              color: getProjectColor(entry.projectId),
-                            }}
+                            variant={
+                              entry.status === "RUNNING"
+                                ? "default"
+                                : entry.status === "PAUSED"
+                                  ? "secondary"
+                                  : "outline"
+                            }
                           >
-                            {entry.project.name}
+                            {entry.status}
                           </Badge>
-                        ) : (
-                          <span className="text-muted-foreground">
-                            No project
-                          </span>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        {format(
-                          new Date(entry.startTime),
-                          "MMM dd, yyyy HH:mm",
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        {entry.status === "RUNNING" ? (
-                          <div className="flex items-center gap-2">
-                            <span className="relative flex size-3">
-                              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                              <span className="relative inline-flex size-3 rounded-full bg-green-500"></span>
-                            </span>
-                            <span className="text-green-500 font-medium">
-                              Live
-                            </span>
-                          </div>
-                        ) : (
-                          formatDurationFull(entry.duration)
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          variant={
-                            entry.status === "RUNNING"
-                              ? "default"
-                              : entry.status === "PAUSED"
-                                ? "secondary"
-                                : "outline"
-                          }
-                        >
-                          {entry.status}
-                        </Badge>
-                      </TableCell>
-                      {showActions && (
-                        <TableCell className="text-right">
-                          <div className="flex justify-end gap-2">
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <Button
-                                  variant="ghost"
-                                  size="icon"
-                                  onClick={() => {
-                                    setEntryForScreenshots(entry);
-                                    setScreenshotGalleryOpen(true);
-                                  }}
-                                >
-                                  <Camera className="h-4 w-4" />
-                                </Button>
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                <p>View screenshots</p>
-                              </TooltipContent>
-                            </Tooltip>
-                            {isAdmin && (
-                              <>
-                                <UpdateTimeEntryDialog timeEntry={entry} />
-                                <DeleteTimeEntryDialog timeEntry={entry} />
-                              </>
-                            )}
-                          </div>
                         </TableCell>
-                      )}
-                    </TableRow>
-                  ))
+                        {showActions && (
+                          <TableCell className="text-right">
+                            <div className="flex justify-end gap-2">
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => {
+                                      setEntryForScreenshots(entry);
+                                      setScreenshotGalleryOpen(true);
+                                    }}
+                                  >
+                                    <Camera className="h-4 w-4" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>View screenshots</p>
+                                </TooltipContent>
+                              </Tooltip>
+                              {!isUser && (
+                                <>
+                                  <UpdateTimeEntryDialog timeEntry={entry} />
+                                  <DeleteTimeEntryDialog timeEntry={entry} />
+                                </>
+                              )}
+                            </div>
+                          </TableCell>
+                        )}
+                      </TableRow>
+                    );
+                  })
                 )}
               </TableBody>
             </Table>

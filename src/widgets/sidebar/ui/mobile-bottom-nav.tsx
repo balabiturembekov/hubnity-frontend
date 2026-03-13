@@ -5,9 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { useCurrentUser } from "@/entities/user";
+import { useOrganizationRole } from "@/entities/organization";
 import { UserProfileDropdown } from "@/features/user";
-import { cn } from "@/shared/lib/utils";
+import { useGetOrganizationId } from "@/shared/hooks/use-get-organization-id";
+import { buildOrgHref, cn } from "@/shared/lib/utils";
 import { Button } from "@/shared/ui/button";
 import {
   Drawer,
@@ -22,36 +23,38 @@ import { dashboardSidebarLinks } from "@/widgets/sidebar/consts";
 const primaryLinks = [
   {
     label: "Dashboard",
-    href: "/dashboard",
+    path: "",
     icon: Home,
   },
   {
     label: "Time",
-    href: "/dashboard/tracking",
+    path: "/tracking",
     icon: Clock,
   },
   {
     label: "Profile",
-    href: "/dashboard/profile",
+    path: "/profile",
     icon: UserIcon,
   },
 ];
 
 export function MobileBottomNav() {
   const pathname = usePathname();
-  const { data: user } = useCurrentUser();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const orgId = useGetOrganizationId();
+  const isUser = useOrganizationRole().isUser;
 
   return (
     <div className="min-[769px]:hidden fixed bottom-2 left-2 right-2 z-50">
       <div className="bg-background/80 backdrop-blur-lg border border-border/50 shadow-lg rounded-full flex items-center justify-between">
         {primaryLinks.map((link) => {
-          const isActive = pathname === link.href;
+          const href = buildOrgHref(orgId, link.path);
+          const isActive = pathname === href;
           const Icon = link.icon;
 
           return (
             <Button
-              key={link.href}
+              key={href}
               variant={isActive ? "secondary" : "ghost"}
               className={cn(
                 "flex-1 flex-col h-auto py-2 gap-1 rounded-2xl transition-transform active:scale-95 focus-visible:ring-0 focus-visible:ring-offset-0",
@@ -59,7 +62,7 @@ export function MobileBottomNav() {
               )}
               asChild
             >
-              <Link href={link.href}>
+              <Link href={href}>
                 <Icon className="h-5 w-5" />
                 <span className="text-[10px] font-medium">{link.label}</span>
               </Link>
@@ -93,16 +96,12 @@ export function MobileBottomNav() {
             <div className="flex-1 overflow-y-auto pr-2 pb-8 scrollbar-hide">
               <nav className="flex flex-col gap-2">
                 {dashboardSidebarLinks.map((item) => {
-                  if (
-                    item.isAdminOnly &&
-                    user?.role !== "ADMIN" &&
-                    user?.role !== "OWNER" &&
-                    user?.role !== "SUPER_ADMIN"
-                  ) {
+                  if (item.isAdminOnly && !isUser) {
                     return null;
                   }
 
-                  const isActive = pathname === item.href;
+                  const itemHref = buildOrgHref(orgId, item.path);
+                  const isActive = pathname === itemHref;
                   const Icon = item.icon;
 
                   if (!item.childrenLinks) {
@@ -117,7 +116,7 @@ export function MobileBottomNav() {
                         onClick={() => setIsDrawerOpen(false)}
                         asChild
                       >
-                        <Link href={item.href}>
+                        <Link href={itemHref}>
                           <Icon className="mr-3 h-5 w-5" />
                           <span className="text-base">{item.label}</span>
                         </Link>
@@ -136,14 +135,10 @@ export function MobileBottomNav() {
                       <div className="flex flex-col gap-1 pl-8 relative">
                         <div className="absolute left-[20px] bottom-8 top-0 w-px bg-gray-300" />
                         {item.childrenLinks.map((link) => {
-                          const isChildActive = pathname === link.href;
+                          const childHref = buildOrgHref(orgId, link.path);
+                          const isChildActive = pathname === childHref;
 
-                          if (
-                            link.isAdminOnly &&
-                            user?.role !== "ADMIN" &&
-                            user?.role !== "OWNER" &&
-                            user?.role !== "SUPER_ADMIN"
-                          ) {
+                          if (link.isAdminOnly && !isUser) {
                             return null;
                           }
 
@@ -162,7 +157,7 @@ export function MobileBottomNav() {
                                 onClick={() => setIsDrawerOpen(false)}
                                 asChild
                               >
-                                <Link href={link.href}>
+                                <Link href={childHref}>
                                   <span className="text-[15px]">
                                     {link.label}
                                   </span>

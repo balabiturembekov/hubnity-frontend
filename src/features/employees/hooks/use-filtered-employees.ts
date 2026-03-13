@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import { useGetEmployeesQuery } from "@/entities/user";
+import { useGetMembersQuery } from "@/entities/organization";
 import { useEmployeesStore } from "../model/employees.store";
 
 export const useFilteredEmployees = () => {
-  const { data: employees = [], isLoading, isError } = useGetEmployeesQuery();
+  const { data: employees = [], isLoading, isError } = useGetMembersQuery();
   const { searchQuery, roleFilter, statusFilter } = useEmployeesStore();
 
   const filteredEmployees = useMemo(() => {
@@ -12,22 +12,23 @@ export const useFilteredEmployees = () => {
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(
-        (user) =>
-          user.name.toLowerCase().includes(query) ||
-          user.email.toLowerCase().includes(query),
+        (employee) =>
+          employee.user.firstName.toLowerCase().includes(query) ||
+          employee.user.lastName.toLowerCase().includes(query) ||
+          employee.user.email.toLowerCase().includes(query),
       );
     }
 
     if (roleFilter !== "all") {
-      filtered = filtered.filter((user) => {
+      filtered = filtered.filter((employee) => {
         if (roleFilter === "ADMIN") {
           return (
-            user.role === "ADMIN" ||
-            user.role === "OWNER" ||
-            user.role === "SUPER_ADMIN"
+            employee.role === "ADMIN" ||
+            employee.role === "OWNER" ||
+            employee.role === "MANAGER"
           );
         }
-        return user.role === roleFilter;
+        return employee.role === roleFilter;
       });
     }
 

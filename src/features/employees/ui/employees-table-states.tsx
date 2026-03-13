@@ -1,11 +1,11 @@
 import { Users } from "lucide-react";
-import type { UserEntity } from "@/entities/user";
+import type { MemberEntity } from "@/entities/organization";
 import { Button } from "@/shared/ui/button";
 import { TableCell, TableRow } from "@/shared/ui/table";
 import { useEmployeesStore } from "../model/employees.store";
 
 interface EmployeesTableStatesProps {
-  employees: UserEntity[];
+  employees: MemberEntity[];
   isError: boolean;
   hasActiveFilters: boolean;
 }

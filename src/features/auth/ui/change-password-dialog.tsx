@@ -10,7 +10,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/shared/ui/dialog";
-import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
 import { PasswordInput } from "@/shared/ui/password-input";
 
@@ -67,22 +66,6 @@ export function ChangePasswordDialog({
               {errors.newPassword && (
                 <p className="text-xs text-destructive">
                   {errors.newPassword.message}
-                </p>
-              )}
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="confirmPassword">Confirm New Password</Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                {...register("confirmPassword")}
-                disabled={isPending}
-                placeholder="Confirm new password"
-                className={errors.confirmPassword ? "border-destructive" : ""}
-              />
-              {errors.confirmPassword && (
-                <p className="text-xs text-destructive">
-                  {errors.confirmPassword.message}
                 </p>
               )}
             </div>

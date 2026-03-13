@@ -1,10 +1,11 @@
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
 import {
-  type UserEntity,
-  useCurrentUser,
-  useDeleteEmployeeMutation,
-} from "@/entities/user";
+  type MemberEntity,
+  useDeleteMemberMutation,
+} from "@/entities/organization";
+import { useGetCurrentUserQuery } from "@/entities/user";
+import { useGetOrganizationId } from "@/shared/hooks/use-get-organization-id";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,21 +20,22 @@ import { Button } from "@/shared/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shared/ui/tooltip";
 
 interface DeleteEmployeeButtonProps {
-  employee: UserEntity;
+  employee: MemberEntity;
 }
 
 export const DeleteEmployeeButton = ({
   employee,
 }: DeleteEmployeeButtonProps) => {
   const [open, setOpen] = useState(false);
-  const { data: currentUser } = useCurrentUser();
-  const { mutateAsync, isPending } = useDeleteEmployeeMutation();
+  const { data: currentUser } = useGetCurrentUserQuery();
+  const { mutateAsync, isPending } = useDeleteMemberMutation();
+  const orgId = useGetOrganizationId();
 
-  const isSelf = employee.id === currentUser?.id;
+  const isSelf = employee.user.id === currentUser?.id;
 
   const handleDelete = async () => {
     try {
-      await mutateAsync(employee.id);
+      await mutateAsync({ orgId, memberId: employee.id });
       setOpen(false);
     } catch {}
   };
@@ -62,8 +64,9 @@ export const DeleteEmployeeButton = ({
           <AlertDialogHeader>
             <AlertDialogTitle>Delete Employee</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete &quot;{employee.name}&quot;? This
-              action cannot be undone.
+              Are you sure you want to delete &quot;
+              {`${employee.user.firstName} ${employee.user.lastName}`}&quot;?
+              This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

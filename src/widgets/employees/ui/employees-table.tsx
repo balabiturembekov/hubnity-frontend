@@ -65,8 +65,8 @@ export const EmployeesTable = () => {
               isError={isError}
               hasActiveFilters={hasActiveFilters}
             />
-            {employees.map((user) => (
-              <EmployeeRow key={user.id} user={user} />
+            {employees.map((employee) => (
+              <EmployeeRow key={employee.id} employee={employee} />
             ))}
           </TableBody>
         </Table>

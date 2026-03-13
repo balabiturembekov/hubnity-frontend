@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import type { ScreenshotEntity } from "@/entities/screenshot";
 import type { TimeEntryEntity } from "@/entities/time-entry";
-import { UserAvatar, useCurrentUser } from "@/entities/user";
+import { UserAvatar, useGetCurrentUserQuery } from "@/entities/user";
 import { ScreenshotFullscreenViewer } from "@/features/screenshot-viewer";
 import { apiUrl } from "@/shared/config/env";
 import { formatDate } from "@/shared/lib/utils";
@@ -23,7 +23,7 @@ export const RecentActivityItem = ({
 }: RecentActivityItemProps) => {
   const [viewerOpen, setViewerOpen] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const { data: currentUser } = useCurrentUser();
+  const { data: currentUser } = useGetCurrentUserQuery();
 
   if (!screenshots.length) {
     return null;
